@@ -8,4 +8,3 @@ function routerSync () {
 }
 
 createApp(App).use(createPinia().use(routerSync)).use(router).mount('#app')
-

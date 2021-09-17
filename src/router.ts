@@ -1,4 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router'
+import { h } from 'vue'
 
 const router = createRouter({
   history: createWebHistory('/'),
@@ -7,7 +8,9 @@ const router = createRouter({
       path: '/',
       name: 'index',
       component: {
-        render () {}
+        render () {
+          return h('div', 'welcome')
+        }
       }
     }
   ]

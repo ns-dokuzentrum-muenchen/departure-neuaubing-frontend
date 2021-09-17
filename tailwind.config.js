@@ -4,9 +4,10 @@ module.exports = {
   mode: 'jit',
   purge: {
     content: [
-      './site/**/*.js',
-      './site/**/*.html',
-      './site/**/*.php',
+      './src/**/*.vue',
+      './src/**/*.js',
+      './src/**/*.ts',
+      './src/**/*.html',
       './index.html'
     ],
     options: {
@@ -253,9 +254,7 @@ module.exports = {
       DEFAULT: '1',
     },
     fontFamily: {
-      custom: ['Sporting', 'sans-serif'],
       sans: [
-        'Karrik',
         'ui-sans-serif',
         'system-ui',
         '-apple-system',
@@ -271,7 +270,7 @@ module.exports = {
         '"Segoe UI Symbol"',
         '"Noto Color Emoji"',
       ],
-      serif: ['Happy', 'ui-serif', 'Georgia', 'Cambria', '"Times New Roman"', 'Times', 'serif'],
+      serif: ['ui-serif', 'Georgia', 'Cambria', '"Times New Roman"', 'Times', 'serif'],
       mono: [
         'ui-monospace',
         'SFMono-Regular',

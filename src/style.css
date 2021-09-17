@@ -3,9 +3,10 @@
 @tailwind utilities;
 
 body {
-  @apply font-mono bg-gray-300 text-gray-900;
+  @apply bg-gray-300 text-gray-800;
   -webkit-font-smoothing: antialiased;
 }
+
 
 /* animations */
 
@@ -18,4 +19,3 @@ body {
 .fade-leave-to {
   opacity: 0;
 }
-

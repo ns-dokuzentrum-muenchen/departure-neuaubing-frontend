@@ -1,14 +1,16 @@
 <template>
   <div>
-    <header>
-      <h1>Departure Neuaubing</h1>
+    <header class="p-3 border-b">
+      <h1 class="font-medium">Departure Neuaubing</h1>
     </header>
 
-    <main>
+    <main class="p-3 border-b">
       <router-view/>
     </main>
 
-    <footer></footer>
+    <footer class="p-3">
+      <small class="text-2xs">&copy; 2021</small>
+    </footer>
   </div>
 </template>
 
@@ -23,4 +25,3 @@
 <style>
   @import './style.css';
 </style>
-

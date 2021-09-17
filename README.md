@@ -1,2 +1,1 @@
 ## Departure Neuaubing, frontend
-
