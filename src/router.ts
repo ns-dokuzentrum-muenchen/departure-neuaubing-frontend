@@ -1,5 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import { h } from 'vue'
+
+import Index from './views/Index.vue'
 
 const router = createRouter({
   history: createWebHistory('/'),
@@ -7,11 +8,7 @@ const router = createRouter({
     {
       path: '/',
       name: 'index',
-      component: {
-        render () {
-          return h('div', 'welcome')
-        }
-      }
+      component: Index
     }
   ]
 })

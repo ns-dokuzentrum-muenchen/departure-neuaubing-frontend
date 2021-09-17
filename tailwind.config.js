@@ -29,7 +29,7 @@ module.exports = {
       transparent: 'transparent',
       current: 'currentColor',
 
-      bg: '#E2E2E2',
+      bg: '#EDECE5',
 
       black: colors.black,
       white: colors.white,
@@ -150,7 +150,8 @@ module.exports = {
     },
     borderColor: (theme) => ({
       ...theme('colors'),
-      DEFAULT: theme('colors.gray.200', 'currentColor'),
+      // DEFAULT: theme('colors.gray.200', 'currentColor'),
+      DEFAULT: 'currentColor'
     }),
     borderOpacity: (theme) => theme('opacity'),
     borderRadius: {
