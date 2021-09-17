@@ -1,0 +1,21 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  @apply font-mono bg-gray-300 text-gray-900;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* animations */
+
+.fade-enter-active,
+.fade-leave-active {
+  @apply transition-opacity;
+}
+
+.fade-enter-from,
+.fade-leave-to {
+  opacity: 0;
+}
+
