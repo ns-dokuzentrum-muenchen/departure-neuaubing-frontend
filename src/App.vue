@@ -6,6 +6,10 @@
 
     <main class="p-3">
       <router-view/>
+
+      <div class="max-w-2xl mt-3">
+        <styled-map/>
+      </div>
     </main>
 
     <footer class="p-3 hidden">
@@ -17,6 +21,7 @@
 <script lang="ts">
   import { defineComponent } from 'vue'
   import { useStore } from './store'
+  import StyledMap from './components/StyledMap.vue'
 
   export default defineComponent({
     name: 'App',
@@ -26,7 +31,8 @@
       return {
         title: store.title
       }
-    }
+    },
+    components: { StyledMap }
   })
 </script>
 
