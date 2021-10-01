@@ -85,7 +85,8 @@ module.exports = {
     600: '#2563eb',
     700: '#1d4ed8',
     800: '#1e40af',
-    900: '#1e3a8a',
+    // 900: '#1e3a8a',
+    900: '#001CC7',
   },
   get lightBlue() {
     if (!warned) {

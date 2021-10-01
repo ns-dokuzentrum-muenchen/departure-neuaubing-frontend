@@ -15,7 +15,7 @@ module.exports = {
     }
   },
   presets: [],
-  darkMode: false, // or 'media' or 'class'
+  darkMode: 'class', // or 'media' or 'class'
   theme: {
     screens: {
       xs: '534px',
@@ -29,8 +29,9 @@ module.exports = {
       transparent: 'transparent',
       current: 'currentColor',
 
-      bg: '#EDECE5',
+      bg: '#fff',
 
+      blue: colors.blue,
       black: colors.black,
       white: colors.white,
       gray: colors.trueGray,

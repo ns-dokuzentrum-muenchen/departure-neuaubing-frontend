@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 body {
-  @apply bg-bg text-gray-800;
+  @apply bg-bg text-black dark:bg-black dark:text-white;
   -webkit-font-smoothing: antialiased;
 }
 
@@ -19,3 +19,5 @@ body {
 .fade-leave-to {
   opacity: 0;
 }
+
+[class*="dark:"] { @apply transition-colors; }
