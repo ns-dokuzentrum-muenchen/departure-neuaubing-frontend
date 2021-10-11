@@ -5,13 +5,14 @@
         <div class="border-l w-2"></div>
         <div class="border-l w-2"></div>
         <div class="border-l w-2"></div>
-        <p class="ml-4">{{ pretitle }}</p>
+        <p class="ml-4">
+          <router-link to="/">{{ pretitle }}</router-link>
+        </p>
       </div>
 
       <div class="mx-12 lg:mx-32 my-12">
         <h1 class="font-light text-3xl sm:text-4xl md:text-6xl lg:text-8xl">
-          <span>DEPARTURE</span><br>
-          <span class="pl-20">NEUAUBING</span>
+          <font-logo/>
         </h1>
       </div>
 
@@ -43,6 +44,7 @@
 <script lang="ts">
   import { defineComponent, ref, watchEffect } from 'vue'
   import { useStore } from '../store'
+  import FontLogo from './FontLogo.vue'
 
   export default defineComponent({
     name: 'AppHeader',
@@ -66,6 +68,7 @@
       })
 
       return { pretitle, title, description, darkMode }
-    }
+    },
+    components: { FontLogo }
   })
 </script>

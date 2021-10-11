@@ -257,6 +257,7 @@ module.exports = {
     },
     fontFamily: {
       sans: [
+        'lexend',
         'ui-sans-serif',
         'system-ui',
         '-apple-system',
@@ -272,7 +273,15 @@ module.exports = {
         '"Segoe UI Symbol"',
         '"Noto Color Emoji"',
       ],
-      serif: ['ui-serif', 'Georgia', 'Cambria', '"Times New Roman"', 'Times', 'serif'],
+      serif: [
+        'elizabeth',
+        'ui-serif',
+        'Georgia',
+        'Cambria',
+        '"Times New Roman"',
+        'Times',
+        'serif'
+      ],
       mono: [
         'ui-monospace',
         'SFMono-Regular',
@@ -298,6 +307,7 @@ module.exports = {
       '7xl': ['4.5rem', { lineHeight: '1' }],
       '8xl': ['6rem', { lineHeight: '1' }],
       '9xl': ['8rem', { lineHeight: '1' }],
+      'bump': ['107%', { lineHeight: 'inherit' }]
     },
     fontWeight: {
       thin: '100',
@@ -503,6 +513,7 @@ module.exports = {
       widest: '0.1em',
     },
     lineHeight: {
+      less: '0.84',
       none: '1',
       tight: '1.25',
       snug: '1.375',

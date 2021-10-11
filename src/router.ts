@@ -1,6 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router'
 
 import Index from './views/Index.vue'
+import About from './views/About.vue'
 
 const router = createRouter({
   history: createWebHistory('/'),
@@ -9,6 +10,11 @@ const router = createRouter({
       path: '/',
       name: 'index',
       component: Index
+    },
+    {
+      path: '/ueber',
+      name: 'about',
+      component: About
     }
   ]
 })

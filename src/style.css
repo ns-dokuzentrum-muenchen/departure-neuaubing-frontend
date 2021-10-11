@@ -2,11 +2,29 @@
 @tailwind components;
 @tailwind utilities;
 
+@font-face {
+  font-family: 'elizabeth';
+  src: url("/fonts/ElizabethND-Roman.woff2") format("woff2"),
+    url("/fonts/ElizabethND-Roman.woff") format("woff");
+  font-style: normal;
+  font-weight: normal;
+}
+@font-face {
+  font-family: 'lexend';
+  src: url("/fonts/Lexend-ExtraLight.woff2") format("woff2"),
+    url("/fonts/Lexend-ExtraLight.woff") format("woff");
+  font-style: normal;
+  font-weight: normal;
+}
+
 body {
   @apply bg-bg text-black dark:bg-black dark:text-white;
   -webkit-font-smoothing: antialiased;
 }
 
+.ml-logo {
+  margin-left: 1.14em;
+}
 
 /* animations */
 

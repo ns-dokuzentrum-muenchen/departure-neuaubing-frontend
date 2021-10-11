@@ -2,8 +2,10 @@ interface State {
   title: string
   pretitle?: string
   description?: string
-  settings?: object
+  projects: object[] | null
+  settings: object | null
   darkMode: boolean
+  theme: 'blau' | 'gelb' | 'rosa' | 'grün'
 }
 
 export default function state (): State {
@@ -12,7 +14,11 @@ export default function state (): State {
     pretitle: 'Europäische Geschichten über Zwangsarbeit',
     description: 'Diese Webseite erzählt mit Kunst die Geschichte der nationalsozialistischen Zwangsarbeit als eine europäisch-vernetzte Geschichte.',
 
-    darkMode: getCssMode()
+    projects: null,
+    settings: null,
+
+    darkMode: getCssMode(),
+    theme: 'blau'
   }
 }
 
