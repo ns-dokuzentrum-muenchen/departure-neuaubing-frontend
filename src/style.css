@@ -10,21 +10,21 @@
   src: url("/fonts/Lexend-ExtraLight.woff2") format("woff2"),
     url("/fonts/Lexend-ExtraLight.woff") format("woff");
   font-style: normal;
-  font-weight: 200 400;
+  font-weight: 100 200;
 }
 @font-face {
   font-family: 'lexend';
   src: url("/fonts/Lexend-Light.woff2") format("woff2"),
     url("/fonts/Lexend-Light.woff") format("woff");
   font-style: normal;
-  font-weight: 400 600;
+  font-weight: 300 300;
 }
 @font-face {
   font-family: 'lexend';
   src: url("/fonts/Lexend-Regular.woff2") format("woff2"),
     url("/fonts/Lexend-Regular.woff") format("woff");
   font-style: normal;
-  font-weight: 600 800;
+  font-weight: 400 500;
 }
 
 @tailwind base;
@@ -32,6 +32,7 @@
 @tailwind utilities;
 
 body {
+  font-size: 18px;
   @apply bg-bg text-black dark:bg-black dark:text-white;
   -webkit-font-smoothing: antialiased;
 }
@@ -59,4 +60,4 @@ body {
   opacity: 0;
 }
 
-[class*="dark:"] { @apply transition-colors; }
+[class*="dark:"] { @apply transition-all; }

@@ -45,6 +45,7 @@ module.exports = {
     },
     spacing: {
       px: '1px',
+      '2px': '2px',
       0: '0px',
       0.5: '0.125rem',
       1: '0.25rem',
@@ -62,6 +63,7 @@ module.exports = {
       10: '2.5rem',
       11: '2.75rem',
       12: '3rem',
+      13: '3.375rem',
       14: '3.5rem',
       16: '4rem',
       20: '5rem',
@@ -79,6 +81,7 @@ module.exports = {
       72: '18rem',
       80: '20rem',
       96: '24rem',
+      'bar': '32rem'
     },
     animation: {
       none: 'none',

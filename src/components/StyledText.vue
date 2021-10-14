@@ -17,7 +17,7 @@
     },
     methods: {
       font (i = 0) {
-        return i % 2 !== 0 ? 'font-sans' : 'font-serif text-bump'
+        return i % 2 !== 0 ? 'font-sans font-extralight' : 'font-serif text-bump'
       }
     }
   })

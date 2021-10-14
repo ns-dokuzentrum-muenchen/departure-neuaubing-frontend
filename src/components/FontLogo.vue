@@ -1,5 +1,5 @@
 <template>
-  <div class="tracking-tighter leading-less">
+  <div class="font-extralight tracking-tighter leading-less">
     <p><span v-for="(letter, i) in dep" :key="i" :class="font(i)">{{ letter }}</span></p>
     <p class="ml-logo"><span v-for="(letter, i) in neu" :key="i" :class="font(i + 1)">{{ letter }}</span></p>
   </div>

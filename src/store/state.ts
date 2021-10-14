@@ -5,7 +5,8 @@ interface State {
   projects: object[] | null
   settings: object | null
   darkMode: boolean
-  theme: 'blau' | 'gelb' | 'rosa' | 'grün'
+  theme: 'blau' | 'gelb' | 'rosa' | 'grün',
+  menuOpen: boolean
 }
 
 export default function state (): State {
@@ -18,7 +19,8 @@ export default function state (): State {
     settings: null,
 
     darkMode: getCssMode(),
-    theme: 'blau'
+    theme: 'blau',
+    menuOpen: false
   }
 }
 
