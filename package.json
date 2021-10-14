@@ -8,6 +8,7 @@
     "tsc": "vuedx-typecheck"
   },
   "dependencies": {
+    "@headlessui/vue": "^1.4.1",
     "axios": "^0.21.4",
     "leaflet": "^1.7.1",
     "pinia": "^2.0.0-rc.10",

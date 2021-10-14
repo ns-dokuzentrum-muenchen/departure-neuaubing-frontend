@@ -9,15 +9,17 @@
         <menu-button/>
       </div>
       <div :class="menuOpen ? 'opacity-100' : 'opacity-0'" class="group-hover:opacity-100 transition-opacity flex-auto">
-        <p class="text-lg lg:text-2xl font-extralight">
-          <router-link to="/">{{ pretitle }}</router-link>
+        <p @click="toggleMenu" class="text-lg lg:text-2xl font-extralight cursor-pointer">
+          <span>{{ pretitle }}</span>
         </p>
       </div>
-      <div>
-        Webanalyse
-      </div>
-      <div class="mx-6">
-        Darstellung
+      <div :class="menuOpen ? 'opacity-100' : 'opacity-0'" class="w-1/2 flex transition-opacity">
+        <div class="w-1/2">
+          Webanalyse
+        </div>
+        <div class="w-1/2">
+          Darstellung
+        </div>
       </div>
     </div>
 
@@ -25,7 +27,7 @@
       <div v-if="menuOpen" data-fade="true" class="overflow-hidden px-3 relative flex">
         <div class="w-20"></div>
 
-        <div class="flex-auto">
+        <div class="flex-auto mt-2">
           <ul class="text-2xl">
             <li>
               <router-link to="/">Start</router-link>
@@ -50,22 +52,15 @@
           </div>
         </div>
 
-        <div>
-          <div class="flex mb-4 items-center">
-            <p class="font-medium">Kontrast</p>
-            <div class="flex ml-2">
-              <label :class="{ ring: !darkMode }" class="ml-2 px-6 py-1 bg-white text-blue-900 rounded-full cursor-pointer font-medium">
-                <input type="radio" v-model="darkMode" :value="false" hidden/>
-                Hell
-              </label>
-              <label :class="{ ring: darkMode }" class="ml-2 px-6 py-1 bg-black text-white rounded-full cursor-pointer font-medium">
-                <input type="radio" v-model="darkMode" :value="true" hidden/>
-                Dunkel
-              </label>
-            </div>
+        <div class="w-1/2 flex flex-wrap mt-2">
+          <div class="w-1/2">
+            <radio-switches/>
+          </div>
+          <div class="w-1/2">
+            <radio-switches/>
           </div>
 
-          <div class="">
+          <div class="mt-16">
             <h1 class="text-2xl sm:text-3xl md:text-4xl lg:text-5xl">
               <font-logo/>
             </h1>
@@ -81,6 +76,7 @@
   import { useStore } from '../store'
   import FontLogo from './FontLogo.vue'
   import MenuButton from './MenuButton.vue'
+  import RadioSwitches from './RadioSwitches.vue'
 
   export default defineComponent({
     name: 'AppHeader',
@@ -88,6 +84,9 @@
       const store = useStore()
 
       const menuOpen = computed(() => store.menuOpen)
+      const toggleMenu = () => {
+        store.menuOpen = !store.menuOpen
+      }
 
       const pretitle = store.pretitle
       const title = store.title
@@ -109,8 +108,8 @@
         return menuOpen.value ? 'h-full' : 'h-2 group-hover:h-full'
       })
 
-      return { menuOpen, pretitle, title, description, darkMode, barHeight }
+      return { menuOpen, toggleMenu, pretitle, title, description, darkMode, barHeight }
     },
-    components: { FontLogo, MenuButton }
+    components: { FontLogo, MenuButton, RadioSwitches }
   })
 </script>
