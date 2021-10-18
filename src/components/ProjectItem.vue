@@ -1,7 +1,9 @@
 <template>
   <div class="flex m-12 items-center">
     <figure v-if="project.acf?.image" class="max-w-2xl">
-      <img :src="project.acf.image.sizes.large"/>
+      <router-link :to="link">
+        <img :src="project.acf.image.sizes.large"/>
+      </router-link>
     </figure>
 
     <div class="ml-4">
@@ -13,7 +15,7 @@
       </div>
       <div v-if="description" v-html="description" class="font-medium my-3"></div>
       <div class="my-4">
-        <button class="btn">Eintreten</button>
+        <router-link :to="link" class="btn inline-block">Eintreten</router-link>
       </div>
     </div>
   </div>
@@ -28,13 +30,14 @@
     props: {
       project: Object
     },
-    computed: {
-      artists () {
-        return this.project?.acf?.person
-      },
-      description () {
-        return this.project?.acf?.description
-      }
+    setup (props) {
+      const project = props.project
+      const artists = project?.acf?.person
+      const description = project?.acf?.description
+
+      const link = `/projekte/${project?.slug}`
+
+      return { project, artists, description, link }
     },
     components: { StyledText }
   })

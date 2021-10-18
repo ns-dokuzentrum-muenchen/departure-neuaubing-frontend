@@ -1,8 +1,8 @@
 <template>
-  <div class="flex w-full -mx-6">
-    <div class="w-1/2 px-6">
+  <div class="flex w-full -mx-4 text-xl">
+    <div class="w-1/2 px-4">
       <switch-group>
-        <switch-label passive class="sr-only">Darstellung</switch-label>
+        <switch-label passive class="sr-only">Webanalyse</switch-label>
         <Switch v-model="analytics" class="switch">
           <span :class="!analytics ? 'text-blue-900' : 'text-gray-400'" class="w-1/2 p-1 relative z-10 transition-colors">Aus</span>
           <span :class="analytics ? 'text-blue-900' : 'text-gray-400'" class="w-1/2 p-1 relative z-10 transition-colors">An</span>
@@ -14,7 +14,7 @@
       </div>
     </div>
 
-    <div class="w-1/2 px-6">
+    <div class="w-1/2 px-4">
       <switch-group>
         <switch-label passive class="sr-only">Darstellung</switch-label>
         <Switch v-model="darkMode" class="switch">
