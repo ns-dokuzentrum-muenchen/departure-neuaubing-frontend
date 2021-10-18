@@ -5,7 +5,7 @@ interface State {
   projects: Post[] | null
   settings: object | null
   darkMode: boolean
-  theme: 'blau' | 'gelb' | 'rosa' | 'grün',
+  theme: Theme,
   menuOpen: boolean
   analytics: boolean
 }
@@ -20,7 +20,7 @@ export default function state (): State {
     settings: null,
 
     darkMode: getCssMode(),
-    theme: 'blau',
+    theme: getTheme(),
     menuOpen: false,
 
     analytics: true
@@ -29,8 +29,21 @@ export default function state (): State {
 
 function getCssMode () {
   const saved = window.localStorage?.getItem('cssMode')
-  return saved === 'dark'
+  const darkMode = saved === 'dark'
+  if (darkMode) {
+    document.documentElement.classList?.add('dark')
+  }
+  return darkMode
 }
+
+function getTheme () {
+  const saved = window.localStorage?.getItem('theme')
+  const theme = (saved || 'theme-blau') as Theme
+  document.documentElement.classList?.add(theme)
+  return theme
+}
+
+type Theme = 'theme-blau' | 'theme-gelb' | 'theme-rosa' | 'theme-gruen'
 
 type Post = {
   acf: ACF

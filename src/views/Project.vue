@@ -1,11 +1,11 @@
 <template>
-  <div class="mt-12">
+  <div class="mt-36">
     <article>
-      <figure v-if="image">
+      <figure v-if="image" class="max-w-3xl mx-auto">
         <img :src="image.sizes?.large" loading="lazy"/>
       </figure>
-      <h1 class="font-serif text-5xl my-12 uppercase">{{ project?.title.rendered }}</h1>
-      <div>
+      <h1 class="text-5xl my-24 uppercase text-center">{{ project?.title.rendered }}</h1>
+      <div class="mb-36 max-w-3xl mx-auto">
         <div v-html="description"></div>
       </div>
     </article>

@@ -1,5 +1,5 @@
 <template>
-  <header ref="header" class="fixed top-0 left-0 right-0 text-white group">
+  <header ref="header" :class="{ 'cursor-pointer': !menuOpen }" class="fixed top-0 left-0 right-0 text-white group">
     <div :class="barHeight" class="absolute top-0 left-0 right-0 pointer-events-none transition-all z-0">
       <div class="w-full h-full bg-blue-900 dark:bg-gray-800"></div>
     </div>
@@ -45,16 +45,18 @@
           </ul>
 
           <div class="my-12">
-            <img src="~../assets/nsdoku-muenchen.svg" width="228" height="67" alt="NS-Dokumentationszentrum München logo">
+            <a href="https://www.ns-dokuzentrum-muenchen.de/home/" target="_blank" rel="noopener" class="hover:opacity-70 transition-opacity block">
+              <img src="~../assets/nsdoku-muenchen.svg" width="228" height="67" alt="NS-Dokumentationszentrum München logo">
+            </a>
           </div>
         </div>
 
-        <div class="w-2/5 flex flex-wrap mt-2">
+        <div class="w-2/5 flex flex-wrap mt-4">
           <radio-switches/>
 
           <div class="mt-16 w-full">
             <h1 class="text-3xl sm:text-4xl md:text-5xl lg:text-7xl">
-              <font-logo/>
+              <router-link to="/"><font-logo/></router-link>
             </h1>
           </div>
         </div>
@@ -64,7 +66,7 @@
 </template>
 
 <script lang="ts">
-  import { defineComponent, computed, ref, watchEffect, watch } from 'vue'
+  import { defineComponent, computed, ref, watch } from 'vue'
   import { useStore } from '../store'
   import { useRoute } from 'vue-router'
   import FontLogo from './FontLogo.vue'
@@ -93,18 +95,7 @@
       const title = store.title
       const description = store.description
 
-      const html = document.documentElement
       const darkMode = ref(store.darkMode)
-
-      watchEffect(() => {
-        if (darkMode.value) {
-          html.classList.add('dark')
-          window.localStorage?.setItem('cssMode', 'dark')
-        } else {
-          html.classList.remove('dark')
-          window.localStorage?.setItem('cssMode', 'light')
-        }
-      })
 
       const barHeight = computed(() => {
         return menuOpen.value ? 'h-full' : 'h-2 group-hover:h-full'
