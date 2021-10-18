@@ -1,15 +1,15 @@
 <template>
-  <header ref="header" :class="{ 'cursor-pointer': !menuOpen }" class="fixed top-0 left-0 right-0 text-white group">
+  <header ref="header" @click="maybeOpen" :class="{ 'cursor-pointer': !menuOpen }" class="fixed top-0 left-0 right-0 text-white group">
     <div :class="barHeight" class="absolute top-0 left-0 right-0 pointer-events-none transition-all z-0">
       <div class="w-full h-full bg-blue-900 dark:bg-gray-800"></div>
     </div>
 
     <div class="flex relative items-center p-3">
-      <div class="w-20 flex justify-center">
+      <div @click.stop class="w-20 flex justify-center">
         <menu-button/>
       </div>
       <div :class="menuOpen ? 'opacity-100' : 'opacity-0'" class="group-hover:opacity-100 transition-opacity flex-auto">
-        <p @click="toggleMenu" class="text-lg lg:text-2xl font-light cursor-pointer">
+        <p class="text-lg lg:text-2xl font-light">
           <span>{{ pretitle }}</span>
         </p>
       </div>
@@ -24,7 +24,7 @@
     </div>
 
     <transition @enter="slideOpen" @leave="slideClose">
-      <div v-if="menuOpen" data-fade="true" class="overflow-hidden px-3 relative flex">
+      <div v-if="menuOpen" data-fade="true" @click.stop class="overflow-hidden px-3 relative flex">
         <div class="w-20"></div>
 
         <div class="flex-auto mt-2">
@@ -66,7 +66,7 @@
 </template>
 
 <script lang="ts">
-  import { defineComponent, computed, ref, watch } from 'vue'
+  import { defineComponent, computed, ref, watch, nextTick } from 'vue'
   import { useStore } from '../store'
   import { useRoute } from 'vue-router'
   import FontLogo from './FontLogo.vue'
@@ -109,6 +109,13 @@
 
       const projects = computed(() => store.projects)
 
+      async function maybeOpen () {
+        await nextTick()
+        if (!store.menuOpen) {
+          toggleMenu()
+        }
+      }
+
       return {
         header,
         menuOpen,
@@ -118,7 +125,8 @@
         description,
         darkMode,
         barHeight,
-        projects
+        projects,
+        maybeOpen
       }
     },
     components: { FontLogo, MenuButton, RadioSwitches }
