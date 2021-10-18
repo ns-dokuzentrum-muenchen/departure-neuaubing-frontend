@@ -7,6 +7,7 @@ interface State {
   darkMode: boolean
   theme: 'blau' | 'gelb' | 'rosa' | 'grün',
   menuOpen: boolean
+  analytics: boolean
 }
 
 export default function state (): State {
@@ -20,7 +21,9 @@ export default function state (): State {
 
     darkMode: getCssMode(),
     theme: 'blau',
-    menuOpen: false
+    menuOpen: false,
+
+    analytics: true
   }
 }
 

@@ -48,19 +48,14 @@
           </ul>
 
           <div class="my-12">
-            nsdokuzentrum <br>münchen logo
+            <img src="~../assets/nsdoku-muenchen.svg" width="228" height="67" alt="NS-Dokumentationszentrum München logo">
           </div>
         </div>
 
         <div class="w-1/2 flex flex-wrap mt-2">
-          <div class="w-1/2">
-            <radio-switches/>
-          </div>
-          <div class="w-1/2">
-            <radio-switches/>
-          </div>
+          <radio-switches/>
 
-          <div class="mt-16">
+          <div class="mt-16 w-full">
             <h1 class="text-2xl sm:text-3xl md:text-4xl lg:text-5xl">
               <font-logo/>
             </h1>
