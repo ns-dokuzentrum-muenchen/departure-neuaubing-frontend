@@ -7,6 +7,7 @@ interface State {
   darkMode: boolean
   theme: Theme,
   menuOpen: boolean
+  metaLayer: number
   analytics: boolean
 }
 
@@ -22,6 +23,8 @@ export default function state (): State {
     darkMode: getCssMode(),
     theme: getTheme(),
     menuOpen: false,
+
+    metaLayer: 0,
 
     analytics: true
   }
@@ -45,7 +48,7 @@ function getTheme () {
 
 type Theme = 'theme-blau' | 'theme-gelb' | 'theme-rosa' | 'theme-gruen'
 
-type Post = {
+export type Post = {
   ID?: number
   id?: number
   slug: string
@@ -64,13 +67,17 @@ type Post = {
 }
 
 type RenderedString = { rendered: string }
-type PostType = 'projekt' | 'kuenstler' | 'glossar' | 'markierung' | 'post' | 'page'
+type PostType = 'projekt' | 'int-projekt' | 'kuenstler' | 'glossar' | 'markierung' | 'post' | 'page'
 
 type ACF = {
   title?: string
+  html_title?: string
   description?: string
   image?: Image
   biographie?: string
+  person?: any[]
+  tags?: object[]
+  versions?: Post[]
 }
 
 interface Image extends Post {

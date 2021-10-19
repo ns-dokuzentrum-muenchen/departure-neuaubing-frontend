@@ -575,6 +575,7 @@ module.exports = {
       home: 'calc(100vh - 212px)'
     },
     minWidth: {
+      meta: '30rem',
       0: '0px',
       full: '100%',
       min: 'min-content',
