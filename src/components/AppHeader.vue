@@ -1,5 +1,5 @@
 <template>
-  <header ref="header" @click="maybeOpen" :class="{ 'cursor-pointer': !menuOpen }" class="fixed top-0 left-0 right-0 text-theme group">
+  <header ref="header" @click="maybeOpen" :class="{ 'cursor-pointer': !menuOpen }" class="fixed top-0 left-0 right-0 text-theme group z-30">
     <div :class="barHeight" class="absolute top-0 left-0 right-0 pointer-events-none transition-all z-0">
       <div class="w-full h-full bg-theme dark:bg-gray-800"></div>
     </div>
@@ -55,7 +55,7 @@
           <radio-switches/>
 
           <div class="mt-16 w-full">
-            <h1 class="text-3xl sm:text-4xl md:text-5xl lg:text-7xl">
+            <h1 class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl">
               <router-link to="/"><font-logo/></router-link>
             </h1>
           </div>

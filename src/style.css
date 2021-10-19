@@ -31,8 +31,13 @@
 @tailwind components;
 @tailwind utilities;
 
+html { font-size: 16px; }
+
+@screen 2xl {
+  html { font-size: 18px; }
+}
+
 body {
-  font-size: 18px;
   @apply bg-bg text-black dark:bg-black dark:text-white;
   -webkit-font-smoothing: antialiased;
 }
@@ -53,6 +58,14 @@ body {
   }
   @nest .theme-gruen & {
     @apply bg-green-500;
+  }
+}
+
+.bg-theme-contrast {
+  @apply bg-white;
+
+  @nest .theme-gelb & {
+    @apply bg-black;
   }
 }
 

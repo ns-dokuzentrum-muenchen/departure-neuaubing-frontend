@@ -1,10 +1,11 @@
 <template>
   <div class="mt-36">
     <article>
+      <project-title :project="project"/>
+
       <figure v-if="image" class="max-w-3xl mx-auto">
         <img :src="image.sizes?.large" loading="lazy"/>
       </figure>
-      <h1 class="text-5xl my-24 uppercase text-center">{{ project?.title.rendered }}</h1>
       <div class="mb-36 max-w-3xl mx-auto">
         <div v-html="description"></div>
       </div>
@@ -16,6 +17,7 @@
   import { defineComponent, computed } from 'vue'
   import { useStore } from '../store'
   import { useRoute } from 'vue-router'
+  import ProjectTitle from '../components/ProjectTitle.vue'
 
   export default defineComponent({
     name: 'Project',
@@ -36,6 +38,7 @@
     beforeRouteEnter (_to, _from, next) {
       const store = useStore()
       store.getProjects().then(next)
-    }
+    },
+    components: { ProjectTitle }
   })
 </script>

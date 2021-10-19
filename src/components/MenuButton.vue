@@ -31,13 +31,13 @@
 
       const closedColors = 'bg-black dark:bg-white group-hover:bg-white'
       const pipes = computed(() => {
-        return (menuOpen.value ? 'opacity-0 h-0 bg-white ' : 'h-6 ' + closedColors)
+        return (menuOpen.value ? 'opacity-0 h-0 bg-theme-contrast ' : 'h-6 ' + closedColors)
       })
       const beamA = computed(() => {
-        return (menuOpen.value ? 'rotate-45 h-7 bg-white ' : closedColors)
+        return (menuOpen.value ? 'rotate-45 h-7 bg-theme-contrast ' : closedColors)
       })
       const beamB = computed(() => {
-        return (menuOpen.value ? '-rotate-45 h-7 bg-white ' : closedColors)
+        return (menuOpen.value ? '-rotate-45 h-7 bg-theme-contrast ' : closedColors)
       })
 
       return { menuOpen, label, toggleMenu, pipes, beamA, beamB }
