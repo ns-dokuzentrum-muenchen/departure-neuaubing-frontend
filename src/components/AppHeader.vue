@@ -1,7 +1,7 @@
 <template>
-  <header ref="header" @click="maybeOpen" :class="{ 'cursor-pointer': !menuOpen }" class="fixed top-0 left-0 right-0 text-white group">
+  <header ref="header" @click="maybeOpen" :class="{ 'cursor-pointer': !menuOpen }" class="fixed top-0 left-0 right-0 text-theme group">
     <div :class="barHeight" class="absolute top-0 left-0 right-0 pointer-events-none transition-all z-0">
-      <div class="w-full h-full bg-blue-900 dark:bg-gray-800"></div>
+      <div class="w-full h-full bg-theme dark:bg-gray-800"></div>
     </div>
 
     <div class="flex relative items-center p-3">
@@ -15,10 +15,10 @@
       </div>
       <div :class="menuOpen ? 'opacity-100' : 'opacity-0'" class="w-2/5 flex items-center transition-opacity">
         <div class="w-1/2">
-          Webanalyse &nbsp; <img src="~../assets/analytics.svg" width="29" height="22" class="inline align-top pt-0.5"/>
+          Webanalyse &nbsp; <analytics-icon class="inline"/>
         </div>
         <div class="w-1/2">
-          Darstellung &nbsp; <img src="~../assets/contrast.svg" width="21" height="27" class="inline"/>
+          Darstellung &nbsp; <contrast-icon class="inline"/>
         </div>
       </div>
     </div>
@@ -46,7 +46,7 @@
 
           <div class="my-12">
             <a href="https://www.ns-dokuzentrum-muenchen.de/home/" target="_blank" rel="noopener" class="hover:opacity-70 transition-opacity block">
-              <img src="~../assets/nsdoku-muenchen.svg" width="228" height="67" alt="NS-Dokumentationszentrum München logo">
+              <ns-doku-logo/>
             </a>
           </div>
         </div>
@@ -72,6 +72,9 @@
   import FontLogo from './FontLogo.vue'
   import MenuButton from './MenuButton.vue'
   import RadioSwitches from './RadioSwitches.vue'
+  import NsDokuLogo from './svg/NsDokuLogo.vue'
+  import AnalyticsIcon from './svg/AnalyticsIcon.vue'
+  import ContrastIcon from './svg/ContrastIcon.vue'
   import { onClickOutside } from '@vueuse/core'
 
   export default defineComponent({
@@ -129,6 +132,6 @@
         maybeOpen
       }
     },
-    components: { FontLogo, MenuButton, RadioSwitches }
+    components: { FontLogo, MenuButton, RadioSwitches, NsDokuLogo, AnalyticsIcon, ContrastIcon }
   })
 </script>

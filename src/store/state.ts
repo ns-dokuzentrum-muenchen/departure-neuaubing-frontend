@@ -46,30 +46,31 @@ function getTheme () {
 type Theme = 'theme-blau' | 'theme-gelb' | 'theme-rosa' | 'theme-gruen'
 
 type Post = {
-  acf: ACF
-  author: number
-  content: RenderedString
-  date: string
-  date_gmt: string
-  guid: RenderedString
-  id: number
-  link: string
-  modifed: string
-  modified_gmt: string
+  ID?: number
+  id?: number
   slug: string
-  status: string
+  title: RenderedString
+  post_title: string
+  acf: ACF
+
+  comment_status: string
+  author: number
+  date: string
+  modifed: string
   tags: string[]
   template: string
-  title: RenderedString
-  type: 'projekt' | 'kuenstler' | 'glossar' | 'markierung' | 'post' | 'page'
+  type?: PostType
+  post_type?: PostType
 }
 
-type RenderedString = string | { rendered: string }
+type RenderedString = { rendered: string }
+type PostType = 'projekt' | 'kuenstler' | 'glossar' | 'markierung' | 'post' | 'page'
 
 type ACF = {
   title?: string
   description?: string
   image?: Image
+  biographie?: string
 }
 
 interface Image extends Post {

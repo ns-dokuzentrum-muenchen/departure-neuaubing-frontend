@@ -41,6 +41,29 @@ body {
   margin-left: 1.14em;
 }
 
+.bg-theme {
+  @nest .theme-blau & {
+    @apply bg-blue-900;
+  }
+  @nest .theme-gelb & {
+    @apply bg-yellow-200;
+  }
+  @nest .theme-rosa & {
+    @apply bg-pink-300;
+  }
+  @nest .theme-gruen & {
+    @apply bg-green-500;
+  }
+}
+
+.text-theme {
+  @apply text-white;
+
+  @nest .theme-gelb & {
+    @apply text-black;
+  }
+}
+
 .btn {
   @apply px-6 py-1 font-bold rounded-full border-2 transition-all;
   @apply dark:hover:border-white !important;

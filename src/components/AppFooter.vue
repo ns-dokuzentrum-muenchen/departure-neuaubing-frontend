@@ -1,6 +1,6 @@
 <template>
   <div>
-    <footer class="bg-blue-900 dark:bg-gray-800 text-white p-3">
+    <footer class="bg-theme dark:bg-gray-800 text-theme p-3">
       <div class="sm:flex font-medium my-4">
         <div class="sm:mr-12">
           <p>NS-Dokumentationszentrum München</p>
