@@ -4,7 +4,7 @@
 
     <meta-layer/>
 
-    <main class="p-3">
+    <main>
       <router-view/>
     </main>
 
@@ -24,6 +24,7 @@
     setup () {
       const store = useStore()
       store.getSettings()
+      store.getProjects()
     },
     components: { AppHeader, MetaLayer, AppFooter }
   })

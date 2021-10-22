@@ -4,6 +4,8 @@ interface State {
   description?: string
   projects: Post[] | null
   settings: object | null
+  glossar: { [index: string]: Post }
+  comments: { [index: number]: Comment[] }
   darkMode: boolean
   theme: Theme,
   menuOpen: boolean
@@ -19,6 +21,9 @@ export default function state (): State {
 
     projects: null,
     settings: null,
+
+    glossar: {},
+    comments: {},
 
     darkMode: getCssMode(),
     theme: getTheme(),
@@ -96,6 +101,21 @@ interface Image extends Post {
   width: number
   height: number
   sizes: ImageSizes
+}
+
+export interface Comment {
+  id: number
+  post: number
+  parent: number
+  author: number
+  author_name: string
+  author_url: string
+  date: string
+  content: RenderedString
+  link: string
+  status: string
+  type: string
+  author_avatar_urls: { 24: string, 48: string, 96: string }
 }
 
 type ImageSizes = {

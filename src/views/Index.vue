@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="p-3">
     <div>
       <project-item v-for="project in projects" :key="project.id" :project="project"/>
     </div>
@@ -19,10 +19,10 @@
 
       return { projects }
     },
-    beforeRouteEnter (_to, _from, next) {
-      const store = useStore()
-      store.getProjects().then(next)
-    },
+    // beforeRouteEnter (_to, _from, next) {
+    //   const store = useStore()
+    //   store.getProjects().then(next)
+    // },
     components: { ProjectItem }
   })
 </script>

@@ -565,6 +565,7 @@ module.exports = {
       min: 'min-content',
       max: 'max-content',
       prose: '65ch',
+      meta: '30rem',
       ...theme('spacing'),
       ...breakpoints(theme('screens')),
     }),
@@ -825,6 +826,7 @@ module.exports = {
       '11/12': '91.666667%',
       full: '100%',
       screen: '100vw',
+      meta: '30rem',
       min: 'min-content',
       max: 'max-content',
     }),
@@ -1002,6 +1004,7 @@ module.exports = {
     zIndex: ['responsive', 'focus-within', 'focus'],
   },
   plugins: [
-    require('@tailwindcss/aspect-ratio')
+    require('@tailwindcss/aspect-ratio'),
+    require('@tailwindcss/line-clamp')
   ]
 }

@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="p-3">
     <figure>
       <img src="~../assets/home.jpg" alt="NS-Dokumentationszentrum München">
       <figcaption class="text-xs mt-1">NS-Dokumentationszentrum München, März 2015 | Foto: Jens Weber</figcaption>

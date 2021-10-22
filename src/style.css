@@ -26,6 +26,13 @@
   font-style: normal;
   font-weight: 400 500;
 }
+@font-face {
+  font-family: 'lexend';
+  src: url("/fonts/Lexend-Medium.woff2") format("woff2"),
+    url("/fonts/Lexend-Medium.woff") format("woff");
+  font-style: normal;
+  font-weight: 500 600;
+}
 
 @tailwind base;
 @tailwind components;
@@ -108,6 +115,11 @@ body {
     @apply bg-green-500 text-black border-green-500;
     @apply hover:bg-white hover:text-green-500;
   }
+}
+
+.chevron + .chevron:before {
+  content: ' > ';
+  @apply inline-block mx-1;
 }
 
 .switch {

@@ -31,6 +31,11 @@ const router = createRouter({
       path: '/projekte/:slug',
       name: 'projekt',
       component: Project
+    },
+    {
+      path: '/glossar/:slug',
+      name: 'glossar',
+      component: () => import('./views/Glossar.vue')
     }
   ],
   scrollBehavior (to, _from, savedPosition) {

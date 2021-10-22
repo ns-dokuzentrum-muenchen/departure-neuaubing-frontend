@@ -1,8 +1,23 @@
 <template>
   <div ref="metaEl">
-    <div :class="{ 'translate-x-full': vis === 0 }" class="fixed top-0 bottom-0 right-0 overflow-auto bg-black text-white transform transition-transform duration-300">
-      <div class="p-8 min-w-meta">
-        Seitenleiste
+    <div :class="{ 'translate-x-full': vis === 0 }" class="fixed top-0 bottom-0 right-0 overflow-auto bg-black text-white transform transition-transform duration-300 max-w-meta">
+      <div class="px-10 mt-14">
+        <div class="flex p-1">
+          <div class="mr-2">
+            <button class="btn text-lg">Forum</button>
+          </div>
+          <div>
+            <button class="btn text-lg">Glossar</button>
+          </div>
+          <div class="flex-auto"></div>
+          <div>
+            <button class="btn text-lg">S</button>
+          </div>
+        </div>
+      </div>
+      <div class="px-10 my-6">
+        <h3 class="text-xl">Kontext</h3>
+        <glossar-post v-for="post in data.posts" :key="post.id" :post="post" class="my-4"/>
       </div>
     </div>
 
@@ -29,6 +44,7 @@
   import { Post } from '../store/state'
   import { useRoute } from 'vue-router'
   import { onClickOutside } from '@vueuse/core'
+  import GlossarPost from './GlossarPost.vue'
   import ChevronLeft from './svg/ChevronLeft.vue'
   import ChevronRight from './svg/ChevronRight.vue'
 
@@ -82,6 +98,6 @@
 
       return { metaEl, vis, openMeta, closeMeta, data }
     },
-    components: { ChevronLeft, ChevronRight }
+    components: { GlossarPost, ChevronLeft, ChevronRight }
   })
 </script>

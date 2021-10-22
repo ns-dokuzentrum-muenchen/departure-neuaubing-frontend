@@ -1,5 +1,5 @@
 <template>
-  <div class="mt-36">
+  <div class="mt-36 p-3">
     <article>
       <project-title :project="project"/>
 
@@ -35,10 +35,10 @@
 
       return { project, image, description }
     },
-    beforeRouteEnter (_to, _from, next) {
-      const store = useStore()
-      store.getProjects().then(next)
-    },
+    // beforeRouteEnter (_to, _from, next) {
+    //   const store = useStore()
+    //   store.getProjects().then(next)
+    // },
     components: { ProjectTitle }
   })
 </script>
