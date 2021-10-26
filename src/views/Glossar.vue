@@ -3,6 +3,10 @@
     <div class="mt-16 max-w-3xl mx-auto">
       <h1 class="text-4xl">{{ post.title?.rendered }}</h1>
 
+      <div v-if="post.comment_status === 'open'">
+        <comment-form :post-id="post.id"/>
+      </div>
+
       <div v-if="comments?.length" class="my-4">
         <p>Comments &searr;</p>
         <div v-for="comment in comments" :key="comment.id" class="my-4">
@@ -17,6 +21,7 @@
   import { defineComponent, computed } from 'vue'
   import { useStore } from '../store'
   import { useRoute } from 'vue-router'
+  import CommentForm from '../components/CommentForm.vue'
   import CommentRow from '../components/CommentRow.vue'
 
   export default defineComponent({
@@ -46,6 +51,6 @@
 
       store.getGlossaryTerm(slug as string).then(next)
     },
-    components: { CommentRow }
+    components: { CommentForm, CommentRow }
   })
 </script>

@@ -40,6 +40,16 @@ export const useStore = defineStore({
       }).then(({ data }) => {
         this.comments[post] = data
       })
+    },
+
+    async postComment (id: string | number | undefined, formData: any) {
+      if (!id) return
+
+      return api.post('/wp-json/wp/v2/comments', {
+        ...formData
+      }).then(({ data }) => {
+        console.log(data)
+      })
     }
   }
 })

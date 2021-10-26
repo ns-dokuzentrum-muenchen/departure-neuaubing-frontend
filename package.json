@@ -8,6 +8,7 @@
     "tsc": "vuedx-typecheck"
   },
   "dependencies": {
+    "@hcaptcha/vue3-hcaptcha": "^1.0.0",
     "@headlessui/vue": "^1.4.1",
     "@tailwindcss/line-clamp": "^0.2.2",
     "@vueuse/core": "^6.6.1",
