@@ -1,0 +1,33 @@
+/*.js
+  Cache-Control: public, max-age=31556952
+
+/*.css
+  Cache-Control: public, max-age=31556952
+
+/*.woff
+  Cache-Control: public, max-age=31556952
+
+/*.ttf
+  Cache-Control: public, max-age=31556952
+
+/*.eot
+  Cache-Control: public, max-age=31556952
+
+/*.woff2
+  Cache-Control: public, max-age=31556952
+
+/*.svg
+  Cache-Control: public, max-age=31556952
+
+/*.gif
+  Cache-Control: public, max-age=31556952
+
+/*.png
+  Cache-Control: public, max-age=31556952
+
+/*.jpg
+  Cache-Control: public, max-age=31556952
+
+/*.jpeg
+  Cache-Control: public, max-age=31556952
+
