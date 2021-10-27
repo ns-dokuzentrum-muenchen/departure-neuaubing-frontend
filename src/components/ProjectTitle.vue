@@ -3,8 +3,7 @@
     <div class="font-bold text-xl mb-1">
       <p v-for="artist in artists" :key="artist.id">{{ artist.post_title }}</p>
     </div>
-    <h1 class="text-5xl lg:text-8xl uppercase leading-none">
-      <styled-text :text="title"/>
+    <h1 v-html="title" class="text-5xl lg:text-8xl uppercase leading-none styled-text">
     </h1>
   </div>
 </template>
@@ -19,7 +18,9 @@
       project: Object
     },
     setup (props) {
-      const title = computed(() => props.project?.title.rendered)
+      const title = computed(() => {
+        return props.project?.acf.html_title || props.project?.title.rendered
+      })
       const artists = computed(() => props.project?.acf.person)
 
       return { title, artists }

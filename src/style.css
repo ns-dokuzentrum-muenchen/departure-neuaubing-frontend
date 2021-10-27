@@ -53,6 +53,14 @@ body {
   margin-left: 1.14em;
 }
 
+.styled-text {
+  @apply font-extralight;
+
+  & > span {
+    @apply font-serif text-bump;
+  }
+}
+
 .bg-theme {
   @nest .theme-blau & {
     @apply bg-blue-900;
