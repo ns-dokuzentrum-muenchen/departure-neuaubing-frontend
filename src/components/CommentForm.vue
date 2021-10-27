@@ -37,16 +37,20 @@
       const form = ref({
         parent: null,
         post: postId.value,
-        content: '',
-        author_email: '',
-        author_name: '',
-        author_url: '',
+        content: 'ok prefill it',
+        author_email: 'nics@limnerstudio.co.uk',
+        author_name: 'nics',
+        author_url: 'https://n-kort.net',
         meta: <object | null> null,
-        'h-captcha-response': <string | null> null
+        'h-captcha-response': <string | null> null,
+        'hcaptcha_comment_form_nonce': <string | null> null
       })
 
-      const verify = (token: string, eKey: string) => {
-        console.log(eKey)
+      const getNonce = async () => {
+        form.value['hcaptcha_comment_form_nonce'] = await store.getCommentNonce()
+      }
+      const verify = (token: string) => {
+        console.log('got captcha token')
         form.value['h-captcha-response'] = token
       }
 
@@ -56,6 +60,8 @@
       }
 
       const siteKey = import.meta.env.VITE_CAPTCHA_KEY as string
+
+      getNonce() // try it out
 
       return { postId, form, verify, submit, siteKey }
     },

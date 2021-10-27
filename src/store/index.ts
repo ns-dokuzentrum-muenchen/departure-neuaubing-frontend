@@ -42,6 +42,11 @@ export const useStore = defineStore({
       })
     },
 
+    async getCommentNonce (): Promise<string> {
+      return api.get('/wp-json/dn/v1/comment-nonce').then(({ data }) => {
+        return data?.nonce
+      })
+    },
     async postComment (id: string | number | undefined, formData: any) {
       if (!id) return
 
