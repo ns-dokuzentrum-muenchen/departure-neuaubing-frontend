@@ -33,6 +33,7 @@
       const image = computed(() => project.value?.acf.image)
       const description = computed(() => project.value?.acf.description)
 
+
       return { project, image, description }
     },
     // beforeRouteEnter (_to, _from, next) {

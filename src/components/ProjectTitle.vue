@@ -10,7 +10,7 @@
 </template>
 
 <script lang="ts">
-  import { defineComponent } from 'vue'
+  import { defineComponent, computed } from 'vue'
   import StyledText from './StyledText.vue'
 
   export default defineComponent({
@@ -19,12 +19,10 @@
       project: Object
     },
     setup (props) {
-      const project = props.project
-      const title = project?.title.rendered
+      const title = computed(() => props.project?.title.rendered)
+      const artists = computed(() => props.project?.acf.person)
 
-      const artists = project?.acf?.person
-
-      return { project, title, artists }
+      return { title, artists }
     },
     components: { StyledText }
   })
