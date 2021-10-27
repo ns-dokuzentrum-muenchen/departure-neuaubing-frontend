@@ -118,8 +118,8 @@ body {
 }
 
 .input {
-  @apply w-full px-4 py-2 outline-none border-none bg-gray-200;
-  @apply text-black;
+  @apply w-full px-4 py-2 outline-none border-none rounded-md;
+  @apply bg-gray-200 text-black;
 }
 
 .chevron + .chevron:before {

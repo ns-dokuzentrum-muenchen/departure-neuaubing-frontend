@@ -53,7 +53,8 @@ export const useStore = defineStore({
       return api.post('/wp-json/wp/v2/comments', {
         ...formData
       }).then(({ data }) => {
-        console.log(data)
+        const idNo = Number(id)
+        this.comments[idNo]?.unshift(data)
       })
     }
   }
