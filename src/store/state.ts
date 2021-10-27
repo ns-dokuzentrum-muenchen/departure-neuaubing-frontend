@@ -9,7 +9,7 @@ interface State {
   darkMode: boolean
   theme: Theme,
   menuOpen: boolean
-  metaLayer: number
+  // metaLayer: number
   analytics: boolean
 }
 
@@ -29,7 +29,7 @@ export default function state (): State {
     theme: getTheme(),
     menuOpen: false,
 
-    metaLayer: 0,
+    // metaLayer: 0,
 
     analytics: true
   }

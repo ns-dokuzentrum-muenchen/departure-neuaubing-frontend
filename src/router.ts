@@ -38,12 +38,8 @@ const router = createRouter({
       component: () => import('./views/Glossar.vue')
     }
   ],
-  scrollBehavior (to, _from, savedPosition) {
-    if (to.hash) {
-      return {
-        el: to.hash
-      }
-    }
+  scrollBehavior (to, from, savedPosition) {
+    if (to.hash || from.hash) return // sidebar thing
     return savedPosition || { top: 0 }
   }
 })

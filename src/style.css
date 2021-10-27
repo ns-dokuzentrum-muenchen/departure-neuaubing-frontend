@@ -97,8 +97,11 @@ body {
   @apply dark:hover:border-white !important;
   @apply dark:hover:bg-transparent dark:hover:text-white !important;
 
-  &.sm {
+  /* &.sm {
     @apply px-3 text-center;
+  } */
+  &.round {
+    @apply w-10 h-10 p-0 flex items-center justify-center;
   }
 
   @nest .theme-blau & {

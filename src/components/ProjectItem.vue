@@ -7,9 +7,7 @@
     </figure>
 
     <div class="ml-4">
-      <h2 class="uppercase text-4xl lg:text-5xl">
-        <styled-text :text="project.title?.rendered"/>
-      </h2>
+      <h2 v-html="title" class="uppercase text-4xl lg:text-5xl styled-text"></h2>
       <div class="font-bold text-xl my-3">
         <p v-for="artist in artists" :key="artist.id">{{ artist.post_title }}</p>
       </div>
@@ -33,11 +31,12 @@
     setup (props) {
       const project = props.project
       const artists = project?.acf?.person
+      const title = project?.acf?.html_title || project?.title?.rendered || ''
       const description = project?.acf?.description
 
       const link = `/projekte/${project?.slug}`
 
-      return { project, artists, description, link }
+      return { project, artists, title, description, link }
     },
     components: { StyledText }
   })

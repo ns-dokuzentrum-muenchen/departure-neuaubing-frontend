@@ -1,5 +1,5 @@
 <template>
-  <div ref="metaEl">
+  <div id="seitenleiste" ref="metaEl" class="z-20 relative">
     <div :class="{ 'translate-x-full': vis === 0 }" class="fixed top-0 bottom-0 right-0 overflow-auto bg-black text-white transform transition-transform duration-300 max-w-meta">
       <div class="px-10 mt-14">
         <div class="flex p-1">
@@ -23,14 +23,14 @@
 
     <div :class="vis > 0 ? 'right-[25.4rem]' : 'right-0'" class="fixed top-0 p-1 rounded-full mt-14 mr-12 transition-all duration-300">
       <div>
-        <button @click="openMeta" class="btn sm">
-          <chevron-left/>
+        <button @click="openMeta" class="btn round">
+          <chevron-left class="-translate-x-px"/>
         </button>
       </div>
       <transition name="fade">
         <div v-if="vis > 0" class="mt-4">
-          <button @click="closeMeta" class="btn sm">
-            <chevron-right class="translate-x-0.5"/>
+          <button @click="closeMeta" class="btn round">
+            <chevron-left class="rotate-180 translate-x-0.5"/>
           </button>
         </div>
       </transition>
@@ -39,10 +39,10 @@
 </template>
 
 <script lang="ts">
-  import { defineComponent, computed, ref } from 'vue'
+  import { defineComponent, computed, ref, inject, ComputedRef } from 'vue'
   import { useStore } from '../store'
   import { Post } from '../store/state'
-  import { useRoute } from 'vue-router'
+  import { useRoute, useRouter } from 'vue-router'
   import { onClickOutside } from '@vueuse/core'
   import GlossarPost from './GlossarPost.vue'
   import ChevronLeft from './svg/ChevronLeft.vue'
@@ -59,13 +59,27 @@
     setup () {
       const store = useStore()
       const route = useRoute()
+      const router = useRouter()
 
-      const vis = computed(() => store.metaLayer)
+      const metaLayer: ComputedRef<number> | undefined = inject('metaLayer')
+
+      const vis = computed(() => {
+        return metaLayer?.value || 0
+      })
+
       function openMeta () {
-        store.metaLayer++
+        if (vis.value === 0) {
+          router.push({ hash: '#seitenleiste' })
+        } else {
+          router.push({ hash: '#kontext' })
+        }
       }
       function closeMeta () {
-        store.metaLayer--
+        if (vis.value > 1) {
+          router.push({ hash: '#seitenleiste' })
+        } else {
+          router.push({ hash: undefined })
+        }
       }
 
       const data = computed((): Data => {
@@ -89,10 +103,9 @@
       })
 
       const metaEl = ref(null)
-
       onClickOutside(metaEl, () => {
-        if (store.metaLayer) {
-          store.metaLayer = 0
+        if (vis.value > 0) {
+          router.push({ hash: undefined })
         }
       })
 

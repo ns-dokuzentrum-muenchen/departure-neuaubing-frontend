@@ -2,19 +2,20 @@
   <div>
     <app-header/>
 
-    <meta-layer/>
-
-    <main>
+    <main :class="{ '-translate-x-36': offset }" class="transition-transform">
       <router-view/>
     </main>
+
+    <meta-layer/>
 
     <app-footer/>
   </div>
 </template>
 
 <script lang="ts">
-  import { defineComponent } from 'vue'
+  import { defineComponent, computed, provide, ref, reactive } from 'vue'
   import { useStore } from './store/index'
+  import { useRoute } from 'vue-router'
   import AppHeader from './components/AppHeader.vue'
   import MetaLayer from './components/MetaLayer.vue'
   import AppFooter from './components/AppFooter.vue'
@@ -25,6 +26,26 @@
       const store = useStore()
       store.getSettings()
       store.getProjects()
+
+      const route = useRoute()
+
+      const metaLayer = computed(() => {
+        if (!route.hash) return 0
+        switch (route.hash) {
+          case '#seitenleiste':
+            return 1
+          case '#kontext':
+          case '#glossar':
+            return 2
+          default:
+            return 0
+        }
+      })
+      const offset = computed(() => metaLayer.value > 1)
+
+      provide('metaLayer', metaLayer)
+
+      return { offset }
     },
     components: { AppHeader, MetaLayer, AppFooter }
   })

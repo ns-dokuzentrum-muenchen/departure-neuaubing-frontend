@@ -1,4 +1,5 @@
 import { defineStore } from 'pinia'
+import { useRoute } from 'vue-router'
 import state from './state'
 import axios from 'axios'
 
@@ -10,7 +11,6 @@ const api = axios.create({
 export const useStore = defineStore({
   id: 'store',
   state,
-  getters: {},
   actions: {
     async getSettings () {
       if (this.settings) return
