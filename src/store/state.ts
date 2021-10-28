@@ -138,3 +138,17 @@ type ImageSizes = {
   '2048x2048-width': number
   '2048x2048-height': number
 }
+
+export interface VideoData {
+  uri: string
+  name: string
+  description: string | null
+  link: string
+  duration: number
+  width: number
+  height: number
+  created_time: string
+  modified_time: string
+  pictures: { sizes: any[] }
+  files: any[]
+}
