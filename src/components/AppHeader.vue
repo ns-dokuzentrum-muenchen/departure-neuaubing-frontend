@@ -1,7 +1,7 @@
 <template>
-  <header ref="header" @click="maybeOpen" :class="{ 'cursor-pointer': !menuOpen }" class="fixed top-0 left-0 right-0 text-theme group z-30">
+  <header ref="header" @click="maybeOpen" :class="{ 'cursor-pointer': !menuOpen }" class="fixed top-0 left-0 right-0 text-highlight group z-30">
     <div :class="barHeight" class="absolute top-0 left-0 right-0 pointer-events-none transition-all z-0">
-      <div class="w-full h-full bg-theme dark:bg-gray-800"></div>
+      <div class="w-full h-full bg-theme dark:bg-black"></div>
     </div>
 
     <div class="flex relative items-center p-3">

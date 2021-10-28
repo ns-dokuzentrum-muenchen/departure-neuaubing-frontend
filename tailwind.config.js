@@ -463,6 +463,8 @@ module.exports = {
       auto: 'auto',
       ...theme('spacing'),
       ...negative(theme('spacing')),
+      'seite': '25.5rem', // 30 - 6.5
+      'kontext': '57.5rem', // 62 - 6.5
       '1/2': '50%',
       '1/3': '33.333333%',
       '2/3': '66.666667%',
@@ -566,6 +568,7 @@ module.exports = {
       max: 'max-content',
       prose: '65ch',
       meta: '30rem',
+      kontext: '62rem',
       ...theme('spacing'),
       ...breakpoints(theme('screens')),
     }),
@@ -827,6 +830,7 @@ module.exports = {
       full: '100%',
       screen: '100vw',
       meta: '30rem',
+      kontext: '62rem',
       min: 'min-content',
       max: 'max-content',
     }),

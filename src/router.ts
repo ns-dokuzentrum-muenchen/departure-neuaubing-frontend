@@ -10,7 +10,8 @@ const router = createRouter({
     {
       path: '/',
       name: 'index',
-      component: Index
+      component: Index,
+      meta: { seite: true }
     },
     {
       path: '/ueber',
@@ -30,12 +31,18 @@ const router = createRouter({
     {
       path: '/projekte/:slug',
       name: 'projekt',
-      component: Project
+      component: Project,
+      meta: { seite: true }
     },
     {
       path: '/glossar/:slug',
       name: 'glossar',
       component: () => import('./views/Glossar.vue')
+    },
+    {
+      path: '/suche',
+      name: 'suche',
+      component: () => import('./views/Suche.vue')
     }
   ],
   scrollBehavior (to, from, savedPosition) {

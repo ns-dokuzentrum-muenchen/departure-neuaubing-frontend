@@ -45,7 +45,7 @@ html { font-size: 16px; }
 }
 
 body {
-  @apply bg-bg text-black dark:bg-black dark:text-white;
+  @apply bg-bg text-black dark:bg-gray-800 dark:text-white;
   -webkit-font-smoothing: antialiased;
 }
 
@@ -85,21 +85,30 @@ body {
 }
 
 .text-theme {
-  @apply text-white;
+  @apply text-black;
 
-  @nest .theme-gelb & {
-    @apply text-black;
+  @nest .theme-blau & {
+    @apply text-white;
+  }
+}
+
+.text-highlight {
+  @apply text-black;
+
+  @nest .theme-blau & {
+    @apply text-white;
+  }
+
+  @nest .dark & {
+    @apply text-white;
   }
 }
 
 .btn {
-  @apply px-6 py-1 font-bold rounded-full border-2 transition-all;
+  @apply px-8 py-1 rounded-full border-2 transition-all;
   @apply dark:hover:border-white !important;
-  @apply dark:hover:bg-transparent dark:hover:text-white !important;
+  @apply dark:hover:bg-gray-800 dark:hover:text-white !important;
 
-  /* &.sm {
-    @apply px-3 text-center;
-  } */
   &.round {
     @apply w-10 h-10 p-0 flex items-center justify-center;
   }

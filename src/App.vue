@@ -2,7 +2,7 @@
   <div>
     <app-header/>
 
-    <main :class="{ '-translate-x-36': offset }" class="transition-transform">
+    <main :class="{ '-translate-x-36': offset }" class="transition-transform delay-75">
       <router-view/>
     </main>
 
@@ -13,7 +13,7 @@
 </template>
 
 <script lang="ts">
-  import { defineComponent, computed, provide, ref, reactive } from 'vue'
+  import { defineComponent, computed, provide } from 'vue'
   import { useStore } from './store/index'
   import { useRoute } from 'vue-router'
   import AppHeader from './components/AppHeader.vue'
@@ -36,6 +36,7 @@
             return 1
           case '#kontext':
           case '#glossar':
+          case '#forum':
             return 2
           default:
             return 0
