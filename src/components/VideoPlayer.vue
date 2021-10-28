@@ -83,36 +83,3 @@
     }
   })
 </script>
-
-<style>
-  :root {
-    --plyr-color-main: rgba(0, 0, 0, 0);
-    --plyr-range-track-height: 1.33px;
-    --plyr-font-family: inherit;
-    --plyr-tooltip-background: rgba(0, 0, 0, 0);
-    --plyr-tooltip-color: white;
-    --plyr-tooltip-padding: 0;
-    --plyr-tooltip-arrow-size: 0;
-    --plyr-tooltip-shadow: none;
-    --plyr-font-size-base: 0.75rem;
-    --plyr-font-size-small: 0.75rem;
-  }
-
-  .plyr--video { @apply h-full; }
-  .plyr__volume {
-    min-width: 0 !important;
-    width: auto !important;
-  }
-  .plyr__time { margin-top: 2px; }
-
-  button[data-plyr="mute"],
-  button[data-plyr="fullscreen"] {
-    margin-top: -1px;
-
-    & svg { @apply hidden; }
-    & span {
-      @apply uppercase text-xs;
-      position: static !important;
-    }
-  }
-</style>

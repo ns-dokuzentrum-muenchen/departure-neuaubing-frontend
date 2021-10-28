@@ -9,7 +9,7 @@ interface State {
   darkMode: boolean
   theme: Theme,
   menuOpen: boolean
-  // metaLayer: number
+  searchResults: Post[]
   analytics: boolean
 }
 
@@ -29,7 +29,7 @@ export default function state (): State {
     theme: getTheme(),
     menuOpen: false,
 
-    // metaLayer: 0,
+    searchResults: [],
 
     analytics: true
   }
@@ -69,10 +69,14 @@ export type Post = {
   template: string
   type?: PostType
   post_type?: PostType
+  post_name?: string
+
+  title_highlighted?: string
+  content_highlighted?: string
 }
 
 type RenderedString = { rendered: string }
-type PostType = 'projekt' | 'int-projekt' | 'kuenstler' | 'glossar' | 'markierung' | 'post' | 'page'
+export type PostType = 'projekt' | 'int-projekt' | 'kuenstler' | 'glossar' | 'markierung' | 'post' | 'page'
 
 type ACF = {
   title?: string

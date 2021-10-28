@@ -56,6 +56,16 @@ export const useStore = defineStore({
         const idNo = Number(id)
         this.comments[idNo]?.unshift(data)
       })
+    },
+
+    async search (query: string) {
+      return api.get('/wp-json/dn/v1/suche', {
+        params: { s: query }
+      }).then(({ data }) => {
+        this.searchResults = data
+      }).catch(() => {
+        this.searchResults = []
+      })
     }
   }
 })

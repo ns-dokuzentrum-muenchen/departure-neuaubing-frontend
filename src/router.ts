@@ -46,7 +46,11 @@ const router = createRouter({
     }
   ],
   scrollBehavior (to, from, savedPosition) {
-    if (to.hash || from.hash) return // sidebar thing
+    if (to.hash || from.hash) {
+      if (to.path === from.path) {
+        return // sidebar thing
+      }
+    }
     return savedPosition || { top: 0 }
   }
 })
