@@ -66,6 +66,12 @@ export const useStore = defineStore({
       }).catch(() => {
         this.searchResults = []
       })
+    },
+
+    async testHeaders () {
+      return api.get('/wp-json/dn/v1/what').then(({ data }) => {
+        console.log(data)
+      })
     }
   }
 })

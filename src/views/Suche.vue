@@ -89,6 +89,7 @@
         store.search(s as string).then(() => {
           count.value++
         })
+        store.testHeaders()
       })
       const results = computed(() => store.searchResults)
 
