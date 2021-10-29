@@ -52,18 +52,15 @@
         author_email: 'test-user@nsdoku.de',
         author_name: 'testing',
         author_url: 'https://nsdoku.de',
-        meta: <object | null> null,
-        'h-captcha-response': <string | null> null,
-        'hcaptcha_comment_form_nonce': <string | null> null
+        meta: <object | null> null
+        // 'h-captcha-response': <string | null> null,
+        // 'hcaptcha_comment_form_nonce': <string | null> null
       })
 
-      const getNonce = async () => {
-        form.value['hcaptcha_comment_form_nonce'] = await store.getCommentNonce()
-      }
-      const verify = (token: string) => {
-        console.log('got captcha token')
-        form.value['h-captcha-response'] = token
-      }
+      // const verify = (token: string) => {
+      //   console.log('got captcha token')
+      //   form.value['h-captcha-response'] = token
+      // }
 
       const errMsg: Ref<string | null> = ref(null)
       const submit = () => {
@@ -79,9 +76,7 @@
 
       const siteKey = import.meta.env.VITE_CAPTCHA_KEY as string
 
-      getNonce() // try it out
-
-      return { postId, user, form, verify, errMsg, submit, siteKey }
+      return { postId, user, form, errMsg, submit, siteKey }
     },
     components: { LoginSignup }
   })
