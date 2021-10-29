@@ -11,7 +11,7 @@
         <textarea v-model="form.content" placeholder="Your comment" class="input" required></textarea>
       </div>
       <div class="mb-2">
-        <!-- <vue-hcaptcha @verify="verify" :sitekey="siteKey" language="de" theme="dark" size="small"></vue-hcaptcha> -->
+        <vue-hcaptcha @verify="verify" :sitekey="siteKey" language="de" theme="dark" size="small"></vue-hcaptcha>
       </div>
       <div>
         <div v-if="errMsg" class="mb-2">
