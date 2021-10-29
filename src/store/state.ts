@@ -11,6 +11,7 @@ interface State {
   menuOpen: boolean
   searchResults: Post[]
   analytics: boolean
+  user: any
 }
 
 export default function state (): State {
@@ -31,7 +32,9 @@ export default function state (): State {
 
     searchResults: [],
 
-    analytics: true
+    analytics: true,
+
+    user: null
   }
 }
 

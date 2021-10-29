@@ -1,32 +1,38 @@
 <template>
   <div>
-    <form @submit.prevent="submit">
-      <div class="mb-2">
-        <input v-model="form.author_name" type="text" placeholder="Name" class="input" required>
-      </div>
-      <div class="mb-2">
-        <input v-model="form.author_email" type="email" placeholder="E-Mail" class="input" required>
-      </div>
-      <div class="mb-2">
-        <textarea v-model="form.content" placeholder="Your comment" class="input" required></textarea>
-      </div>
-      <div class="mb-2">
-        <vue-hcaptcha @verify="verify" :sitekey="siteKey" language="de" theme="dark" size="small"></vue-hcaptcha>
-      </div>
-      <div>
-        <div v-if="errMsg" class="mb-2">
-          <p class="text-red-600">{{ errMsg }}</p>
+    <div v-if="user">
+      <form @submit.prevent="submit">
+        <div class="mb-2">
+          <input v-model="form.author_name" type="text" placeholder="Name" class="input" required>
         </div>
-        <button type="submit" class="btn">Post comment</button>
-      </div>
-    </form>
+        <div class="mb-2">
+          <input v-model="form.author_email" type="email" placeholder="E-Mail" class="input" required>
+        </div>
+        <div class="mb-2">
+          <textarea v-model="form.content" placeholder="Your comment" class="input" required></textarea>
+        </div>
+        <!-- <div class="mb-2">
+          <vue-hcaptcha @verify="verify" :sitekey="siteKey" language="de" theme="dark" size="small"></vue-hcaptcha>
+        </div> -->
+        <div>
+          <div v-if="errMsg" class="mb-2">
+            <p class="text-red-600">{{ errMsg }}</p>
+          </div>
+          <button type="submit" class="btn">Post comment</button>
+        </div>
+      </form>
+    </div>
+    <div v-else>
+      <login-signup/>
+    </div>
   </div>
 </template>
 
 <script lang="ts">
-  import { defineComponent, toRefs, ref, Ref } from 'vue'
+  import { defineComponent, toRefs, ref, Ref, computed } from 'vue'
   import { useStore } from '../store'
-  import VueHcaptcha from '@hcaptcha/vue3-hcaptcha'
+  // import VueHcaptcha from '@hcaptcha/vue3-hcaptcha'
+  import LoginSignup from './LoginSignup.vue'
 
   export default defineComponent({
     name: 'CommentForm',
@@ -36,6 +42,8 @@
     setup (props) {
       const { postId } = toRefs(props)
       const store = useStore()
+
+      const user = computed(() => store.user)
 
       const form = ref({
         parent: null,
@@ -73,8 +81,8 @@
 
       getNonce() // try it out
 
-      return { postId, form, verify, errMsg, submit, siteKey }
+      return { postId, user, form, verify, errMsg, submit, siteKey }
     },
-    components: { VueHcaptcha }
+    components: { LoginSignup }
   })
 </script>

@@ -68,9 +68,11 @@ export const useStore = defineStore({
       })
     },
 
-    async testHeaders () {
-      return api.get('/wp-json/dn/v1/what').then(({ data }) => {
-        console.log(data)
+    async login (nameOrEmail: string) {
+      return api.post('/wp-json/dn/v1/login', {
+        user_email_username: nameOrEmail
+      }).then((res) => {
+        console.log(res)
       })
     }
   }
