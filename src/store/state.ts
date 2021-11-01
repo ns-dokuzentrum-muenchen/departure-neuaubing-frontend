@@ -12,6 +12,8 @@ interface State {
   searchResults: Post[]
   analytics: boolean
   user: any
+  nonce: string | null
+  authToken: string | null
 }
 
 export default function state (): State {
@@ -34,7 +36,9 @@ export default function state (): State {
 
     analytics: true,
 
-    user: null
+    user: null,
+    nonce: null,
+    authToken: getToken()
   }
 }
 
@@ -52,6 +56,11 @@ function getTheme () {
   const theme = (saved || 'theme-blau') as Theme
   document.documentElement.classList?.add(theme)
   return theme
+}
+
+function getToken () {
+  const saved = window.localStorage?.getItem('token')
+  return saved
 }
 
 type Theme = 'theme-blau' | 'theme-gelb' | 'theme-rosa' | 'theme-gruen'

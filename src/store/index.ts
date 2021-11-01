@@ -1,5 +1,5 @@
-import { defineStore } from 'pinia'
-import { useRoute } from 'vue-router'
+import { defineStore, storeToRefs } from 'pinia'
+// import { useRoute } from 'vue-router'
 import state from './state'
 import axios from 'axios'
 
@@ -42,16 +42,15 @@ export const useStore = defineStore({
       })
     },
 
-    async getCommentNonce (): Promise<string> {
-      return api.get('/wp-json/dn/v1/comment-nonce').then(({ data }) => {
-        return data?.nonce
-      })
-    },
     async postComment (id: string | number | undefined, formData: any) {
       if (!id) return
 
       return api.post('/wp-json/wp/v2/comments', {
         ...formData
+      }, {
+        headers: {
+          Authorization: `Bearer ${this.authToken}`
+        }
       }).then(({ data }) => {
         const idNo = Number(id)
         this.comments[idNo]?.unshift(data)
@@ -68,12 +67,45 @@ export const useStore = defineStore({
       })
     },
 
-    async login (nameOrEmail: string) {
-      return api.post('/wp-json/dn/v1/login', {
-        user_email_username: nameOrEmail
-      }).then((res) => {
-        console.log(res)
+    async loginNonce () {
+      return api.get('/').then((res) => {
+        if (!res?.headers) return
+        this.nonce = res.headers['x-wp-nonce']
       })
+    },
+
+    async login (nameOrEmail: string, nonce: string) {
+      const params = new URLSearchParams()
+      params.append('user_email_username', nameOrEmail)
+      params.append('nonce', nonce)
+      params.append('return_to', window.location.pathname)
+
+      return api.post('/wp-json/dn/v1/login', params)
+    },
+    async verifyLogin (uid: string, token: string, nonce: string) {
+      if (!uid || !token || !nonce) return
+      return api.get('/wp-json/dn/v1/login', {
+        params: { uid, token, nonce }
+      }).then(({ data }) => {
+        if (data.token) {
+          this.authToken = data.token
+          window.localStorage?.setItem('token', data.token)
+        } else {
+          throw new Error('Login-Fehler')
+        }
+      })
+    },
+    async validateToken () {
+      if (!this.authToken) return Promise.reject()
+      return api.post('/wp-json/jwt-auth/v1/token/validate', {}, {
+        headers: {
+          Authorization: `Bearer ${this.authToken}`
+        }
+      })
+    },
+
+    async register (name: string, email: string) {
+      console.log('register', name, email)
     }
   }
 })

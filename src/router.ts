@@ -43,6 +43,11 @@ const router = createRouter({
       path: '/suche',
       name: 'suche',
       component: () => import('./views/Suche.vue')
+    },
+    {
+      path: '/verify',
+      name: 'verify',
+      component: () => import('./views/Verify.vue')
     }
   ],
   scrollBehavior (to, from, savedPosition) {

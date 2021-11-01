@@ -1,17 +1,36 @@
 <template>
-  <div class="bg-black text-white p-3 min-h-home">
-    <div class="mt-16 max-w-3xl mx-auto">
-      <h1 class="text-4xl">{{ post.title?.rendered }}</h1>
-
-      <div v-if="post.comment_status === 'open'">
-        <comment-form :post-id="post.id"/>
+  <div class="dark:bg-gray-800 pl-12 md:pl-20 lg:pl-32">
+    <div class="relative bg-black text-white pt-14 pr-12 md:pr-20 lg:pr-32">
+      <div class="flex justify-end py-1 -mr-12">
+        <div class="mr-4">
+          <router-link to="/forum" class="btn text-lg block">Forum</router-link>
+        </div>
+        <div class="mr-4">
+          <router-link to="/glossar" class="btn text-lg block">Glossar</router-link>
+        </div>
       </div>
 
-      <div v-if="comments?.length" class="my-4">
-        <p>Comments &searr;</p>
-        <div v-for="comment in comments" :key="comment.id" class="my-4">
-          <comment-row :comment="comment" :replies="[]"/>
+      <div class="px-8">
+        <div class="max-w-3xl mx-auto mt-12 min-h-screen">
+          <div class="absolute top-14">
+            <h1 class="text-xl md:text-2xl lg:text-4xl font-medium">{{ post.title?.rendered }}</h1>
+          </div>
+
+          <div v-if="post.comment_status === 'open'">
+            <comment-form :post-id="post.id"/>
+          </div>
+
+          <div v-if="comments?.length" class="my-4">
+            <p>Comments &searr;</p>
+            <div v-for="comment in comments" :key="comment.id" class="my-4">
+              <comment-row :comment="comment" :replies="[]"/>
+            </div>
+          </div>
         </div>
+      </div>
+
+      <div class="fixed top-0 p-1 mt-14 left-0 ml-14 transition-all duration-300">
+        <router-link to="/" class="btn text-lg block">Zurück</router-link>
       </div>
     </div>
   </div>
