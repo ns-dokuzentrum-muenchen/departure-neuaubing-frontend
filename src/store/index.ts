@@ -88,8 +88,9 @@ export const useStore = defineStore({
         params: { uid, token, nonce }
       }).then(({ data }) => {
         if (data.token) {
-          this.authToken = data.token
           window.localStorage?.setItem('token', data.token)
+          this.authToken = data.token
+          this.getUser()
         } else {
           throw new Error('Login-Fehler')
         }
@@ -115,6 +116,11 @@ export const useStore = defineStore({
         console.log(err.message)
         this.authToken = null
       })
+    },
+    logout () {
+      this.authToken = null
+      this.user = null
+      window.localStorage?.removeItem('token')
     },
 
     async register (name: string, email: string) {

@@ -1,7 +1,10 @@
 <template>
   <div>
     <div v-if="user">
-      <p>Angemeldet als: <strong>{{ user.name }}</strong></p>
+      <p>
+        Angemeldet als: <strong>{{ user.name }} </strong>
+        (<a @click="logout" class="underline cursor-pointer">abmelden</a>)
+      </p>
 
       <form @submit.prevent="submit" class="mt-2">
         <div class="mb-2">
@@ -63,13 +66,17 @@
             console.log(response.data.message)
           })
         } catch (err) {
-          errMsg.value = err.toString()
+          errMsg.value = (err as any).toString()
         }
       }
 
       const siteKey = import.meta.env.VITE_CAPTCHA_KEY as string
 
-      return { postId, user, form, errMsg, statusMsg, submit, siteKey }
+      const logout = () => {
+        store.logout()
+      }
+
+      return { postId, user, form, errMsg, statusMsg, submit, siteKey, logout }
     },
     components: { LoginSignup }
   })
