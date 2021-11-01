@@ -1,24 +1,18 @@
 <template>
   <div>
     <div v-if="user">
-      <form @submit.prevent="submit">
-        <!-- <div class="mb-2">
-          <input v-model="form.author_name" type="text" placeholder="Name" class="input" required>
-        </div>
-        <div class="mb-2">
-          <input v-model="form.author_email" type="email" placeholder="E-Mail" class="input" required>
-        </div> -->
+      <p>Angemeldet als: <strong>{{ user.name }}</strong></p>
+
+      <form @submit.prevent="submit" class="mt-2">
         <div class="mb-2">
           <textarea v-model="form.content" placeholder="Your comment" class="input" required></textarea>
         </div>
-        <!-- <div class="mb-2">
-          <vue-hcaptcha @verify="verify" :sitekey="siteKey" language="de" theme="dark" size="small"></vue-hcaptcha>
-        </div> -->
+
         <div>
-          <div v-if="errMsg" class="mb-2">
+          <div v-if="errMsg" class="mb-3">
             <p class="text-red-600">{{ errMsg }}</p>
           </div>
-          <div v-if="statusMsg" class="mb-2">
+          <div v-if="statusMsg" class="mb-3">
             <p class="text-green-600">{{ statusMsg }}</p>
           </div>
           <button type="submit" class="btn">Post comment</button>
@@ -46,7 +40,7 @@
       const { postId } = toRefs(props)
       const store = useStore()
 
-      const user = computed(() => store.authToken !== null)
+      const user = computed(() => store.user)
 
       const form = reactive({
         parent: null,
@@ -54,16 +48,11 @@
         content: 'ok prefill it'
       })
 
-      // const verify = (token: string) => {
-      //   console.log('got captcha token')
-      //   form.value['h-captcha-response'] = token
-      // }
-
       const errMsg: Ref<string | null> = ref(null)
       const statusMsg: Ref<string | null> = ref(null)
       const submit = async () => {
         try {
-          // await store.validateToken()
+          await store.validateToken()
 
           errMsg.value = null
 

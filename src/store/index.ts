@@ -103,6 +103,19 @@ export const useStore = defineStore({
         }
       })
     },
+    async getUser () {
+      if (!this.authToken) return
+      return api.get('/wp-json/wp/v2/users/me', {
+        headers: {
+          Authorization: `Bearer ${this.authToken}`
+        }
+      }).then(({ data }) => {
+        this.user = data
+      }).catch((err) => {
+        console.log(err.message)
+        this.authToken = null
+      })
+    },
 
     async register (name: string, email: string) {
       console.log('register', name, email)

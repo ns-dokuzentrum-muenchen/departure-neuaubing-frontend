@@ -10,7 +10,7 @@
         </div>
       </div>
 
-      <div class="px-8">
+      <div class="px-8 pb-px">
         <div class="max-w-3xl mx-auto mt-12 min-h-screen">
           <div class="absolute top-14">
             <h1 class="text-xl md:text-2xl lg:text-4xl font-medium">{{ post.title?.rendered }}</h1>

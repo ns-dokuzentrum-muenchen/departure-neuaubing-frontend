@@ -46,6 +46,9 @@
 
       provide('metaLayer', metaLayer)
 
+      // init user, if authToken exists
+      store.getUser()
+
       return { offset }
     },
     components: { AppHeader, MetaLayer, AppFooter }
