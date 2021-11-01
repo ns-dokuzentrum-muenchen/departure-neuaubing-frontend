@@ -63,7 +63,7 @@
             }
           })
         } else {
-          store.register(form.username, form.email)
+          store.register(form.username, form.email, nonce.value)
         }
       }
 

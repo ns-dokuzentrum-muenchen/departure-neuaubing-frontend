@@ -123,8 +123,13 @@ export const useStore = defineStore({
       window.localStorage?.removeItem('token')
     },
 
-    async register (name: string, email: string) {
-      console.log('register', name, email)
+    async register (username: string, email: string, nonce: string) {
+      return api.post('/wp-json/dn/v1/register', {
+        return_to: window.location.href,
+        username, email, nonce
+      }).then((res) => {
+        console.log(res)
+      })
     }
   }
 })
