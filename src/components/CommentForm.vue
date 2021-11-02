@@ -7,18 +7,21 @@
       </p>
 
       <form @submit.prevent="submit" class="mt-2">
-        <div class="mb-2">
+        <div class="mb-3">
           <textarea v-model="form.content" placeholder="Your comment" class="input" required></textarea>
         </div>
-
-        <div>
-          <div v-if="errMsg" class="mb-3">
-            <p class="text-red-600">{{ errMsg }}</p>
+        <div v-if="statusMsg" class="mb-3">
+          <p class="text-green-600">{{ statusMsg }}</p>
+        </div>
+        <div class="flex mb-3 items-center">
+          <div class="flex-none mr-4">
+            <button type="submit" class="btn">Post comment</button>
           </div>
-          <div v-if="statusMsg" class="mb-3">
-            <p class="text-green-600">{{ statusMsg }}</p>
-          </div>
-          <button type="submit" class="btn">Post comment</button>
+          <transition name="fade">
+            <div v-if="errMsg" class="flex-auto">
+              <p class="text-red-600 leading-none">{{ errMsg }}</p>
+            </div>
+          </transition>
         </div>
       </form>
     </div>

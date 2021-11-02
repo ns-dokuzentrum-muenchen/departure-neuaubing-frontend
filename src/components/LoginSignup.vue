@@ -10,14 +10,20 @@
       <div v-if="noUser && !sentSignup" class="mb-3">
         <input v-model="form.email" type="email" placeholder="E-Mail" class="input"/>
       </div>
-      <div v-if="errMsg" class="mb-3">
-        <p class="text-red-600">{{ errMsg }}</p>
-      </div>
       <div v-if="statusMsg" class="mb-3">
         <p class="text-green-600">{{ statusMsg }}</p>
       </div>
-      <button v-if="!sentLogin && !sentSignup" type="submit" class="btn">{{ noUser ? 'Registrieren' : 'Anmelden' }}</button>
-      <button v-else @click="reset" type="button" class="btn">E-Mail nicht angekommen?</button>
+      <div class="flex items-center mb-3">
+        <div class="flex-none mr-4">
+          <button v-if="!sentLogin && !sentSignup" type="submit" class="btn">{{ noUser ? 'Registrieren' : 'Anmelden' }}</button>
+          <button v-else @click="reset" type="button" class="btn">E-Mail nicht angekommen?</button>
+        </div>
+        <transition name="fade">
+          <div v-if="errMsg" class="flex-auto">
+            <p class="text-red-600 leading-none">{{ errMsg }}</p>
+          </div>
+        </transition>
+      </div>
     </form>
   </div>
 </template>
