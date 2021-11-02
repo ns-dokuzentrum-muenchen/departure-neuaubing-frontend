@@ -1,6 +1,9 @@
 <template>
   <div class="h-96 flex items-center justify-center">
-    <p class="text-4xl">{{ loginError ? 'Login-Fehler' : 'Einloggen...' }}</p>
+    <div class="text-center">
+      <p class="text-4xl">{{ loginError ? 'Login-Fehler' : 'Einloggen...' }}</p>
+      <p v-if="loginError" class="text-red-600">{{ errMsg }}</p>
+    </div>
   </div>
 </template>
 
@@ -17,15 +20,17 @@
       const store = useStore()
 
       const loginError = ref(false)
+      const errMsg = ref('')
 
       onMounted(() => {
         const { uid, token, nonce, return_to } = route.query
         if (uid && token && nonce) {
           store.verifyLogin(uid as string, token as string, nonce as string).then(() => {
             router.replace(return_to as string || '/')
-          }).catch((err) => {
-            console.log(err)
+          }).catch((res) => {
+            console.log(res.response?.data?.msg)
             loginError.value = true
+            errMsg.value = res.response?.data?.msg
             router.replace('')
           })
         } else {
@@ -33,7 +38,7 @@
         }
       })
 
-      return { loginError }
+      return { loginError, errMsg }
     }
   })
 </script>

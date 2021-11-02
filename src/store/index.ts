@@ -1,7 +1,7 @@
 import { defineStore, storeToRefs } from 'pinia'
 // import { useRoute } from 'vue-router'
 import state from './state'
-import axios from 'axios'
+import axios, { AxiosResponse } from 'axios'
 
 const api = axios.create({
   baseURL: import.meta.env.VITE_API_ENDPOINT as string,
@@ -102,6 +102,10 @@ export const useStore = defineStore({
         headers: {
           Authorization: `Bearer ${this.authToken}`
         }
+      }).catch((err) => {
+        console.log('Token error', err.response?.data)
+        this.authToken = null
+        window.localStorage?.removeItem('token')
       })
     },
     async getUser () {
@@ -125,10 +129,8 @@ export const useStore = defineStore({
 
     async register (username: string, email: string, nonce: string) {
       return api.post('/wp-json/dn/v1/register', {
-        return_to: window.location.href,
+        return_to: window.location.pathname,
         username, email, nonce
-      }).then((res) => {
-        console.log(res)
       })
     }
   }

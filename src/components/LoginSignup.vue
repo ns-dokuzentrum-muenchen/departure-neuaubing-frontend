@@ -1,19 +1,23 @@
 <template>
   <div>
     <form @submit.prevent="submit">
-      <div class="mb-2">
+      <p class="text-xl mb-3">
+        {{ noUser ? 'Konto erstellen' : 'Anmelden' }}
+      </p>
+      <div v-if="!sentLogin && !sentSignup" class="mb-3">
         <input v-model="form.username" :placeholder="`Benutzername${ !noUser ? ' oder die E-Mail-Adresse' : '' }`" type="text" class="input" required/>
       </div>
-      <div v-if="noUser" class="mb-2">
+      <div v-if="noUser && !sentSignup" class="mb-3">
         <input v-model="form.email" type="email" placeholder="E-Mail" class="input"/>
       </div>
-      <div v-if="errMsg" class="mb-2">
+      <div v-if="errMsg" class="mb-3">
         <p class="text-red-600">{{ errMsg }}</p>
       </div>
-      <div v-if="statusMsg" class="mb-2">
+      <div v-if="statusMsg" class="mb-3">
         <p class="text-green-600">{{ statusMsg }}</p>
       </div>
-      <button v-if="!sentLogin" type="submit" class="btn">{{ noUser ? 'Registrieren' : 'Anmelden' }}</button>
+      <button v-if="!sentLogin && !sentSignup" type="submit" class="btn">{{ noUser ? 'Registrieren' : 'Anmelden' }}</button>
+      <button v-else @click="reset" type="button" class="btn">E-Mail nicht angekommen?</button>
     </form>
   </div>
 </template>
@@ -33,6 +37,7 @@
       const statusMsg = ref('')
       const noUser = ref(false)
       const sentLogin = ref(false)
+      const sentSignup = ref(false)
 
       const form = reactive({
         username: '',
@@ -47,7 +52,6 @@
 
         if (noUser.value === false) {
           store.login(form.username, nonce.value).then(({ data }) => {
-            console.log(data)
             statusMsg.value = data.msg
             sentLogin.value = true
           }).catch((res) => {
@@ -63,15 +67,28 @@
             }
           })
         } else {
-          store.register(form.username, form.email, nonce.value)
+          store.register(form.username, form.email, nonce.value).then(({ data }) => {
+            statusMsg.value = data.msg
+            sentSignup.value = true
+          }).catch((res) => {
+            const msg = res.response?.data?.msg
+            errMsg.value = msg
+          })
         }
+      }
+
+      const reset = () => {
+        errMsg.value = ''
+        statusMsg.value = ''
+        sentLogin.value = false
+        sentSignup.value = false
       }
 
       onMounted(() => {
         store.loginNonce()
       })
 
-      return { user, form, submit, noUser, errMsg, statusMsg, sentLogin }
+      return { user, form, submit, noUser, errMsg, statusMsg, sentLogin, sentSignup, reset }
     }
   })
 </script>

@@ -142,6 +142,7 @@ body {
   @apply w-full px-4 py-2 outline-none border-none rounded-sm;
   @apply bg-gray-200 text-black;
   @apply focus:ring-4;
+  @apply block;
 
   &[type="search"] {
     @apply rounded-full;
