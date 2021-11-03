@@ -2,9 +2,9 @@
   <div v-if="settings?.video">
     <video-player :video="settings.video"/>
   </div>
-  <div class="p-3">
-    <div>
-      <project-item v-for="project in projects" :key="project.id" :project="project"/>
+  <div class="px-12 py-16 overflow-hidden">
+    <div class="grid grid-cols-12 gap-32 items-center justify-items-center">
+      <project-item v-for="(p, i) in projects" :key="i" :project="p" :col="i % 3" :pos="pos" :class="rowCol(i)" @move="move" class="col-start-7 col-auto"/>
     </div>
   </div>
 </template>
@@ -20,14 +20,36 @@
     setup () {
       const store = useStore()
       const settings = computed(() => store.settings)
-      const projects = computed(() => store.projects)
+      const projects = computed(() => settings.value?.projekte)
 
-      return { settings, projects }
+      const pos = computed({
+        get () { return store.indexPos },
+        set (value) {
+          if (typeof value !== 'number') return
+          store.indexPos = value
+        }
+      })
+
+      const rowCol = (i: number) => {
+        const row = Math.floor(i / 3) + 1
+        return `row-start-${row}`
+      }
+
+      const move = (to: number) => {
+        pos.value = to
+      }
+
+      return { settings, projects, pos, rowCol, move }
     },
-    // beforeRouteEnter (_to, _from, next) {
-    //   const store = useStore()
-    //   store.getProjects().then(next)
-    // },
     components: { VideoPlayer, ProjectItem }
   })
+
+  const whitelist = [ // 😵‍💫 JIT mode
+    'row-start-1',
+    'row-start-2',
+    'row-start-3',
+    'row-start-4',
+    'row-start-5',
+    'row-start-6'
+  ]
 </script>

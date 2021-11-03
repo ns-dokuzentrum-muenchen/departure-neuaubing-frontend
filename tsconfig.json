@@ -10,7 +10,6 @@
     "esModuleInterop": true,
     "lib": ["esnext", "dom"],
     "types": [
-      "vue",
       "vite/client",
       "@types/leaflet"
     ]

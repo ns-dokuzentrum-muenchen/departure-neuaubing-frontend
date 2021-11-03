@@ -1,7 +1,6 @@
-import { defineStore, storeToRefs } from 'pinia'
-// import { useRoute } from 'vue-router'
+import { defineStore } from 'pinia'
 import state from './state'
-import axios, { AxiosResponse } from 'axios'
+import axios from 'axios'
 
 const api = axios.create({
   baseURL: import.meta.env.VITE_API_ENDPOINT as string,
@@ -11,6 +10,11 @@ const api = axios.create({
 export const useStore = defineStore({
   id: 'store',
   state,
+  getters: {
+    idToProject: (state) => {
+      return (id: number) => state.projects?.find(p => p.id === id)
+    }
+  },
   actions: {
     async getSettings () {
       if (this.settings) return

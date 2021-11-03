@@ -2,8 +2,9 @@ interface State {
   title: string
   pretitle?: string
   description?: string
+  indexPos: number
   projects: Post[] | null
-  settings: object | null
+  settings: Settings | null
   glossar: { [index: string]: Post }
   comments: { [index: number]: Comment[] }
   darkMode: boolean
@@ -21,6 +22,7 @@ export default function state (): State {
     title: 'Departure Neuaubing',
     pretitle: 'Europäische Geschichten über Zwangsarbeit',
     description: 'Diese Webseite erzählt mit Kunst die Geschichte der nationalsozialistischen Zwangsarbeit als eine europäisch-vernetzte Geschichte.',
+    indexPos: 1,
 
     projects: null,
     settings: null,
@@ -167,4 +169,10 @@ export interface VideoData {
   modified_time: string
   pictures: { sizes: any[] }
   files: any[]
+}
+
+interface Settings {
+  cover?: Image
+  video?: any
+  projekte?: any[]
 }
