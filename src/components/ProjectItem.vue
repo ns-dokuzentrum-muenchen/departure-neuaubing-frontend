@@ -1,7 +1,7 @@
 <template>
   <div v-if="project" ref="el" :style="itemStyle" :class="reverse" class="flex w-max max-w-[72vw]">
     <figure ref="img" @click="move" class="w-max cursor-pointer">
-      <img :src="image.sizes.large" loading="lazy"/>
+      <img :src="image.sizes.large" :width="image.width" :height="image.height" :alt="image.caption || image.filename" loading="lazy"/>
     </figure>
 
     <div :class="textClass" class="px-4 max-w-96 transition-opacity duration-500">
