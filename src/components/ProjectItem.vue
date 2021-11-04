@@ -4,12 +4,12 @@
       <img :src="image.sizes.large" :width="image.width" :height="image.height" :alt="image.caption || image.filename" loading="lazy"/>
     </figure>
 
-    <div :class="textClass" class="px-4 max-w-96 transition-opacity duration-500">
+    <div :class="[textAlign, textClass]" class="px-4 max-w-96 transition-opacity duration-500">
       <h2 v-html="title" class="uppercase text-4xl lg:text-5xl styled-text"></h2>
       <div class="font-bold text-xl my-3">
         <p v-for="artist in artists" :key="artist.id">{{ artist.post_title }}</p>
       </div>
-      <div v-if="description" v-html="description" class="font-medium my-3"></div>
+      <div v-if="description" v-html="description" class="font-medium my-3 line-clamp-3 xl:line-clamp-4"></div>
       <div class="my-4">
         <router-link :to="link" class="btn inline-block">Eintreten</router-link>
       </div>
@@ -98,6 +98,15 @@
         }
         return classes
       })
+      const textAlign = computed(() => {
+        const opts = {
+          top: 'self-start',
+          center: 'self-center',
+          bottom: 'self-end'
+        }
+        const k: 'top' | 'center' | 'bottom' = data?.alignment
+        return opts[k]
+      })
       const textClass = computed(() => {
         return column.value !== position.value ? 'opacity-0 pointer-events-none' : ''
       })
@@ -129,6 +138,7 @@
         image,
         itemStyle,
         reverse,
+        textAlign,
         textClass,
         move
       }
