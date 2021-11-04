@@ -6,14 +6,22 @@
     <div class="grid grid-cols-12 gap-32 items-center justify-items-center">
       <project-item v-for="(p, i) in projects" :key="i" :project="p" :col="i % 3" :pos="pos" :class="rowCol(i)" @move="move" class="col-start-3 sm:col-start-4 lg:col-start-5 xl:col-start-6 col-auto"/>
     </div>
+
+    <div class="mt-16 md:mt-24 lg:mt-36 flex justify-center">
+      <button @click="reorder" class="btn">
+        <redo-icon class="inline-block mr-4 -ml-4 -mt-1" width="24" height="24"/>
+        <span>Seite neu Anordnen</span>
+      </button>
+    </div>
   </div>
 </template>
 
 <script lang="ts">
-  import { defineComponent, computed } from 'vue'
+  import { defineComponent, computed, WritableComputedRef } from 'vue'
   import { useStore } from '../store/index'
   import VideoPlayer from '../components/VideoPlayer.vue'
   import ProjectItem from '../components/ProjectItem.vue'
+  import RedoIcon from '../components/svg/RedoIcon.vue'
 
   export default defineComponent({
     name: 'Index',
@@ -22,7 +30,7 @@
       const settings = computed(() => store.settings)
       const projects = computed(() => settings.value?.projekte)
 
-      const pos = computed({
+      const pos: WritableComputedRef<number> = computed({
         get () { return store.indexPos },
         set (value) {
           if (typeof value !== 'number') return
@@ -39,9 +47,20 @@
         pos.value = to
       }
 
-      return { settings, projects, pos, rowCol, move }
+      let dir = 1
+      const reorder = () => {
+        console.log('reorder', dir)
+        if (pos.value === 0) {
+          dir = 1
+        } else if (pos.value === 2) {
+          dir = -1
+        }
+        pos.value = pos.value + dir
+      }
+
+      return { settings, projects, pos, rowCol, move, reorder }
     },
-    components: { VideoPlayer, ProjectItem }
+    components: { VideoPlayer, ProjectItem, RedoIcon }
   })
 
   const whitelist = [ // 😵‍💫 JIT mode

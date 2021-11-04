@@ -104,7 +104,7 @@
         router.push({ hash })
       }
 
-      return { metaLayer, vis, classes, metaTitle, metaEl, data, hash }
+      return { vis, classes, metaTitle, metaEl, data, hash }
     },
     components: { GlossarPost, ChevronLeft, SearchIcon, MetaControls }
   })
