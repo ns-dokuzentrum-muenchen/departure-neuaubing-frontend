@@ -35,6 +35,16 @@ const router = createRouter({
       meta: { seite: true }
     },
     {
+      path: '/forum',
+      name: 'forum',
+      component: () => import('./views/Forum.vue')
+    },
+    {
+      path: '/glossar',
+      name: 'glossar-index',
+      component: () => import('./views/GlossarIndex.vue')
+    },
+    {
       path: '/glossar/:slug',
       name: 'glossar',
       component: () => import('./views/Glossar.vue')

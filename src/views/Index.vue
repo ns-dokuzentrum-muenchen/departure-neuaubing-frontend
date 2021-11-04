@@ -49,7 +49,6 @@
 
       let dir = 1
       const reorder = () => {
-        console.log('reorder', dir)
         if (pos.value === 0) {
           dir = 1
         } else if (pos.value === 2) {
