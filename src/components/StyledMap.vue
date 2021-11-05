@@ -4,7 +4,7 @@
   </div>
 
   <div v-if="uploadAt">
-    <media-upload :latlng="uploadAt"/>
+    <media-upload :latlng="uploadAt" @close="uploadAt = null"/>
   </div>
 </template>
 

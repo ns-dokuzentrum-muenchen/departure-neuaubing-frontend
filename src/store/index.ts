@@ -136,6 +136,23 @@ export const useStore = defineStore({
         return_to: window.location.pathname,
         username, email, nonce
       })
+    },
+
+    async uploadFile (file: File) {
+      if (!this.authToken) return
+
+      return api.post('/wp-json/wp/v2/media', file, {
+        headers: {
+          Authorization: `Bearer ${this.authToken}`,
+          'Content-Type': file.type,
+          'Content-Disposition': `attachment; filename="${file.name}"`
+        }
+      }).then(({ data }) => data)
+    },
+    async createMarkierung (data: any) {
+      return api.post('/wp-json/wp/v2/markierung', data).then(({ data }) => {
+        console.log(data)
+      })
     }
   }
 })
