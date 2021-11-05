@@ -1,6 +1,9 @@
 <template>
-  <div class="mt-36 p-3">
-    <article>
+  <div class="">
+    <div v-if="hasMap">
+      <styled-map/>
+    </div>
+    <article class="mt-36 p-3">
       <project-title :project="project"/>
 
       <figure v-if="image" class="max-w-3xl mx-auto">
@@ -18,6 +21,7 @@
   import { useStore } from '../store'
   import { useRoute } from 'vue-router'
   import ProjectTitle from '../components/ProjectTitle.vue'
+  import StyledMap from '../components/StyledMap.vue'
 
   export default defineComponent({
     name: 'Project',
@@ -30,16 +34,19 @@
         return store.projects?.find(p => p?.slug === slug.value)
       })
 
-      const image = computed(() => project.value?.acf.image)
-      const description = computed(() => project.value?.acf.description)
+      const acf = computed(() => project.value?.acf || {})
 
+      const image = computed(() => acf.value.image)
+      const description = computed(() => acf.value.description)
 
-      return { project, image, description }
+      const hasMap = computed(() => acf.value.has_map)
+
+      return { project, image, description, hasMap }
     },
     // beforeRouteEnter (_to, _from, next) {
     //   const store = useStore()
     //   store.getProjects().then(next)
     // },
-    components: { ProjectTitle }
+    components: { ProjectTitle, StyledMap }
   })
 </script>

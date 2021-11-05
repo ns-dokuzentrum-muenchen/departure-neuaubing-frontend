@@ -64,7 +64,7 @@
         const padAmount = pad ? pw - iw : 0
 
         const space = step > 0 ? window.innerWidth - pw - p.offsetLeft : p.offsetLeft
-        const showWidth = random(0, 90)
+        const showWidth = random(-80, 90)
 
         const d = ((pw + space - showWidth - padAmount) / pw) * 100
 
