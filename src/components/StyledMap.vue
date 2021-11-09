@@ -9,13 +9,15 @@
 </template>
 
 <script lang="ts">
-  import { defineComponent, ref, Ref, onMounted } from 'vue'
+  import { defineComponent, ref, Ref, onMounted, computed, watch } from 'vue'
   import L, { LeafletMouseEvent, Map, LatLng } from 'leaflet'
+  import { useStore } from '../store'
   import MediaUpload from './MediaUpload.vue'
 
   export default defineComponent({
     name: 'Map',
     setup () {
+      const store = useStore()
       const mapEl = ref(null)
       const endpoint = 'https://stamen-tiles-{s}.a.ssl.fastly.net/toner/{z}/{x}/{y}{r}.png'
       const layer = L.tileLayer(endpoint, {
@@ -34,6 +36,8 @@
       onMounted(() => {
         if (!mapEl.value) return
 
+        store.getMarkers()
+
         const el = mapEl.value as HTMLElement
 
         map = L.map(el, {
@@ -47,12 +51,18 @@
 
         map.on('click', (e: LeafletMouseEvent) => {
           const latlng = e.latlng as L.LatLng
-          // // TODO: open form component modal? (no popup)
-          // L.popup().setLatLng(latlng)
-          //   .setContent(`<p>Upload a file here?</p>`)
-          //   .openOn(map)
-          uploadAt.value = latlng
+          uploadAt.value = latlng // opens form modal
         })
+      })
+
+      // content
+      const markers = computed(() => {
+        return store.myMarkers.concat(store.markers)
+      })
+
+      // TODO add the markers to the map, listen to changes
+      watch(markers, (list) => {
+        console.log('markers have been update', list)
       })
 
       return { mapEl, uploadAt }

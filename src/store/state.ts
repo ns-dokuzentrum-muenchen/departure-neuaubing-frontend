@@ -7,6 +7,8 @@ interface State {
   settings: Settings | null
   glossar: { [index: string]: Post }
   comments: { [index: number]: Comment[] }
+  markers: Post[]
+  myMarkers: Post[]
   darkMode: boolean
   theme: Theme,
   menuOpen: boolean
@@ -29,6 +31,9 @@ export default function state (): State {
 
     glossar: {},
     comments: {},
+
+    markers: [],
+    myMarkers: [], // TODO: save these in localStorage? remove when no longer `pending`
 
     darkMode: getCssMode(),
     theme: getTheme(),

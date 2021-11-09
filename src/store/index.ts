@@ -138,6 +138,11 @@ export const useStore = defineStore({
       })
     },
 
+    async getMarkers () {
+      return api.get('/wp-json/wp/v2/markierungen').then(({ data }) => {
+        this.markers = data
+      })
+    },
     async uploadFile (file: File) {
       if (!this.authToken) return
 
@@ -149,13 +154,13 @@ export const useStore = defineStore({
         }
       }).then(({ data }) => data)
     },
-    async createMarkierung (data: any) {
-      return api.post('/wp-json/wp/v2/markierung', data, {
+    async createMarker (data: any) {
+      return api.post('/wp-json/wp/v2/markierungen', data, {
         headers: {
           Authorization: `Bearer ${this.authToken}`
         }
       }).then(({ data }) => {
-        console.log(data)
+        this.myMarkers.unshift(data)
       })
     }
   }
