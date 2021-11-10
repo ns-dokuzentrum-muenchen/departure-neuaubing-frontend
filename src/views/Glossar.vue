@@ -30,7 +30,7 @@
       </div>
 
       <div class="fixed top-0 p-1 mt-14 left-0 ml-14 transition-all duration-300">
-        <router-link to="/" class="btn text-lg block">Zurück</router-link>
+        <router-link to="/" class="btn text-lg block shadow-lg">Zurück</router-link>
       </div>
     </div>
   </div>

@@ -36,7 +36,7 @@
                   Ich akzeptiere die AGBs
                 </label>
                 <div>
-                  <button class="btn" :disabled="uploading">{{ uploading ? 'Laden...' : 'Hochladen' }}</button>
+                  <button class="btn" :disabled="uploading">{{ uploading ? 'Lädt...' : 'Hochladen' }}</button>
                 </div>
               </div>
               <div v-if="formErr" class="mt-2 leading-tight">

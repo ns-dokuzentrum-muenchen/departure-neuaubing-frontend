@@ -1,6 +1,6 @@
 <template>
   <div v-if="project" ref="el" :style="itemStyle" :class="reverse" class="flex w-max max-w-[72vw]">
-    <figure ref="img" @click="move" class="w-max cursor-pointer">
+    <figure ref="img" @click="move" :style="imgStyle" :class="imgClasses" class="w-max cursor-pointer">
       <img :src="image.sizes.large" :width="image.width" :height="image.height" :alt="image.caption || image.filename" loading="lazy"/>
     </figure>
 
@@ -18,7 +18,7 @@
 </template>
 
 <script lang="ts">
-  import { defineComponent, computed, ref, onMounted } from 'vue'
+  import { defineComponent, computed, ref, Ref, onMounted, watch } from 'vue'
   import { useRouter } from 'vue-router'
   import { useStore } from '../store'
   import StyledText from './StyledText.vue'
@@ -39,8 +39,8 @@
       const id = data?.projekt
 
       const domLoaded = ref(false)
-      const el = ref(null)
-      const img = ref(null)
+      const el: Ref<null | HTMLElement> = ref(null)
+      const img: Ref<null | HTMLElement> = ref(null)
       const column = computed(() => props.col as number)
       const position = computed(() => props.pos as number)
 
@@ -52,16 +52,18 @@
       const link = computed(() => project.value ? `/projekte/${project.value.slug}` : '')
       const image = computed(() => data?.image)
 
+      const middleOffset = ref(0)
+
       const calcOffset = (step: number) => {
         if (!img.value || !el.value) return 0
 
-        const p = el.value as HTMLElement
-        const pw = p.offsetWidth
-        const iw = (img.value as HTMLElement).offsetWidth
+        const p = el.value as HTMLElement // parent el
+        const pw = p.offsetWidth // parent el width
+        const iw = (img.value as HTMLElement).offsetWidth // img width
 
-        const rev = data?.position === 'left'
+        const rev = data?.position === 'left' // acf
         const pad = (step < 0 && !rev) || (step > 0 && rev)
-        const padAmount = pad ? pw - iw : 0
+        const padAmount = pad ? pw - iw : 0 // ignore title area
 
         const space = step > 0 ? window.innerWidth - pw - p.offsetLeft : p.offsetLeft
         const showWidth = random(-80, 90)
@@ -88,6 +90,15 @@
           transform: `translate(${x}%, ${y}%)`
         }
       })
+      const imgStyle = computed(() => {
+        const rev = position.value > column.value
+        const val = middleOffset.value * (rev ? -1 : 1)
+
+        return {
+          transform: `translateX(${val}px)`
+        }
+      })
+      const imgClasses = ref('')
       const reverse = computed(() => {
         const classes: string[] = []
         if (domLoaded.value) {
@@ -120,10 +131,49 @@
         }
       }
 
+      const scrollListener = () => {
+        if (column.value === position.value) {
+          middleOffset.value = 0
+          return
+        }
+
+        const pos = el.value?.getBoundingClientRect()
+        if (!pos) return
+
+        const vc = window.innerHeight / 2
+        const st = vc / 2
+        const en = st * 3
+
+        const middle = pos.top + (pos.height / 2) // img center, on screen
+
+        if (st < middle && middle < en) {
+          const move = en - vc
+          const v = Math.abs(middle - vc) - move
+          const max = window.innerWidth / 20
+
+          // const step = easeInOutQuad(Math.min(Math.abs(v) / max, 1))
+          // middleOffset.value = step * max * -1
+          middleOffset.value = Math.max(v, (window.innerWidth / 20) * -1)
+        } else {
+          middleOffset.value = 0
+        }
+      }
+
       onMounted(() => {
         setTimeout(() => {
           domLoaded.value = true
+          window.addEventListener('scroll', scrollListener)
         }, 500)
+      })
+
+      watch(position, (newVal, oldVal) => {
+        if (newVal === position.value || oldVal === position.value) {
+          imgClasses.value = 'transition-transform duration-500'
+          scrollListener()
+          setTimeout(() => {
+            imgClasses.value = ''
+          }, 500)
+        }
       })
 
       return {
@@ -137,12 +187,19 @@
         link,
         image,
         itemStyle,
+        imgStyle,
+        imgClasses,
         reverse,
         textAlign,
         textClass,
-        move
+        move,
+        middleOffset
       }
     },
     components: { StyledText }
   })
+
+  function easeInOutQuad(x: number) {
+    return x < 0.5 ? 2 * x * x : 1 - Math.pow(-2 * x + 2, 2) / 2
+  }
 </script>

@@ -17,7 +17,7 @@
 </template>
 
 <script lang="ts">
-  import { defineComponent, computed, WritableComputedRef } from 'vue'
+  import { defineComponent, computed, WritableComputedRef, provide } from 'vue'
   import { useStore } from '../store/index'
   import VideoPlayer from '../components/VideoPlayer.vue'
   import ProjectItem from '../components/ProjectItem.vue'
@@ -56,6 +56,14 @@
         }
         pos.value = pos.value + dir
       }
+
+      const observer = new IntersectionObserver((entries) => {
+        for (const entry of entries) {
+          console.log(entry.isIntersecting)
+        }
+      })
+
+      provide('observer', observer)
 
       return { settings, projects, pos, rowCol, move, reorder }
     },
