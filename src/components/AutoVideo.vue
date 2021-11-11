@@ -1,7 +1,7 @@
 <template>
   <div ref="el" class="text-white relative w-full h-full">
     <div class="w-full h-full">
-      <video :id="id" ref="vid" :data-poster="poster" @lazybeforeunveil="view" @loadeddata="canplay" disablePictureInPicture :playsinline="inline" :width="video.width" :height="video.height" class="lazyload w-full h-full object-contain">
+      <video :id="id" ref="vid" :poster="poster" :width="video.width" :height="video.height" playsinline="true" autoplay="true" loop="true" muted="true" disablePictureInPicture class="lazyload w-full h-full object-contain">
         <source v-for="src in srcs" :key="src.md5" :src="src.link" :type="src.type">
       </video>
     </div>
@@ -11,30 +11,25 @@
 <script lang="ts">
   import { defineComponent, Ref, ref, computed, onMounted, nextTick } from 'vue'
   import { VideoData } from '../store/state'
-  import Plyr from 'plyr'
-  import 'plyr/src/sass/plyr.scss' // dist not working?
 
   export default defineComponent({
     name: 'VideoPlayer',
     props: {
-      video: Object,
-      auto: Boolean,
-      first: Boolean
+      video: Object
     },
     setup (props) {
       const video = computed(() => props.video as VideoData)
 
       const minSize = ref(360)
-      const plyr: Ref<null | Plyr> = ref(null)
 
       const el = ref(null)
       const vid = ref(null)
 
       const id = computed(() => {
-        if (!video.value) return 'plyr'
+        if (!video.value) return 'vid'
 
         const id = video.value.uri.split('/').pop()
-        return `plyr-${id}`
+        return `vid-${id}`
       })
       const poster = computed(() => {
         const img = video.value.pictures.sizes.slice(-1)
@@ -51,14 +46,6 @@
         if (bigger?.length) return bigger.slice(0, 1)
         return [smaller.pop()]
       })
-      const inline = computed(() => props.first)
-
-      const canplay = () => {
-        console.log('canplay... VideoPlayer.vue')
-      }
-      const view = () => {
-        console.log('view... VideoPlayer.vue')
-      }
 
       onMounted(async () => {
         if (!el.value) return
@@ -69,20 +56,20 @@
 
         await nextTick()
 
-        plyr.value = new Plyr(`#${id.value}`, {
-          muted: false,
-          disableContextMenu: true,
-          controls: ['play', 'progress', 'current-time', 'mute', 'fullscreen']
-        })
+        // plyr.value = new Plyr(`#${id.value}`, {
+        //   muted: false,
+        //   disableContextMenu: true,
+        //   controls: ['play', 'progress', 'current-time', 'mute', 'fullscreen']
+        // })
 
-        // maybe auto play...
-        if (!props.auto) return
+        // // maybe auto play...
+        // if (!props.auto) return
 
-        plyr.value.play()
-        // this.listeners()
+        // plyr.value.play()
+        // // this.listeners()
       })
 
-      return { el, vid, video, id, poster, srcs, plyr, minSize, inline, canplay, view }
+      return { el, vid, video, id, poster, srcs, minSize }
     }
   })
 </script>

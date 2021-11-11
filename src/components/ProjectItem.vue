@@ -1,7 +1,17 @@
 <template>
   <div v-if="project" ref="el" :style="itemStyle" :class="reverse" class="flex w-max max-w-[72vw]">
     <figure ref="img" @click="move" :style="imgStyle" :class="imgClasses" class="w-max cursor-pointer">
-      <img :src="image.sizes.large" :width="image.width" :height="image.height" :alt="image.caption || image.filename" loading="lazy"/>
+      <template v-if="mediaType === 'video'">
+        <auto-video :video="mediaData" :auto="true"></auto-video>
+      </template>
+      <template v-else-if="mediaType === 'image'">
+        <img :src="mediaData.sizes.large" :width="mediaData.width" :height="mediaData.height" :alt="mediaData.caption || mediaData.filename" loading="lazy"/>
+      </template>
+      <template v-else>
+        <div class="max-w-md text-xl md:text-2xl">
+          <p>{{ mediaData }}</p>
+        </div>
+      </template>
     </figure>
 
     <div :class="[textAlign, textClass]" class="px-4 max-w-96 transition-opacity duration-500">
@@ -22,6 +32,7 @@
   import { useRouter } from 'vue-router'
   import { useStore } from '../store'
   import StyledText from './StyledText.vue'
+  import AutoVideo from './AutoVideo.vue'
 
   const random = (min: number, max: number) => Math.floor(Math.random() * (max - min)) + min
 
@@ -47,10 +58,20 @@
       const project = computed(() => store.idToProject(id as number))
 
       const artists = computed(() => project.value?.acf?.person)
-      const title = computed(() => project.value?.acf?.html_title || project.value?.title?.rendered || '')
+      const title = computed(() => {
+        return project.value?.acf?.html_title || project.value?.title?.rendered || ''
+      })
       const description = computed(() => project.value?.acf?.description)
       const link = computed(() => project.value ? `/projekte/${project.value.slug}` : '')
-      const image = computed(() => data?.image)
+
+      const mediaType = computed(() => data?.type || 'text')
+      const mediaData = computed(() => {
+        const t = data?.type
+        if (!t) return ''
+        if (t === 'video') return data.video
+        if (t === 'image') return data.image
+        return data.text
+      })
 
       const middleOffset = ref(0)
 
@@ -149,18 +170,14 @@
         if (!pos) return
 
         const vc = window.innerHeight / 2
-        const st = -vc // vc / 2
-        const en = vc * 3 // st * 3
+        const st = (pos.height / 2) * -1 // vc / 2
+        const en = vc * 2 + (pos.height / 2) // st * 3
 
         const middle = pos.top + (pos.height / 2) // img center, on screen
 
         if (st < middle && middle < en) {
           const move = en - vc
           const v = Math.abs(middle - vc) - move
-          // const max = window.innerWidth / 20
-          // const step = easeInOutQuad(Math.min(Math.abs(v) / max, 1))
-          // middleOffset.value = step * max * -1
-          // const calc = Math.max(v, (window.innerWidth / 20) * -1)
 
           middleOffset.value = Math.asinh(v * v * v)
         } else {
@@ -194,7 +211,8 @@
         title,
         description,
         link,
-        image,
+        mediaType,
+        mediaData,
         itemStyle,
         imgStyle,
         imgClasses,
@@ -205,10 +223,10 @@
         middleOffset
       }
     },
-    components: { StyledText }
+    components: { StyledText, AutoVideo }
   })
 
-  function easeInOutQuad(x: number) {
-    return x < 0.5 ? 2 * x * x : 1 - Math.pow(-2 * x + 2, 2) / 2
-  }
+  // function easeInOutQuad(x: number) {
+  //   return x < 0.5 ? 2 * x * x : 1 - Math.pow(-2 * x + 2, 2) / 2
+  // }
 </script>

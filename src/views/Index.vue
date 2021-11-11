@@ -1,7 +1,7 @@
 <template>
   <div class="mx-24">
     <div class="my-12 md:my-16 lg:my-24">
-      <font-logo class="text-4xl md:text-6xl lg:text-8xl"/>
+      <font-logo class="text-5xl md:text-7xl lg:text-9xl"/>
     </div>
     <div class="">
       <div class="text-xl lg:text-2xl max-w-xl">
@@ -10,10 +10,10 @@
     </div>
   </div>
   <div class="mx-12 my-16 flex space-x-12 items-center">
-    <div v-if="settings?.video" class="w-full md:w-1/2">
+    <div v-if="settings?.video" class="w-full md:w-2/3">
       <video-player :video="settings.video"/>
     </div>
-    <div class="w-full md:w-1/2">
+    <div class="w-full md:w-1/3">
       <div class="text-xl lg:text-2xl max-w-xl">
         <p>
           <span class="text-blue-900">{{ location.city }}</span>
@@ -24,7 +24,7 @@
   </div>
   <div class="px-12 py-16 overflow-hidden">
     <div class="grid grid-cols-12 gap-32 items-center justify-items-center">
-      <project-item v-for="(p, i) in projects" :key="i" :project="p" :col="i % 3" :pos="pos" :class="rowCol(i)" @move="move" class="col-start-3 sm:col-start-4 lg:col-start-5 xl:col-start-6 col-auto"/>
+      <project-item v-for="(p, i) in projects" :key="i" :project="p" :col="i % 5" :pos="pos" :class="rowCol(i)" @move="move" class="col-start-3 sm:col-start-4 lg:col-start-5 xl:col-start-6 col-auto"/>
     </div>
 
     <div class="mt-16 md:mt-24 lg:mt-36 flex justify-center">
@@ -60,7 +60,7 @@
       })
 
       const rowCol = (i: number) => {
-        const row = Math.floor(i / 3) + 1
+        const row = Math.floor(i / 5) + 1
         return `row-start-${row}`
       }
 
@@ -72,7 +72,7 @@
       const reorder = () => {
         if (pos.value === 0) {
           dir = 1
-        } else if (pos.value === 2) {
+        } else if (pos.value === 4) {
           dir = -1
         }
         pos.value = pos.value + dir
