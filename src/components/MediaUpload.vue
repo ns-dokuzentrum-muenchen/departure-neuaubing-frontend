@@ -51,7 +51,7 @@
 </template>
 
 <script lang="ts">
-  import { defineComponent, computed, reactive, ref, Ref } from 'vue'
+  import { defineComponent, computed, reactive, ref } from 'vue'
   import { useStore } from '../store'
   import { LatLng } from 'leaflet'
   import LoginSignup from './LoginSignup.vue'
@@ -68,7 +68,7 @@
 
       const latlng = computed(() => props.latlng as LatLng)
 
-      const file: Ref<File | null> = ref(null)
+      const file = ref<File | null>(null)
       const form = reactive({
         title: '',
         content: ''

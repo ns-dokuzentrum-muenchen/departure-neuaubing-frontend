@@ -46,14 +46,13 @@ html {
   html { font-size: 18px; }
 }
 
+@screen touch {
+  .touch\:touch-action-none { touch-action: none; }
+}
+
 body {
   @apply bg-bg text-black dark:bg-gray-800 dark:text-white;
   -webkit-font-smoothing: antialiased;
-}
-
-.perspective {
-  perspective: 100px;
-  transform-style: preserve-3d;
 }
 
 .ml-logo {
@@ -118,7 +117,7 @@ body {
   @apply focus:ring-4 focus:outline-none;
 
   &.round {
-    @apply w-10 h-10 p-0 flex items-center justify-center;
+    @apply w-7 md:w-10 h-7 md:h-10 p-0.5 md:p-1.5 flex items-center justify-center;
   }
 
   @nest .theme-blau & {
@@ -163,7 +162,7 @@ body {
 }
 
 .switch {
-  @apply relative flex w-full;
+  @apply relative flex;
   @apply border border-white rounded-full bg-black bg-opacity-50;
   @apply leading-snug;
 }

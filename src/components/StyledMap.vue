@@ -9,7 +9,7 @@
 </template>
 
 <script lang="ts">
-  import { defineComponent, ref, Ref, onMounted, computed, watch } from 'vue'
+  import { defineComponent, ref, onMounted, computed, watch } from 'vue'
   import L, { LeafletMouseEvent, Map, LatLng } from 'leaflet'
   import { useStore } from '../store'
   import MediaUpload from './MediaUpload.vue'
@@ -30,7 +30,7 @@
         position: 'bottomright'
       })
 
-      const uploadAt: Ref<null | LatLng> = ref(null)
+      const uploadAt = ref<LatLng | null>(null)
 
       let map: Map;
       onMounted(() => {

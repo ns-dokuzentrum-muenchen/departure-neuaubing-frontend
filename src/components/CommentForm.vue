@@ -32,7 +32,7 @@
 </template>
 
 <script lang="ts">
-  import { defineComponent, toRefs, reactive, ref, Ref, computed } from 'vue'
+  import { defineComponent, toRefs, reactive, ref, computed } from 'vue'
   import { useStore } from '../store'
   // import VueHcaptcha from '@hcaptcha/vue3-hcaptcha'
   import LoginSignup from './LoginSignup.vue'
@@ -54,8 +54,8 @@
         content: 'ok prefill it'
       })
 
-      const errMsg: Ref<string | null> = ref(null)
-      const statusMsg: Ref<string | null> = ref(null)
+      const errMsg = ref<string | null>(null)
+      const statusMsg = ref<string | null>(null)
       const submit = async () => {
         try {
           await store.validateToken()

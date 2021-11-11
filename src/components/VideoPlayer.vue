@@ -9,7 +9,7 @@
 </template>
 
 <script lang="ts">
-  import { defineComponent, Ref, ref, computed, onMounted, nextTick } from 'vue'
+  import { defineComponent, ref, computed, onMounted, nextTick } from 'vue'
   import { VideoData } from '../store/state'
   import Plyr from 'plyr'
   import 'plyr/src/sass/plyr.scss' // dist not working?
@@ -25,7 +25,7 @@
       const video = computed(() => props.video as VideoData)
 
       const minSize = ref(360)
-      const plyr: Ref<null | Plyr> = ref(null)
+      const plyr = ref<Plyr | null>(null)
 
       const el = ref(null)
       const vid = ref(null)

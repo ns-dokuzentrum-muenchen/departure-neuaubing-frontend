@@ -4,16 +4,16 @@
       <div class="w-full h-full bg-theme dark:bg-black"></div>
     </div>
 
-    <div class="flex relative items-center p-3">
-      <div @click.stop class="w-20 flex justify-center">
-        <menu-button/>
+    <div class="flex relative items-center p-1 md:p-3">
+      <div @click.stop class="flex justify-center">
+        <menu-button class="px-4 md:px-12"/>
       </div>
-      <div :class="menuOpen ? 'opacity-100' : 'opacity-0'" class="group-hover:opacity-100 transition-opacity flex-auto">
-        <p class="text-lg lg:text-2xl font-light">
+      <div :class="menuOpen ? 'opacity-100' : 'opacity-0'" class="notouch:group-hover:opacity-100 transition-opacity flex-auto">
+        <p class="text-md md:text-lg lg:text-2xl font-light leading-tight">
           <span>{{ pretitle }}</span>
         </p>
       </div>
-      <div :class="menuOpen ? 'opacity-100' : 'opacity-0'" class="w-2/5 flex items-center transition-opacity">
+      <div :class="menuOpen ? 'opacity-100' : 'opacity-0'" class="hidden md:flex w-2/5 items-center transition-opacity">
         <div class="w-1/2">
           Webanalyse &nbsp; <analytics-icon class="inline"/>
         </div>
@@ -24,40 +24,49 @@
     </div>
 
     <transition @enter="slideOpen" @leave="slideClose">
-      <div v-if="menuOpen" data-fade="true" @click.stop class="overflow-hidden px-3 relative flex">
-        <div class="w-20"></div>
+      <div v-if="menuOpen" data-fade="true" @click.stop class="overflow-hidden px-3 relative md:flex">
+        <div class="w-16 md:w-20"></div>
 
-        <div class="flex-auto mt-2">
-          <ul class="text-2xl font-light">
-            <li>
+        <div class="flex-auto pt-6 md:pt-2 px-2 md:px-0">
+          <ul class="md:text-lg lg:text-2xl font-light">
+            <li class="my-1 md:my-0">
               <router-link to="/" class="hover:underline">Start</router-link>
             </li>
-            <li>
+            <li class="my-1 md:my-0">
               <p>Projekte</p>
               <ul class="pl-8">
-                <li v-for="project in projects" :key="project.id">
+                <li v-for="project in projects" :key="project.id" class="my-1 md:my-0">
                   <router-link :to="`/projekte/${project.slug}`" class="hover:underline">{{ project.title?.rendered }}</router-link>
                 </li>
               </ul>
             </li>
-            <li><router-link to="/ueber" class="hover:underline">Über</router-link></li>
-            <li><router-link to="/impressum" class="hover:underline">Impressum</router-link></li>
+            <li class="my-1 md:my-0"><router-link to="/ueber" class="hover:underline">Über</router-link></li>
+            <li class="my-1 md:my-0"><router-link to="/impressum" class="hover:underline">Impressum</router-link></li>
           </ul>
 
-          <div class="my-12">
+          <div class="hidden md:block my-12">
             <a href="https://www.ns-dokuzentrum-muenchen.de/home/" target="_blank" rel="noopener" class="hover:opacity-70 transition-opacity block">
               <ns-doku-logo/>
             </a>
           </div>
         </div>
 
-        <div class="w-2/5 flex flex-wrap mt-4">
-          <radio-switches/>
+        <div class="md:hidden mx-2 my-4 border-b"></div>
 
-          <div class="mt-16 w-full">
-            <h1 class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl">
-              <router-link to="/"><font-logo/></router-link>
-            </h1>
+        <div class="md:w-2/5 flex flex-wrap mt-4">
+          <radio-switches class="mb-2 md:mb-0"/>
+
+          <div class="md:hidden mx-2 my-4 border-b w-full"></div>
+
+          <div class="mx-2 md:mx-0 mt-2 mb-6 md:mb-0 md:mt-16 w-full flex items-end">
+            <div class="md:hidden w-1/2">
+              <ns-doku-logo class="max-w-24 h-auto"/>
+            </div>
+            <div class="w-2/3 md:w-full">
+              <h1 class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl">
+                <router-link to="/"><font-logo/></router-link>
+              </h1>
+            </div>
           </div>
         </div>
       </div>
@@ -76,6 +85,7 @@
   import AnalyticsIcon from './svg/AnalyticsIcon.vue'
   import ContrastIcon from './svg/ContrastIcon.vue'
   import { onClickOutside } from '@vueuse/core'
+  import { slideOpen, slideClose } from '../utils'
 
   export default defineComponent({
     name: 'AppHeader',
@@ -101,7 +111,7 @@
       // const darkMode = ref(store.darkMode)
 
       const barHeight = computed(() => {
-        return menuOpen.value ? 'h-full' : 'h-2 group-hover:h-full'
+        return menuOpen.value ? 'h-full' : 'h-2 notouch:group-hover:h-full'
       })
 
       const route = useRoute()
@@ -112,8 +122,9 @@
 
       const projects = computed(() => store.projects)
 
-      async function maybeOpen () {
+      async function maybeOpen (e: Event) {
         await nextTick()
+        console.log(e)
         if (!store.menuOpen) {
           toggleMenu()
         }
@@ -126,10 +137,11 @@
         pretitle,
         // title,
         // description,
-        // darkMode,
         barHeight,
         projects,
-        maybeOpen
+        maybeOpen,
+        slideOpen,
+        slideClose
       }
     },
     components: { FontLogo, MenuButton, RadioSwitches, NsDokuLogo, AnalyticsIcon, ContrastIcon }

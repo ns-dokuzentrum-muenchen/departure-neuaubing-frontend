@@ -29,7 +29,7 @@
         return menuOpen.value ? 'Close the menu' : 'Open the menu'
       })
 
-      const closedColors = ''
+      const closedColors = 'text-black dark:text-white'
       const pipes = computed(() => {
         return (menuOpen.value ? 'opacity-0 h-0' : 'h-6 ' + closedColors)
       })

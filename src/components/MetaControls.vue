@@ -1,8 +1,8 @@
 <template>
-  <div v-if="available" :class="classes" class="fixed top-0 p-1 rounded-full mt-14 mr-12 transition-all duration-300">
+  <div v-if="available" :class="classes" class="fixed top-0 p-1 rounded-full mt-4 md:mt-14 mr-2 md:mr-12 transition-all duration-300">
     <div>
       <button @click="openMeta" class="btn round">
-        <chevron-left class="-translate-x-px"/>
+        <chevron-left class="-translate-x-px w-full h-full"/>
       </button>
     </div>
     <transition name="fade">

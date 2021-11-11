@@ -1,6 +1,6 @@
 <template>
-  <div v-if="project" ref="el" :style="itemStyle" :class="reverse" class="flex w-max max-w-[72vw]">
-    <figure ref="img" @click="move" :style="imgStyle" :class="imgClasses" class="w-max cursor-pointer">
+  <div v-if="project" ref="el" :style="itemStyle" :class="reverse" class="md:flex w-max max-w-[72vw]">
+    <figure ref="img" @click="move" @keyup.enter="move" :style="imgStyle" :class="imgClasses" :tabindex="column === position ?0 : -1" class="md:w-max cursor-pointer">
       <template v-if="mediaType === 'video'">
         <auto-video :video="mediaData" :auto="true"></auto-video>
       </template>
@@ -21,14 +21,14 @@
       </div>
       <div v-if="description" v-html="description" class="font-medium my-3 line-clamp-3 xl:line-clamp-4"></div>
       <div class="my-4">
-        <router-link :to="link" class="btn inline-block">Eintreten</router-link>
+        <router-link :to="link" :tabindex="column === position ?0 : -1" class="btn inline-block">Eintreten</router-link>
       </div>
     </div>
   </div>
 </template>
 
 <script lang="ts">
-  import { defineComponent, computed, ref, Ref, onMounted, watch } from 'vue'
+  import { defineComponent, computed, ref, onMounted, watch } from 'vue'
   import { useRouter } from 'vue-router'
   import { useStore } from '../store'
   import StyledText from './StyledText.vue'
@@ -50,8 +50,8 @@
       const id = data?.projekt
 
       const domLoaded = ref(false)
-      const el: Ref<null | HTMLElement> = ref(null)
-      const img: Ref<null | HTMLElement> = ref(null)
+      const el = ref<HTMLElement | null>(null)
+      const img = ref<HTMLElement | null>(null)
       const column = computed(() => props.col as number)
       const position = computed(() => props.pos as number)
 
@@ -87,7 +87,8 @@
         const padAmount = pad ? pw - iw : 0 // ignore title area
 
         const space = step > 0 ? window.innerWidth - pw - p.offsetLeft : p.offsetLeft
-        const showWidth = random(-80, 90)
+        const overlap = Math.round(window.innerWidth / 12)
+        const showWidth = random(overlap * -1, overlap)
 
         const d = ((pw + space - showWidth - padAmount) / pw) * 100
 
@@ -203,6 +204,8 @@
       })
 
       return {
+        column,
+        position,
         domLoaded,
         el,
         img,
