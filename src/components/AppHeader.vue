@@ -95,10 +95,10 @@
       })
 
       const pretitle = store.pretitle
-      const title = store.title
-      const description = store.description
+      // const title = store.title
+      // const description = store.description
 
-      const darkMode = ref(store.darkMode)
+      // const darkMode = ref(store.darkMode)
 
       const barHeight = computed(() => {
         return menuOpen.value ? 'h-full' : 'h-2 group-hover:h-full'
@@ -122,11 +122,11 @@
       return {
         header,
         menuOpen,
-        toggleMenu,
+        // toggleMenu,
         pretitle,
-        title,
-        description,
-        darkMode,
+        // title,
+        // description,
+        // darkMode,
         barHeight,
         projects,
         maybeOpen

@@ -29,6 +29,20 @@ export const useStore = defineStore({
       })
     },
 
+    async getVisitorDistance () {
+      // if (this.visitorDistance) return
+      return api.get('/wp-json/dn/v1/geo').then(({ data }) => {
+        if (!data) return
+
+        if ('de' in data.city) {
+          this.visitorDistance.city = data.city.de
+        } else if ('de' in data?.country) {
+          this.visitorDistance.city = data.country.de
+        }
+        this.visitorDistance.distance = Math.round(data.distance).toLocaleString()
+      })
+    },
+
     async getGlossaryTerm (slug: string) {
       if (this.glossar[slug]) return
       return api.get('/wp-json/wp/v2/glossar', {

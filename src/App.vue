@@ -2,7 +2,7 @@
   <div>
     <app-header/>
 
-    <main :class="{ '-translate-x-36': offset }" class="transition-transform delay-75">
+    <main :class="{ '-translate-x-36': offset }" class="transition-transform delay-75 pt-px">
       <router-view/>
     </main>
 

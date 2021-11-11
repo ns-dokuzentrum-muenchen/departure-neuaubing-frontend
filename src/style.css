@@ -38,7 +38,9 @@
 @tailwind components;
 @tailwind utilities;
 
-html { font-size: 16px; }
+html {
+  font-size: 16px;
+}
 
 @screen 2xl {
   html { font-size: 18px; }
@@ -47,6 +49,11 @@ html { font-size: 16px; }
 body {
   @apply bg-bg text-black dark:bg-gray-800 dark:text-white;
   -webkit-font-smoothing: antialiased;
+}
+
+.perspective {
+  perspective: 100px;
+  transform-style: preserve-3d;
 }
 
 .ml-logo {

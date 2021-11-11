@@ -1,6 +1,26 @@
 <template>
-  <div v-if="settings?.video">
-    <video-player :video="settings.video"/>
+  <div class="mx-24">
+    <div class="my-12 md:my-16 lg:my-24">
+      <font-logo class="text-4xl md:text-6xl lg:text-8xl"/>
+    </div>
+    <div class="">
+      <div class="text-xl lg:text-2xl max-w-xl">
+        <p>Im Münchner Stadtteil Neuaubing existiert heute noch acht Baracken eines ehemaligen Zwangsarbeiter*innenlagers aus der NS-Zeit.</p>
+      </div>
+    </div>
+  </div>
+  <div class="mx-12 my-16 flex space-x-12 items-center">
+    <div v-if="settings?.video" class="w-full md:w-1/2">
+      <video-player :video="settings.video"/>
+    </div>
+    <div class="w-full md:w-1/2">
+      <div class="text-xl lg:text-2xl max-w-xl">
+        <p>
+          <span class="text-blue-900">{{ location.city }}</span>
+          ist {{ location.distance }} Kilometer von Neuaubing entfernt.
+        </p>
+      </div>
+    </div>
   </div>
   <div class="px-12 py-16 overflow-hidden">
     <div class="grid grid-cols-12 gap-32 items-center justify-items-center">
@@ -17,11 +37,12 @@
 </template>
 
 <script lang="ts">
-  import { defineComponent, computed, WritableComputedRef, provide } from 'vue'
+  import { defineComponent, computed, WritableComputedRef, onMounted } from 'vue'
   import { useStore } from '../store/index'
   import VideoPlayer from '../components/VideoPlayer.vue'
   import ProjectItem from '../components/ProjectItem.vue'
   import RedoIcon from '../components/svg/RedoIcon.vue'
+  import FontLogo from '../components/FontLogo.vue'
 
   export default defineComponent({
     name: 'Index',
@@ -57,17 +78,20 @@
         pos.value = pos.value + dir
       }
 
-      const observer = new IntersectionObserver((entries) => {
-        for (const entry of entries) {
-          console.log(entry.isIntersecting)
-        }
+      // const observer = new IntersectionObserver((entries) => {
+      //   for (const entry of entries) {
+      //     console.log(entry.isIntersecting)
+      //   }
+      // })
+      onMounted(() => {
+        store.getVisitorDistance()
       })
 
-      provide('observer', observer)
+      const location = computed(() => store.visitorDistance)
 
-      return { settings, projects, pos, rowCol, move, reorder }
+      return { settings, projects, pos, rowCol, move, reorder, location }
     },
-    components: { VideoPlayer, ProjectItem, RedoIcon }
+    components: { VideoPlayer, ProjectItem, RedoIcon, FontLogo }
   })
 
   const whitelist = [ // 😵‍💫 JIT mode

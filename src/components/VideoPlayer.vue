@@ -1,18 +1,10 @@
 <template>
   <div ref="el" class="text-white relative w-full h-full">
     <div class="w-full h-full">
-      <video :id="id" ref="vid" :data-poster="poster" @lazybeforeunveil="view" @loadeddata="canplay" disablePictureInPicture :playsinline="inline" class="lazyload w-full h-full object-contain">
+      <video :id="id" ref="vid" :data-poster="poster" @lazybeforeunveil="view" @loadeddata="canplay" disablePictureInPicture :playsinline="inline" :width="video.width" :height="video.height" class="lazyload w-full h-full object-contain">
         <source v-for="src in srcs" :key="src.md5" :src="src.link" :type="src.type">
       </video>
     </div>
-
-    <!-- <transition name="fade">
-      <div v-if="videoPlaying && first" class="absolute top-0 right-0 z-20">
-        <button @click="close" class="p-4 rounded-full active:opacity-75 focus:outline-none group">
-          <img src="../assets/x-icon.svg" class="w-5 h-5" alt="Exit video player"/>
-        </button>
-      </div>
-    </transition> -->
   </div>
 </template>
 
@@ -61,6 +53,13 @@
       })
       const inline = computed(() => props.first)
 
+      const canplay = () => {
+        console.log('canplay... VideoPlayer.vue')
+      }
+      const view = () => {
+        console.log('view... VideoPlayer.vue')
+      }
+
       onMounted(async () => {
         if (!el.value) return
 
@@ -79,7 +78,7 @@
         // maybe auto play...
       })
 
-      return { el, vid, video, id, poster, srcs, plyr, minSize, inline }
+      return { el, vid, video, id, poster, srcs, plyr, minSize, inline, canplay, view }
     }
   })
 </script>

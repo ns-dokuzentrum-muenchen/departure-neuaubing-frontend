@@ -94,8 +94,16 @@
         const rev = position.value > column.value
         const val = middleOffset.value * (rev ? -1 : 1)
 
+        let y = 0
+
+        if (el.value && column.value !== position.value) {
+          const p = el.value as HTMLElement
+          const ph = p.getBoundingClientRect().top
+          y = (ph - (window.innerHeight / 2)) / 10
+        }
+
         return {
-          transform: `translateX(${val}px)`
+          transform: `translate(${val}px, ${y * -1}px)`
         }
       })
       const imgClasses = ref('')
@@ -141,19 +149,20 @@
         if (!pos) return
 
         const vc = window.innerHeight / 2
-        const st = vc / 2
-        const en = st * 3
+        const st = -vc // vc / 2
+        const en = vc * 3 // st * 3
 
         const middle = pos.top + (pos.height / 2) // img center, on screen
 
         if (st < middle && middle < en) {
           const move = en - vc
           const v = Math.abs(middle - vc) - move
-          const max = window.innerWidth / 20
-
+          // const max = window.innerWidth / 20
           // const step = easeInOutQuad(Math.min(Math.abs(v) / max, 1))
           // middleOffset.value = step * max * -1
-          middleOffset.value = Math.max(v, (window.innerWidth / 20) * -1)
+          // const calc = Math.max(v, (window.innerWidth / 20) * -1)
+
+          middleOffset.value = Math.asinh(v * v * v)
         } else {
           middleOffset.value = 0
         }

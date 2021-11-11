@@ -5,6 +5,7 @@ interface State {
   indexPos: number
   projects: Post[] | null
   settings: Settings | null
+  visitorDistance: any
   glossar: { [index: string]: Post }
   comments: { [index: number]: Comment[] }
   markers: Post[]
@@ -28,6 +29,10 @@ export default function state (): State {
 
     projects: null,
     settings: null,
+    visitorDistance: {
+      city: '...',
+      distance: '...'
+    },
 
     glossar: {},
     comments: {},
