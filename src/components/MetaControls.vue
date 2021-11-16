@@ -2,7 +2,7 @@
   <div v-if="available" :class="classes" class="fixed top-0 p-1 rounded-full mt-4 md:mt-14 mr-2 md:mr-12 transition-all duration-300">
     <div>
       <button @click="openMeta" class="btn round">
-        <chevron-left class="-translate-x-px w-full h-full"/>
+        <info-icon class="-translate-x-px w-full h-full"/>
       </button>
     </div>
     <transition name="fade">
@@ -19,6 +19,7 @@
   import { defineComponent, ComputedRef, inject, computed } from 'vue'
   // import { useStore } from '../store'
   import { useRoute, useRouter } from 'vue-router'
+  import InfoIcon from './svg/InfoIcon.vue'
   import ChevronLeft from './svg/ChevronLeft.vue'
   import CloseIcon from './svg/CloseIcon.vue'
 
@@ -57,8 +58,8 @@
         }
       }
 
-      return { available, metaLayer, vis, classes, openMeta, closeMeta }
+      return { available, vis, classes, openMeta, closeMeta }
     },
-    components: { ChevronLeft, CloseIcon }
+    components: { InfoIcon, ChevronLeft, CloseIcon }
   })
 </script>

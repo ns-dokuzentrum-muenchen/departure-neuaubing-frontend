@@ -111,7 +111,7 @@ type ACF = {
   person?: any[]
   tags?: object[]
   versions?: Post[]
-  has_map?: boolean
+  content?: any[]
 }
 
 interface Image extends Post {

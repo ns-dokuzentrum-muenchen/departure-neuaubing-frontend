@@ -11,7 +11,8 @@
     "lib": ["esnext", "dom"],
     "types": [
       "vite/client",
-      "@types/leaflet"
+      "@types/leaflet",
+      "@types/flickity"
     ]
   },
   "include": ["src/**/*.ts", "src/**/*.d.ts", "src/**/*.tsx", "src/**/*.vue"]

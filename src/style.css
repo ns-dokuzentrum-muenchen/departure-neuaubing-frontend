@@ -59,6 +59,10 @@ body {
   margin-left: 1.14em;
 }
 
+.html {
+  & p + p { @apply mt-4; }
+}
+
 .styled-text {
   @apply font-extralight;
 
@@ -66,6 +70,7 @@ body {
     @apply font-serif text-bump;
   }
 }
+
 
 .bg-theme {
   @nest .theme-blau & {
@@ -195,6 +200,8 @@ body {
 }
 
 [class*="dark:"] { @apply transition-all; }
+
+/* plugins */
 
 :root {
   --plyr-color-main: rgba(0, 0, 0, 0);
