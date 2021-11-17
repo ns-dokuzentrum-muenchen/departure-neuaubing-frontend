@@ -1,9 +1,13 @@
 <template>
   <div class="-mx-4 md:-mx-8">
-    <div id="carousel" :style="calcHeight" class="overflow-hidden outline-none">
-      <div v-for="(group, i) in gallery" :key="i" class="flex space-x-8 h-full px-12">
-        <figure v-for="img in group" :key="img.id" class="h-full w-max">
-          <img :src="img.sizes?.large" :style="calcHeight" :width="img.width" :height="img.height" :alt="img.alt" class="h-full w-max" loading="lazy"/>
+    <div id="carousel" class="overflow-hidden outline-none">
+      <div v-for="(group, i) in gallery" :key="i" class="flex space-x-8 px-12">
+        <figure v-for="img in group" :key="img.id" class="w-min">
+          <div class="w-max">
+            <img :src="img.sizes?.large" :style="calcHeight" :width="img.width" :height="img.height" :alt="img.alt" class="w-max" loading="lazy"/>
+          </div>
+
+          <figcaption v-if="img.caption" :class="{ 'opacity-0': slide !== i }" class="max-w-prose text-sm mt-2 transition-opacity">{{ img.caption }}</figcaption>
         </figure>
       </div>
     </div>
@@ -11,8 +15,8 @@
 </template>
 
 <script lang="ts">
-  import { defineComponent, ref, computed, onMounted } from 'vue'
-  import Flickity from 'flickity'
+  import { defineComponent, ref, computed, onMounted, nextTick } from 'vue'
+  import Flickity from 'flickity-imagesloaded'
 
   export default defineComponent({
     props: {
@@ -39,17 +43,25 @@
         }
       })
 
-      onMounted(() => {
-        new Flickity('#carousel', {
+      const slide = ref(0)
+
+      onMounted(async () => {
+        await nextTick()
+
+        const flkty = new Flickity('#carousel', {
           cellAlign: 'center',
-          setGallerySize: false
+          setGallerySize: true,
+          imagesLoaded: true,
+          // selectedAttraction: 0.015,
+          // friction: 0.25
+        })
+
+        flkty.on('select', (idx: number) => {
+          slide.value = idx
         })
       })
 
-      return { imgHeight, gallery, calcHeight }
+      return { imgHeight, gallery, calcHeight, slide }
     }
   })
 </script>
-
-<style>
-</style>
