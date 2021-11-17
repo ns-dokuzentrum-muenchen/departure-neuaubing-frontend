@@ -111,7 +111,7 @@ type ACF = {
   person?: any[]
   tags?: object[]
   versions?: Post[]
-  content?: any[]
+  content?: AcfRow[]
 }
 
 interface Image extends Post {
@@ -180,6 +180,15 @@ export interface VideoData {
   modified_time: string
   pictures: { sizes: any[] }
   files: any[]
+}
+
+interface AcfRow {
+  acf_fc_layout: string
+  position?: string
+  size?: string
+  text?: string
+  group?: string
+  gallery?: Image[]
 }
 
 interface Settings {
