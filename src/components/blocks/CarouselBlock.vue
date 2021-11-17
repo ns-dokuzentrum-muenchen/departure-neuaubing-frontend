@@ -52,6 +52,8 @@
           cellAlign: 'center',
           setGallerySize: true,
           imagesLoaded: true,
+          pageDots: false,
+          prevNextButtons: false
           // selectedAttraction: 0.015,
           // friction: 0.25
         })
