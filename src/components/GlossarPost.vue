@@ -18,14 +18,14 @@
       </div>
 
       <div class="mb-4">
-        <p class="font-medium text-lg">{{ acf.person[0].post_title }}</p>
-        <div v-html="acf.person[0].acf?.biographie" class="line-clamp-3"></div>
+        <p class="font-medium text-lg">{{ acf.person?.[0].post_title }}</p>
+        <div v-html="acf.person?.[0].acf?.biographie" class="line-clamp-3"></div>
       </div>
 
-      <div v-if="acf.glossar?.length" class="mb-4">
+      <div v-if="links?.length" class="mb-4">
         <p class="font-medium text-lg">Glossar</p>
         <ul>
-          <li v-for="term in post.acf.glossar" :key="term.ID">
+          <li v-for="term in links" :key="term.ID">
             <router-link :to="`/glossar/${term.post_name}`">
               <span>{{ term.post_title }}</span>
               <sup v-if="term.comment_count !== '0'">{{ term.comment_count }}</sup>
@@ -38,7 +38,7 @@
 </template>
 
 <script lang="ts">
-  import { defineComponent, toRef } from 'vue'
+  import { defineComponent, computed } from 'vue'
   import { Post } from '../store/types'
 
   export default defineComponent({
@@ -47,10 +47,14 @@
       post: Object
     },
     setup (props) {
-      const post = toRef(props, 'post')
-      const acf = (post.value as Post).acf
+      const post = props.post as Post
+      const acf = post.acf
 
-      return { post, acf }
+      const links = computed(() => {
+        return post?.acf.connections
+      })
+
+      return { post, acf, links }
     }
   })
 </script>

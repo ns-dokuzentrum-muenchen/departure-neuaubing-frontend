@@ -26,7 +26,12 @@
       </div>
       <div class="px-10 my-6">
         <h3 class="text-xl">Kontext</h3>
-        <glossar-post v-for="post in data.posts" :key="post.id" :post="post" class="my-4"/>
+        <template v-if="data.post">
+          <glossar-post :post="data.post" class="my-f"/>
+        </template>
+        <template v-if="data.posts?.length">
+          <glossar-post v-for="post in data.posts" :key="post.id" :post="post" class="my-4"/>
+        </template>
       </div>
     </div>
 

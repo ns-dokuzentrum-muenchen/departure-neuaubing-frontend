@@ -31,6 +31,7 @@ export type Post = {
   acf: ACF
 
   comment_status: string
+  comment_count: string
   author: number
   date: string
   modifed: string
