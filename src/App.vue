@@ -31,16 +31,16 @@
 
       const metaLayer = computed(() => {
         if (!route.hash) return 0
-        switch (route.hash) {
-          case '#seitenleiste':
-            return 1
-          case '#kontext':
-          case '#glossar':
-          case '#forum':
-            return 2
-          default:
-            return 0
+
+        const hs = route.hash
+
+        if (/^#seitenleiste/.test(hs)) {
+          return 1
+        } else if (/^#(kontext|glossar|forum)/.test(hs)) {
+          return 2
         }
+
+        return 0
       })
       const offset = computed(() => metaLayer.value > 1)
 

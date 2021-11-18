@@ -1,15 +1,15 @@
 <template>
   <div id="seitenleiste" ref="metaEl" class="z-20 relative">
-    <div :class="classes" class="fixed top-0 bottom-0 right-0 overflow-auto bg-black text-white transform transition-all duration-300">
+    <div :class="classes" class="fixed top-0 bottom-0 right-0 max-w-full overflow-auto bg-black text-white transform transition-all duration-300">
       <div class="px-10 mt-14">
         <div class="flex justify-end py-1">
           <div v-if="vis > 1" class="flex-auto -mt-0.5">
             <p class="text-xl md:text-2xl lg:text-4xl font-medium">{{ metaTitle }}</p>
           </div>
-          <div class="mr-4">
+          <div class="hidden md:block mr-4">
             <button @click="hash('#forum')" class="btn text-lg">Forum</button>
           </div>
-          <div class="mr-4">
+          <div class="hidden md:block mr-4">
             <button @click="hash('#glossar')" class="btn text-lg">Glossar</button>
           </div>
           <div v-if="vis < 2" class="flex-auto"></div>
@@ -70,7 +70,16 @@
       const metaTitle = computed(() => {
         if (vis.value < 2) return ''
         const name = route.hash.slice(1)
-        return name.charAt(0).toUpperCase() + name.slice(1)
+        const end = route.hash.indexOf('=')
+        return name.charAt(0).toUpperCase() + name.slice(1, end - 1)
+      })
+
+      const metaContext = computed(() => {
+        const pos = route.hash.indexOf('=')
+        if (pos >= 0) {
+          return route.hash.slice(pos + 1)
+        }
+        return null
       })
 
       const data = computed((): Data => {
@@ -104,7 +113,7 @@
         router.push({ hash })
       }
 
-      return { vis, classes, metaTitle, metaEl, data, hash }
+      return { vis, classes, metaTitle, metaContext, metaEl, data, hash }
     },
     components: { GlossarPost, ChevronLeft, SearchIcon, MetaControls }
   })

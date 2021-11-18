@@ -58,7 +58,7 @@
 
           <div class="md:hidden mx-2 my-4 border-b w-full"></div>
 
-          <div class="mx-2 md:mx-0 mt-2 mb-6 md:mb-0 md:mt-16 w-full flex items-end">
+          <div class="mx-2 md:mx-0 mt-2 mb-6 md:mt-16 w-full flex items-end">
             <div class="md:hidden w-1/2">
               <ns-doku-logo class="max-w-24 h-auto"/>
             </div>

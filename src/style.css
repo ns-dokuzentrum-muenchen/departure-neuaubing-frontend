@@ -59,8 +59,11 @@ body {
   margin-left: 1.14em;
 }
 
+/* cms content */
 .html {
   & p + p { @apply mt-4; }
+
+  & a { @apply underline hover:opacity-50; }
 }
 
 .styled-text {

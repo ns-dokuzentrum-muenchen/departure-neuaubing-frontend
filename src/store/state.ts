@@ -111,6 +111,7 @@ type ACF = {
   person?: any[]
   tags?: object[]
   versions?: Post[]
+  glossar?: Post[]
   content?: AcfRow[]
 }
 
