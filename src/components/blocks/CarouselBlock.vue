@@ -25,7 +25,6 @@
     },
     setup (props) {
       const car = ref<HTMLElement | null>(null)
-      const imgHeight = ref(window.innerWidth / 1.8)
 
       const gallery = computed(() => {
         const imgs = props.block?.gallery || []
@@ -38,9 +37,20 @@
         return ordered
       })
       const calcHeight = computed(() => {
-        const max = Math.max(...gallery.value.map(g => g.reduce((a, c) => a += c.width, 0)))
+        const maxW = Math.max(
+          ...gallery.value.map(g => g.reduce((a: number, c: any) => a += c.width, 0))
+        )
+        const maxH = Math.max(
+          ...gallery.value.map(g => g.reduce((a: number, c: any) => a += c.height, 0))
+        ) / Number(props.block?.group || 1)
+
+        const ratio = maxW / maxH
+        const scale = window.innerWidth / (maxW + 132)
+
+        const h = Math.min(window.innerHeight * ratio * scale, window.innerHeight * (maxH / maxW))
+
         return {
-          height: `calc(66vh * ${Math.min(window.innerWidth / (max + 132), 1)})`
+          height: `${h}px`
         }
       })
 
@@ -48,7 +58,6 @@
 
       onMounted(async () => {
         await nextTick()
-
         if (!car.value) return
 
         const flkty = new Flickity(car.value, {
@@ -57,8 +66,6 @@
           imagesLoaded: true,
           pageDots: false,
           prevNextButtons: false
-          // selectedAttraction: 0.015,
-          // friction: 0.25
         })
 
         flkty.on('select', (idx: number) => {
@@ -66,7 +73,7 @@
         })
       })
 
-      return { car, imgHeight, gallery, calcHeight, slide }
+      return { car, gallery, calcHeight, slide }
     }
   })
 </script>
