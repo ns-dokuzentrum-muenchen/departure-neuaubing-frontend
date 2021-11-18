@@ -39,7 +39,7 @@
 
 <script lang="ts">
   import { defineComponent, toRef } from 'vue'
-  import { Post } from '../store/state'
+  import { Post } from '../store/types'
 
   export default defineComponent({
     name: 'GlossarPost',

@@ -1,6 +1,6 @@
 <template>
   <div class="-mx-4 md:-mx-8">
-    <div id="carousel" class="overflow-hidden outline-none">
+    <div ref="car" class="overflow-hidden outline-none">
       <div v-for="(group, i) in gallery" :key="i" class="flex space-x-8 px-12">
         <figure v-for="img in group" :key="img.id" class="w-min">
           <div class="w-max">
@@ -24,11 +24,12 @@
       slug: String
     },
     setup (props) {
+      const car = ref<HTMLElement | null>(null)
       const imgHeight = ref(window.innerWidth / 1.8)
 
       const gallery = computed(() => {
         const imgs = props.block?.gallery || []
-        const group = props.block?.group || 1
+        const group = Number(props.block?.group || 1)
         const ordered = []
 
         for (let i = 0; i < imgs.length; i += group) {
@@ -48,7 +49,9 @@
       onMounted(async () => {
         await nextTick()
 
-        const flkty = new Flickity('#carousel', {
+        if (!car.value) return
+
+        const flkty = new Flickity(car.value, {
           cellAlign: 'center',
           setGallerySize: true,
           imagesLoaded: true,
@@ -63,7 +66,7 @@
         })
       })
 
-      return { imgHeight, gallery, calcHeight, slide }
+      return { car, imgHeight, gallery, calcHeight, slide }
     }
   })
 </script>

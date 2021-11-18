@@ -37,7 +37,7 @@
 <script lang="ts">
   import { defineComponent, computed, ref, inject, ComputedRef } from 'vue'
   import { useStore } from '../store'
-  import { Post } from '../store/state'
+  import { Post } from '../store/types'
   import { useRoute, useRouter } from 'vue-router'
   import { onClickOutside } from '@vueuse/core'
   import GlossarPost from './GlossarPost.vue'
@@ -47,7 +47,8 @@
 
   type Data = {
     path: string
-    posts: Post[]
+    post?: Post
+    posts?: Post[]
     type?: string
   }
 
@@ -82,22 +83,20 @@
         return null
       })
 
+      // TODO: match scroll pos on Index.vue
       const data = computed((): Data => {
-        const res: Data = {
-          path: route.path,
-          posts: []
-        }
-
         if (route.name === 'projekt') {
-          res.type = 'projekt'
-          store.projects?.forEach((p) => {
-            if (p.slug === route.params.slug) {
-              res.posts.push(p)
-            }
-          })
-        } else if (route.name === 'index') {
-          res.type = 'index'
-          res.posts.push(...(store.projects || []))
+          const res: Data = {
+            path: route.path,
+            post: store.projects?.find(p => p.slug === route.params.slug)
+          }
+          return res
+        }
+        // } else if (route.name === 'index') {
+        const res: Data = {
+          path: '/',
+          type: 'index',
+          posts: store.projects || []
         }
         return res
       })

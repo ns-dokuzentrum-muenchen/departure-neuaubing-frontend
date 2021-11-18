@@ -9,8 +9,8 @@
 </template>
 
 <script lang="ts">
-  import { defineComponent, Ref, ref, computed, onMounted, nextTick } from 'vue'
-  import { VideoData } from '../store/state'
+  import { defineComponent, ref, computed, onMounted, nextTick } from 'vue'
+  import { VideoData } from '../store/types'
 
   export default defineComponent({
     name: 'VideoPlayer',
@@ -22,8 +22,8 @@
 
       const minSize = ref(360)
 
-      const el = ref(null)
-      const vid = ref(null)
+      const el = ref<HTMLElement | null>(null)
+      const vid = ref<HTMLElement | null>(null)
 
       const id = computed(() => {
         if (!video.value) return 'vid'
@@ -50,7 +50,7 @@
       onMounted(async () => {
         if (!el.value) return
 
-        const $el = el.value as HTMLElement
+        const $el = el.value
 
         minSize.value = Math.max($el.clientWidth, $el.clientHeight)
 

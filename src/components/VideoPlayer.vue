@@ -10,7 +10,7 @@
 
 <script lang="ts">
   import { defineComponent, ref, computed, onMounted, nextTick } from 'vue'
-  import { VideoData } from '../store/state'
+  import { VideoData } from '../store/types'
   import Plyr from 'plyr'
   import 'plyr/src/sass/plyr.scss' // dist not working?
 

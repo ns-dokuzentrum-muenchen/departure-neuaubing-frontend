@@ -10,12 +10,12 @@
 
 <script lang="ts">
   import { defineComponent, computed } from 'vue'
-  import { Post, PostType } from '../store/state'
+  import { Post, PostType } from '../store/types'
 
   const postTypes: {
     [key: string]: string
   } = {
-    kuenstler: 'Künstler/in',
+    kuenstler: 'Künstler*in',
     projekt: 'Projekt',
     glossar: 'Glossar',
     begriff: 'Begriff',
@@ -37,7 +37,7 @@
       const type = computed(() => {
         const t = (post.post_type || post.type || 'post') as PostType
         if (t === 'projekt') {
-          return 'Projekt, Künstler/in (TODO)'
+          return 'Projekt, Künstler*in (TODO)'
         }
         return postTypes[t]
       })
