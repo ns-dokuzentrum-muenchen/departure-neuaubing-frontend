@@ -4,7 +4,7 @@
       <div v-for="(group, i) in gallery" :key="i" class="flex space-x-8 px-12 overflow-hidden">
         <figure v-for="img in group" :key="img.id" class="">
           <div class="relative w-max">
-            <img :src="img.sizes?.large" :style="calcHeight" :width="img.width" :height="img.height" :alt="img.alt" class="w-max" loading="lazy"/>
+            <img :src="img.sizes?.large" :style="imgStyle(img.width, img.height)" :width="img.width" :height="img.height" :alt="img.alt" class="w-max" loading="lazy"/>
           </div>
 
           <figcaption v-if="img.caption" :class="{ 'opacity-0': slide !== i }" class="max-w-prose text-sm mt-2 transition-opacity">{{ img.caption }}</figcaption>
@@ -36,38 +36,20 @@
         }
         return ordered
       })
-      const calcHeight = computed(() => {
-        const maxW = Math.max(
-          ...gallery.value.map(g => g.reduce((a: number, c: any) => a += c.width, 0))
-        )
-        const maxH = Math.max(
-          ...gallery.value.map(g => g.reduce((a: number, c: any) => a += c.height, 0))
-        ) / Number(props.block?.group || 1)
 
-        const ratio = maxW / maxH
-        const scale = window.innerWidth / (maxW + 132)
-
-        const dscale = window.innerHeight * ratio * scale
-        const dratio = (window.innerHeight) * (maxH / maxW)
-
-        const h = Math.min(dscale, dratio) //  === dratio ? dratio * wratio * scale : dscale
-
-        // const vscale = (h / maxH) * maxW
-        // const hscale = vscale / maxW
-        // const rescale = (window.innerWidth - 132) / hscale
-
-        // const height = window.innerWidth / (maxW - 132) * maxH // h // === dratio ? h * rescale : h
-
-        // console.log('h', maxW, maxH, window.innerWidth, window.innerHeight)
-
+      const rowHeight = ref(window.innerHeight * 0.66)
+      const imgStyle = (w: number, h: number) => {
+        const scale = rowHeight.value / h
         return {
-          height: `${h}px`
+          width: `${w * scale}px`,
+          height: `${rowHeight.value}px`
         }
-      })
+      }
 
       const slide = ref(0)
-
       onMounted(async () => {
+        calcRowHeight()
+
         await nextTick()
         if (!car.value) return
 
@@ -84,7 +66,34 @@
         })
       })
 
-      return { car, gallery, calcHeight, slide }
+      function calcRowHeight () {
+        const heights: number[] = []
+        const widths: number[] = []
+        const ratios: number[] = []
+
+        gallery.value?.forEach((group) => {
+          const minH = Math.min(...group.map(i => i.height))
+          let maxW = 0
+          group.forEach((i: any) => {
+            const scale = minH / i.height
+            maxW += (i.width * scale) + 60
+            // maxW = Math.max(maxW, i.width * scale)
+          })
+          const groupScale = minH / maxW
+          const h = minH * groupScale
+          const w = maxW * groupScale
+          heights.push(h)
+          widths.push(w)
+          ratios.push(h / w)
+        })
+
+        if (!ratios.length) return
+
+        const h = Math.min(...ratios) * (window.innerWidth - 20)
+        rowHeight.value = Math.min(h, window.innerHeight * 0.74)
+      }
+
+      return { car, gallery, rowHeight, imgStyle, slide }
     }
   })
 </script>
