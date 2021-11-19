@@ -5,8 +5,8 @@
       <div class="my-6">
         <div v-for="(section, i) in block?.sections" :key="i">
           <details>
-            <summary class="text-2xl font-light cursor-pointer w-full border-b py-2">{{ section.title }}</summary>
-            <div v-html="section.content" class="html py-4"></div>
+            <summary class="text-xl cursor-pointer w-full border-b py-2">{{ section.title }}</summary>
+            <div v-html="section.content" class="html py-4 font-light text-base"></div>
           </details>
         </div>
       </div>

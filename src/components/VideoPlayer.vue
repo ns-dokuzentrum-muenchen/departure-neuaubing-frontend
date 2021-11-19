@@ -82,7 +82,7 @@
         // this.listeners()
       })
 
-      return { el, vid, video, id, poster, srcs, plyr, minSize, inline, canplay, view }
+      return { el, vid, video, id, poster, srcs, plyr, inline, canplay, view }
     }
   })
 </script>

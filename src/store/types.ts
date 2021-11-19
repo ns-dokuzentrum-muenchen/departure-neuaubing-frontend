@@ -142,9 +142,11 @@ interface AcfRow {
 }
 
 interface Settings {
-  cover?: Image
-  video?: any
-  projekte?: any[]
+  intro: {
+    video?: any
+    frames?: any[]
+  }
+  projekte: any[]
 }
 
 export default State

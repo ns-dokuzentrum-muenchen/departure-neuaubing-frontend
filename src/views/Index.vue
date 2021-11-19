@@ -9,18 +9,8 @@
       </div>
     </div>
   </div>
-  <div class="md:mx-12 md:my-16 md:flex md:space-x-12 items-center">
-    <div v-if="settings?.video" class="md:w-2/3">
-      <video-player :video="settings.video"/>
-    </div>
-    <div class="md:w-1/3 m-6 md:m-0">
-      <div class="text-lg md:text-xl lg:text-2xl max-w-full md:max-w-xl">
-        <p>
-          <span class="text-blue-900">{{ location.city }}</span>
-          ist {{ location.distance }} Kilometer von Neuaubing entfernt.
-        </p>
-      </div>
-    </div>
+  <div class="md:mx-12 md:my-16">
+    <scroll-video-block v-if="settings?.intro" :block="settings.intro"/>
   </div>
   <div class="px-12 py-16 overflow-x-hidden">
     <div class="grid grid-cols-12 gap-16 md:gap-32 items-center justify-items-center">
@@ -37,9 +27,9 @@
 </template>
 
 <script lang="ts">
-  import { defineComponent, computed, onMounted } from 'vue'
+  import { defineComponent, computed } from 'vue'
   import { useStore } from '../store/index'
-  import VideoPlayer from '../components/VideoPlayer.vue'
+  import ScrollVideoBlock from '../components/blocks/ScrollVideoBlock.vue'
   import ProjectItem from '../components/ProjectItem.vue'
   import RedoIcon from '../components/svg/RedoIcon.vue'
   import FontLogo from '../components/FontLogo.vue'
@@ -78,20 +68,9 @@
         pos.value = pos.value + dir
       }
 
-      // const observer = new IntersectionObserver((entries) => {
-      //   for (const entry of entries) {
-      //     console.log(entry.isIntersecting)
-      //   }
-      // })
-      onMounted(() => {
-        store.getVisitorDistance()
-      })
-
-      const location = computed(() => store.visitorDistance)
-
-      return { settings, projects, pos, rowCol, move, reorder, location }
+      return { settings, projects, pos, rowCol, move, reorder }
     },
-    components: { VideoPlayer, ProjectItem, RedoIcon, FontLogo }
+    components: { ScrollVideoBlock, ProjectItem, RedoIcon, FontLogo }
   })
 
   const whitelist = [ // 😵‍💫 JIT mode
