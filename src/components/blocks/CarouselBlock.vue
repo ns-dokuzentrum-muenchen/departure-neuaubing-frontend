@@ -15,7 +15,7 @@
 </template>
 
 <script lang="ts">
-  import { defineComponent, ref, computed, onMounted, nextTick } from 'vue'
+  import { defineComponent, ref, computed, onMounted, nextTick, onUnmounted } from 'vue'
   import Flickity from 'flickity-imagesloaded'
 
   export default defineComponent({
@@ -64,26 +64,30 @@
         flkty.on('select', (idx: number) => {
           slide.value = idx
         })
+
+        window.addEventListener('resize', calcRowHeight)
+      })
+
+      onUnmounted(() => {
+        window.removeEventListener('resize', calcRowHeight)
       })
 
       function calcRowHeight () {
-        const heights: number[] = []
-        const widths: number[] = []
         const ratios: number[] = []
 
+        // loop through groups, scale to same height,
+        // scale that width to window
         gallery.value?.forEach((group) => {
           const minH = Math.min(...group.map(i => i.height))
           let maxW = 0
           group.forEach((i: any) => {
             const scale = minH / i.height
-            maxW += (i.width * scale) + 60
-            // maxW = Math.max(maxW, i.width * scale)
+            maxW += (i.width * scale) + 72 // 2rem * 2, for gaps
           })
           const groupScale = minH / maxW
           const h = minH * groupScale
           const w = maxW * groupScale
-          heights.push(h)
-          widths.push(w)
+
           ratios.push(h / w)
         })
 
