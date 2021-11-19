@@ -54,10 +54,10 @@
       const inline = computed(() => props.first)
 
       const canplay = () => {
-        console.log('canplay... VideoPlayer.vue')
+        // console.log('canplay... VideoPlayer.vue')
       }
       const view = () => {
-        console.log('view... VideoPlayer.vue')
+        // console.log('view... VideoPlayer.vue')
       }
 
       onMounted(async () => {

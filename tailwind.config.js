@@ -594,6 +594,7 @@ module.exports = {
       prose: '30em',
       meta: '30rem',
       kontext: '62rem',
+      screen: '100vw',
       ...theme('spacing'),
       ...breakpoints(theme('screens')),
     }),

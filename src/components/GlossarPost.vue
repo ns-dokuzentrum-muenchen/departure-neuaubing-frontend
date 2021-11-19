@@ -42,7 +42,6 @@
   import { Post } from '../store/types'
 
   export default defineComponent({
-    name: 'GlossarPost',
     props: {
       post: Object
     },
