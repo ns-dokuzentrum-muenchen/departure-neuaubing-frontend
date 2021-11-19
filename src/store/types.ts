@@ -63,7 +63,7 @@ type ACF = {
   connections?: Post[]
 }
 
-interface Image extends Post {
+export interface Image extends Post {
   ID: number
   filename: string
   filesize: number
@@ -97,6 +97,7 @@ export interface Comment {
 }
 
 type ImageSizes = {
+  [key: string]: number | string
   thumbnail: string
   'thumbnail-width': number
   'thumbnail-height': number

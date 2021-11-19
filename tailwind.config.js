@@ -53,7 +53,7 @@ module.exports = {
       transparent: 'transparent',
       current: 'currentColor',
 
-      bg: '#fff',
+      // bg: '#fff',
 
       blue: colors.blue,
       black: colors.black,
@@ -104,7 +104,9 @@ module.exports = {
       72: '18rem',
       80: '20rem',
       96: '24rem',
-      bar: '32rem'
+      bar: '32rem',
+      'vh': '100vh',
+      'vw': '100vw'
     },
     animation: {
       none: 'none',
@@ -592,6 +594,7 @@ module.exports = {
       min: 'min-content',
       max: 'max-content',
       prose: '30em',
+      'prose-1': '34em',
       meta: '30rem',
       kontext: '62rem',
       screen: '100vw',
@@ -862,6 +865,7 @@ module.exports = {
     }),
     zIndex: {
       auto: 'auto',
+      1: '-1',
       0: '0',
       10: '10',
       20: '20',

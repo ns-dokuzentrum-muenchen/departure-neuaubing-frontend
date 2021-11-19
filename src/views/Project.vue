@@ -1,9 +1,7 @@
 <template>
-  <div class="mt-16">
+  <div>
     <article>
-      <div v-for="(block, i) in contentBlocks" :key="i" class="px-4 md:px-8">
-        <component :is="block.acf_fc_layout" :block="block" :slug="slug"></component>
-      </div>
+      <component v-for="(block, i) in contentBlocks" :is="block.acf_fc_layout" :block="block" :slug="slug" :key="i"></component>
     </article>
   </div>
 </template>

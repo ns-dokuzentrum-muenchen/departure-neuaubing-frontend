@@ -1,5 +1,5 @@
 <template>
-  <div class="-mx-4 md:-mx-8">
+  <div class="">
     <div ref="car" class="overflow-hidden outline-none">
       <div v-for="(group, i) in gallery" :key="i" class="flex space-x-4 md:space-x-8 px-4 md:px-8 lg:px-12 overflow-hidden">
         <figure v-for="img in group" :key="img.id" class="">
@@ -15,8 +15,9 @@
 </template>
 
 <script lang="ts">
+  import { Image } from '../../store/types'
   import { defineComponent, ref, computed, onMounted, nextTick, onUnmounted } from 'vue'
-  import Flickity from 'flickity-imagesloaded'
+  import Flickity from 'flickity'
 
   export default defineComponent({
     props: {
@@ -31,7 +32,7 @@
       })
 
       const gallery = computed(() => {
-        const imgs = props.block?.gallery || []
+        const imgs: Image[] = props.block?.gallery || []
         const ordered = []
 
         for (let i = 0; i < imgs.length; i += group.value) {
@@ -64,8 +65,8 @@
           prevNextButtons: false
         })
 
-        flkty.on('select', (idx: number) => {
-          slide.value = idx
+        flkty.on('select', (idx: number | undefined) => {
+          slide.value = idx || 0
         })
 
         window.addEventListener('resize', calcRowHeight)

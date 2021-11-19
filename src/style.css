@@ -51,7 +51,7 @@ html {
 }
 
 body {
-  @apply bg-bg text-black dark:bg-gray-800 dark:text-white;
+  @apply bg-white text-black dark:bg-gray-800 dark:text-white;
   -webkit-font-smoothing: antialiased;
 }
 
@@ -74,6 +74,7 @@ body {
   }
 }
 
+.bg-bg { @apply bg-white dark:bg-gray-800; }
 
 .bg-theme {
   @nest .theme-blau & {

@@ -1,5 +1,5 @@
 <template>
-  <div class="-mx-4 md:-mx-8">
+  <div class="">
     <styled-map></styled-map>
   </div>
 </template>
