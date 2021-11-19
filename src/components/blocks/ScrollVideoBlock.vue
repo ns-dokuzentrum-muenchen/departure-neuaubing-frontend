@@ -69,6 +69,9 @@
         }
       }
 
+      // listen to steps, seek to position
+      // TODO use canvas and sequence of images
+      // see: https://css-tricks.com/lets-make-one-of-those-fancy-scrolling-animations-used-on-apple-product-pages/
       watch(inView, (newVal, oldVal) => {
         const duration = vid.value?.duration
         if (!vid.value || !duration) return
@@ -85,11 +88,11 @@
         if (playing) return
 
         if (to > from) {
-          console.log('play the video', to - from)
+          // console.log('play the video', to - from)
           playing = true
           vid.value?.play()
           setTimeout(() => {
-            console.log('pause the video')
+            // console.log('pause the video')
             vid.value?.pause()
             playing = false
           }, (to - from) * 1000)
