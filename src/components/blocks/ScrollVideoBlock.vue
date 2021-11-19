@@ -2,7 +2,7 @@
   <div class="md:flex md:space-x-12 items-start">
     <div v-if="block?.video" class="md:w-2/3 md:sticky top-1/4">
       <!-- <video-player :video="block.video"/> -->
-      <video ref="vid" disablePictureInPicture playsinline="true" :width="block.video.width" :height="block.video.height" class="lazyload w-full h-full object-cover">
+      <video ref="vid" disablePictureInPicture playsinline="true" :width="block.video.width" :height="block.video.height" muted class="lazyload w-full h-full object-cover">
         <source v-for="src in srcs" :key="src.md5" :src="src.link" :type="src.type">
       </video>
     </div>
@@ -21,7 +21,7 @@
   import { defineComponent, ref, computed, onMounted, onUnmounted, nextTick, watch } from 'vue'
   import { useStore } from '../../store'
   import VideoPlayer from '../VideoPlayer.vue'
-  import TWEEN from '@tweenjs/tween.js'
+  // import TWEEN from '@tweenjs/tween.js'
 
   export default defineComponent({
     props: {
@@ -75,42 +75,26 @@
 
         const steps = duration / (items.length + 1)
         const from = oldVal * steps
-        const to = newVal * steps
-
-        // console.log(to, from, duration)
-        // if (to < from) return // only forwards?
+        const to = newVal === items.length - 1 ? duration : newVal * steps
 
         playback(to, from)
-        // vid.value.currentTime = seek
       })
 
+      let playing = false
       function playback (to: number, from: number) {
-        let val = { time: from }
-        new TWEEN.Tween(val).to({ time: to }, 1000)
-          .onUpdate(() => {
-            if (!vid.value) return
-            vid.value.currentTime = val.time
-            // console.log(val.time)
-          }).start()
+        if (playing) return
+
+        if (to > from) {
+          console.log('play the video', to - from)
+          playing = true
+          vid.value?.play()
+          setTimeout(() => {
+            console.log('pause the video')
+            vid.value?.pause()
+            playing = false
+          }, (to - from) * 1000)
+        }
       }
-
-      function animate(time?: number) {
-        requestAnimationFrame(animate)
-        TWEEN.update(time)
-      }
-      animate()
-      // function animate (time: number) {
-      //   requestAnimationFrame(animate)
-      //   TWEEN.update(time)
-      // }
-      // const playPos = computed(() => {
-      //   const duration = vid.value?.duration
-      //   if (!duration) return 0
-
-      //   const steps = duration / (items.length + 1)
-
-      //   return inView.value * steps
-      // })
 
       onMounted(async () => {
         store.getVisitorDistance()

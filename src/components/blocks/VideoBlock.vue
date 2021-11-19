@@ -28,9 +28,6 @@
       })
 
       const block = computed(() => props.block)
-      // const video = computed(() => props.block?.video)
-      // const title = computed(() => props.block?.title)
-      // const description = computed(() => props.block?.description)
 
       return { position, block }
     },
