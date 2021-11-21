@@ -18,9 +18,9 @@
 </template>
 
 <script lang="ts">
-  import { Image as Img } from '../../store/types'
+  import { Image as Img } from '../store/types'
   import { defineComponent, ref, computed, onMounted, onUnmounted, nextTick, watch } from 'vue'
-  import { useStore } from '../../store'
+  import { useStore } from '../store'
 
   export default defineComponent({
     props: {
@@ -86,13 +86,26 @@
         }
 
         window.addEventListener('scroll', observe)
+
+        setTimeout(() => {
+          if (!images.value?.length) return
+
+          for (let i = 0; i < images.value.length; i++) {
+            const el = new Image()
+            el.src = currentFrame(i)
+          }
+        }, 1234)
       })
       onUnmounted(() => {
         window.removeEventListener('scroll', observe)
       })
 
+      // TODO get correct size
       function currentFrame (idx: number) {
-        return images.value[idx]?.url
+        const post = images.value[idx]
+        if (!post) return ''
+
+        return post.url
       }
 
       function updateImage (idx: number) {
@@ -108,7 +121,7 @@
         if (col.top > st) return
 
         const h = col.height - (col.height / frames.value.length) // divide by img frames
-        const pxPerImg = h / images.value.length
+        const pxPerImg = h / (images.value.length - 1)
         const step = Math.round((st - col.top) / pxPerImg)
 
         inView.value = Math.min(step, images.value.length)

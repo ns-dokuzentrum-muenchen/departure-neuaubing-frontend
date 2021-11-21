@@ -10,7 +10,7 @@
     </div>
   </div>
   <div class="md:mx-12 md:my-16">
-    <scroll-video-block v-if="settings?.intro" :block="settings.intro"/>
+    <scroll-canvas v-if="settings?.intro" :block="settings.intro"/>
   </div>
   <div class="px-12 py-16 overflow-x-hidden">
     <div class="grid grid-cols-12 gap-16 md:gap-32 items-center justify-items-center">
@@ -29,7 +29,7 @@
 <script lang="ts">
   import { defineComponent, computed } from 'vue'
   import { useStore } from '../store/index'
-  import ScrollVideoBlock from '../components/blocks/ScrollVideoBlock.vue'
+  import ScrollCanvas from '../components/ScrollCanvas.vue'
   import ProjectItem from '../components/ProjectItem.vue'
   import RedoIcon from '../components/svg/RedoIcon.vue'
   import FontLogo from '../components/FontLogo.vue'
@@ -70,15 +70,6 @@
 
       return { settings, projects, pos, rowCol, move, reorder }
     },
-    components: { ScrollVideoBlock, ProjectItem, RedoIcon, FontLogo }
+    components: { ScrollCanvas, ProjectItem, RedoIcon, FontLogo }
   })
-
-  const whitelist = [ // 😵‍💫 JIT mode
-    'row-start-1',
-    'row-start-2',
-    'row-start-3',
-    'row-start-4',
-    'row-start-5',
-    'row-start-6'
-  ]
 </script>
