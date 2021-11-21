@@ -136,7 +136,7 @@ export const useStore = defineStore({
         this.user = data
       }).catch((err) => {
         console.log(err.message)
-        this.authToken = null
+        this.logout()
       })
     },
     logout () {

@@ -17,8 +17,8 @@
         <div v-html="acf.description"></div>
       </div>
 
-      <div class="mb-8 mt-2 max-w-prose-1">
-        <artist-bio v-for="artist in acf.person" :key="artist.id" :person="artist"/>
+      <div class="mt-2 mb-8 max-w-prose-1">
+        <artist-bio v-for="artist in acf.person" :key="artist.id" :person="artist" class="mb-4"/>
       </div>
 
       <div v-if="glossar?.length" class="mb-12">
@@ -67,7 +67,7 @@
       const acf = post.acf
 
       const allLinks = computed(() => {
-        return acf.connections?.concat(
+        return acf.connections?.concat?.(
           ...acf.links || []
         ) || []
       })
