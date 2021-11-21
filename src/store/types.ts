@@ -143,8 +143,8 @@ interface AcfRow {
 
 interface Settings {
   intro: {
-    video?: any
-    frames?: any[]
+    frames: any[]
+    images: Image[]
   }
   projekte: any[]
 }
