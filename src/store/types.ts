@@ -41,12 +41,15 @@ export type Post = {
   post_type?: PostType
   post_name?: string
 
+  link?: string
+  permalink?: string
+
   title_highlighted?: string
   content_highlighted?: string
 }
 
 type RenderedString = { rendered: string }
-export type PostType = 'projekt' | 'int-projekt' | 'kuenstler' | 'glossar' | 'markierung' | 'post' | 'page'
+export type PostType = 'projekt' | 'int-projekt' | 'kuenstler' | 'glossar' | 'markierung' | 'post' | 'page' | 'person' | 'ort'
 
 type ACF = {
   title?: string

@@ -1,8 +1,10 @@
 <template>
   <div>
     <div class="p-4 md:px-16 md:pb-10 bg-bg w-max">
-      <div class="font-bold text-xl mb-1">
-        <p v-for="artist in artists" :key="artist.id">{{ artist.post_title }}</p>
+      <div class="font-bold text-xl mb-1 relative">
+        <p v-for="artist in artists" :key="artist.id">
+          <router-link :to="artistLink(artist)" class="hover:opacity-50">{{ artist.post_title }}</router-link>
+        </p>
       </div>
       <h1 v-html="title" class="text-5xl lg:text-8xl whitespace-pre-line uppercase leading-none styled-text">
       </h1>
@@ -11,6 +13,7 @@
 </template>
 
 <script lang="ts">
+  import { Post } from '../store/types'
   import { defineComponent, computed } from 'vue'
   import StyledText from './StyledText.vue'
 
@@ -27,7 +30,11 @@
       })
       const artists = computed(() => props.project?.acf.person)
 
-      return { title, artists }
+      const artistLink = (post: Post) => {
+        return '#kontext=/kuenstlerinnen/' + post.post_name
+      }
+
+      return { title, artists, artistLink }
     },
     components: { StyledText }
   })

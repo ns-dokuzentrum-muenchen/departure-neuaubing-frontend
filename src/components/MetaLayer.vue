@@ -26,11 +26,8 @@
       </div>
       <div class="px-10 my-6">
         <h3 class="text-xl">Kontext</h3>
-        <template v-if="data.post">
-          <glossar-post :post="data.post" class="my-f"/>
-        </template>
-        <template v-if="data.posts?.length">
-          <glossar-post v-for="post in data.posts" :key="post.id" :post="post" class="my-4"/>
+        <template v-if="data">
+          <glossar-post :post="data" :key="data.id" class="my-f"/>
         </template>
       </div>
     </div>
@@ -40,22 +37,14 @@
 </template>
 
 <script lang="ts">
-  import { defineComponent, computed, ref, inject, ComputedRef } from 'vue'
+  import { defineComponent, computed, ref, inject, ComputedRef, provide } from 'vue'
   import { useStore } from '../store'
-  import { Post } from '../store/types'
   import { useRoute, useRouter } from 'vue-router'
   import { onClickOutside } from '@vueuse/core'
   import GlossarPost from './GlossarPost.vue'
   import ChevronLeft from './svg/ChevronLeft.vue'
   import SearchIcon from './svg/SearchIcon.vue'
   import MetaControls from './MetaControls.vue'
-
-  type Data = {
-    path: string
-    post?: Post
-    posts?: Post[]
-    type?: string
-  }
 
   export default defineComponent({
     name: 'MetaLayer',
@@ -76,34 +65,26 @@
       const metaTitle = computed(() => {
         if (vis.value < 2) return ''
         const name = route.hash.slice(1)
-        const end = route.hash.indexOf('=')
+        const hash = route.hash.indexOf('=')
+        const end = hash >= 0 ? hash : name.length
         return name.charAt(0).toUpperCase() + name.slice(1, end - 1)
       })
 
       const metaContext = computed(() => {
         const pos = route.hash.indexOf('=')
         if (pos >= 0) {
-          return route.hash.slice(pos + 1)
+          const path = route.hash.slice(pos + 1)
+          return path.slice(0, path.length - (path.slice(-1) === '/' ? 1 : 0))
         }
-        return null
+        return
       })
 
       // TODO: match scroll pos on Index.vue
-      const data = computed((): Data => {
-        if (route.name === 'projekt') {
-          const res: Data = {
-            path: route.path,
-            post: store.projects?.find(p => p.slug === route.params.slug)
-          }
-          return res
-        }
-        // } else if (route.name === 'index') {
-        const res: Data = {
-          path: '/',
-          type: 'index',
-          posts: store.projects || []
-        }
-        return res
+      const data = computed(() => {
+        if (route.name !== 'projekt') return
+
+        const slug = route.params.slug as string
+        return store.slugToProject(slug)
       })
 
       const metaEl = ref(null)
@@ -117,7 +98,9 @@
         router.push({ hash })
       }
 
-      return { vis, classes, metaTitle, metaContext, metaEl, data, hash }
+      provide('ctx', metaContext)
+
+      return { vis, classes, metaTitle, metaEl, data, hash }
     },
     components: { GlossarPost, ChevronLeft, SearchIcon, MetaControls }
   })

@@ -11,7 +11,7 @@ module.exports = {
       './src/**/*.html',
       './index.html'
     ],
-    safelist
+    safelist // whitelist classes
   },
   presets: [],
   darkMode: 'class', // or 'media' or 'class'
@@ -760,7 +760,7 @@ module.exports = {
       1000: '1000ms',
     },
     transitionDuration: {
-      DEFAULT: '150ms',
+      DEFAULT: '250ms',
       75: '75ms',
       100: '100ms',
       150: '150ms',

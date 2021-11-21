@@ -11,9 +11,8 @@ export const useStore = defineStore({
   id: 'store',
   state,
   getters: {
-    idToProject: (state) => {
-      return (id: number) => state.projects?.find(p => p.id === id)
-    }
+    idToProject: (state) => (id: number) => state.projects?.find(p => p.id === id),
+    slugToProject: (state) => (slug: string) => state.projects?.find(p => p.slug === slug)
   },
   actions: {
     async getSettings () {

@@ -1,45 +1,62 @@
 <template>
   <div>
-    <ul class="flex pb-2 mb-1 border-b-2 text-sm">
+    <ul class="flex pb-3 mb-1 border-b-2 text-sm">
       <li class="chevron">
-        <span class="underline">Start</span>
+        <router-link to="/" class="underline">Start</router-link>
       </li>
       <li class="chevron">
-        <span class="underline">Projekte</span>
+        <span class="border-b border-dotted">Projekte</span>
       </li>
       <li class="chevron">
         <span class="underline">{{ post.title?.rendered }}</span>
       </li>
     </ul>
-    <template v-if="acf">
-      <div class="mb-4">
+    <div v-if="acf">
+      <div class="mb-4 mt-2 max-w-prose-1">
         <p class="font-medium text-lg">{{ post.title?.rendered }}</p>
         <div v-html="acf.description"></div>
       </div>
 
-      <div class="mb-4">
-        <p class="font-medium text-lg">{{ acf.person?.[0].post_title }}</p>
-        <div v-html="acf.person?.[0].acf?.biographie" class="line-clamp-3"></div>
+      <div class="mb-4 mt-2 max-w-prose-1">
+        <artist-bio v-for="artist in acf.person" :key="artist.id" :person="artist"/>
       </div>
 
-      <div v-if="links?.length" class="mb-4">
+      <div v-if="glossar?.length" class="mb-4">
         <p class="font-medium text-lg">Glossar</p>
         <ul>
-          <li v-for="term in links" :key="term.ID">
-            <router-link :to="`/glossar/${term.post_name}`">
-              <span>{{ term.post_title }}</span>
-              <sup v-if="term.comment_count !== '0'">{{ term.comment_count }}</sup>
-            </router-link>
+          <li v-for="term in glossar" :key="term.ID">
+            <connection-preview :post="term"/>
           </li>
         </ul>
       </div>
-    </template>
+
+      <div v-if="places?.length" class="mb-4">
+        <p class="font-medium text-lg">Orte</p>
+        <ul>
+          <li v-for="term in places" :key="term.ID">
+            <connection-preview :post="term"/>
+          </li>
+        </ul>
+      </div>
+
+      <div v-if="people?.length" class="mb-4">
+        <p class="font-medium text-lg">Personen</p>
+        <ul>
+          <li v-for="term in people" :key="term.ID">
+            <connection-preview :post="term"/>
+          </li>
+        </ul>
+      </div>
+    </div>
   </div>
 </template>
 
 <script lang="ts">
-  import { defineComponent, computed } from 'vue'
   import { Post } from '../store/types'
+  import { defineComponent, computed } from 'vue'
+  // import { useRoute } from 'vue-router'
+  import ArtistBio from './ArtistBio.vue'
+  import ConnectionPreview from './ConnectionPreview.vue'
 
   export default defineComponent({
     props: {
@@ -49,11 +66,24 @@
       const post = props.post as Post
       const acf = post.acf
 
-      const links = computed(() => {
-        return post?.acf.connections
+      const allLinks = computed(() => {
+        return acf.connections?.concat(
+          ...acf.links || []
+        ) || []
       })
 
-      return { post, acf, links }
-    }
+      const glossar = computed(() => {
+        return allLinks.value.filter(p => p.post_type === 'glossar')
+      })
+      const places = computed(() => {
+        return allLinks.value.filter(p => p.post_type === 'ort')
+      })
+      const people = computed(() => {
+        return allLinks.value.filter(p => p.post_type === 'person')
+      })
+
+      return { post, acf, glossar, places, people }
+    },
+    components: { ArtistBio, ConnectionPreview }
   })
 </script>
