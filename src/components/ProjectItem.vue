@@ -41,13 +41,15 @@
     props: {
       project: Object,
       col: Number,
-      pos: Number
+      pos: Number,
+      idx: Number
     },
     setup (props, { emit }) {
       const store = useStore()
 
       const data = props.project
       const id = data?.projekt
+      const idx = props.idx || 0
 
       const domLoaded = ref(false)
       const el = ref<HTMLElement | null>(null)
@@ -87,8 +89,9 @@
         const padAmount = pad ? pw - iw : 0 // ignore title area
 
         const space = step > 0 ? window.innerWidth - pw - p.offsetLeft : p.offsetLeft
-        const overlap = Math.round(window.innerWidth / 12)
-        const showWidth = random(overlap * -1, overlap)
+        const overlap = Math.round(window.innerWidth / 20)
+        // const showWidth = random(overlap * -1, overlap)
+        const showWidth = idx % 3 === 0 ? overlap : 0
 
         const d = ((pw + space - showWidth - padAmount) / pw) * 100
 
@@ -105,7 +108,7 @@
         } else {
           // off to left or right
           x = calcOffset(column.value - position.value)
-          y = random(-25, 26)
+          y = random(-10, 10)
         }
 
         return {
@@ -124,8 +127,10 @@
           y = (ph - (window.innerHeight / 2)) / 10
         }
 
+        y = Math.min(y, window.innerHeight / 15)
+
         return {
-          transform: `translate(${val}px, ${y * -1}px)`
+          transform: `translate(0px, ${y * -1}px)`
         }
       })
       const imgClasses = ref('')
@@ -163,6 +168,10 @@
 
       const scrollListener = () => {
         if (column.value === position.value) {
+          middleOffset.value = 0
+          return
+        }
+        if (Math.abs(column.value - position.value) !== 1) {
           middleOffset.value = 0
           return
         }
@@ -222,8 +231,7 @@
         reverse,
         textAlign,
         textClass,
-        move,
-        middleOffset
+        move
       }
     },
     components: { StyledText, AutoVideo }

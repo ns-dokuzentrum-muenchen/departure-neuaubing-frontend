@@ -14,7 +14,7 @@
   </div>
   <div class="px-12 py-16 overflow-x-hidden">
     <div class="grid grid-cols-12 gap-16 md:gap-32 items-center justify-items-center">
-      <project-item v-for="(p, i) in projects" :key="i" :project="p" :col="i % 5" :pos="pos" :class="rowCol(i)" @move="move" class="col-start-3 sm:col-start-4 lg:col-start-5 xl:col-start-6 col-auto"/>
+      <project-item v-for="(p, i) in projects" :key="i" :project="p" :col="i % 5" :pos="pos" :class="rowCol(i)" :idx="i" @move="move" class="col-start-3 sm:col-start-4 lg:col-start-5 xl:col-start-6 col-auto"/>
     </div>
 
     <div class="mt-16 md:mt-24 lg:mt-36 flex justify-center">

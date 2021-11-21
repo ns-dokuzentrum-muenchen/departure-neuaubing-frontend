@@ -90,6 +90,8 @@
         setTimeout(() => {
           if (!images.value?.length) return
 
+          // preload the images
+          // TODO save list of <img>, draw them to canvas?
           for (let i = 0; i < images.value.length; i++) {
             const el = new Image()
             el.src = currentFrame(i)
