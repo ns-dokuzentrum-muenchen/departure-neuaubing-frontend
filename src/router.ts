@@ -56,7 +56,12 @@ const router = createRouter({
     },
     {
       path: '/personen/:slug',
-      name: 'person',
+      name: 'personen',
+      component: () => import('./views/Glossar.vue')
+    },
+    {
+      path: '/begriffe/:slug',
+      name: 'begriffe',
       component: () => import('./views/Glossar.vue')
     },
     {

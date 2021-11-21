@@ -75,8 +75,9 @@
     beforeRouteEnter (to, _from, next) {
       const store = useStore()
       const { slug } = to.params
+      const postType = (to.name || 'glossar') as string
 
-      store.getGlossaryTerm(slug as string).then(next)
+      store.getGlossaryTerm(slug as string, postType).then(next)
     },
     components: { CommentForm, CommentRow }
   })

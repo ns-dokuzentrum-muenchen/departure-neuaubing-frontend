@@ -42,9 +42,10 @@ export const useStore = defineStore({
       })
     },
 
-    async getGlossaryTerm (slug: string) {
+    async getGlossaryTerm (slug: string, postType: string) {
       if (this.glossar[slug]) return
-      return api.get('/wp-json/wp/v2/glossar', {
+
+      return api.get(`/wp-json/wp/v2/${postType}`, {
         params: { slug }
       }).then(({ data }) => {
         if (!data[0]) return

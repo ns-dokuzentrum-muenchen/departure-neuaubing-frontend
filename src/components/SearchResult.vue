@@ -7,14 +7,15 @@
       </router-link>
     </div>
     <div class="mt-2 line-clamp-3">
-      <div v-html="description" class="html"></div>
+      <div v-html="description" @click.native="internalLinks" class="html"></div>
     </div>
   </li>
 </template>
 
 <script lang="ts">
-  import { defineComponent, computed } from 'vue'
   import { Post, PostType } from '../store/types'
+  import { defineComponent, computed } from 'vue'
+  import { useRouter } from 'vue-router'
 
   const base = import.meta.env.VITE_API_ENDPOINT as string
 
@@ -58,12 +59,26 @@
         return (post.permalink || post.link)?.replace(base, '')
       })
 
+      const router = useRouter()
+      const internalLinks = (event: Event ) => {
+        const el = event.target as HTMLElement
+        if (el && (el.tagName === 'A' || el.tagName === 'a')) {
+          event.preventDefault() // check first
+          const path = el.getAttribute('href')
+          if (!path) return
+
+          // console.log('go to', path)
+          router.push(path)
+        }
+      }
+
       return {
         post,
         type,
         title,
         description,
-        url
+        url,
+        internalLinks
       }
     }
   })
