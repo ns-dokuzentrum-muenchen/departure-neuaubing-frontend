@@ -11,7 +11,7 @@ const router = createRouter({
       path: '/',
       name: 'index',
       component: Index,
-      meta: { seite: true }
+      // meta: { seite: true }
     },
     {
       path: '/ueber',
@@ -47,6 +47,16 @@ const router = createRouter({
     {
       path: '/glossar/:slug',
       name: 'glossar',
+      component: () => import('./views/Glossar.vue')
+    },
+    {
+      path: '/orte/:slug',
+      name: 'orte',
+      component: () => import('./views/Glossar.vue')
+    },
+    {
+      path: '/personen/:slug',
+      name: 'person',
       component: () => import('./views/Glossar.vue')
     },
     {

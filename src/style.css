@@ -158,6 +158,8 @@ body {
     @apply bg-green-500 text-black border-green-500;
     @apply hover:bg-white hover:text-green-500;
   }
+
+  &.outline { @apply bg-transparent border-current text-white; }
 }
 
 .input {

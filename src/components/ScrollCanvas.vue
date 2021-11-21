@@ -122,9 +122,9 @@
 
         if (col.top > st) return
 
-        const h = col.height - (col.height / frames.value.length) // divide by img frames
-        const pxPerImg = h / (images.value.length - 1)
-        const step = Math.round((st - col.top) / pxPerImg)
+        const h = col.height - (col.height / frames.value.length)
+        const pxPerImg = h / images.value.length
+        const step = Math.floor((st - col.top) / pxPerImg)
 
         inView.value = Math.min(step, images.value.length)
       }

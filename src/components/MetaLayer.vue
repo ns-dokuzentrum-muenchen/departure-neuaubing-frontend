@@ -7,10 +7,12 @@
             <p class="text-xl md:text-2xl lg:text-4xl font-medium">{{ metaTitle }}</p>
           </div>
           <div class="hidden md:block mr-4">
-            <button @click="hash('#forum')" class="btn text-lg">Forum</button>
+            <!-- <button @click="hash('#forum')" class="btn text-lg">Forum</button> -->
+            <router-link to="/forum" class="btn text-lg inline-block">Forum</router-link>
           </div>
           <div class="hidden md:block mr-4">
-            <button @click="hash('#glossar')" class="btn text-lg">Glossar</button>
+            <!-- <button @click="hash('#glossar')" class="btn text-lg">Glossar</button> -->
+            <router-link to="/glossar" class="btn text-lg inline-block">Glossar</router-link>
           </div>
           <div v-if="vis < 2" class="flex-auto"></div>
           <div>

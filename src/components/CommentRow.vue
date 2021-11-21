@@ -1,5 +1,5 @@
 <template>
-  <div class="rounded-md bg-gray-600 p-4">
+  <div class="">
     <div v-if="comment" class="flex items-start space-x-4">
       <div class="w-14 h-14 flex-none">
         <img :src="comment.author_avatar_urls[96]" alt="Avatar" width="96" height="96" class="rounded-full" loading="lazy"/>
@@ -12,7 +12,7 @@
           <div class="border-l mx-2"></div>
           <p>{{ date }}</p>
         </div>
-        <div v-html="comment.content.rendered" class="mt-2"></div>
+        <div v-html="comment.content.rendered" class="mt-2 font-light text-sm"></div>
       </div>
     </div>
   </div>
