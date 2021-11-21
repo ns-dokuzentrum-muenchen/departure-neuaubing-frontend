@@ -6,7 +6,7 @@
       </div>
       <div>
         <div class="flex font-light text-sm">
-          <p>{{ comment.author_name }}</p>
+          <p>{{ comment.fullname || comment.author_name }}</p>
           <div class="border-l mx-2"></div>
           <p>{{ time }}</p>
           <div class="border-l mx-2"></div>

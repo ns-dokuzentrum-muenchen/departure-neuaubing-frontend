@@ -5,7 +5,7 @@
       <p class="text-xs">Vor 12 stunden</p>
     </div>
     <div class="px-3">
-      <div v-if="comments.length">
+      <div v-if="comments?.length">
         <div v-for="comment in comments" :key="comment.id" class="my-4">
           <comment-row :comment="comment" :replies="[]"/>
         </div>
