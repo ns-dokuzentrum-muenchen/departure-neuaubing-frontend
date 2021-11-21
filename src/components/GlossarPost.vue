@@ -17,11 +17,11 @@
         <div v-html="acf.description"></div>
       </div>
 
-      <div class="mb-4 mt-2 max-w-prose-1">
+      <div class="mb-8 mt-2 max-w-prose-1">
         <artist-bio v-for="artist in acf.person" :key="artist.id" :person="artist"/>
       </div>
 
-      <div v-if="glossar?.length" class="mb-4">
+      <div v-if="glossar?.length" class="mb-12">
         <p class="font-medium text-lg">Glossar</p>
         <ul>
           <li v-for="term in glossar" :key="term.ID">
@@ -30,7 +30,7 @@
         </ul>
       </div>
 
-      <div v-if="places?.length" class="mb-4">
+      <div v-if="places?.length" class="mb-12">
         <p class="font-medium text-lg">Orte</p>
         <ul>
           <li v-for="term in places" :key="term.ID">
@@ -39,7 +39,7 @@
         </ul>
       </div>
 
-      <div v-if="people?.length" class="mb-4">
+      <div v-if="people?.length" class="mb-12">
         <p class="font-medium text-lg">Personen</p>
         <ul>
           <li v-for="term in people" :key="term.ID">

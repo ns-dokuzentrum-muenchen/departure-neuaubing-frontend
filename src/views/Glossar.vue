@@ -16,14 +16,22 @@
             <h1 class="text-xl md:text-2xl lg:text-4xl font-medium">{{ post.title?.rendered }}</h1>
           </div>
 
-          <div v-if="post.comment_status === 'open'">
-            <comment-form :post-id="post.id"/>
-          </div>
+          <div v-html="post.acf?.description" class="html mb-16 text-lg"></div>
 
-          <div v-if="comments?.length" class="my-4">
-            <p>Comments &searr;</p>
-            <div v-for="comment in comments" :key="comment.id" class="my-4">
-              <comment-row :comment="comment" :replies="[]"/>
+          <div v-if="comments?.length" class="my-4 bg-gray-700 rounded-lg">
+            <div class="px-3 py-2 border-b-2 flex justify-between items-baseline">
+              <p class="font-bold">Kommentare</p>
+              <p class="text-xs">Vor 12 stunden</p>
+            </div>
+            <div class="px-3 pb-2">
+              <div v-for="comment in comments" :key="comment.id" class="my-4">
+                <comment-row :comment="comment" :replies="[]"/>
+              </div>
+            </div>
+            <div v-if="post.comment_status === 'open'" class="px-3">
+              <div class="border-t-2 py-2">
+                <comment-form :post-id="post.id"/>
+              </div>
             </div>
           </div>
         </div>

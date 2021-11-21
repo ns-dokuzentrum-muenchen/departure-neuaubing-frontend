@@ -8,14 +8,20 @@
 
       <form @submit.prevent="submit" class="mt-2">
         <div class="mb-3">
-          <textarea v-model="form.content" placeholder="Your comment" class="input" required></textarea>
+          <textarea v-model="form.content" placeholder="Text Eingabe" class="input" required></textarea>
+        </div>
+        <div class="mb-3">
+          <label>
+            <input v-model="form.eula" type="checkbox"/>
+            Ich akzeptiere die Nutzungsbedingungen
+          </label>
         </div>
         <div v-if="statusMsg" class="mb-3">
           <p class="text-green-600">{{ statusMsg }}</p>
         </div>
         <div class="flex mb-3 items-center">
           <div class="flex-none mr-4">
-            <button type="submit" class="btn">Post comment</button>
+            <button type="submit" class="btn outline">beitragen</button>
           </div>
           <transition name="fade">
             <div v-if="errMsg" class="flex-auto">
@@ -51,12 +57,15 @@
       const form = reactive({
         parent: null,
         post: postId.value,
-        content: 'ok prefill it'
+        eula: false,
+        content: ''
       })
 
       const errMsg = ref<string | null>(null)
       const statusMsg = ref<string | null>(null)
       const submit = async () => {
+        if (!form.eula) return
+
         try {
           await store.validateToken()
 
