@@ -1,23 +1,23 @@
 <template>
-  <div id="seitenleiste" ref="metaEl" class="z-20 relative">
-    <div :class="classes" class="fixed top-0 bottom-0 right-0 max-w-full overflow-auto bg-black text-white transform transition-all duration-300">
-      <div class="px-10 mt-14">
+  <div id="seitenleiste" ref="metaEl" class="relative z-40 md:z-20">
+    <div :class="classes" class="fixed top-0 bottom-0 right-0 max-w-full overflow-auto bg-black text-white transform transition-all duration-300 overscroll-contain">
+      <div class="px-4 mt-4 md:px-10 md:mt-14">
         <div class="flex justify-end py-1">
           <div v-if="vis > 1" class="flex-auto -mt-0.5">
             <p class="text-xl md:text-2xl lg:text-4xl font-medium">{{ metaTitle }}</p>
           </div>
-          <div class="hidden md:block mr-4">
+          <div class="block mr-4">
             <!-- <button @click="hash('#forum')" class="btn text-lg">Forum</button> -->
             <router-link to="/forum" class="btn text-lg inline-block">Forum</router-link>
           </div>
-          <div class="hidden md:block mr-4">
+          <div class="block mr-4">
             <!-- <button @click="hash('#glossar')" class="btn text-lg">Glossar</button> -->
             <router-link to="/glossar" class="btn text-lg inline-block">Glossar</router-link>
           </div>
           <div v-if="vis < 2" class="flex-auto"></div>
           <div>
             <router-link v-if="vis < 2" to="/suche" class="btn round block">
-              <search-icon class="inline-block w-5 h-5"/>
+              <search-icon class="inline-block w-3.5 h-3.5 md:w-5 md:h-5"/>
             </router-link>
             <router-link v-else to="/suche" class="btn text-lg whitespace-nowrap block">
               <search-icon class="inline-block w-5 h-5 mr-2"/>
@@ -26,8 +26,8 @@
           </div>
         </div>
       </div>
-      <div class="px-10 my-6">
-        <h3 class="text-xl">Kontext</h3>
+      <div class="px-4 my-4 md:px-10 md:my-6">
+        <h3 class="text-xl font-medium">Kontext</h3>
         <template v-if="data">
           <glossar-post :post="data" :key="data.id" class="my-f"/>
         </template>

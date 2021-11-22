@@ -1,10 +1,10 @@
 <template>
-  <button @click="toggleMenu" :aria-label="label" class="h-6 block">
+  <button @click="toggleMenu" :aria-label="label" :class="position" class="h-7 block transition-transform">
     <div class="flex items-center relative">
       <div :class="pipes" class="w-0 border-l-2 mr-1.5 transition-all"></div>
-      <div :class="{ '-mt-2px': menuOpen }" class="flex absolute left-1/2 transform -translate-x-px h-6 transition-all">
-        <div :class="beamA" class="h-6 w-0 border-l-2 origin-center transition-all transform"></div>
-        <div :class="beamB" class="h-6 w-0 border-l-2 origin-center transition-all transform -mx-2px"></div>
+      <div :class="{ '-mt-2px': menuOpen }" class="flex absolute left-1/2 transform -translate-x-px h-7 transition-all">
+        <div :class="beamA" class="h-7 w-0 border-l-2 origin-center transition-all transform"></div>
+        <div :class="beamB" class="h-7 w-0 border-l-2 origin-center transition-all transform -mx-2px"></div>
       </div>
       <div class="w-0 border-l-2"></div>
       <div :class="pipes" class="w-0 border-l-2 ml-1.5 transition-all"></div>
@@ -43,7 +43,7 @@
         return base.join(' ')
       })
       const pipes = computed(() => {
-        return (menuOpen.value ? 'opacity-0 h-0' : 'h-6 ' + closedColors.value)
+        return (menuOpen.value ? 'opacity-0 h-0' : 'h-7 ' + closedColors.value)
       })
       const beamA = computed(() => {
         return (menuOpen.value ? 'rotate-45 h-7' : closedColors.value)
@@ -52,7 +52,11 @@
         return (menuOpen.value ? '-rotate-45 h-7' : closedColors.value)
       })
 
-      return { menuOpen, label, toggleMenu, pipes, beamA, beamB }
+      const position = computed(() => {
+        return menuOpen.value || attop.value ? '' : 'translate-y-2.5 md:translate-y-1 group-hover:translate-y-0'
+      })
+
+      return { menuOpen, label, toggleMenu, pipes, beamA, beamB, position }
     }
   })
 </script>

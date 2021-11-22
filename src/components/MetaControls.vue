@@ -1,5 +1,5 @@
 <template>
-  <div v-if="available" :class="classes" class="fixed top-0 p-1 rounded-full mt-4 md:mt-14 mr-2 md:mr-12 transition-all duration-300">
+  <div v-if="available" :class="classes" class="fixed top-0 p-1 rounded-full mt-4 md:mt-14 mr-2 md:mr-12 transition-all duration-300 md:z-0">
     <div>
       <button @click="openMeta" class="btn round">
         <info-icon class="-translate-x-px w-full h-full"/>
@@ -8,7 +8,7 @@
     <transition name="fade">
       <div v-if="vis > 0" class="mt-4">
         <button @click="closeMeta" class="btn round">
-          <chevron-left class="rotate-180 translate-x-0.5"/>
+          <chevron-left class="rotate-180 translate-x-0.5 w-5 h-5 md:w-6 md:h-6"/>
         </button>
       </div>
     </transition>
@@ -37,10 +37,12 @@
         return metaLayer?.value || 0
       })
 
+      // const menuOpen = computed(() => store.menuOpen)
+
       const classes = computed(() => {
-        if (vis.value > 1) return 'right-kontext'
-        if (vis.value > 0) return 'right-seite'
-        return 'right-0'
+        const x = ['right-0', 'right-seite', 'right-kontext'][vis.value]
+        // const z = menuOpen.value ? '' : 'z-50'
+        return [x]
       })
 
       function openMeta () {

@@ -124,14 +124,13 @@
 
       async function maybeOpen (e: Event) {
         await nextTick()
-        console.log(e)
         if (!store.menuOpen) {
           toggleMenu()
         }
       }
 
       const attop = ref(true)
-      const listener = () => { attop.value = window.scrollY < 60 }
+      const listener = () => { attop.value = window.scrollY < 60 && route.name ===  'index' }
 
       onMounted(() => {
         window.addEventListener('scroll', listener)

@@ -121,6 +121,29 @@ body {
   }
 }
 
+.w-meta {
+  width: 30rem;
+  max-width: calc(100vw - 1.4rem);
+}
+.w-kontext {
+  width: 62rem;
+  max-width: calc(100vw - 1.4rem);
+}
+
+.right-seite,
+.right-kontext {
+  right: calc(100% - 3rem);
+}
+
+@screen md {
+  .right-seite {
+    right: 25.5rem;
+  }
+  .right-kontext {
+    right: 57.5rem;
+  }
+}
+
 .theme-bold {
   @nest .theme-blau & strong { @apply text-blue-900; }
   @nest .theme-gelb & strong { @apply text-yellow-500; }
@@ -135,7 +158,7 @@ body {
   @apply focus:ring-4 focus:outline-none;
 
   &.round {
-    @apply w-7 md:w-10 h-7 md:h-10 p-0.5 md:p-1.5 flex items-center justify-center;
+    @apply w-8 md:w-10 h-8 md:h-10 p-1 md:p-1.5 flex items-center justify-center;
   }
 
   @nest .theme-blau & {

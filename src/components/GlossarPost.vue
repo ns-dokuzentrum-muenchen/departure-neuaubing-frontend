@@ -1,13 +1,13 @@
 <template>
   <div>
-    <ul class="flex pb-3 mb-1 border-b-2 text-sm">
+    <ul class="flex pb-3 mb-1 border-b-2 text-xs md:text-sm whitespace-nowrap truncate pr-4">
       <li class="chevron">
         <router-link to="/" class="underline">Start</router-link>
       </li>
       <li class="chevron">
         <span class="border-b border-dotted">Projekte</span>
       </li>
-      <li class="chevron">
+      <li class="chevron truncate">
         <span class="underline">{{ post.title?.rendered }}</span>
       </li>
     </ul>
