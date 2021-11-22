@@ -1,5 +1,5 @@
 <template>
-  <button @click="toggleMenu" :aria-label="label" :class="position" class="h-7 block transition-transform">
+  <button @click.stop="toggleMenu" :aria-label="label" :class="position" class="h-7 block transition-transform">
     <div class="flex items-center relative">
       <div :class="pipes" class="w-0 border-l-2 mr-1.5 transition-all"></div>
       <div :class="{ '-mt-2px': menuOpen }" class="flex absolute left-1/2 transform -translate-x-px h-7 transition-all">
@@ -36,11 +36,12 @@
       })
 
       const closedColors = computed(() => {
-        const base = [attop.value && theme.value === 'theme-blau' ? 'text-white' : 'text-black', 'dark:text-white']
-        if (theme.value === 'theme-blau') {
-          base.push('group-hover:text-white')
-        }
-        return base.join(' ')
+        return ''
+        // const base = [attop.value && theme.value === 'theme-blau' ? 'text-white' : 'text-black', 'dark:text-white']
+        // if (theme.value === 'theme-blau') {
+        //   base.push('notouch:group-hover:text-white')
+        // }
+        // return base.join(' ')
       })
       const pipes = computed(() => {
         return (menuOpen.value ? 'opacity-0 h-0' : 'h-7 ' + closedColors.value)
@@ -53,7 +54,7 @@
       })
 
       const position = computed(() => {
-        return menuOpen.value || attop.value ? '' : 'translate-y-2.5 md:translate-y-1 group-hover:translate-y-0'
+        return menuOpen.value || attop.value ? '' : 'translate-y-1.5 md:translate-y-1 notouch:group-hover:translate-y-0'
       })
 
       return { menuOpen, label, toggleMenu, pipes, beamA, beamB, position }

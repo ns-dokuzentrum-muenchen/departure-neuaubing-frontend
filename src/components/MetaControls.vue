@@ -1,12 +1,13 @@
 <template>
-  <div v-if="available" :class="classes" class="fixed top-0 p-1 rounded-full mt-4 md:mt-14 mr-2 md:mr-12 transition-all duration-300 md:z-0">
+  <div v-if="available" :class="classes" class="fixed top-0 p-1 rounded-full mt-2.5 md:mt-14 mr-2 md:mr-12 transition-all duration-300 md:z-0">
     <div>
       <button @click="openMeta" class="btn round">
-        <info-icon class="-translate-x-px w-full h-full"/>
+        <info-icon v-if="vis === 0" class="-translate-x-px w-4.5 h-4.5 md:w-full md:h-full"/>
+        <close-icon v-else class="w-4.5 h-4.5 md:w-5 md:h-5"/>
       </button>
     </div>
     <transition name="fade">
-      <div v-if="vis > 0" class="mt-4">
+      <div v-if="vis > 0" class="mt-4 hidden md:blockX">
         <button @click="closeMeta" class="btn round">
           <chevron-left class="rotate-180 translate-x-0.5 w-5 h-5 md:w-6 md:h-6"/>
         </button>
@@ -47,9 +48,9 @@
 
       function openMeta () {
         if (vis.value === 0) {
-          router.push({ hash: '#seitenleiste' })
+          router.replace({ hash: '#seitenleiste' })
         } else {
-          router.push({ hash: '#kontext' })
+          router.replace({ hash: '' })
         }
       }
       function closeMeta () {

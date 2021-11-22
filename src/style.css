@@ -55,8 +55,16 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
-.ml-logo {
-  margin-left: 1.14em;
+#app {
+  @apply bg-white dark:bg-gray-800;
+}
+
+.ml-logo { margin-left: 1.14em; }
+
+@screen notouch {
+  header:hover ~ div > button {
+    @apply translate-y-0;
+  }
 }
 
 /* cms content */
@@ -132,7 +140,7 @@ body {
 
 .right-seite,
 .right-kontext {
-  right: calc(100% - 3rem);
+  right: calc(100% - 3.2rem);
 }
 
 @screen md {

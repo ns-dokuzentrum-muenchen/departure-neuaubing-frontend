@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="p-4 md:px-16 md:pb-10 bg-bg w-max">
-      <div class="font-bold text-lg md:text-xl mb-1 relative">
+      <div class="font-bold text-base md:text-xl mb-1 relative">
         <p v-for="artist in artists" :key="artist.id">
           <router-link :to="artistLink(artist)" class="hover:opacity-50">{{ artist.post_title }}</router-link>
         </p>

@@ -16,8 +16,8 @@
 
     <div :class="[textAlign, textClass]" class="px-4 max-w-96 transition-opacity duration-500">
       <h2 v-html="title" class="uppercase text-4xl lg:text-5xl styled-text"></h2>
-      <div class="font-bold text-xl my-3">
-        <p v-for="artist in artists" :key="artist.id">{{ artist.post_title }}</p>
+      <div class="font-bold text-xl my-3 flex flex-wrap">
+        <p v-for="artist in artists" :key="artist.id" class="commas">{{ artist.post_title }}</p>
       </div>
       <div v-if="description" v-html="description" class="font-medium my-3 line-clamp-3 xl:line-clamp-4"></div>
       <div class="my-4">
