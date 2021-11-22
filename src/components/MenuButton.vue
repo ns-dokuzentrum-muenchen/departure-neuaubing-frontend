@@ -18,21 +18,25 @@
 
   export default defineComponent({
     name: 'MenuButton',
-    setup () {
+    props: {
+      attop: Boolean
+    },
+    setup (props) {
       const store = useStore()
       const menuOpen = computed(() => store.menuOpen)
       const toggleMenu = () => {
         store.menuOpen = !store.menuOpen
       }
 
+      const attop = computed(() => props.attop)
       const theme = computed(() => store.theme)
 
       const label = computed(() => {
-        return menuOpen.value ? 'Close the menu' : 'Open the menu'
+        return menuOpen.value ? 'Menü schließen' : 'Menü öffnen'
       })
 
       const closedColors = computed(() => {
-        const base = ['text-black', 'dark:text-white']
+        const base = [attop.value && theme.value === 'theme-blau' ? 'text-white' : 'text-black', 'dark:text-white']
         if (theme.value === 'theme-blau') {
           base.push('group-hover:text-white')
         }

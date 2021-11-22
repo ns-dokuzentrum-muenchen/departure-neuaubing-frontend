@@ -1,14 +1,14 @@
 <template>
-  <header ref="header" @click="maybeOpen" :class="{ 'cursor-pointer': !menuOpen }" class="fixed top-0 left-0 right-0 text-highlight group z-30">
+  <header ref="header" @click="maybeOpen" :class="{ 'cursor-pointer': !menuOpen, attop }" class="fixed top-0 left-0 right-0 text-highlight group z-30">
     <div :class="barHeight" class="absolute top-0 left-0 right-0 pointer-events-none transition-all z-0">
       <div class="w-full h-full bg-theme dark:bg-black"></div>
     </div>
 
     <div class="flex relative items-center p-1 md:p-3">
       <div @click.stop class="flex justify-center">
-        <menu-button class="px-4 md:px-12"/>
+        <menu-button :attop="attop" class="px-4 md:px-12"/>
       </div>
-      <div :class="menuOpen ? 'opacity-100' : 'opacity-0'" class="notouch:group-hover:opacity-100 transition-opacity flex-auto">
+      <div :class="menuOpen || attop ? 'opacity-100' : 'opacity-0'" class="notouch:group-hover:opacity-100 transition-opacity flex-auto">
         <p class="text-md md:text-lg lg:text-2xl font-light leading-tight">
           <span>{{ pretitle }}</span>
         </p>
@@ -75,7 +75,7 @@
 </template>
 
 <script lang="ts">
-  import { defineComponent, computed, ref, watch, nextTick } from 'vue'
+  import { defineComponent, computed, ref, watch, nextTick, onMounted, onUnmounted } from 'vue'
   import { useStore } from '../store'
   import { useRoute } from 'vue-router'
   import FontLogo from './FontLogo.vue'
@@ -111,7 +111,7 @@
       // const darkMode = ref(store.darkMode)
 
       const barHeight = computed(() => {
-        return menuOpen.value ? 'h-full' : 'h-2 notouch:group-hover:h-full'
+        return menuOpen.value || attop.value ? 'h-full' : 'h-2 notouch:group-hover:h-full'
       })
 
       const route = useRoute()
@@ -130,18 +130,26 @@
         }
       }
 
+      const attop = ref(true)
+      const listener = () => { attop.value = window.scrollY < 60 }
+
+      onMounted(() => {
+        window.addEventListener('scroll', listener)
+      })
+      onUnmounted(() => {
+        window.removeEventListener('scroll', listener)
+      })
+
       return {
         header,
         menuOpen,
-        // toggleMenu,
         pretitle,
-        // title,
-        // description,
         barHeight,
         projects,
         maybeOpen,
         slideOpen,
-        slideClose
+        slideClose,
+        attop
       }
     },
     components: { FontLogo, MenuButton, RadioSwitches, NsDokuLogo, AnalyticsIcon, ContrastIcon }
