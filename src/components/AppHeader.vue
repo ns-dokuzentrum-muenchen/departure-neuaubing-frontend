@@ -118,6 +118,7 @@
 
       watch(() => route.path, async () => {
         store.menuOpen = false
+        listener()
       })
 
       const projects = computed(() => store.projects)

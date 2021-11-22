@@ -63,7 +63,7 @@
       const title = computed(() => {
         return project.value?.acf?.html_title || project.value?.title?.rendered || ''
       })
-      const description = computed(() => project.value?.acf?.description)
+      const description = computed(() => data?.description)
       const link = computed(() => project.value ? `/projekte/${project.value.slug}` : '')
 
       const mediaType = computed(() => data?.type || 'text')
