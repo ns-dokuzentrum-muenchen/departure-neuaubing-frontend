@@ -35,7 +35,7 @@ export type Post = {
   author: number
   date: string
   modifed: string
-  tags: string[]
+  tags: number[]
   template: string
   type?: PostType
   post_type?: PostType
@@ -61,7 +61,7 @@ type ACF = {
   person?: Post[] // artist
 
   links?: Post[]
-  tags?: object[]
+  tags?: WPTerm[]
   versions?: Post[]
   connections?: Post[]
 }
@@ -150,6 +150,20 @@ interface Settings {
     images: Image[]
   }
   projekte: any[]
+}
+
+interface WPTerm {
+  term_id: number
+  term_taxonomy_id: number
+  count: number
+  description: string
+  filter: string
+  name: string
+  parent: number
+  permalink: string | boolean
+  slug: string
+  taxonomy: string
+  term_group: number
 }
 
 export default State

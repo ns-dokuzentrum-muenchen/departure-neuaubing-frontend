@@ -225,6 +225,9 @@ body {
   @apply bg-yellow-400 bg-opacity-50;
 }
 
+.commas:after { content: ', '; }
+.commas:last-child:after { content: ''; }
+
 /* animations */
 
 .fade-enter-active,

@@ -47,6 +47,15 @@
           </li>
         </ul>
       </div>
+
+      <div v-if="tags?.length" class="mb-12 max-w-prose-1">
+        <p class="font-medium text-lg">Tags</p>
+        <ul class="flex flex-wrap html">
+          <li v-for="term in tags" :key="term.term_id" class="commas">
+            <router-link :to="`/suche?s=${term.name}`">{{ term.name }}</router-link>
+          </li>
+        </ul>
+      </div>
     </div>
   </div>
 </template>
@@ -82,7 +91,11 @@
         return allLinks.value.filter(p => p.post_type === 'person')
       })
 
-      return { post, acf, glossar, places, people }
+      const tags = computed(() => {
+        return acf?.tags
+      })
+
+      return { post, acf, glossar, places, people, tags }
     },
     components: { ArtistBio, ConnectionPreview }
   })
