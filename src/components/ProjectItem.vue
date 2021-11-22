@@ -91,7 +91,7 @@
         const space = step > 0 ? window.innerWidth - pw - p.offsetLeft : p.offsetLeft
         const overlap = Math.round(window.innerWidth / 20)
         // const showWidth = random(overlap * -1, overlap)
-        const showWidth = idx % 3 === 0 ? overlap : 0
+        const showWidth = idx % 3 === 0 ? overlap : -10
 
         const d = ((pw + space - showWidth - padAmount) / pw) * 100
 
