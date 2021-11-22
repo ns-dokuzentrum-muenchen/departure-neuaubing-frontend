@@ -464,6 +464,7 @@ module.exports = {
       '5/6': '83.333333%',
       full: '100%',
       screen: '100vh',
+      smblock: '33vh',
       block: '66vh'
     }),
     inset: (theme, { negative }) => ({
@@ -581,7 +582,8 @@ module.exports = {
       0: '0px',
       full: '100%',
       screen: '100vh',
-      home: 'calc(100vh - 212px)'
+      home: 'calc(100vh - 212px)',
+      smblock: '33vh'
     },
     minWidth: {
       meta: '30rem',

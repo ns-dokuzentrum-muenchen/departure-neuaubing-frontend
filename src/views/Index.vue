@@ -9,9 +9,15 @@
       </div>
     </div>
   </div>
+
   <div class="md:mx-12 md:my-16">
     <scroll-canvas v-if="settings?.intro" :block="settings.intro"/>
   </div>
+
+  <div v-if="settings?.seitenleiste" class="">
+    <scroll-meta/>
+  </div>
+
   <div class="px-12 py-16 overflow-x-hidden">
     <div class="grid grid-cols-12 gap-16 md:gap-32 items-center justify-items-center">
       <project-item v-for="(p, i) in projects" :key="i" :project="p" :col="i % 5" :pos="pos" :class="rowCol(i)" :idx="i" @move="move" class="col-start-3 sm:col-start-4 lg:col-start-5 xl:col-start-6 col-auto"/>
@@ -30,6 +36,7 @@
   import { defineComponent, computed } from 'vue'
   import { useStore } from '../store/index'
   import ScrollCanvas from '../components/ScrollCanvas.vue'
+  import ScrollMeta from '../components/ScrollMeta.vue'
   import ProjectItem from '../components/ProjectItem.vue'
   import RedoIcon from '../components/svg/RedoIcon.vue'
   import FontLogo from '../components/FontLogo.vue'
@@ -70,6 +77,6 @@
 
       return { settings, projects, pos, rowCol, move, reorder }
     },
-    components: { ScrollCanvas, ProjectItem, RedoIcon, FontLogo }
+    components: { ScrollCanvas, ScrollMeta, ProjectItem, RedoIcon, FontLogo }
   })
 </script>

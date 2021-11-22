@@ -146,8 +146,13 @@ interface AcfRow {
 
 interface Settings {
   intro: {
-    frames: any[]
+    frames: { content: string }[]
     images: Image[]
+  }
+  seitenleiste: {
+    title: string
+    description: string,
+    frames: { content: string; position: string }[]
   }
   projekte: any[]
 }
