@@ -25,19 +25,27 @@
         store.menuOpen = !store.menuOpen
       }
 
+      const theme = computed(() => store.theme)
+
       const label = computed(() => {
         return menuOpen.value ? 'Close the menu' : 'Open the menu'
       })
 
-      const closedColors = 'text-black dark:text-white'
+      const closedColors = computed(() => {
+        const base = ['text-black', 'dark:text-white']
+        if (theme.value === 'theme-blau') {
+          base.push('group-hover:text-white')
+        }
+        return base.join(' ')
+      })
       const pipes = computed(() => {
-        return (menuOpen.value ? 'opacity-0 h-0' : 'h-6 ' + closedColors)
+        return (menuOpen.value ? 'opacity-0 h-0' : 'h-6 ' + closedColors.value)
       })
       const beamA = computed(() => {
-        return (menuOpen.value ? 'rotate-45 h-7' : closedColors)
+        return (menuOpen.value ? 'rotate-45 h-7' : closedColors.value)
       })
       const beamB = computed(() => {
-        return (menuOpen.value ? '-rotate-45 h-7' : closedColors)
+        return (menuOpen.value ? '-rotate-45 h-7' : closedColors.value)
       })
 
       return { menuOpen, label, toggleMenu, pipes, beamA, beamB }
