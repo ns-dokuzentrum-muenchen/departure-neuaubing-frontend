@@ -73,6 +73,11 @@ const router = createRouter({
       path: '/verify',
       name: 'verify',
       component: () => import('./views/Verify.vue')
+    },
+    {
+      path: '/pages/:slug',
+      name: 'page',
+      component: () => import('./views/Page.vue')
     }
   ],
   scrollBehavior (to, from, savedPosition) {

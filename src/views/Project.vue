@@ -11,6 +11,7 @@
   import { useStore } from '../store'
   import { useRoute } from 'vue-router'
 
+  // auto-load the content Blocks
   const glob = import.meta.globEager('../components/blocks/*.vue')
 
   const components: { [key: string]: any } = {}

@@ -85,6 +85,19 @@ export const useStore = defineStore({
       })
     },
 
+    async getPage (slug: string) {
+      return api.get('/wp-json/wp/v2/pages', {
+        params: { slug }
+      }).then(({ data }) => {
+        // if (!data[0]) throw new Error('404')
+        if (!data[0]) {
+          console.error('Page not found')
+          return
+        }
+        this.pages[slug] = data[0]
+      })
+    },
+
     async loginNonce () {
       return api.get('/').then((res) => {
         if (!res?.headers) return

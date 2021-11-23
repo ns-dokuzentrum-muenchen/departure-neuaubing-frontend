@@ -1,9 +1,9 @@
 <template>
-  <img ref="el" :src="image?.sizes.medium" :srcset="srcset" loading="lazy"/>
+  <img ref="el" :src="image?.sizes.medium" :srcset="srcset" @load="loaded" :width="image.width" :height="image.height" :alt="image.alt" loading="lazy" class="opacity-0"/>
 </template>
 
 <script lang="ts">
-  import { defineComponent, ref, computed, onMounted } from 'vue'
+  import { defineComponent, ref, computed } from 'vue'
   import { Image } from '../store/types'
 
   export default defineComponent({
@@ -28,11 +28,20 @@
         return srcs.join(',')
       })
 
-      onMounted(() => {
-        // console.log(el.value?.getBoundingClientRect())
-      })
+      const loaded = (event) => {
+        const { target } = event
+        if (!target) return
 
-      return { el, image, srcset }
+        target.animate?.({
+          opacity: [0, 1]
+        }, {
+          duration: 450,
+          easing: 'ease-out'
+        })
+        target.classList.remove('opacity-0')
+      }
+
+      return { el, image, srcset, loaded }
     }
   })
 </script>

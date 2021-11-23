@@ -4,7 +4,8 @@
       <div v-for="(group, i) in gallery" :key="i" class="flex space-x-4 md:space-x-8 px-4 md:px-8 lg:px-12 overflow-hidden">
         <figure v-for="img in group" :key="img.id" class="">
           <div class="relative w-max">
-            <img :src="img.sizes?.large" :style="imgStyle(img.width, img.height)" :width="img.width" :height="img.height" :alt="img.alt" class="w-max" loading="lazy"/>
+            <!-- <img :src="img.sizes?.large" :style="imgStyle(img.width, img.height)" :width="img.width" :height="img.height" :alt="img.alt" class="w-max" loading="lazy"/> -->
+            <app-image :image="img" :style="imgStyle(img.width, img.height)" class="w-max"/>
           </div>
 
           <figcaption v-if="img.caption" :class="{ 'opacity-0': slide !== i }" class="max-w-prose text-xs md:text-sm mt-2 transition-opacity">{{ img.caption }}</figcaption>
@@ -18,6 +19,7 @@
   import { Image } from '../../store/types'
   import { defineComponent, ref, computed, onMounted, nextTick, onUnmounted } from 'vue'
   import Flickity from 'flickity'
+  import AppImage from '../AppImage.vue'
 
   export default defineComponent({
     props: {
@@ -102,6 +104,7 @@
       }
 
       return { car, gallery, rowHeight, imgStyle, slide }
-    }
+    },
+    components: { AppImage }
   })
 </script>

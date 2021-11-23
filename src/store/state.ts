@@ -17,6 +17,8 @@ export default function state (): State {
     glossar: {},
     comments: {}, // by post id
 
+    pages: {},
+
     markers: [],
     myMarkers: [], // TODO: save these in localStorage? remove when no longer `pending`
 

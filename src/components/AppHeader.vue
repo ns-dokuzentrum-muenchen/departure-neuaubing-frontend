@@ -39,8 +39,8 @@
                   </li>
                 </ul>
               </li>
-              <li class="my-1 md:my-0"><router-link to="/ueber" class="hover:underline">Über</router-link></li>
-              <li class="my-1 md:my-0"><router-link to="/impressum" class="hover:underline">Impressum</router-link></li>
+              <li class="my-1 md:my-0"><router-link to="/pages/ueber" class="hover:underline">Über</router-link></li>
+              <li class="my-1 md:my-0"><router-link to="/pages/impressum" class="hover:underline">Impressum</router-link></li>
             </ul>
 
             <div class="hidden md:block my-12">

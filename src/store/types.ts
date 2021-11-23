@@ -8,6 +8,7 @@ interface State {
   visitorDistance: any
   glossar: { [index: string]: Post }
   comments: { [index: number]: Comment[] }
+  pages: { [index: string]: Post }
   markers: Post[]
   myMarkers: Post[]
   darkMode: boolean
