@@ -1,5 +1,5 @@
 <template>
-  <div class="relative">
+  <div class="">
     <styled-map></styled-map>
   </div>
 </template>

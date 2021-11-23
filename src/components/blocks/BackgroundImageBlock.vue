@@ -1,5 +1,5 @@
 <template>
-  <div class="w-screen h-screen sticky top-0 z-0 -mb-vh">
+  <div class="w-screen h-screen sticky top-0 z-1 -mb-vh">
     <app-image :image="image" class="w-full h-full object-cover"/>
   </div>
 </template>

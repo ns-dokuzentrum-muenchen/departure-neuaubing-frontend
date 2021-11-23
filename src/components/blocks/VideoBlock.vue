@@ -1,5 +1,5 @@
 <template>
-  <div class="relative md:grid grid-cols-12 gap-4 px-4 my-8">
+  <div class="md:grid grid-cols-12 gap-4 px-4 my-8">
     <div :class="position" class="col-span-7 bg-bg">
       <figure>
         <video-player v-if="block?.video" :video="block.video" class="w-full"/>

@@ -72,7 +72,7 @@
       </transition>
     </header>
 
-    <div :class="{ 'notouch:pointer-events-none': !menuOpen }" class="flex justify-center w-12 md:w-24 fixed top-2.5 md:top-3.5 left-0 z-30 mix-blend-exclusion text-white">
+    <div :class="{ 'notouch:pointer-events-none': !menuOpen }" class="flex justify-center w-12 md:w-24 fixed top-2.5 md:top-3.5 left-0 z-30 mix-blend-exclusionX text-whiteX">
       <menu-button :attop="attop" class="px-3.5 md:px-12"/>
     </div>
   </div>

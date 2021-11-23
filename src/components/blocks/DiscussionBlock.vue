@@ -1,5 +1,5 @@
 <template>
-  <div class="md:grid grid-cols-12 gap-4 my-8 px-4 relative">
+  <div class="md:grid grid-cols-12 gap-4 my-8 px-4">
     <div :class="[position]" class="col-span-7 bg-bg px-4 py-4">
       <p class="font-medium text-2xl mb-4">{{ title }}</p>
       <div v-html="content" @click="internalLinks" class="html max-w-prose-1 text-lg"></div>

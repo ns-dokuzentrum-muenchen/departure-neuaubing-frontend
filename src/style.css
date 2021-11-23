@@ -55,15 +55,18 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
-#app {
+/*#app {
   @apply bg-white dark:bg-gray-800;
-}
+}*/
 
 .ml-logo { margin-left: 1.14em; }
 
 @screen notouch {
   header:hover ~ div > button {
     @apply translate-y-0;
+  }
+  .theme-blau header:hover ~ div .menu-button * {
+    @apply text-white;
   }
 }
 
