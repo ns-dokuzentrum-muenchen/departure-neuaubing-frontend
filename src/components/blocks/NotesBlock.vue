@@ -1,5 +1,5 @@
 <template>
-  <div class="bg-bg p-4 md:p-8">
+  <div class="relative bg-bg p-4 md:p-8">
     <div class="max-w-prose-1 mx-auto my-8 md:my-12 text-lg">
       <p class="font-medium text-2xl md:text-3xl">{{ block?.titel }}</p>
       <div class="my-6">

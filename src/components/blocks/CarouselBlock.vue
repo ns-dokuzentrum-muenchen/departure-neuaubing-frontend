@@ -1,5 +1,5 @@
 <template>
-  <div class="">
+  <div class="relative">
     <div ref="car" class="overflow-hidden outline-none">
       <div v-for="(group, i) in gallery" :key="i" class="flex space-x-4 md:space-x-8 px-4 md:px-8 lg:px-12 overflow-hidden">
         <figure v-for="img in group" :key="img.id" class="">

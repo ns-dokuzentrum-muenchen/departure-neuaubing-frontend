@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="relative">
     <footer class="bg-theme text-theme px-8 py-3">
       <div class="sm:flex justify-between my-4 max-w-8xl mx-auto text-lg">
         <div class="sm:mr-12">
