@@ -68,6 +68,7 @@ body {
   .theme-blau header:hover ~ div .menu-button * {
     @apply text-white;
   }
+  .theme-blau .menu-button:hover * { @apply text-white; }
 }
 
 /* cms content */
