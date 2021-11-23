@@ -46,7 +46,7 @@
 
         const { top, bottom } = r
         const mid = window.innerHeight / 2
-        const b = mid * 1.5
+        const b = mid * 1.1
 
         inView.value = top < mid && bottom > b
       }
