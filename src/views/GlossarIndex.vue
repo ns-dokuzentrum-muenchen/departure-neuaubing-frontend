@@ -24,9 +24,9 @@
             <h1 class="text-2xl lg:text-4xl font-medium">Glossar</h1>
           </div>
 
-          <div>
+          <div class="mb-16">
             <ul>
-              <li v-for="term in glossary" :key="term.id">
+              <li v-for="term in glossary" :key="term.id" class="my-2">
                 <connection-preview :post="term"/>
               </li>
             </ul>
