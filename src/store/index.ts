@@ -1,3 +1,4 @@
+import { Post } from './types'
 import { defineStore } from 'pinia'
 import state from './state'
 import axios from 'axios'
@@ -12,7 +13,12 @@ export const useStore = defineStore({
   state,
   getters: {
     idToProject: (state) => (id: number) => state.projects?.find(p => p.id === id),
-    slugToProject: (state) => (slug: string) => state.projects?.find(p => p.slug === slug)
+    slugToProject: (state) => (slug: string) => state.projects?.find(p => p.slug === slug),
+    glossary: (state) => {
+      return Object.values(state.glossar)?.sort((a, b) => {
+        return a.slug.localeCompare(b.slug)
+      })
+    }
   },
   actions: {
     async getSettings () {
@@ -42,6 +48,17 @@ export const useStore = defineStore({
       })
     },
 
+    async getGlossarTerms () {
+      // TODO: maybe get `personen` and `orte` too?
+      return api.get('/wp-json/wp/v2/glossar', {
+        params: { per_page: 100 } // just all for now
+      }).then(({ data }) => {
+        if (!data || !data[0]) return
+        data.forEach((post: Post) => {
+          this.glossar[post.slug] = post
+        })
+      })
+    },
     async getGlossaryTerm (slug: string, postType: string) {
       if (this.glossar[slug]) return
 

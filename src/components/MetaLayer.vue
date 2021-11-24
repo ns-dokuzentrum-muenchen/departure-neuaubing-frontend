@@ -29,7 +29,7 @@
       <div class="px-6 my-4 md:px-10 md:my-6">
         <h3 class="text-xl font-medium">Kontext</h3>
         <template v-if="data">
-          <glossar-post :post="data" :key="data.id" class="my-f"/>
+          <meta-post :post="data" :key="data.id" class="my-f"/>
         </template>
       </div>
     </div>
@@ -43,7 +43,7 @@
   import { useStore } from '../store'
   import { useRoute, useRouter } from 'vue-router'
   import { onClickOutside } from '@vueuse/core'
-  import GlossarPost from './GlossarPost.vue'
+  import MetaPost from './MetaPost.vue'
   import ChevronLeft from './svg/ChevronLeft.vue'
   import SearchIcon from './svg/SearchIcon.vue'
   import MetaControls from './MetaControls.vue'
@@ -104,6 +104,6 @@
 
       return { vis, classes, metaTitle, metaEl, data, hash }
     },
-    components: { GlossarPost, ChevronLeft, SearchIcon, MetaControls }
+    components: { MetaPost, ChevronLeft, SearchIcon, MetaControls }
   })
 </script>

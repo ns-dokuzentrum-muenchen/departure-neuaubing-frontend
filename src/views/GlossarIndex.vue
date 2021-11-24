@@ -23,6 +23,14 @@
             </div>
             <h1 class="text-2xl lg:text-4xl font-medium">Glossar</h1>
           </div>
+
+          <div>
+            <ul>
+              <li v-for="term in glossary" :key="term.id">
+                <connection-preview :post="term"/>
+              </li>
+            </ul>
+          </div>
         </div>
       </div>
 
@@ -36,15 +44,32 @@
 </template>
 
 <script lang="ts">
-  import { defineComponent } from 'vue'
-  import { useRouter } from 'vue-router'
+  import { defineComponent, computed, provide } from 'vue'
+  import { useStore } from '../store'
+  import { useRoute, useRouter } from 'vue-router'
+  import ConnectionPreview from '../components/ConnectionPreview.vue'
   import SearchIcon from '../components/svg/SearchIcon.vue'
-  import CloseIcon from '../components/svg/CloseIcon.vue'
+  // import CloseIcon from '../components/svg/CloseIcon.vue'
   import ChevronLeft from '../components/svg/ChevronLeft.vue'
 
   export default defineComponent({
     setup () {
+      const store = useStore()
+      const route = useRoute()
       const router = useRouter()
+
+      const glossary = computed(() => store.glossary)
+
+      const metaContext = computed(() => {
+        const pos = route.hash.indexOf('=')
+        if (pos >= 0) {
+          const path = route.hash.slice(pos + 1)
+          return path.slice(0, path.length - (path.slice(-1) === '/' ? 1 : 0))
+        }
+        return
+      })
+
+      provide('ctx', metaContext)
 
       const goBack = () => {
         if (!window.history?.state?.back) {
@@ -54,8 +79,13 @@
         }
       }
 
-      return { goBack }
+      return { glossary, goBack }
     },
-    components: { SearchIcon, CloseIcon, ChevronLeft }
+    beforeRouteEnter (_to, _from, next) {
+      // const { page } =
+      const store = useStore()
+      store.getGlossarTerms().then(next)
+    },
+    components: { ConnectionPreview, SearchIcon, ChevronLeft }
   })
 </script>

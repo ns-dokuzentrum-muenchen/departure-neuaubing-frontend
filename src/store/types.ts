@@ -12,7 +12,7 @@ interface State {
   markers: Post[]
   myMarkers: Post[]
   darkMode: boolean
-  theme: Theme,
+  theme: Theme
   menuOpen: boolean
   searchResults: Post[]
   analytics: boolean

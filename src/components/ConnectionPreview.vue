@@ -1,7 +1,7 @@
 <template>
   <div>
     <div :class="{ 'text-lg font-medium py-1': expanded, 'html': !expanded }" class="transition-all">
-      <router-link :to="`\#kontext=${target}`">{{ title }}</router-link>
+      <router-link :to="link">{{ title }}</router-link>
     </div>
     <transition @enter="slideOpen" @leave="slideClose">
       <div v-if="expanded" class="overflow-hidden">
@@ -27,6 +27,7 @@
 <script lang="ts">
   import { Post } from '../store/types'
   import { defineComponent, inject, computed, ComputedRef } from 'vue'
+  import { useRoute } from 'vue-router'
   import { slideOpen, slideClose } from '../utils'
   import CommentsPreview from './CommentsPreview.vue'
 
@@ -55,7 +56,13 @@
         return post?.comment_status === 'open'
       })
 
-      return { post, title, target, expanded, canComment, slideOpen, slideClose }
+      const route = useRoute()
+      const link = computed(() => {
+        const base = route.name === 'projekt' ? '#kontext=' : '#view='
+        return base + target.value
+      })
+
+      return { post, title, target, expanded, canComment, slideOpen, slideClose, link }
     },
     components: { CommentsPreview }
   })
