@@ -31,6 +31,8 @@ export type Post = {
   post_title: string
   acf: ACF
 
+  content?: RenderedString
+
   comment_status: string
   comment_count: string
   author: number
