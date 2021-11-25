@@ -1,15 +1,44 @@
 <template>
   <div>
-    <article>
-      <component v-for="(block, i) in contentBlocks" :is="block.acf_fc_layout" :block="block" :slug="slug" :key="i"></component>
+    <article class="">
+      <div :class="{ leftopen }">
+        <component v-for="(block, i) in contentBlocks" :is="block.acf_fc_layout" :block="block" :slug="slug" :key="i"></component>
+      </div>
+
+      <div v-if="mitBegriffe">
+        <div :class="{ '-translate-x-full': !leftopen }" class="fixed top-0 left-0 bottom-0 transition-transform p-12 w-kontext overflow-y-auto">
+          <div class="bg-white dark:bg-black m-20 px-2 py-1 md:px-4 md:py-1 text-black dark:text-white">
+            <div class="text-xl font-medium">About</div>
+            <div>about about</div>
+          </div>
+
+          <div class="bg-gray-400 text-black">
+            <div class="border-b-2 flex justify-between items-center">
+              <p class="text-xl font-medium px-2 py-1 md:px-4 md:py-2">Beiträge (?)</p>
+              <div class="px-2 md:px-4 translate-x-10">
+                <button @click="back" class="btn-sm">zurück <span class="font-mono">&gt;</span></button>
+              </div>
+            </div>
+            <div class="px-2 py-1 md:px-4 md:py-2">
+              <ul>
+                <li v-for="term in links" :key="term.id" class="my-2">
+                  <connection-preview :post="term" base="begriff"/>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
     </article>
   </div>
 </template>
 
 <script lang="ts">
-  import { defineComponent, computed } from 'vue'
+  import { defineComponent, computed, provide } from 'vue'
   import { useStore } from '../store'
   import { useRoute } from 'vue-router'
+  import ConnectionPreview from '../components/ConnectionPreview.vue'
+  import router from '../router'
 
   // auto-load the content Blocks
   const glob = import.meta.globEager('../components/blocks/*.vue')
@@ -32,12 +61,38 @@
         return store.projects?.find(p => p?.slug === slug.value)
       })
 
+
+      const metaContext = computed(() => {
+        const pos = route.hash.indexOf('=')
+        if (pos >= 0) {
+          const path = route.hash.slice(pos + 1)
+          return path.slice(0, path.length - (path.slice(-1) === '/' ? 1 : 0))
+        }
+        return
+      })
+
+      provide('ctx', metaContext)
+
       const contentBlocks = computed(() => {
         return project.value?.acf?.content || []
       })
 
-      return { slug, contentBlocks }
+      const leftopen = computed(() => {
+        return route.hash.startsWith('#begriff') && mitBegriffe.value
+      })
+      const mitBegriffe = computed(() => {
+        return contentBlocks.value.some((row) => row.acf_fc_layout === 'DiscussionBlock')
+      })
+      const links = computed(() => {
+        if (!mitBegriffe.value) return []
+        return project.value?.acf.connections || []
+      })
+
+      const back = () => {
+        router.replace({ hash: '' })
+      }
+      return { slug, contentBlocks, mitBegriffe, links, leftopen, back }
     },
-    components: { ...components }
+    components: { ...components, ConnectionPreview }
   })
 </script>

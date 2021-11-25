@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="">
     <app-header/>
 
     <main :class="{ 'md:-translate-x-36': offset }" class="transition-transform pt-px">

@@ -52,6 +52,7 @@ html {
 
 body {
   @apply bg-white text-black dark:bg-gray-800 dark:text-white;
+  @apply overflow-x-hidden;
   -webkit-font-smoothing: antialiased;
 }
 
@@ -69,6 +70,11 @@ body {
     @apply text-white;
   }
   .theme-blau .menu-button:hover * { @apply text-white; }
+}
+
+.leftopen-nudge { @apply transition-transform; }
+.leftopen .leftopen-nudge {
+  @apply translate-x-full;
 }
 
 /* cms content */
@@ -197,6 +203,13 @@ body {
   }
 
   &.outline { @apply bg-transparent border-current text-white; }
+}
+
+.btn-sm {
+  @apply px-4 py-0.5 rounded-full transition-all;
+  @apply bg-black text-white;
+
+  @apply hover:bg-blue-900;
 }
 
 .input {

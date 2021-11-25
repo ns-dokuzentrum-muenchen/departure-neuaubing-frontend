@@ -35,14 +35,18 @@
 
   export default defineComponent({
     props: {
-      post: Object
+      post: Object,
+      base: String
     },
     setup (props) {
       const post = props.post as Post
       const title = post.post_title || post.title?.rendered
+      const metaBase = computed(() => {
+        return props.base ? `#${props.base}=` : false
+      })
 
       const ctx = inject<ComputedRef<string>>('ctx')
-      const target = computed<string|undefined>(() => {
+      const target = computed<string>(() => {
         const self = post.permalink || post.link || ''
         return self.replace(base, '')
       })
@@ -58,7 +62,7 @@
 
       const route = useRoute()
       const link = computed(() => {
-        const base = route.name === 'projekt' ? '#kontext=' : '#view='
+        const base = metaBase.value || (route.name === 'projekt' ? '#kontext=' : '#view=')
         return base + target.value
       })
 

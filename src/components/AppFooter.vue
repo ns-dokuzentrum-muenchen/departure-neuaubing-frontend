@@ -12,13 +12,13 @@
         <div>
           <ul>
             <li>
-              <router-link to="/ueber">Über</router-link>
+              <router-link to="/pages/ueber">Über</router-link>
             </li>
             <li>
-              <router-link to="/sitemap">Sitemap</router-link>
+              <router-link to="/pages/sitemap">Sitemap</router-link>
             </li>
             <li>
-              <router-link to="/impressum">Impressum</router-link>
+              <router-link to="/pages/impressum">Impressum</router-link>
             </li>
           </ul>
         </div>
