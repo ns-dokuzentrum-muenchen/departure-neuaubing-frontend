@@ -41,14 +41,14 @@
       }
 
       const listen = () => {
-        const r = el.value?.getBoundingClientRect()
-        if (!r) return
+        // const r = el.value?.getBoundingClientRect()
+        // if (!r) return
 
-        const { top, bottom } = r
-        const mid = window.innerHeight / 2
-        const b = mid * 1.1
+        // const { top, bottom } = r
+        // const mid = window.innerHeight / 2
+        // const b = mid * 1.1
 
-        inView.value = top < mid && bottom > b
+        // inView.value = top < mid && bottom > b
       }
 
       onMounted(() => {
