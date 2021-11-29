@@ -19,6 +19,7 @@
   import { Image as Img } from '../store/types'
   import { defineComponent, ref, computed, onMounted, onUnmounted, nextTick, watch } from 'vue'
   import { useStore } from '../store'
+  import { imgSize } from '../utils'
 
   export default defineComponent({
     props: {
@@ -57,14 +58,12 @@
 
       watch(inView, (idx) => {
         requestAnimationFrame(() => {
-          // console.log('update the image', idx)
           updateImage(idx)
         })
       })
 
-      const IMG = new Image()
+      const IMGs: HTMLImageElement[] = [] // new Image()
 
-      // TODO preload images
       // https://css-tricks.com/lets-make-one-of-those-fancy-scrolling-animations-used-on-apple-product-pages/
       onMounted(async () => {
         store.getVisitorDistance()
@@ -78,38 +77,46 @@
 
         ctx.value = canvas.getContext('2d')
 
-        IMG.src = currentFrame(inView.value)
-        IMG.onload = () => {
-          ctx.value?.drawImage(IMG, 0, 0, canvas.width, canvas.height)
-        }
-
         window.addEventListener('scroll', observe)
 
-        setTimeout(() => {
-          if (!images.value?.length) return
+        if (!images.value?.length) return
 
-          // preload the images
-          // TODO save list of <img>, draw them to canvas?
-          for (let i = 0; i < images.value.length; i++) {
-            const el = new Image()
-            el.src = currentFrame(i)
+        // preload the images
+        for (let i = 0; i < images.value.length; i++) {
+          const el = new Image()
+          el.src = currentFrame(i, canvas.width)
+          el.onload = () => {
+            el.setAttribute('loaded', 'true')
+            if (i === inView.value) {
+              updateImage(i)
+            }
           }
-        }, 1234)
+          IMGs.push(el)
+
+          await sleep(80)
+        }
       })
       onUnmounted(() => {
         window.removeEventListener('scroll', observe)
       })
 
-      // TODO get correct size
-      function currentFrame (idx: number) {
+      function updateImage (idx: number) {
+        const canvas = can.value
+        if (!canvas) return
+
+        const img = IMGs[idx]
+        if (!img || !img.getAttribute('loaded')) return // not yet loaded
+
+        ctx.value?.drawImage(IMGs[idx], 0, 0, canvas.width, canvas.height)
+      }
+
+      function currentFrame (idx: number, viewSize: number) {
         const post = images.value[idx]
         if (!post) return ''
 
-        return post.url
-      }
-
-      function updateImage (idx: number) {
-        IMG.src = currentFrame(idx)
+        const src = imgSize(post, viewSize)
+        console.log(src)
+        return src // imgSize(post, viewSize)
       }
 
       function observe () {
@@ -124,11 +131,14 @@
         const pxPerImg = h / images.value.length
         const step = Math.floor((st - col.top) / pxPerImg)
 
-        inView.value = Math.min(step, images.value.length)
+        inView.value = Math.min(step, images.value.length - 1)
+      }
+
+      function sleep (delay: number) {
+        return new Promise((resolve) => setTimeout(resolve, delay))
       }
 
       return { can, txts, block, frames, height, setItem }
-    },
-    components: {}
+    }
   })
 </script>
