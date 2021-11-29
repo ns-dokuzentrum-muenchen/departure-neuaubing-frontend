@@ -1,7 +1,7 @@
 <template>
   <div class="bg-bg h-16 md:h-24 lg:h-32"></div>
-  <div class="md:grid grid-cols-12 gap-4 mb-16 md:mb-24 lg:mb-32 leftopen-nudge">
-    <project-title :project="project" :text="block?.title" :class="position" class="col-span-9"/>
+  <div class="md:grid grid-cols-12 gap-4 mb-16 md:mb-24 lg:mb-32">
+    <project-title :project="project" :text="block?.title" :class="position" :style="nudge" class="col-span-9 leftopen-nudge"/>
   </div>
 </template>
 
@@ -27,7 +27,13 @@
         return `col-start-${props.block?.position || '1'}`
       })
 
-      return { block, project, position }
+      const nudge = computed(() => {
+        const c = props.block?.position || 1
+        const val = (12 - c) / 12
+        return `--nudge:${val}`
+      })
+
+      return { block, project, position, nudge }
     },
     components: { ProjectTitle }
   })

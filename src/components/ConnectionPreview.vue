@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div ref="el">
     <div :class="{ 'text-lg font-medium py-1': expanded, 'html': !expanded }" class="transition-all">
       <router-link :to="link">{{ title }}</router-link>
     </div>
@@ -7,6 +7,16 @@
       <div v-if="expanded" class="overflow-hidden">
         <div class="py-3 border-t border-b">
           <div v-html="post.acf?.description" class="html max-w-prose-1"></div>
+
+          <figure v-if="post.acf?.thumbnail" class="mt-2 max-w-prose-1">
+            <router-link :to="target">
+              <app-image :image="post.acf.thumbnail"/>
+            </router-link>
+          </figure>
+
+          <div v-if="post.acf?.link_text" class="mt-2 html max-w-prose-1">
+            <router-link :to="target">{{ post.acf.link_text }}</router-link>
+          </div>
 
           <template v-if="canComment">
             <div class="my-4">
@@ -26,10 +36,11 @@
 
 <script lang="ts">
   import { Post } from '../store/types'
-  import { defineComponent, inject, computed, ComputedRef } from 'vue'
+  import { defineComponent, inject, ref, computed, watch, ComputedRef } from 'vue'
   import { useRoute } from 'vue-router'
   import { slideOpen, slideClose } from '../utils'
   import CommentsPreview from './CommentsPreview.vue'
+  import AppImage from './AppImage.vue'
 
   const base = import.meta.env.VITE_API_ENDPOINT as string
 
@@ -39,6 +50,7 @@
       base: String
     },
     setup (props) {
+      const el = ref<HTMLElement|null>(null)
       const post = props.post as Post
       const title = post.post_title || post.title?.rendered
       const metaBase = computed(() => {
@@ -66,8 +78,20 @@
         return base + target.value
       })
 
-      return { post, title, target, expanded, canComment, slideOpen, slideClose, link }
+      watch(expanded, (newVal) => {
+        if (newVal && el.value) {
+          // console.log('scroll to me', target.value, el.value)
+          setTimeout(() => {
+            el.value?.scrollIntoView?.({
+              block: 'center',
+              behavior: 'smooth'
+            })
+          }, 250)
+        }
+      })
+
+      return { el, post, title, target, expanded, canComment, slideOpen, slideClose, link }
     },
-    components: { CommentsPreview }
+    components: { CommentsPreview, AppImage }
   })
 </script>

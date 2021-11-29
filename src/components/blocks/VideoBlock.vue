@@ -1,6 +1,6 @@
 <template>
   <div class="md:grid grid-cols-12 gap-4 px-4 my-8">
-    <div :class="position" class="col-span-7 bg-bg leftopen-nudge">
+    <div :class="position" :style="nudge" class="col-span-7 bg-bg leftopen-nudge">
       <figure>
         <video-player v-if="block?.video" :video="block.video" class="w-full"/>
 
@@ -29,7 +29,13 @@
 
       const block = computed(() => props.block)
 
-      return { position, block }
+      const nudge = computed(() => {
+        const c = props.block?.position || 1
+        const val = (12 - c) / 12
+        return `--nudge:${val}`
+      })
+
+      return { position, block, nudge }
     },
     components: { VideoPlayer }
   })

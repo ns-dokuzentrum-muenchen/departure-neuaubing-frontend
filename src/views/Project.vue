@@ -6,25 +6,29 @@
       </div>
 
       <div v-if="mitBegriffe">
-        <div :class="{ '-translate-x-full': !leftopen }" class="fixed top-0 left-0 bottom-0 transition-transform p-12 w-kontext overflow-y-auto">
-          <div class="bg-white dark:bg-black m-20 px-2 py-1 md:px-4 md:py-1 text-black dark:text-white">
-            <div class="text-xl font-medium">About</div>
-            <div>about about</div>
-          </div>
-
-          <div class="bg-gray-400 text-black">
-            <div class="border-b-2 flex justify-between items-center">
-              <p class="text-xl font-medium px-2 py-1 md:px-4 md:py-2">Beiträge (?)</p>
-              <div class="px-2 md:px-4 translate-x-10">
-                <button @click="back" class="btn-sm">zurück <span class="font-mono">&gt;</span></button>
+        <div @click="back" :class="{ '-translate-x-full': !leftopen }" class="fixed top-0 left-0 bottom-0 right-0 transition-transform overflow-hidden">
+          <div class="overflow-auto p-12 h-full overscroll-contain">
+            <div class="w-kontext">
+              <div v-if="werkzeug" @click.stop class="bg-white dark:bg-black m-20 px-2 py-1 md:px-4 md:py-2 text-black dark:text-white">
+                <div class="text-xl font-medium my-2">{{ werkzeug.title }}</div>
+                <div v-html="werkzeug.content" class="html"></div>
               </div>
-            </div>
-            <div class="px-2 py-1 md:px-4 md:py-2">
-              <ul>
-                <li v-for="term in links" :key="term.id" class="my-2">
-                  <connection-preview :post="term" base="begriff"/>
-                </li>
-              </ul>
+
+              <div @click.stop class="bg-gray-400 text-black">
+                <div class="border-b-2 flex justify-between items-center">
+                  <p class="text-xl font-medium px-2 py-1 md:px-4 md:py-2">Beiträge (?)</p>
+                  <div class="px-2 md:px-4 translate-x-10">
+                    <button @click="back" class="btn-sm">zurück <chevron-right class="inline-block w-2 ml-1"/></button>
+                  </div>
+                </div>
+                <div class="px-2 py-1 md:px-4 md:py-2">
+                  <ul>
+                    <li v-for="term in links" :key="term.id" class="my-2">
+                      <connection-preview :post="term" base="begriff"/>
+                    </li>
+                  </ul>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -38,6 +42,7 @@
   import { useStore } from '../store'
   import { useRoute } from 'vue-router'
   import ConnectionPreview from '../components/ConnectionPreview.vue'
+  import ChevronRight from '../components/svg/ChevronRight.vue'
   import router from '../router'
 
   // auto-load the content Blocks
@@ -61,7 +66,6 @@
         return store.projects?.find(p => p?.slug === slug.value)
       })
 
-
       const metaContext = computed(() => {
         const pos = route.hash.indexOf('=')
         if (pos >= 0) {
@@ -77,6 +81,9 @@
         return project.value?.acf?.content || []
       })
 
+      const werkzeug = computed(() => {
+        return project.value?.acf?.werkzeug
+      })
       const leftopen = computed(() => {
         return route.hash.startsWith('#begriff') && mitBegriffe.value
       })
@@ -91,8 +98,8 @@
       const back = () => {
         router.replace({ hash: '' })
       }
-      return { slug, contentBlocks, mitBegriffe, links, leftopen, back }
+      return { slug, contentBlocks, mitBegriffe, links, werkzeug, leftopen, back }
     },
-    components: { ...components, ConnectionPreview }
+    components: { ...components, ConnectionPreview, ChevronRight }
   })
 </script>

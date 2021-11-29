@@ -28,7 +28,7 @@
         return srcs.join(',')
       })
 
-      const loaded = (event) => {
+      const loaded = (event: any) => {
         const { target } = event
         if (!target) return
 

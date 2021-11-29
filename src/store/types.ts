@@ -58,10 +58,14 @@ type ACF = {
   title?: string
   html_title?: string
   description?: string
+  werkzeug?: { title: string, content: string }
   content?: AcfRow[]
 
   biographie?: string
   person?: Post[] // artist
+
+  link_text?: string
+  thumbnail?: Image
 
   links?: Post[]
   tags?: WPTerm[]

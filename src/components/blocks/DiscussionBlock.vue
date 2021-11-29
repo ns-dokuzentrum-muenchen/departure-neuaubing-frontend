@@ -1,7 +1,12 @@
 <template>
   <div class="md:grid grid-cols-12 gap-4 my-8 px-4">
-    <div :class="[position]" class="col-span-7 bg-bg px-4 py-4 leftopen-nudge">
-      <p class="font-medium text-2xl mb-4">{{ title }}</p>
+    <div :class="[position]" :style="nudge" class="col-span-7 bg-bg px-4 py-4 leftopen-nudge group">
+      <div class="relative">
+        <div class="absolute left-0 whitespace-nowrap top-0.5 -translate-x-1/3 opacity-0 group-hover:opacity-100 transition-all">
+          <button @click="openBegriffe" class="btn-sm"><chevron-left class="inline-block w-2 mr-1"/> Sprachanalyse Werkzeug</button>
+        </div>
+        <p class="font-medium text-2xl mb-4 group-hover:translate-x-48 transition-all">{{ title }}</p>
+      </div>
       <div v-html="content" @click="internalLinks" class="html max-w-prose-1 text-lg"></div>
     </div>
   </div>
@@ -10,6 +15,7 @@
 <script lang="ts">
   import { defineComponent, computed } from 'vue'
   import { useRouter } from 'vue-router'
+  import ChevronLeft from '../svg/ChevronLeft.vue'
 
   export default defineComponent({
     props: {
@@ -35,7 +41,18 @@
         }
       }
 
-      return { position, title, content, internalLinks }
-    }
+      const nudge = computed(() => {
+        const c = props.block?.position || 1
+        const val = (12 - c) / 12
+        return `--nudge:${val}`
+      })
+
+      const openBegriffe = () => {
+        router.replace({ hash: '#begriffe' })
+      }
+
+      return { position, title, content, internalLinks, nudge, openBegriffe }
+    },
+    components: { ChevronLeft }
   })
 </script>

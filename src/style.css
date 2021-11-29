@@ -74,7 +74,8 @@ body {
 
 .leftopen-nudge { @apply transition-transform; }
 .leftopen .leftopen-nudge {
-  @apply translate-x-full;
+  /* @apply translate-x-full; */
+  transform: translateX(calc(var(--nudge, 1) * 100vw));
 }
 
 /* cms content */
