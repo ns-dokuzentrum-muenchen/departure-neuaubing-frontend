@@ -1,10 +1,5 @@
 <template>
   <div class="max-w-6xl mx-auto my-8 md:my-12">
-    <p class="text-2xl mb-2">Liste bekannter Lager in München</p>
-    <div class="max-w-prose-1">
-      <p>Beschreibung: Das ehemalige Zwangsarbeiterlager Neuaubing (auch: Kriegsgefangenenlager Neuaubing, Barackenlager Neuaubing) wurde von der Deutschen Reichsbahn während des Zweiten Weltkriegs Ende 1942 im Münchner Stadtteil Aubing als Lager zur Unterbringung von Zwangsarbeitern des Reichsbahn-Ausbesserungswerks Neuaubing errichtet. Seit 2015 befindet sich das Gelände an der Ehrenbürgstraße 9 im Eigentum der Stadt München.</p>
-    </div>
-
     <div id="pagelist" class="mt-12">
       <div class="grid grid-cols-12 gap-4 border-b font-medium py-2">
         <div class="col-span-3">Name</div>
