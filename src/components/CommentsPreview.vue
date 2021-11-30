@@ -1,5 +1,5 @@
 <template>
-  <div class="bg-gray-700 rounded-lg">
+  <div class="bg-gray-700 rounded-lg text-white">
     <div class="px-3 py-2 border-b-2 flex justify-between items-baseline">
       <p class="font-bold">{{ title }}</p>
       <p class="text-xs">Vor 12 stunden</p>
