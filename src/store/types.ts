@@ -9,7 +9,7 @@ interface State {
   glossar: { [index: string]: Post }
   comments: { [index: number]: Comment[] }
   pages: { [index: string]: Post }
-  markers: Post[]
+  markers: MapMarker[]
   myMarkers: Post[]
   darkMode: boolean
   theme: Theme
@@ -71,6 +71,26 @@ type ACF = {
   tags?: WPTerm[]
   versions?: Post[]
   connections?: Post[]
+}
+
+export interface MapMarker {
+  title: string
+  description: string
+  post_id: number
+  id: string
+  place_id: string
+  konzentrationslager: boolean
+  kriegsgefangenenlager: boolean
+  zivilarbeiterlager: boolean
+  sonstigelager: boolean
+  num_people_cat_id: string
+  source: string
+  location: {
+    lat: string
+    lng: string
+    address: string
+    address_new: string
+  }
 }
 
 export interface Image extends Post {

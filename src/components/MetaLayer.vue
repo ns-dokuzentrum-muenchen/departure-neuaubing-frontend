@@ -92,12 +92,12 @@
       const metaEl = ref(null)
       onClickOutside(metaEl, () => {
         if (vis.value > 0) {
-          router.replace({ hash: undefined })
+          router.replace({ ...route, hash: undefined })
         }
       })
 
       const hash = (hash: string) => {
-        router.replace({ hash })
+        router.replace({ ...route, hash })
       }
 
       provide('ctx', metaContext)

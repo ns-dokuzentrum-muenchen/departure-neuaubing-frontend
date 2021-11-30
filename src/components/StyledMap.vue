@@ -36,7 +36,7 @@
       onMounted(() => {
         if (!mapEl.value) return
 
-        store.getMarkers()
+        // store.getMarkers()
 
         const el = mapEl.value as HTMLElement
 
@@ -57,15 +57,17 @@
 
       // content
       const markers = computed(() => {
+        // include all of them
         return store.myMarkers.concat(store.markers)
       })
 
       // TODO add the markers to the map, listen to changes
       watch(markers, (list) => {
-        console.log('markers have been update', list)
+        // console.log('markers have been update', list)
+
       })
 
-      return { mapEl, uploadAt }
+      return { mapEl, uploadAt, markers }
     },
     components: { MediaUpload }
   })

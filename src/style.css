@@ -241,6 +241,17 @@ body {
   @apply z-0;
 }
 
+.page-dot {
+  @apply border rounded-full grid place-content-center mx-1;
+  @apply hover:bg-gray-200 transition-all;
+  width: 2em;
+  height: 2em;
+
+  &.active { @apply bg-blue-900 text-white border-blue-900; }
+
+  &:disabled { @apply opacity-25 pointer-events-none; }
+}
+
 .underline,
 .hover\:underline {
   text-underline-offset: 2px;

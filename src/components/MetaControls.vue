@@ -48,16 +48,17 @@
 
       function openMeta () {
         if (vis.value === 0) {
-          router.replace({ hash: '#seitenleiste' })
+          // router.replace({ hash: '#seitenleiste' })
+          router.replace({ ...route, hash: '#seitenleiste' })
         } else {
-          router.replace({ hash: '' })
+          router.replace({ ...route, hash: '' })
         }
       }
       function closeMeta () {
         if (vis.value > 1) {
-          router.push({ hash: '#seitenleiste' })
+          router.push({ ...route, hash: '#seitenleiste' })
         } else {
-          router.push({ hash: undefined })
+          router.push({ ...route, hash: undefined })
         }
       }
 

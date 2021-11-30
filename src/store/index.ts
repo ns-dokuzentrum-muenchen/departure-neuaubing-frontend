@@ -183,7 +183,7 @@ export const useStore = defineStore({
     },
 
     async getMarkers () {
-      return api.get('/wp-json/wp/v2/markierungen').then(({ data }) => {
+      return api.get('/wp-json/dn/v1/places').then(({ data }) => {
         this.markers = data
       })
     },

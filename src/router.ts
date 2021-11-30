@@ -86,6 +86,19 @@ const router = createRouter({
         return // sidebar thing
       }
     }
+
+    if (to.query.page) {
+      const el = document.getElementById('pagelist')
+      if (!el) return
+
+      const top = (window.innerWidth / 3)
+      return {
+        top,
+        el: '#pagelist',
+        behavior: 'smooth'
+      }
+    }
+
     return savedPosition || { top: 0 }
   }
 })
