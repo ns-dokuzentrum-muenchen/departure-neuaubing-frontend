@@ -1,5 +1,5 @@
 <template>
-  <div class="bg-bg h-16 md:h-24 lg:h-32"></div>
+  <div class="bg-bg h-16 md:h-24 lg:h-32 leftopen-nudge"></div>
   <div class="md:grid grid-cols-12 gap-4 mb-16 md:mb-24 lg:mb-32">
     <project-title :project="project" :text="block?.title" :class="position" :style="nudge" class="col-span-9 leftopen-nudge"/>
   </div>

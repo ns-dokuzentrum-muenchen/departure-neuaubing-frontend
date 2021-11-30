@@ -7,7 +7,7 @@
 
       <div v-if="mitBegriffe">
         <div @click="back" :class="{ '-translate-x-full': !leftopen }" class="fixed top-0 left-0 bottom-0 right-0 transition-transform overflow-hidden">
-          <div class="overflow-auto p-12 h-full overscroll-contain">
+          <div class="overflow-auto p-12 h-full overscroll-containX">
             <div class="w-kontext">
               <div v-if="werkzeug" @click.stop class="bg-white dark:bg-black m-20 px-2 py-1 md:px-4 md:py-2 text-black dark:text-white">
                 <div class="text-xl font-medium my-2">{{ werkzeug.title }}</div>
