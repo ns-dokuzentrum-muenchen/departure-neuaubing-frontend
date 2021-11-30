@@ -10,7 +10,7 @@
 
 <script lang="ts">
   import { defineComponent, ref, onMounted, computed, watch } from 'vue'
-  import L, { LeafletMouseEvent, Map, LatLng } from 'leaflet'
+  import L, { LeafletMouseEvent, Map, LatLng, MarkerOptions } from 'leaflet'
   import { useStore } from '../store'
   import MediaUpload from './MediaUpload.vue'
 
@@ -57,17 +57,29 @@
 
       // content
       const markers = computed(() => {
-        // include all of them
-        return store.myMarkers.concat(store.markers)
+        return store.markers // .filter(m => m.from_artist)
       })
 
       // TODO add the markers to the map, listen to changes
       watch(markers, (list) => {
-        // console.log('markers have been update', list)
-
+        list.forEach((point) => {
+          const lat = Number(point.location.lat)
+          const lng = Number(point.location.lng)
+          const opts: MarkerOptions = {
+            icon: new L.DivIcon({
+              className: `marker-dot text-2xs${point.from_artist ? ' artist' : ''}`,
+              html: `<span class="">${point.id}</span>`,
+              iconSize: [24, 24],
+              iconAnchor: [12, 12]
+            }),
+            title: point.title,
+            riseOnHover: true
+          }
+          L.marker([lat, lng], opts).addTo(map)
+        })
       })
 
-      return { mapEl, uploadAt, markers }
+      return { mapEl, uploadAt }
     },
     components: { MediaUpload }
   })

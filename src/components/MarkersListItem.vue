@@ -15,7 +15,7 @@
       <p>{{ item.location.address_new }}</p>
     </div>
     <div class="col-span-1 flex justify-between items-start">
-      <div class="page-dot text-xs">{{ item.id }}</div>
+      <div :class="{ artist: item.from_artist }" class="marker-dot text-xs">{{ item.id }}</div>
       <button @click="expanded = !expanded" class="px-2">
         {{ expanded ? '↑' : '↓' }}
       </button>

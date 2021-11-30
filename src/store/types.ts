@@ -85,6 +85,7 @@ export interface MapMarker {
   sonstigelager: boolean
   num_people_cat_id: string
   source: string
+  from_artist: boolean
   location: {
     lat: string
     lng: string
