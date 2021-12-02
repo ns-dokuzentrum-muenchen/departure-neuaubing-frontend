@@ -1,6 +1,13 @@
 <template>
   <div class="">
-    <styled-map></styled-map>
+    <div class="relative">
+      <styled-map></styled-map>
+
+      <!-- another layer -->
+      <transition name="fade">
+        <marker-panel v-if="markerLayer"/>
+      </transition>
+    </div>
 
     <div class="px-4">
       <div class="max-w-6xl mx-auto my-8 md:my-12">
@@ -16,11 +23,12 @@
 </template>
 
 <script lang="ts">
-  import { defineComponent, onMounted } from 'vue'
+  import { defineComponent, onMounted, computed } from 'vue'
   import { useStore } from '../../store'
   import { useRoute, useRouter } from 'vue-router'
   import StyledMap from '../StyledMap.vue'
   import MarkersList from '../MarkersList.vue'
+  import MarkerPanel from '../MarkerPanel.vue'
 
   export default defineComponent({
     props: {
@@ -48,8 +56,13 @@
         }
       }
 
-      return { title, description, internalLinks }
+      const markerLayer = computed(() => {
+        const { marker } = route.query
+        return !!marker
+      })
+
+      return { title, description, internalLinks, markerLayer }
     },
-    components: { StyledMap, MarkersList }
+    components: { StyledMap, MarkersList, MarkerPanel }
   })
 </script>

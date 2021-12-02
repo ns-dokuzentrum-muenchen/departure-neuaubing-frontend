@@ -87,6 +87,8 @@ const router = createRouter({
       }
     }
 
+    if (to.query.marker || from.query.marker) return
+
     if (to.query.page) {
       const el = document.getElementById('pagelist')
       if (!el) return

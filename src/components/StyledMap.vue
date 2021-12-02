@@ -1,6 +1,6 @@
 <template>
-  <div class="w-full h-screen relative z-0">
-    <div ref="mapEl" class="absolute inset-0 w-full h-full"></div>
+  <div :class="zoomClass" class="w-full h-screen relative z-0">
+    <div ref="mapEl" class="absolute inset-0 w-full h-full the-map"></div>
   </div>
 
   <div v-if="uploadAt">
@@ -9,13 +9,14 @@
 </template>
 
 <script lang="ts">
-  import { defineComponent, ref, onMounted, computed, watch } from 'vue'
+  import { MapMarker } from '../store/types'
+  import { defineComponent, ref, onMounted, computed, watch, nextTick } from 'vue'
   import L, { LeafletMouseEvent, Map, LatLng, MarkerOptions } from 'leaflet'
   import { useStore } from '../store'
+  import { useRoute, useRouter } from 'vue-router'
   import MediaUpload from './MediaUpload.vue'
 
   export default defineComponent({
-    name: 'Map',
     setup () {
       const store = useStore()
       const mapEl = ref(null)
@@ -30,16 +31,30 @@
         position: 'bottomright'
       })
 
+      // user content (TODO)
       const uploadAt = ref<LatLng | null>(null)
 
+      // content
+      const markers = computed(() => {
+        return store.markers // .filter(m => m.from_artist)
+      })
+
+      watch(markers, async () => {
+        await nextTick()
+        placeMarkers()
+      })
+
+      const zoom = ref(13)
       let map: Map;
+      const markerGroup = L.layerGroup()
+
+      const route = useRoute()
+      const router = useRouter()
+
       onMounted(() => {
         if (!mapEl.value) return
 
-        // store.getMarkers()
-
         const el = mapEl.value as HTMLElement
-
         map = L.map(el, {
           scrollWheelZoom: false,
           center: [48.1453673, 11.5655232],
@@ -49,20 +64,33 @@
         layer.addTo(map)
         zoomControl.addTo(map)
 
-        map.on('click', (e: LeafletMouseEvent) => {
-          const latlng = e.latlng as L.LatLng
-          uploadAt.value = latlng // opens form modal
+        // when 'upload' enabled?
+        // map.on('click', (e: LeafletMouseEvent) => {
+        //   const latlng = e.latlng as L.LatLng
+        //   uploadAt.value = latlng // opens form modal
+        // })
+
+        map.on('zoom', () => {
+          zoom.value = map.getZoom()
         })
+
+        placeMarkers()
       })
 
-      // content
-      const markers = computed(() => {
-        return store.markers // .filter(m => m.from_artist)
+      const zoomClass = computed(() => {
+        const z = zoom.value
+        if (z > 13) return 'zoom-near'
+        if (z > 11) return 'zoom-mid'
+        return 'zoom-far'
       })
 
-      // TODO add the markers to the map, listen to changes
-      watch(markers, (list) => {
-        list.forEach((point) => {
+      function placeMarkers () {
+        console.log('placing markers')
+        markerGroup.removeFrom(map)
+
+        if (!markers.value.length) return
+
+        markers.value.forEach((point: MapMarker) => {
           const lat = Number(point.location.lat)
           const lng = Number(point.location.lng)
           const opts: MarkerOptions = {
@@ -75,11 +103,16 @@
             title: point.title,
             riseOnHover: true
           }
-          L.marker([lat, lng], opts).addTo(map)
+          L.marker([lat, lng], opts).addTo(markerGroup).on('click', () => {
+            console.log('click on post #', point.post_id)
+            router.push({ ...route, query: { marker: point.post_id } })
+          })
         })
-      })
 
-      return { mapEl, uploadAt }
+        markerGroup.addTo(map)
+      }
+
+      return { mapEl, uploadAt, zoomClass }
     },
     components: { MediaUpload }
   })

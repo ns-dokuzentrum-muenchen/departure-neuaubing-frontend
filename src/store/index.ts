@@ -187,6 +187,10 @@ export const useStore = defineStore({
         this.markers = data
       })
     },
+    async getMarker (postId: number): Promise<Post> {
+      // handled in component
+      return api.get(`/wp-json/wp/v2/markierungen/${postId}`).then(({ data }) => data)
+    },
     async uploadFile (file: File) {
       if (!this.authToken) return
 

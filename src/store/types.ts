@@ -71,6 +71,10 @@ type ACF = {
   tags?: WPTerm[]
   versions?: Post[]
   connections?: Post[]
+
+  // markers
+  source?: string
+  location?: any
 }
 
 export interface MapMarker {
@@ -86,6 +90,7 @@ export interface MapMarker {
   num_people_cat_id: string
   source: string
   from_artist: boolean
+  slug: string
   location: {
     lat: string
     lng: string

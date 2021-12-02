@@ -254,11 +254,17 @@ body {
 
 .marker-dot {
   @apply rounded-full grid place-content-center mx-1;
-  @apply text-white bg-black;
+  @apply text-white bg-black transition-all;
   width: 2em;
   height: 2em;
 
   &.artist { @apply bg-blue-900; }
+
+  @nest .zoom-far & {
+    opacity: 0;
+
+    &.artist { opacity: 1; }
+  }
 }
 
 .leaflet-marker-icon {
