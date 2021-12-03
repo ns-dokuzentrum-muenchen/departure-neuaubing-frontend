@@ -13,7 +13,7 @@
 </template>
 
 <script lang="ts">
-  import { Post } from '../store/types'
+  import type { Post } from '../store/types'
   import { defineComponent, computed } from 'vue'
   import StyledText from './StyledText.vue'
 

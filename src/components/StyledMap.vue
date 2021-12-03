@@ -9,7 +9,7 @@
 </template>
 
 <script lang="ts">
-  import { MapMarker } from '../store/types'
+  import type { MapMarker } from '../store/types'
   import { defineComponent, ref, onMounted, computed, watch, nextTick } from 'vue'
   import L, { LeafletMouseEvent, Map, LatLng, MarkerOptions } from 'leaflet'
   import { useStore } from '../store'

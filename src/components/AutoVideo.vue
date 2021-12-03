@@ -9,8 +9,8 @@
 </template>
 
 <script lang="ts">
+  import type { VideoData } from '../store/types'
   import { defineComponent, ref, computed, onMounted, nextTick } from 'vue'
-  import { VideoData } from '../store/types'
 
   export default defineComponent({
     name: 'VideoPlayer',

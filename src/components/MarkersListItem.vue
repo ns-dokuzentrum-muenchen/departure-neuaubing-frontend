@@ -24,7 +24,7 @@
 </template>
 
 <script lang="ts">
-  import { MapMarker } from '../store/types'
+  import type { MapMarker } from '../store/types'
   import { defineComponent, ref } from 'vue'
   import { slideOpen, slideClose } from '../utils'
 

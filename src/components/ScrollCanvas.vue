@@ -16,7 +16,7 @@
 </template>
 
 <script lang="ts">
-  import { Image as Img } from '../store/types'
+  import type { Image as Img } from '../store/types'
   import { defineComponent, ref, computed, onMounted, onUnmounted, nextTick, watch } from 'vue'
   import { useStore } from '../store'
   import { imgSize } from '../utils'

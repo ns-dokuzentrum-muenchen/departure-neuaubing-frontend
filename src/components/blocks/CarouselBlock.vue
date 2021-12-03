@@ -16,7 +16,7 @@
 </template>
 
 <script lang="ts">
-  import { Image } from '../../store/types'
+  import type { Image } from '../../store/types'
   import { defineComponent, ref, computed, onMounted, nextTick, onUnmounted } from 'vue'
   import Flickity from 'flickity'
   import AppImage from '../AppImage.vue'

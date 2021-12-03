@@ -13,7 +13,7 @@
 </template>
 
 <script lang="ts">
-  import { Post, PostType } from '../store/types'
+  import type { Post, PostType } from '../store/types'
   import { defineComponent, computed } from 'vue'
   import { useRouter } from 'vue-router'
 

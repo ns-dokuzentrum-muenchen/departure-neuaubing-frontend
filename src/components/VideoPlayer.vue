@@ -9,8 +9,8 @@
 </template>
 
 <script lang="ts">
+  import type { VideoData } from '../store/types'
   import { defineComponent, ref, computed, onMounted, nextTick } from 'vue'
-  import { VideoData } from '../store/types'
   import Plyr from 'plyr'
   import 'plyr/src/sass/plyr.scss' // dist not working?
 

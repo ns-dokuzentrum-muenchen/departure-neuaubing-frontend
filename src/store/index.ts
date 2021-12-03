@@ -1,4 +1,4 @@
-import { Post } from './types'
+import type { Post } from './types'
 import { defineStore } from 'pinia'
 import state from './state'
 import axios from 'axios'

@@ -11,7 +11,7 @@
 </template>
 
 <script lang="ts">
-  import { Post } from '../store/types'
+  import type { Post } from '../store/types'
   import { defineComponent, inject, computed, ComputedRef} from 'vue'
 
   const base = import.meta.env.VITE_API_ENDPOINT as string

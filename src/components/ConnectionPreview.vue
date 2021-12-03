@@ -35,7 +35,7 @@
 </template>
 
 <script lang="ts">
-  import { Post } from '../store/types'
+  import type { Post } from '../store/types'
   import { defineComponent, inject, ref, computed, watch, ComputedRef } from 'vue'
   import { useRoute } from 'vue-router'
   import { slideOpen, slideClose } from '../utils'

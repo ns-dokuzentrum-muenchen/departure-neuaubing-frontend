@@ -40,10 +40,9 @@
 <script lang="ts">
   import { defineComponent, computed, provide } from 'vue'
   import { useStore } from '../store'
-  import { useRoute } from 'vue-router'
+  import { useRoute, useRouter } from 'vue-router'
   import ConnectionPreview from '../components/ConnectionPreview.vue'
   import ChevronRight from '../components/svg/ChevronRight.vue'
-  import router from '../router'
 
   // auto-load the content Blocks
   const glob = import.meta.globEager('../components/blocks/*.vue')
@@ -95,6 +94,7 @@
         return project.value?.acf.connections || []
       })
 
+      const router = useRouter()
       const back = () => {
         router.replace({ hash: '' })
       }

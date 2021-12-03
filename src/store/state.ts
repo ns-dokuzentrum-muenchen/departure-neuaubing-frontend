@@ -1,4 +1,5 @@
-import State, { Theme } from './types'
+import type State from './types'
+import type { Theme } from './types'
 
 export default function state (): State {
   return {

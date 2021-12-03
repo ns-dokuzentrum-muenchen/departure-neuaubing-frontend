@@ -14,7 +14,7 @@
 </template>
 
 <script lang="ts">
-  import { Post } from '../store/types'
+  import type { Post } from '../store/types'
   import { defineComponent, ref, computed, onMounted, watch } from 'vue'
   import { useRoute, useRouter } from 'vue-router'
   import { useStore } from '../store'

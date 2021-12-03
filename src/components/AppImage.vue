@@ -3,8 +3,8 @@
 </template>
 
 <script lang="ts">
+  import type { Image } from '../store/types'
   import { defineComponent, ref, computed } from 'vue'
-  import { Image } from '../store/types'
 
   export default defineComponent({
     props: {
