@@ -21,7 +21,6 @@
   import AppFooter from './components/AppFooter.vue'
 
   export default defineComponent({
-    name: 'App',
     setup () {
       const store = useStore()
       store.getSettings()
