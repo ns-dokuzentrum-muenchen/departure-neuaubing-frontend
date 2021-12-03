@@ -179,6 +179,7 @@ interface AcfRow {
 }
 
 interface Settings {
+  about: string
   intro: {
     frames: { content: string }[]
     images: Image[]

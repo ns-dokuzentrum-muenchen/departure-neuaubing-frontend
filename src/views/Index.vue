@@ -3,9 +3,9 @@
     <div class="mt-24 mb-16 md:my-24 lg:my-48">
       <font-logo class="text-5xl md:text-7xl lg:text-9xl"/>
     </div>
-    <div class="md:-mt-8 lg:-mt-12">
+    <div v-if="settings?.about" class="md:-mt-8 lg:-mt-12">
       <div class="text-lg md:text-xl lg:text-2xl max-w-xl">
-        <p>Im Münchner Stadtteil Neuaubing existiert heute noch acht Baracken eines ehemaligen Zwangsarbeiter*innenlagers aus der NS-Zeit.</p>
+        <div v-html="settings.about" class="html"></div>
       </div>
     </div>
   </div>
