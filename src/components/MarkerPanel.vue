@@ -4,7 +4,13 @@
       <button @click="close" class="btn-sm">schließen &times;</button>
     </div>
 
-    <p class="text-lg leading-snug">{{ marker?.title.rendered }}</p>
+    <div v-if="gallery">
+      <figure v-for="img in gallery" :key="img.id" class="my-4">
+        <app-image :image="img"/>
+      </figure>
+    </div>
+
+    <p v-html="marker?.title.rendered" class="text-lg leading-snug"></p>
     <p class="text-sm mt-1 text-gray-600">{{ marker?.acf?.source }}</p>
 
     <div class="mt-8 html">
@@ -18,6 +24,7 @@
   import { defineComponent, ref, computed, onMounted, watch } from 'vue'
   import { useRoute, useRouter } from 'vue-router'
   import { useStore } from '../store'
+  import AppImage from './AppImage.vue'
 
   export default defineComponent({
     setup () {
@@ -27,6 +34,7 @@
       const store = useStore()
 
       const marker = ref<Post|undefined>()
+      const gallery = computed(() => marker.value?.acf.gallery)
 
       onMounted(() => {
         const id = Number(postId.value)
@@ -45,7 +53,8 @@
       const close = () => {
         router.push({ ...route, query: {} })
       }
-      return { marker, close }
-    }
+      return { marker, gallery, close }
+    },
+    components: { AppImage }
   })
 </script>

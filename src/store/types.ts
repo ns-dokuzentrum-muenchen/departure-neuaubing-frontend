@@ -75,6 +75,7 @@ type ACF = {
   // markers
   source?: string
   location?: any
+  gallery?: Image[]
 }
 
 export interface MapMarker {
