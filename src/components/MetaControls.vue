@@ -62,6 +62,11 @@
         }
       }
 
+
+      function observeBlocks () {
+
+      }
+
       return { available, vis, classes, openMeta, closeMeta }
     },
     components: { InfoIcon, ChevronLeft, CloseIcon }

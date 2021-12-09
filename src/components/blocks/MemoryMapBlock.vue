@@ -1,10 +1,10 @@
 <template>
-  <div class="">
+  <div class="hides-meta">
     <div class="relative">
       <styled-map></styled-map>
 
       <!-- another layer -->
-      <transition name="fade">
+      <transition name="fade-right">
         <marker-panel v-if="markerLayer"/>
       </transition>
     </div>
