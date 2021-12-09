@@ -252,6 +252,7 @@ body {
   &:disabled { @apply opacity-25 pointer-events-none; }
 }
 
+
 .marker-dot > div {
   @apply rounded-full grid place-content-center mx-1;
   @apply text-white bg-black transition-all;
@@ -289,6 +290,17 @@ body {
     & > span {
       display: block;
     }
+  }
+}
+
+.list-dot {
+  @apply rounded-full grid place-content-center mx-1;
+  @apply text-white bg-black;
+  width: 2em;
+  height: 2em;
+
+  &.artist {
+    @apply bg-blue-900;
   }
 }
 
