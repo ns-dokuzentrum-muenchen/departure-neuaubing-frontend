@@ -17,7 +17,8 @@
 </template>
 
 <script lang="ts">
-  import { defineComponent, ComputedRef, inject, computed } from 'vue'
+  import type { ComputedRef } from 'vue'
+  import { defineComponent, inject, computed, watch, nextTick } from 'vue'
   // import { useStore } from '../store'
   import { useRoute, useRouter } from 'vue-router'
   import InfoIcon from './svg/InfoIcon.vue'
@@ -62,10 +63,22 @@
         }
       }
 
+      const observer = new IntersectionObserver(observeBlocks)
 
-      function observeBlocks () {
-
+      function observeBlocks (entries: any) {
+        console.log(entries)
       }
+
+      watch(route, () => {
+        setTimeout(() => {
+          console.log('observing')
+          const els = document.getElementsByClassName('hides-meta')
+          console.log(els.length)
+          // if (els) {
+          //   observer.observe(els)
+          // }
+        }, 200)
+      })
 
       return { available, vis, classes, openMeta, closeMeta }
     },

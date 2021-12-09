@@ -85,10 +85,10 @@
       })
 
       function placeMarkers () {
-        console.log('placing markers')
         markerGroup.removeFrom(map)
 
         if (!markers.value.length) return
+        console.log('placing markers')
 
         markers.value.forEach((point: MapMarker) => {
           const lat = Number(point.location.lat)

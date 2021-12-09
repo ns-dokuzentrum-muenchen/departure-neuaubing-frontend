@@ -1,5 +1,5 @@
 <template>
-  <img ref="el" :src="image?.sizes.medium" :srcset="srcset" @load="loaded" :width="image.width" :height="image.height" :alt="image.alt" loading="lazy" class="opacity-0"/>
+  <img ref="el" :src="image?.sizes.medium" :srcset="srcset" @load="loaded" :width="width" :height="height" :alt="image.alt" loading="lazy" class="opacity-0"/>
 </template>
 
 <script lang="ts">
@@ -8,14 +8,23 @@
 
   export default defineComponent({
     props: {
-      image: Object
+      image: Object,
+      width: Number,
+      height: Number
     },
     setup (props) {
       const el = ref<HTMLElement|null>(null)
       const image = computed(() => props.image as Image)
 
+      const width = computed(() => props.width || image.value.width)
+      const height = computed(() => props.height || image.value.height)
+
       const srcset = computed(() => {
         if (!image.value) return ''
+        if (image.value.subtype?.includes('svg')) {
+          return
+          // return image.value.url
+        }
 
         const srcs = [`${image.value.url} ${image.value.width}w`]
         const urls = Object.entries(image.value.sizes).filter(v => typeof v[1] === 'string')
@@ -41,7 +50,7 @@
         target.classList.remove('opacity-0')
       }
 
-      return { el, image, srcset, loaded }
+      return { el, image, width, height, srcset, loaded }
     }
   })
 </script>

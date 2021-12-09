@@ -1,6 +1,6 @@
 <template>
-  <div class="hides-meta">
-    <div class="relative">
+  <div>
+    <div class="relative hides-meta">
       <styled-map></styled-map>
 
       <!-- another layer -->

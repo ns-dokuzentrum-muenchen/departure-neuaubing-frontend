@@ -176,6 +176,13 @@ interface AcfRow {
   text?: string
   group?: string
   gallery?: Image[]
+  image?: Image
+  layer?: Image
+  titel?: string
+  title?: string
+  description?: string
+  height?: number
+  min?: string
 }
 
 interface Settings {
