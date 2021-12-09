@@ -51,3 +51,7 @@ export const imgSize = (img: any, viewSize: number) => {
 
   return img.sizes[match]
 }
+
+export function sleep (delay: number) {
+  return new Promise((resolve) => setTimeout(resolve, delay))
+}

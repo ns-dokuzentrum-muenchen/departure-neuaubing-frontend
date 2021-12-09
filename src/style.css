@@ -252,18 +252,43 @@ body {
   &:disabled { @apply opacity-25 pointer-events-none; }
 }
 
-.marker-dot {
+.marker-dot > div {
   @apply rounded-full grid place-content-center mx-1;
   @apply text-white bg-black transition-all;
-  width: 2em;
-  height: 2em;
+  transform: scale(0.5);
 
-  &.artist { @apply bg-blue-900; }
+  & > span {
+    display: none;
+  }
+
+  &.artist {
+    @apply bg-blue-900;
+    transform: none;
+
+    & > span {
+      display: block;
+    }
+  }
+
+  &:hover {
+    transform: none;
+    & > span {
+      display: block;
+    }
+  }
 
   @nest .zoom-far & {
     opacity: 0;
 
     &.artist { opacity: 1; }
+  }
+
+  @nest .zoom-near & {
+    transform: none;
+
+    & > span {
+      display: block;
+    }
   }
 }
 

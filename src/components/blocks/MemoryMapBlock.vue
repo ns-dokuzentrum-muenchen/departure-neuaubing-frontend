@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="relative hides-meta">
+    <div ref="map" class="relative hides-meta">
       <styled-map></styled-map>
 
       <!-- another layer -->
@@ -23,7 +23,7 @@
 </template>
 
 <script lang="ts">
-  import { defineComponent, onMounted, computed } from 'vue'
+  import { defineComponent, onMounted, computed, ref, onUnmounted } from 'vue'
   import { useStore } from '../../store'
   import { useRoute, useRouter } from 'vue-router'
   import StyledMap from '../StyledMap.vue'
@@ -40,8 +40,15 @@
       const description = props.block?.description
       const store = useStore()
 
+      const map = ref<HTMLElement|null>(null)
+
       onMounted(() => {
         store.getMarkers()
+
+        window.addEventListener('scroll', scrollListener)
+      })
+      onUnmounted(() => {
+        window.removeEventListener('scroll', scrollListener)
       })
 
       const route = useRoute()
@@ -61,7 +68,14 @@
         return !!marker
       })
 
-      return { title, description, internalLinks, markerLayer }
+      function scrollListener () {
+        if (!map.value) return
+
+        const { top, bottom } = map.value.getBoundingClientRect()
+        store.metaHidden = top < 150 && bottom > 50
+      }
+
+      return { title, description, internalLinks, markerLayer, map }
     },
     components: { StyledMap, MarkersList, MarkerPanel }
   })

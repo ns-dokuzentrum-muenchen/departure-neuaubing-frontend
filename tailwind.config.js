@@ -68,6 +68,7 @@ module.exports = {
       13: '3.375rem',
       14: '3.5rem',
       16: '4rem',
+      18: '4.5rem',
       20: '5rem',
       24: '6rem',
       28: '7rem',
@@ -554,6 +555,7 @@ module.exports = {
       ...theme('spacing'),
       full: '100%',
       screen: '100vh',
+      markerimg: '66vh'
     }),
     maxWidth: (theme, { breakpoints }) => ({
       none: 'none',

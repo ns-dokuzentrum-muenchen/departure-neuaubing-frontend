@@ -18,8 +18,8 @@
 
 <script lang="ts">
   import type { ComputedRef } from 'vue'
-  import { defineComponent, inject, computed, watch, nextTick } from 'vue'
-  // import { useStore } from '../store'
+  import { defineComponent, inject, computed } from 'vue'
+  import { useStore } from '../store'
   import { useRoute, useRouter } from 'vue-router'
   import InfoIcon from './svg/InfoIcon.vue'
   import ChevronLeft from './svg/ChevronLeft.vue'
@@ -28,11 +28,12 @@
   export default defineComponent({
     name: 'MetaControls',
     setup () {
-      // const store = useStore()
+      const store = useStore()
       const route = useRoute()
       const router = useRouter()
 
       const available = computed(() => route.meta.seite)
+      const hiddenByContent = computed(() => store.metaHidden)
 
       const metaLayer: ComputedRef<number> | undefined = inject('metaLayer')
       const vis = computed(() => {
@@ -42,9 +43,12 @@
       // const menuOpen = computed(() => store.menuOpen)
 
       const classes = computed(() => {
-        const x = ['right-0', 'right-seite', 'right-kontext'][vis.value]
+        const x = [['right-0', 'right-seite', 'right-kontext'][vis.value]]
         // const z = menuOpen.value ? '' : 'z-50'
-        return [x]
+        if (hiddenByContent.value && vis.value === 0) {
+          x.push('opacity-0', 'pointer-events')
+        }
+        return x
       })
 
       function openMeta () {
@@ -62,23 +66,6 @@
           router.push({ ...route, hash: undefined })
         }
       }
-
-      const observer = new IntersectionObserver(observeBlocks)
-
-      function observeBlocks (entries: any) {
-        console.log(entries)
-      }
-
-      watch(route, () => {
-        setTimeout(() => {
-          console.log('observing')
-          const els = document.getElementsByClassName('hides-meta')
-          console.log(els.length)
-          // if (els) {
-          //   observer.observe(els)
-          // }
-        }, 200)
-      })
 
       return { available, vis, classes, openMeta, closeMeta }
     },

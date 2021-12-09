@@ -19,7 +19,7 @@
   import type { Image as Img } from '../store/types'
   import { defineComponent, ref, computed, onMounted, onUnmounted, nextTick, watch } from 'vue'
   import { useStore } from '../store'
-  import { imgSize } from '../utils'
+  import { imgSize, sleep } from '../utils'
 
   export default defineComponent({
     props: {
@@ -115,7 +115,7 @@
         if (!post) return ''
 
         const src = imgSize(post, viewSize)
-        console.log(src)
+        // console.log(src)
         return src // imgSize(post, viewSize)
       }
 
@@ -132,10 +132,6 @@
         const step = Math.floor((st - col.top) / pxPerImg)
 
         inView.value = Math.min(step, images.value.length - 1)
-      }
-
-      function sleep (delay: number) {
-        return new Promise((resolve) => setTimeout(resolve, delay))
       }
 
       return { can, txts, block, frames, height, setItem }

@@ -95,8 +95,8 @@
           const lng = Number(point.location.lng)
           const opts: MarkerOptions = {
             icon: new L.DivIcon({
-              className: `marker-dot text-2xs${point.from_artist ? ' artist' : ''}`,
-              html: `<span class="">${point.id}</span>`,
+              className: 'marker-dot text-2xs',
+              html: `<div class="w-full h-full${point.from_artist ? ' artist' : ''}"><span class="">${point.id}</span></div>`,
               iconSize: [24, 24],
               iconAnchor: [12, 12]
             }),

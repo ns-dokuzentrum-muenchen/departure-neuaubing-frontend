@@ -1,7 +1,6 @@
 interface State {
   title: string
   pretitle?: string
-  description?: string
   indexPos: number
   projects: Post[] | null
   settings: Settings | null
@@ -19,6 +18,7 @@ interface State {
   user: any
   nonce: string | null
   authToken: string | null
+  metaHidden: boolean
 }
 
 export type Theme = 'theme-blau' | 'theme-gelb' | 'theme-rosa' | 'theme-gruen'
@@ -73,9 +73,12 @@ type ACF = {
   connections?: Post[]
 
   // markers
+  id?: string
   source?: string
   location?: any
   gallery?: Image[]
+  foto_id?: string
+  num_people_cat_id?: string
 }
 
 export interface MapMarker {

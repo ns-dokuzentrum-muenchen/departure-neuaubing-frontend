@@ -5,7 +5,6 @@ export default function state (): State {
   return {
     title: 'Departure Neuaubing',
     pretitle: 'Europäische Geschichten über Zwangsarbeit',
-    description: 'Diese Webseite erzählt mit Kunst die Geschichte der nationalsozialistischen Zwangsarbeit als eine europäisch-vernetzte Geschichte.',
     indexPos: 2,
 
     projects: null,
@@ -33,7 +32,9 @@ export default function state (): State {
 
     user: null,
     nonce: null,
-    authToken: getToken()
+    authToken: getToken(),
+
+    metaHidden: false
   }
 }
 
