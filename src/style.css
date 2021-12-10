@@ -252,7 +252,9 @@ body {
   &:disabled { @apply opacity-25 pointer-events-none; }
 }
 
-
+.marker-dot:hover {
+  opacity: 1 !important;
+}
 .marker-dot > div {
   @apply rounded-full grid place-content-center mx-1;
   @apply text-white bg-black transition-all;

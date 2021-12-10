@@ -49,6 +49,7 @@
   import { sleep } from '../utils'
   import AppImage from './AppImage.vue'
   import CloseIcon from './svg/CloseIcon.vue'
+  import bus from '../eventBus'
 
   export default defineComponent({
     setup () {
@@ -89,6 +90,7 @@
 
       const close = () => {
         router.push({ ...route, query: {} })
+        bus.emit('closeMarkerPanel')
       }
       return { marker, gallery, close, panelWidth, panel }
     },

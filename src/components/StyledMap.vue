@@ -11,10 +11,11 @@
 <script lang="ts">
   import type { MapMarker } from '../store/types'
   import { defineComponent, ref, onMounted, computed, watch, nextTick } from 'vue'
-  import L, { LeafletMouseEvent, Map, LatLng, MarkerOptions } from 'leaflet'
+  import L, { Map, LatLng, MarkerOptions, Marker } from 'leaflet'
   import { useStore } from '../store'
   import { useRoute, useRouter } from 'vue-router'
   import MediaUpload from './MediaUpload.vue'
+  import bus from '../eventBus'
 
   export default defineComponent({
     setup () {
@@ -88,7 +89,6 @@
         markerGroup.removeFrom(map)
 
         if (!markers.value.length) return
-        console.log('placing markers')
 
         markers.value.forEach((point: MapMarker) => {
           const lat = Number(point.location.lat)
@@ -101,15 +101,35 @@
               iconAnchor: [12, 12]
             }),
             title: point.title,
-            riseOnHover: true
+            riseOnHover: true,
+            zIndexOffset: point.from_artist ? 100 : 0
           }
-          L.marker([lat, lng], opts).addTo(markerGroup).on('click', () => {
-            console.log('click on post #', point.post_id)
+          L.marker([lat, lng], opts).addTo(markerGroup).on('click', (e) => {
             router.push({ ...route, query: { marker: point.post_id } })
+            select() // dim the others
+            e.target.setOpacity(1.0)
+            // calc pan
+            const where = e.containerPoint?.x
+            if (where > 160) {
+              map.panBy([where - 160, 0])
+            }
           })
         })
 
         markerGroup.addTo(map)
+      }
+
+      bus.on('closeMarkerPanel', deselect)
+
+      function select () {
+        markerGroup.eachLayer((mark) => {
+          (mark as Marker).setOpacity(0.4)
+        })
+      }
+      function deselect () {
+        markerGroup.eachLayer((mark) => {
+          (mark as Marker).setOpacity(1.0)
+        })
       }
 
       return { mapEl, uploadAt, zoomClass }

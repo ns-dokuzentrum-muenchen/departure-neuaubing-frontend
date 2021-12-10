@@ -17,6 +17,7 @@
     "flickity": "^2.2.2",
     "flickity-imagesloaded": "^2.0.0",
     "leaflet": "^1.7.1",
+    "mitt": "^3.0.0",
     "pinia": "^2.0.0-rc.10",
     "plyr": "^3.6.9",
     "vue": "^3.2.11",
