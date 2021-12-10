@@ -1,7 +1,7 @@
 <template>
   <div ref="el" class="text-white relative w-full h-full">
     <div class="w-full h-full">
-      <video :id="id" ref="vid" :poster="poster" :width="video.width" :height="video.height" playsinline="true" autoplay="true" loop="true" muted="true" disablePictureInPicture class="lazyload w-full h-full object-contain">
+      <video :id="id" ref="vid" :poster="poster" :width="video.width" :height="video.height" playsinline="true" loop="true" muted="true" disablePictureInPicture class="lazyload w-full h-full object-contain">
         <source v-for="src in srcs" :key="src.md5" :src="src.link" :type="src.type">
       </video>
     </div>
@@ -23,7 +23,7 @@
       const minSize = ref(360)
 
       const el = ref<HTMLElement | null>(null)
-      const vid = ref<HTMLElement | null>(null)
+      const vid = ref<HTMLVideoElement | null>(null)
 
       const id = computed(() => {
         if (!video.value) return 'vid'
@@ -56,6 +56,20 @@
 
         await nextTick()
 
+        const observer = new IntersectionObserver((entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              play()
+            } else {
+              pause()
+            }
+          })
+        }, {
+          threshold: [0.5, 1]
+        })
+
+        observer.observe($el)
+
         // plyr.value = new Plyr(`#${id.value}`, {
         //   muted: false,
         //   disableContextMenu: true,
@@ -68,6 +82,21 @@
         // plyr.value.play()
         // // this.listeners()
       })
+
+      function play () {
+        if (!vid.value) return
+
+        if (vid.value.paused) {
+          vid.value.play()
+        }
+      }
+      function pause () {
+        if (!vid.value) return
+
+        if (!vid.value.paused) {
+          vid.value.pause()
+        }
+      }
 
       return { el, vid, video, id, poster, srcs, minSize }
     }
