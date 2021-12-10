@@ -10,6 +10,7 @@
 
 <script lang="ts">
   import type { MapMarker } from '../store/types'
+  import type { LeafletMouseEvent } from 'leaflet'
   import { defineComponent, ref, onMounted, computed, watch, nextTick } from 'vue'
   import L, { Map, LatLng, MarkerOptions, Marker } from 'leaflet'
   import { useStore } from '../store'
@@ -104,15 +105,13 @@
             riseOnHover: true,
             zIndexOffset: point.from_artist ? 100 : 0
           }
-          L.marker([lat, lng], opts).addTo(markerGroup).on('click', (e) => {
+          L.marker([lat, lng], opts).addTo(markerGroup).on('click', (e: LeafletMouseEvent) => {
             router.push({ ...route, query: { marker: point.post_id } })
             select() // dim the others
             e.target.setOpacity(1.0)
             // calc pan
             const where = e.containerPoint?.x
-            if (where > 160) {
-              map.panBy([where - 160, 0])
-            }
+            map.panBy([where - 160, 0])
           })
         })
 
