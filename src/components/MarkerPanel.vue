@@ -72,6 +72,7 @@
 
       const panelWidth = computed(() => artistPost.value ? 'w-artist-panel' : 'w-meta')
 
+      let flkty: any = null
       const slider = ref<HTMLElement|null>(null)
       onMounted(() => {
         const id = Number(postId.value)
@@ -87,6 +88,7 @@
       async function onChange (id: number) {
         marker.value = await store.getMarker(id)
         await sleep(1)
+        flkty?.destroy()
         initSlider()
         await sleep(250)
         panel.value?.scrollIntoView({
@@ -98,7 +100,7 @@
       function initSlider () {
         if (!slider.value) return
 
-        new Flickity(slider.value, {
+        flkty = new Flickity(slider.value, {
           cellAlign: 'center',
           setGallerySize: true,
           imagesLoaded: true,
