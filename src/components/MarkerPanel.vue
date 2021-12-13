@@ -9,7 +9,7 @@
     <div :class="panelWidth" class="h-full bg-gray-200 text-black px-4 py-18 md:px-8 overflow-y-auto overscroll-contain">
       <div class="lg:flex">
         <div v-if="gallery" ref="slider" class="lg:order-1 flex lg:w-full overflow-hidden relative">
-          <figure v-for="img in gallery" :key="img.id" class="mb-4 mx-4 w-full aspect-h-1 aspect-w-1">
+          <figure v-for="img in gallery" :key="img.id" class="mx-4 w-full aspect-h-1 aspect-w-1 flex-none">
             <app-image :image="img" class="w-full h-full object-contain"/>
           </figure>
         </div>
