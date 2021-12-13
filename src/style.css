@@ -261,6 +261,7 @@ body {
   opacity: 1 !important;
 }
 .marker-dot.focussed > div {
+  @apply ring-2 ring-green-500;
   transform: none;
   & > span {
     display: block;
@@ -320,6 +321,9 @@ body {
 .leaflet-marker-icon {
   @apply grid !important;
 }
+
+.flickity-viewport,
+.flickity-slider { @apply w-full h-full; }
 
 .underline,
 .hover\:underline {

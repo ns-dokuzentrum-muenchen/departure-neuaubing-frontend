@@ -7,34 +7,36 @@
     </div>
 
     <div :class="panelWidth" class="h-full bg-gray-200 text-black px-4 py-18 md:px-8 overflow-y-auto overscroll-contain">
-      <div v-if="gallery" :key="postId" class="flex space-x-8 overflow-auto">
-        <figure v-for="img in gallery" :key="img.id" class="mb-4 flex-none">
-          <app-image :image="img" class="h-screen max-h-markerimg w-auto"/>
-        </figure>
-      </div>
-
-      <div class="max-w-prose-1">
-        <p v-html="marker?.title.rendered" class="text-lg md:text-xl leading-snug"></p>
-        <p class="text-sm md:text-base font-light mt-1 text-gray-600">{{ marker?.acf?.source }}</p>
-
-        <div class="my-6 html">
-          <div v-html="marker?.acf.description"></div>
+      <div class="lg:flex">
+        <div v-if="gallery" :key="postId" ref="slider" class="lg:order-1 flex lg:w-full overflow-hidden relative">
+          <figure v-for="img in gallery" :key="img.id" class="mb-4 mx-4 w-full aspect-h-1 aspect-w-1">
+            <app-image :image="img" class="w-full h-full object-contain"/>
+          </figure>
         </div>
 
-        <div class="flex space-x-8 my-6">
-          <div v-if="marker?.acf.location?.address_new">
-            <p><strong>Adresse Aktuell</strong></p>
-            <p class="font-light">{{ marker?.acf.location?.address_new }}</p>
-          </div>
-          <div>
-            <p><strong>Adresse</strong></p>
-            <p class="font-light">{{ marker?.acf.location?.address }}</p>
-          </div>
-        </div>
+        <div class="lg:order-0 max-w-prose lg:max-w-sm lg:mr-8">
+          <p v-html="marker?.title.rendered" class="text-lg md:text-xl leading-snug"></p>
+          <p class="text-sm md:text-base font-light mt-1 text-gray-600">{{ marker?.acf?.source }}</p>
 
-        <div class="font-light">
-          <p>{{ marker?.acf.num_people_cat_id }}</p>
-          <p>Quelle: {{ marker?.acf?.source }}</p>
+          <div class="my-6 html">
+            <div v-html="marker?.acf.description"></div>
+          </div>
+
+          <div class="flex space-x-8 my-6">
+            <div v-if="marker?.acf.location?.address_new">
+              <p><strong>Adresse Aktuell</strong></p>
+              <p class="font-light">{{ marker?.acf.location?.address_new }}</p>
+            </div>
+            <div>
+              <p><strong>Adresse</strong></p>
+              <p class="font-light">{{ marker?.acf.location?.address }}</p>
+            </div>
+          </div>
+
+          <div class="font-light">
+            <p>{{ marker?.acf.num_people_cat_id }}</p>
+            <p>Quelle: {{ marker?.acf?.source }}</p>
+          </div>
         </div>
       </div>
     </div>
@@ -50,6 +52,7 @@
   import AppImage from './AppImage.vue'
   import CloseIcon from './svg/CloseIcon.vue'
   import bus from '../eventBus'
+  import Flickity from 'flickity'
 
   export default defineComponent({
     setup () {
@@ -69,6 +72,7 @@
 
       const panelWidth = computed(() => artistPost.value ? 'w-artist-panel' : 'w-meta')
 
+      const slider = ref<HTMLElement|null>(null)
       onMounted(() => {
         const id = Number(postId.value)
         onChange(id)
@@ -82,7 +86,8 @@
       const panel = ref<HTMLElement|null>(null)
       async function onChange (id: number) {
         marker.value = await store.getMarker(id)
-
+        await sleep(1)
+        initSlider()
         await sleep(250)
         panel.value?.scrollIntoView({
           block: 'center',
@@ -90,11 +95,23 @@
         })
       }
 
+      function initSlider () {
+        if (!slider.value) return
+
+        new Flickity(slider.value, {
+          cellAlign: 'center',
+          setGallerySize: true,
+          imagesLoaded: true,
+          pageDots: false,
+          prevNextButtons: false
+        })
+      }
+
       const close = () => {
         router.push({ ...route, query: {} })
         bus.emit('closeMarkerPanel')
       }
-      return { postId, marker, gallery, close, panelWidth, panel }
+      return { postId, marker, gallery, slider, close, panelWidth, panel }
     },
     components: { AppImage, CloseIcon }
   })
