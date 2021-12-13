@@ -38,6 +38,7 @@
   import { defineComponent, ref } from 'vue'
   import { slideOpen, slideClose } from '../utils'
   import { useRoute, useRouter } from 'vue-router'
+  import bus from '../eventBus'
 
   export default defineComponent({
     props: {
@@ -52,6 +53,7 @@
       const viewInMap = () => {
         const query = { ...route.query, marker: item.post_id }
         router.replace({ ...route, query })
+        bus.emit('selectMarker', item.post_id)
       }
 
       return { item, expanded, slideOpen, slideClose, viewInMap }

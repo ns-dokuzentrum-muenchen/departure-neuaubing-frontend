@@ -7,7 +7,7 @@
     </div>
 
     <div :class="panelWidth" class="h-full bg-gray-200 text-black px-4 py-18 md:px-8 overflow-y-auto overscroll-contain">
-      <div v-if="gallery" class="flex space-x-8 overflow-auto">
+      <div v-if="gallery" :key="postId" class="flex space-x-8 overflow-auto">
         <figure v-for="img in gallery" :key="img.id" class="mb-4 flex-none">
           <app-image :image="img" class="h-screen max-h-markerimg w-auto"/>
         </figure>
@@ -55,7 +55,9 @@
     setup () {
       const route = useRoute()
       const router = useRouter()
-      const postId = computed(() => route.query.marker)
+      const postId = computed(() => {
+        return route.query.marker as string
+      })
       const store = useStore()
 
       const marker = ref<Post|undefined>()
@@ -65,7 +67,7 @@
         return !!marker.value?.acf.foto_id
       })
 
-      const panelWidth = computed(() => artistPost.value ? 'w-kontext' : 'w-meta')
+      const panelWidth = computed(() => artistPost.value ? 'w-artist-panel' : 'w-meta')
 
       onMounted(() => {
         const id = Number(postId.value)
@@ -92,7 +94,7 @@
         router.push({ ...route, query: {} })
         bus.emit('closeMarkerPanel')
       }
-      return { marker, gallery, close, panelWidth, panel }
+      return { postId, marker, gallery, close, panelWidth, panel }
     },
     components: { AppImage, CloseIcon }
   })

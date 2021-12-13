@@ -10,11 +10,11 @@
 
 <script lang="ts">
   import type { MapMarker } from '../store/types'
-  import type { LeafletMouseEvent } from 'leaflet'
+  import type { Map as LMap, Marker, LeafletMouseEvent, MarkerOptions, LatLng } from 'leaflet'
+  import L from 'leaflet'
   import { defineComponent, ref, onMounted, computed, watch, nextTick } from 'vue'
-  import L, { Map, LatLng, MarkerOptions, Marker } from 'leaflet'
-  import { useStore } from '../store'
   import { useRoute, useRouter } from 'vue-router'
+  import { useStore } from '../store'
   import MediaUpload from './MediaUpload.vue'
   import bus from '../eventBus'
 
@@ -30,7 +30,7 @@
         maxZoom: 20
       })
       const zoomControl = L.control.zoom({
-        position: 'bottomright'
+        position: 'bottomleft'
       })
 
       // user content (TODO)
@@ -38,7 +38,7 @@
 
       // content
       const markers = computed(() => {
-        return store.markers // .filter(m => m.from_artist)
+        return store.markers
       })
 
       watch(markers, async () => {
@@ -47,7 +47,7 @@
       })
 
       const zoom = ref(13)
-      let map: Map;
+      let map: LMap
       const markerGroup = L.layerGroup()
 
       const route = useRoute()
@@ -86,7 +86,10 @@
         return 'zoom-far'
       })
 
+      const markerMap = new Map()
+
       function placeMarkers () {
+        markerMap.clear()
         markerGroup.removeFrom(map)
 
         if (!markers.value.length) return
@@ -94,6 +97,8 @@
         markers.value.forEach((point: MapMarker) => {
           const lat = Number(point.location.lat)
           const lng = Number(point.location.lng)
+          const isArtistMarker = point.from_artist
+
           const opts: MarkerOptions = {
             icon: new L.DivIcon({
               className: 'marker-dot text-2xs',
@@ -105,30 +110,48 @@
             riseOnHover: true,
             zIndexOffset: point.from_artist ? 100 : 0
           }
-          L.marker([lat, lng], opts).addTo(markerGroup).on('click', (e: LeafletMouseEvent) => {
+          const lMarker = L.marker([lat, lng], opts).addTo(markerGroup).on('click', (e: LeafletMouseEvent) => {
             router.push({ ...route, query: { marker: point.post_id } })
             select() // dim the others
             e.target.setOpacity(1.0)
-            // calc pan
-            const where = e.containerPoint?.x
-            map.panBy([where - 160, 0])
+            e.target.getElement?.().classList.add('focussed')
+
+            const from = e.containerPoint?.x || e.target._icon?.getBoundingClientRect().left
+            if (!from) return
+
+            const to = calcPan(isArtistMarker)
+            map.panBy([from - to, 0])
           })
+
+          markerMap.set(point.post_id, lMarker)
         })
 
         markerGroup.addTo(map)
       }
 
       bus.on('closeMarkerPanel', deselect)
+      bus.on('selectMarker', (which) => {
+        const selected: Marker = markerMap.get(which)
+        selected.fire('click')
+      })
 
       function select () {
         markerGroup.eachLayer((mark) => {
-          (mark as Marker).setOpacity(0.4)
+          const el = (mark as Marker).setOpacity(0.4).getElement()
+          el?.classList.remove('focussed')
         })
       }
       function deselect () {
         markerGroup.eachLayer((mark) => {
-          (mark as Marker).setOpacity(1.0)
+          const el = (mark as Marker).setOpacity(1.0).getElement()
+          el?.classList.remove('focussed')
         })
+      }
+
+      function calcPan (artist: boolean): number {
+        const panelWidth = 16 * (artist ? 76 : 30)
+        // const available = window.innerWidth - (artist ? 6 : 1.4) * 16
+        return (window.innerWidth - panelWidth) / 2
       }
 
       return { mapEl, uploadAt, zoomClass }

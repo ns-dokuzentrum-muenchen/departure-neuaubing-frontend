@@ -149,6 +149,11 @@ body {
   max-width: calc(100vw - 1.4rem);
 }
 
+.w-artist-panel {
+  width: 76rem;
+  max-width: calc(100vw - 6rem);
+}
+
 .right-seite,
 .right-kontext {
   right: calc(100% - 3.2rem);
@@ -254,6 +259,12 @@ body {
 
 .marker-dot:hover {
   opacity: 1 !important;
+}
+.marker-dot.focussed > div {
+  transform: none;
+  & > span {
+    display: block;
+  }
 }
 .marker-dot > div {
   @apply rounded-full grid place-content-center mx-1;
