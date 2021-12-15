@@ -207,8 +207,14 @@ body {
     @apply bg-green-500 text-black border-green-500;
     @apply hover:bg-white hover:text-green-500;
   }
+}
 
-  &.outline { @apply bg-transparent border-current text-white; }
+.btn-outline {
+  @apply px-8 py-1 rounded-full border-2 transition-all;
+  @apply dark:hover:border-white !important;
+  @apply dark:hover:bg-gray-800 dark:hover:text-white !important;
+  @apply focus:ring-4 focus:outline-none;
+  @apply bg-transparent border-current text-white;
 }
 
 .btn-sm {

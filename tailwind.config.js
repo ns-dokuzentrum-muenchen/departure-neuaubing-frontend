@@ -1,18 +1,22 @@
-const colors = require('./colors')
-const safelist = require('./tailwind-safelist')
+const customColors = require('./colors')
 
 module.exports = {
-  mode: 'jit',
-  purge: {
-    content: [
-      './src/**/*.vue',
-      './src/**/*.js',
-      './src/**/*.ts',
-      './src/**/*.html',
-      './index.html'
-    ],
-    safelist // whitelist classes
-  },
+  content: [
+    './src/**/*.{vue,js,ts,html}',
+    './index.html'
+  ],
+  safelist: [
+    {
+      pattern: /col-start-.+/
+    },
+    {
+      pattern: /text-(sm|base|md|lg|xl|2xl|3xl|4xl|5xl)/,
+      variants: ['responsive']
+    },
+    {
+      pattern: /row-start-.+/
+    }
+  ],
   presets: [],
   darkMode: 'class', // or 'media' or 'class'
   theme: {
@@ -26,23 +30,36 @@ module.exports = {
       touch: { raw: '(hover: none)' },
       notouch: { raw: '(hover: hover)' }
     },
-    colors: {
-      transparent: 'transparent',
+    colors: ({ colors }) => ({
       current: 'currentColor',
-
-      // bg: '#fff',
-
-      blue: colors.blue,
+      inherit: colors.inherit,
+      current: colors.current,
+      transparent: colors.transparent,
       black: colors.black,
       white: colors.white,
-      gray: colors.trueGray,
+      slate: colors.slate,
+      gray: customColors.trueGray,
+      zinc: colors.zinc,
+      neutral: colors.neutral,
+      stone: colors.stone,
       red: colors.red,
+      orange: colors.orange,
+      amber: colors.amber,
       yellow: colors.yellow,
+      lime: colors.lime,
       green: colors.emerald,
+      emerald: colors.green,
+      teal: colors.teal,
+      cyan: colors.cyan,
+      sky: colors.sky,
+      blue: customColors.blue,
       indigo: colors.indigo,
-      purple: colors.violet,
+      violet: colors.violet,
+      purple: colors.purple,
+      fuchsia: colors.fuchsia,
       pink: colors.pink,
-    },
+      rose: colors.rose,
+    }),
     spacing: {
       px: '1px',
       '2px': '2px',

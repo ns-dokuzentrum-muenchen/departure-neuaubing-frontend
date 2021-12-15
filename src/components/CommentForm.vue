@@ -21,7 +21,7 @@
         </div>
         <div class="flex mb-3 items-center">
           <div class="flex-none mr-4">
-            <button type="submit" class="btn outline">beitragen</button>
+            <button type="submit" class="btn-outline">beitragen</button>
           </div>
           <transition name="fade">
             <div v-if="errMsg" class="flex-auto">

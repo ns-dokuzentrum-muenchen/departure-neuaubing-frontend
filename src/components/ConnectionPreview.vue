@@ -20,7 +20,7 @@
 
           <template v-if="canComment">
             <div class="my-4">
-              <router-link :to="target" class="btn outline text-sm inline-block">diskutieren</router-link>
+              <router-link :to="target" class="btn-outline text-sm inline-block">diskutieren</router-link>
             </div>
 
             <div class="max-w-prose-1">

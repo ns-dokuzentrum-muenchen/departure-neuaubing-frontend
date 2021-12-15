@@ -23,7 +23,7 @@
           <p>{{ commentCount }}</p>
         </div>
         <div>
-          <router-link :to="url" class="btn outline text-sm inline-block">diskutieren</router-link>
+          <router-link :to="url" class="btn-outline text-sm inline-block">diskutieren</router-link>
         </div>
       </div>
     </div>
