@@ -727,6 +727,10 @@ module.exports = {
       125: '1.25',
       150: '1.5',
     },
+    scrollMargin: ({ theme }) => ({
+      ...theme('spacing'),
+    }),
+    scrollPadding: ({ theme }) => theme('spacing'),
     sepia: {
       0: '0',
       DEFAULT: '100%',
@@ -1007,6 +1011,8 @@ module.exports = {
     ringWidth: ['responsive', 'focus-within', 'focus'],
     rotate: ['responsive', 'hover', 'focus'],
     saturate: ['responsive'],
+    scrollMargin: ['responsive'],
+    scrollPadding: ['responsive'],
     scale: ['responsive', 'hover', 'focus'],
     sepia: ['responsive'],
     skew: ['responsive', 'hover', 'focus'],
