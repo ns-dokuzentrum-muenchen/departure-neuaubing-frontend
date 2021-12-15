@@ -83,7 +83,7 @@
           // console.log('scroll to me', target.value, el.value)
           setTimeout(() => {
             el.value?.scrollIntoView?.({
-              block: 'center',
+              block: 'start',
               behavior: 'smooth'
             })
           }, 250)
