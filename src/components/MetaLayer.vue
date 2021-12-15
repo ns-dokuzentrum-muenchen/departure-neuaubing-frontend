@@ -39,7 +39,8 @@
 </template>
 
 <script lang="ts">
-  import { defineComponent, computed, ref, inject, ComputedRef, provide } from 'vue'
+  import type { ComputedRef } from 'vue'
+  import { defineComponent, computed, ref, inject, provide } from 'vue'
   import { useStore } from '../store'
   import { useRoute, useRouter } from 'vue-router'
   import { onClickOutside } from '@vueuse/core'
@@ -82,11 +83,13 @@
       })
 
       // TODO: match scroll pos on Index.vue
+      const routes: any[] = ['projekt', 'page', 'about']
       const data = computed(() => {
-        if (route.name !== 'projekt') return
+        if (!routes.includes(route.name)) return
 
         const slug = route.params.slug as string
-        return store.slugToProject(slug)
+        const isPage = route.name !== 'projekt'
+        return store.slugToProject(slug, isPage)
       })
 
       const metaEl = ref(null)

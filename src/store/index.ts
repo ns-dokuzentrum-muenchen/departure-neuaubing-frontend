@@ -13,7 +13,12 @@ export const useStore = defineStore({
   state,
   getters: {
     idToProject: (state) => (id: number) => state.projects?.find(p => p.id === id),
-    slugToProject: (state) => (slug: string) => state.projects?.find(p => p.slug === slug),
+    slugToProject: (state) => (slug: string, page: boolean) => {
+      if (page) {
+        return state.pages[slug]
+      }
+      return state.projects?.find(p => p.slug === slug)
+    },
     glossary: (state) => {
       return Object.values(state.glossar)?.sort((a, b) => {
         return a.slug.localeCompare(b.slug)

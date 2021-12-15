@@ -4,7 +4,7 @@
       <li class="chevron">
         <router-link to="/" class="underline">Start</router-link>
       </li>
-      <li class="chevron">
+      <li v-if="post.post_type === 'projekt'" class="chevron">
         <span class="border-b border-dotted">Projekte</span>
       </li>
       <li class="chevron truncate">

@@ -73,8 +73,9 @@
       })
 
       const route = useRoute()
+      const routes: any = ['projekt', 'page', 'uber']
       const link = computed(() => {
-        const base = metaBase.value || (route.name === 'projekt' ? '#kontext=' : '#view=')
+        const base = metaBase.value || (routes.includes(route.name) ? '#kontext=' : '#view=')
         return base + target.value
       })
 
