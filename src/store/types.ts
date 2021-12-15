@@ -79,6 +79,8 @@ type ACF = {
   gallery?: Image[]
   foto_id?: string
   num_people_cat_id?: string
+
+  hide_meta?: boolean
 }
 
 export interface MapMarker {

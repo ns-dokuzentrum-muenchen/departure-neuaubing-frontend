@@ -17,6 +17,7 @@
 </template>
 
 <script lang="ts">
+  import type { Post } from '../store/types'
   import type { ComputedRef } from 'vue'
   import { defineComponent, inject, computed } from 'vue'
   import { useStore } from '../store'
@@ -26,21 +27,27 @@
   import CloseIcon from './svg/CloseIcon.vue'
 
   export default defineComponent({
-    name: 'MetaControls',
-    setup () {
+    props: {
+      fields: Object
+    },
+    setup (props) {
       const store = useStore()
       const route = useRoute()
       const router = useRouter()
 
-      const available = computed(() => route.meta.seite)
+      const fields = computed(() => {
+        return (props.fields as Post)?.acf
+      })
+      const available = computed(() => {
+        return route.meta.seite
+          && (!fields.value?.hide_meta)
+      })
       const hiddenByContent = computed(() => store.metaHidden)
 
       const metaLayer: ComputedRef<number> | undefined = inject('metaLayer')
       const vis = computed(() => {
         return metaLayer?.value || 0
       })
-
-      // const menuOpen = computed(() => store.menuOpen)
 
       const classes = computed(() => {
         const x = [['right-0', 'right-seite', 'right-kontext'][vis.value]]

@@ -1,7 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router'
 
 import Index from './views/Index.vue'
-import About from './views/About.vue'
+// import About from './views/About.vue'
 import Project from './views/Project.vue'
 
 const router = createRouter({
@@ -13,21 +13,22 @@ const router = createRouter({
       component: Index,
       // meta: { seite: true }
     },
-    {
-      path: '/ueber',
-      name: 'about',
-      component: About
-    },
-    {
-      path: '/impressum',
-      name: 'impressum',
-      component: About
-    },
-    {
-      path: '/sitemap',
-      name: 'sitemap',
-      component: About
-    },
+    // {
+    //   path: '/ueber',
+    //   name: 'about',
+    //   component: About,
+    //   meta: { seite: true }
+    // },
+    // {
+    //   path: '/impressum',
+    //   name: 'impressum',
+    //   component: About
+    // },
+    // {
+    //   path: '/sitemap',
+    //   name: 'sitemap',
+    //   component: About
+    // },
     {
       path: '/projekte/:slug',
       name: 'projekt',
@@ -77,7 +78,8 @@ const router = createRouter({
     {
       path: '/pages/:slug',
       name: 'page',
-      component: () => import('./views/Page.vue')
+      component: () => import('./views/Page.vue'),
+      meta: { seite: true }
     }
   ],
   scrollBehavior (to, from, savedPosition) {

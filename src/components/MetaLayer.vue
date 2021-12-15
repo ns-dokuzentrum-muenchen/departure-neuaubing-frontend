@@ -34,7 +34,7 @@
       </div>
     </div>
 
-    <meta-controls/>
+    <meta-controls :fields="data"/>
   </div>
 </template>
 
@@ -99,13 +99,13 @@
         }
       })
 
-      const hash = (hash: string) => {
-        router.replace({ ...route, hash })
-      }
+      // const hash = (hash: string) => {
+      //   router.replace({ ...route, hash })
+      // }
 
       provide('ctx', metaContext)
 
-      return { vis, classes, metaTitle, metaEl, data, hash }
+      return { vis, classes, metaTitle, metaEl, data }
     },
     components: { MetaPost, ChevronLeft, SearchIcon, MetaControls }
   })
