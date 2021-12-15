@@ -74,3 +74,16 @@ export const imgSize = (img: any, viewSize: number) => {
 export function sleep (delay: number) {
   return new Promise((resolve) => setTimeout(resolve, delay))
 }
+
+export function fixLink (path: string): string {
+  if (path.charAt(0) === '/') return path
+
+  return path
+    .replace('https://doku.n-kort.net', '')
+    .replace('https://departure-neuaubing-stage.netlify.app', '')
+    .replace('http://localhost:8080', '')
+}
+export function sideBarLink (path: string): boolean {
+  const match = RegExp(/^\/(glossar|orte|personen|kuenstlerinnen|begriffe)\//).test(path)
+  return match
+}

@@ -1,11 +1,11 @@
 <template>
-  <div class="min-h-screen">
+  <div>
     <article v-if="page">
       <component v-for="(block, i) in contentBlocks" :is="block.acf_fc_layout" :block="block" :slug="slug" :key="i"></component>
     </article>
 
     <div v-else class="w-screen h-screen grid place-content-center">
-      <h1 class="text-4xl">{{ page?.title?.rendered || 'Not found' }}</h1>
+      <h1 class="text-4xl">Not found</h1>
       <p class="text-2xl font-mono">/pages/{{ slug }}</p>
     </div>
   </div>

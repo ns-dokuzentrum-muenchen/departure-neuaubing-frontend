@@ -9,6 +9,7 @@
 <script lang="ts">
   import { defineComponent, computed } from 'vue'
   import { useRouter } from 'vue-router'
+  import { fixLink, sideBarLink } from '../../utils'
 
   export default defineComponent({
     props: {
@@ -29,10 +30,18 @@
       const internalLinks = (event: Event ) => {
         const el = event.target as HTMLElement
         if (el && (el.tagName === 'A' || el.tagName === 'a')) {
-          event.preventDefault() // check first
-          const path = el.getAttribute('href')
-          console.log('go to', path)
-          router.push(`#kontext=${path}`)
+          const path = el.getAttribute('href') || ''
+
+          if (sideBarLink(path)) {
+            event.preventDefault()
+            router.push(`#kontext=${path}`)
+          } else {
+            const internal = fixLink(path)
+            if (internal.charAt(0) === '/') {
+              event.preventDefault()
+              router.push(path)
+            }
+          }
         }
       }
 
