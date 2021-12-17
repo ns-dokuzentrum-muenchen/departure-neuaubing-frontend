@@ -10,6 +10,7 @@ interface State {
   pages: { [index: string]: Post }
   markers: MapMarker[]
   myMarkers: Post[]
+  forum: Post[]
   darkMode: boolean
   theme: Theme
   menuOpen: boolean
@@ -29,13 +30,13 @@ export type Post = {
   slug: string
   title: RenderedString
   post_title: string
+  content: RenderedString
   acf: ACF
-
-  content?: RenderedString
 
   comment_status: string
   comment_count: string
   author: number
+  author_name?: string
   date: string
   modifed: string
   tags: number[]
@@ -129,6 +130,7 @@ export interface Comment {
   parent: number
   author: number
   author_name: string
+  author_display_name: string
   author_url: string
   date: string
   content: RenderedString

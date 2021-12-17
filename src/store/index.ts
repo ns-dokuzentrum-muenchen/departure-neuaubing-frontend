@@ -215,6 +215,23 @@ export const useStore = defineStore({
       }).then(({ data }) => {
         this.myMarkers.unshift(data)
       })
+    },
+
+    async getForum (page = 1) {
+      return api.get('/wp-json/wp/v2/forum', {
+        params: { page }
+      }).then(({ data }) => {
+        this.forum = data
+      })
+    },
+    async getForumPost (slug: string | string[]) {
+      if (!slug) return
+      return api.get('/wp-json/wp/v2/forum', {
+        params: { slug }
+      }).then(({ data }) => {
+        if (!data[0]) return
+        this.forum.push(data[0]) // fix this maybe
+      })
     }
   }
 })

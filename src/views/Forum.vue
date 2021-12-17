@@ -23,10 +23,23 @@
             </div>
             <h1 class="text-2xl lg:text-4xl font-medium">Forum</h1>
           </div>
+
+          <div class="mb-8">
+            <p class="text-sm underline">Übersicht</p>
+          </div>
+
+          <div v-if="posts?.length">
+            <ul>
+              <li v-for="post in posts" :key="post.id" class="mb-4">
+                <forum-line-item :post="post"/>
+              </li>
+            </ul>
+          </div>
+          <div v-else>Nothing found...</div>
         </div>
       </div>
 
-      <div class="hidden md:block fixed top-0 p-1 left-0 mt-12 ml-1 md:mt-14 md:ml-14 transition-all duration-300">
+      <div class="hidden md:block fixed top-0 p-1 left-0 mt-12 ml-1 md:mt-14 md:ml-16 transition-all duration-300">
         <button @click="goBack" class="hidden md:block btn text-lg shadow-lg">
           <span>Zurück</span>
         </button>
@@ -36,11 +49,13 @@
 </template>
 
 <script lang="ts">
-  import { defineComponent } from 'vue'
+  import { defineComponent, computed } from 'vue'
   import { useRouter } from 'vue-router'
+  import { useStore } from '../store'
   import SearchIcon from '../components/svg/SearchIcon.vue'
   import CloseIcon from '../components/svg/CloseIcon.vue'
   import ChevronLeft from '../components/svg/ChevronLeft.vue'
+  import ForumLineItem from '../components/ForumLineItem.vue'
 
   export default defineComponent({
     setup () {
@@ -54,8 +69,16 @@
         }
       }
 
-      return { goBack }
+      const store = useStore()
+      const posts = computed(() => store.forum)
+
+      return { goBack, posts }
     },
-    components: { SearchIcon, CloseIcon, ChevronLeft }
+    beforeRouteEnter (to, _, next) {
+      const store = useStore()
+      const page = Number(to.query.page) || 1
+      return store.getForum(page).then(next)
+    },
+    components: { SearchIcon, CloseIcon, ChevronLeft, ForumLineItem }
   })
 </script>

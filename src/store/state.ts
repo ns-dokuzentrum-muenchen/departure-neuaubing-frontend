@@ -22,6 +22,8 @@ export default function state (): State {
     markers: [],
     myMarkers: [], // TODO: save these in localStorage? remove when no longer `pending`
 
+    forum: [],
+
     darkMode: getCssMode(),
     theme: getTheme(),
     menuOpen: false,

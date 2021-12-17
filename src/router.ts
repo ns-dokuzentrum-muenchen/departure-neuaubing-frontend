@@ -1,7 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router'
 
 import Index from './views/Index.vue'
-// import About from './views/About.vue'
 import Project from './views/Project.vue'
 
 const router = createRouter({
@@ -13,22 +12,6 @@ const router = createRouter({
       component: Index,
       // meta: { seite: true }
     },
-    // {
-    //   path: '/ueber',
-    //   name: 'about',
-    //   component: About,
-    //   meta: { seite: true }
-    // },
-    // {
-    //   path: '/impressum',
-    //   name: 'impressum',
-    //   component: About
-    // },
-    // {
-    //   path: '/sitemap',
-    //   name: 'sitemap',
-    //   component: About
-    // },
     {
       path: '/projekte/:slug',
       name: 'projekt',
@@ -39,6 +22,11 @@ const router = createRouter({
       path: '/forum',
       name: 'forum',
       component: () => import('./views/Forum.vue')
+    },
+    {
+      path: '/forum/:slug',
+      name: 'forum-post',
+      component: () => import('./views/ForumPost.vue')
     },
     {
       path: '/glossar',
