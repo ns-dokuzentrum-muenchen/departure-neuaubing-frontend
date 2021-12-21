@@ -208,7 +208,7 @@ export const useStore = defineStore({
       }).then(({ data }) => data)
     },
     async createMarker (data: any) {
-      return api.post('/wp-json/wp/v2/markierungen', data, {
+      return api.post('/wp-json/wp/v2/uploads', data, {
         headers: {
           Authorization: `Bearer ${this.authToken}`
         }

@@ -72,7 +72,7 @@
         plyr.value = new Plyr(`#${id.value}`, {
           muted: false,
           disableContextMenu: true,
-          controls: ['play', 'progress', 'current-time', 'mute', 'fullscreen']
+          controls: ['play', 'progress', 'current-time', 'volume', 'fullscreen']
         })
 
         // maybe auto play...

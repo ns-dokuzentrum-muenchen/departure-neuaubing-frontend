@@ -110,10 +110,12 @@
       }
 
       const close = () => {
-        router.push({ ...route, query: {} })
+        const query = { ...route.query }
+        delete query.marker
+        router.push({ ...route, query })
         bus.emit('closeMarkerPanel')
       }
-      return { postId, marker, gallery, slider, close, panelWidth, panel }
+      return { marker, gallery, slider, close, panelWidth, panel }
     },
     components: { AppImage, CloseIcon }
   })

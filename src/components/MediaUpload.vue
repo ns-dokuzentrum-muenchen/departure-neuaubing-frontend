@@ -1,72 +1,87 @@
 <template>
-  <div @click="close" class="fixed inset-0 flex items-center justify-center">
-    <div @click.stop class="bg-black text-white rounded-md z-20 max-w-lg w-full">
-      <div class="px-8 py-4">
-        <p class="mb-2 text-lg">Neue Markierung</p>
+  <div class="py-4">
+    <transition @enter="slideOpen" @leave="slideClose" mode="out-in">
+      <div v-if="!user" class="">
+        <login-signup/>
+      </div>
 
-        <div v-if="!user" class="">
-          <login-signup/>
-        </div>
-        <div v-else-if="formComplete">
-          <div>
-            <p class="text-highlight">Markierung erfolgreich erstellt!</p>
-          </div>
-        </div>
-        <div v-else class="">
-          <form @submit.prevent="upload">
-            <div class="mb-2">
-              <input v-model="form.title" type="text" placeholder="Titel" class="input" required/>
-            </div>
-            <div class="mb-2">
-              <textarea v-model="form.content" type="text" placeholder="Description" class="input" required></textarea>
-            </div>
-            <div class="my-2">
-              <div>File</div>
-              <input @change="addFile" type="file" required>
-            </div>
-            <div v-if="imgPreview" class="mb-2">
-              <div>
-                <img :src="imgPreview"/>
-              </div>
-            </div>
-            <div>
-              <div class="flex items-center">
-                <label class="flex-auto pr-4">
-                  <input type="checkbox" required>
-                  Ich akzeptiere die AGBs
-                </label>
-                <div>
-                  <button class="btn" :disabled="uploading">{{ uploading ? 'Lädt...' : 'Hochladen' }}</button>
-                </div>
-              </div>
-              <div v-if="formErr" class="mt-2 leading-tight">
-                <p class="text-red-600">{{ formErr }}</p>
-              </div>
-            </div>
-          </form>
+      <div v-else-if="formComplete">
+        <div>
+          <p class="text-highlight text-lg">Beitrag erfolgreich erstellt</p>
         </div>
       </div>
-    </div>
+      <div v-else class="">
+        <div class="mb-4">
+          <p class="text-xl mb-4">Foto beitragen</p>
+          <p class="text-lg mb-4">Wir freuen uns über Bilder von Orten ehemaliger Lager … Beschreibung</p>
+
+          <p class="text-sm">Bitte beachten Sie/du folgendes:</p>
+          <p class="text-sm">- Es können nur Bilder veröffentlicht werden welche keine erkennbaren Einzelpersonen zeigen</p>
+          <p class="text-sm">- Weiteres</p>
+        </div>
+        <form @submit.prevent="upload">
+          <div class="mb-2">
+            <input v-model="form.title" type="text" placeholder="Titel" class="input" required/>
+          </div>
+          <div class="mb-2">
+            <textarea v-model="form.content" type="text" placeholder="Beschreibung" class="input" required></textarea>
+          </div>
+          <div class="my-2 flex">
+            <div v-if="imgPreview" class="mb-2">
+              <div class="">
+                <img :src="imgPreview" class="max-h-24"/>
+              </div>
+            </div>
+            <div v-show="!imgPreview">
+              <label class="sr-only">File</label>
+              <input @change="addFile" type="file" required>
+            </div>
+          </div>
+
+          <div>
+            <div class="">
+              <label class="flex-auto block text-small mb-2">
+                <input type="checkbox" required>
+                Ich besitze die Bildrechte und stimme der Veröffentlichung zu
+              </label>
+              <label class="flex-auto block text-small mb-2">
+                <input type="checkbox" required>
+                Ich akzeptiere die Nutzungsbedingungen
+              </label>
+              <div class="mt-4">
+                <button class="btn" :disabled="uploading">{{ uploading ? 'Lädt...' : 'Beitragen' }}</button>
+              </div>
+            </div>
+            <div v-if="formErr" class="mt-2 leading-tight">
+              <p class="text-red-600">{{ formErr }}</p>
+            </div>
+            <div else class="my-4">
+              <p>Hinweis: Ihr / dein Beitrag wird von unserem Team gesichtet und erscheint erst nach der Freigabe auf der Webseite.</p>
+            </div>
+          </div>
+        </form>
+      </div>
+    </transition>
   </div>
 </template>
 
 <script lang="ts">
+  import type { AxiosError } from 'axios'
   import { defineComponent, computed, reactive, ref } from 'vue'
   import { useStore } from '../store'
-  import { LatLng } from 'leaflet'
+  import { slideOpen, slideClose } from '../utils'
   import LoginSignup from './LoginSignup.vue'
-  import { AxiosError } from 'axios'
 
   export default defineComponent({
     name: 'MediaUpload',
     props: {
-      latlng: Object
+      parent: Number
     },
     setup (props, { emit }) {
       const store = useStore()
       const user = computed(() => store.user)
 
-      const latlng = computed(() => props.latlng as LatLng)
+      const parentId = props.parent || 0
 
       const file = ref<File | null>(null)
       const form = reactive({
@@ -100,15 +115,15 @@
           uploading.value = true
           const fileData = await store.uploadFile(file.value)
 
+          console.log({ fileData })
+
           const newMarker = {
             ...form,
-            featured_media: fileData.id,
-            // status: 'pending', // or blank for draft. `publish` = 403
+            // featured_media: fileData.id,
+            status: 'pending', // or blank for draft. `publish` = 403
             fields: {
-              location: {
-                lat: latlng.value.lat,
-                lng: latlng.value.lng
-              }
+              parent: parentId,
+              thumbnail: fileData.id
             }
           }
 
@@ -130,7 +145,6 @@
 
       return {
         user,
-        latlng,
         form,
         uploading,
         formErr,
@@ -138,7 +152,9 @@
         addFile,
         upload,
         close,
-        imgPreview
+        imgPreview,
+        slideOpen,
+        slideClose
       }
     },
     components: { LoginSignup }

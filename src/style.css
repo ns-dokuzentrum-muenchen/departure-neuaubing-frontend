@@ -254,7 +254,7 @@ body {
 
 .page-dot {
   @apply border rounded-full grid place-content-center mx-1;
-  @apply hover:bg-gray-200 transition-all;
+  @apply hover:bg-gray-200 dark:hover:bg-gray-600 transition-all;
   width: 2em;
   height: 2em;
 
@@ -395,9 +395,9 @@ button[data-plyr="mute"],
 button[data-plyr="fullscreen"] {
   margin-top: -1px;
 
-  & svg { @apply hidden; }
-  & span {
-    @apply uppercase text-xs;
-    position: static !important;
-  }
+  /* & svg { @apply hidden; } */
+  /* & span { */
+    /* @apply uppercase text-xs; */
+    /* position: static !important; */
+  /* } */
 }

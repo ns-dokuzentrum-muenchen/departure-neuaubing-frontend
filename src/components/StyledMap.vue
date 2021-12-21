@@ -113,7 +113,8 @@
             zIndexOffset: point.from_artist ? 100 : 0
           }
           const lMarker = L.marker([lat, lng], opts).addTo(markerGroup).on('click', (e: LeafletMouseEvent) => {
-            router.push({ ...route, query: { marker: point.post_id } })
+            const query = { ...route.query, marker: point.post_id }
+            router.push({ ...route, query })
             select() // dim the others
             e.target.setOpacity(1.0)
             e.target.getElement?.().classList.add('focussed')

@@ -31,6 +31,7 @@ export type Post = {
   title: RenderedString
   post_title: string
   content: RenderedString
+  post_content?: string
   acf: ACF
 
   comment_status: string
@@ -80,6 +81,8 @@ type ACF = {
   gallery?: Image[]
   foto_id?: string
   num_people_cat_id?: string
+  uploads?: Post[]
+  parent?: number
 
   hide_meta?: boolean
 }
