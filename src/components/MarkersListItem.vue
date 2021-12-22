@@ -1,15 +1,15 @@
 <template>
-  <div :class="{ 'bg-gray-200 dark:bg-gray-500' : expanded, 'max-h-16': !parentHeight }" :style="rowStyle" ref="parent" class="border-b hover:bg-gray-200 dark:hover:bg-gray-500 transition-all overflow-clip relative group">
+  <div :class="{ 'bg-gray-200 dark:bg-gray-500' : expanded }" ref="parent" class="border-b hover:bg-gray-200 dark:hover:bg-gray-500 transition-all overflow-clip relative group">
     <div ref="row" @click="toggle" class="grid grid-cols-12 gap-4 py-2 cursor-pointer">
       <div class="col-span-3">
         {{ item.title }}
       </div>
       <div class="col-span-4 transition-m-height overflow-clip">
-        <div v-if="item.description" v-html="item.description" class="html mb-2"></div>
-        <div v-if="item.source" :class="{ 'opacity-0': !expanded }" class="text-gray-500 dark:text-gray-300 font-light">{{ item.source }}</div>
+        <div v-if="item.description" v-html="item.description" :class="{ 'line-clamp-2': truncated }" class="html mb-2"></div>
+        <div v-if="item.source && !truncated" class="text-gray-500 dark:text-gray-300 font-light">{{ item.source }}</div>
       </div>
       <div class="col-span-1">
-        {{ item.num_people_cat_id }}
+        <p :class="{ 'line-clamp-2': truncated }">{{ item.num_people_cat_id }}</p>
       </div>
       <div class="col-span-3">
         <p>{{ item.location.address }}</p>
@@ -18,10 +18,10 @@
       <div class="col-span-1 flex justify-between items-start">
         <div :class="{ artist: item.from_artist }" class="list-dot text-xs">{{ item.id }}</div>
         <button @click.stop="toggle" class="px-2 h-6 dark:invert">
-          <img :class="{ 'rotate-180': expanded }" src="~../assets/chevron-down.svg" width="16" height="16" class="transition-transform"/>
+          <img :class="{ 'rotate-180': !truncated }" src="~../assets/chevron-down.svg" width="16" height="16" class="transition-transform"/>
         </button>
       </div>
-      <div :class="{ 'opacity-0': !expanded }" @click.stop class="col-span-12 transition-opacity">
+      <div v-if="!truncated" @click.stop class="col-span-12 transition-opacity">
         <div class="px-2 pb-2">
           <div class="flex justify-end space-x-2">
             <button @click="posting = !posting" class="btn-sm">Foto beitragen</button>
@@ -44,7 +44,7 @@
     </transition>
 
     <transition @enter="slideOpen" @leave="slideClose">
-      <div v-if="posts.length" data-overflow="hidden" class="bg-gray-400 dark:bg-gray-700">
+      <div v-if="posts.length && expanded" data-overflow="hidden" class="bg-gray-400 dark:bg-gray-700">
         <div class="grid grid-cols-12 gap-4">
           <div class="col-span-5 col-start-4">
             <ul>
@@ -63,13 +63,13 @@
       </div>
     </transition>
 
-    <div :class="{ 'opacity-0': expanded }" class="absolute bottom-0 left-0 right-0 bg-white dark:bg-gray-800 group-hover:bg-gray-200 dark:group-hover:bg-gray-500 h-1"></div>
+    <div :class="{ 'opacity-0': !truncated }" class="absolute bottom-0 left-0 right-0 bg-white dark:bg-gray-800 group-hover:bg-gray-200 dark:group-hover:bg-gray-500 h-1"></div>
   </div>
 </template>
 
 <script lang="ts">
   import type { MapMarker, Post } from '../store/types'
-  import { defineComponent, ref, computed, watch, nextTick } from 'vue'
+  import { defineComponent, ref, computed, watch, nextTick, onMounted } from 'vue'
   import { useStore } from '../store'
   import { slideOpen, slideClose } from '../utils'
   import MediaUpload from './MediaUpload.vue'
@@ -88,23 +88,13 @@
       const parentHeight = ref(0)
       const childHeight = ref(0)
 
+      const truncated = ref(true)
       const expanded = ref(false)
       const viewInMap = () => {
         bus.emit('selectMarker', item.post_id) // handled in MarkerPanel.vue
       }
 
       const posting = ref(false)
-      const rowStyle = computed(() => {
-        if (!parentHeight.value) return
-
-        let h = expanded.value ? childHeight.value : parentHeight.value
-
-        if (posting.value || (expanded.value && marker.value)) {
-          h += 1775 // :/
-        }
-
-        return { maxHeight: `${h}px` }
-      })
 
       // fetch rendered heights
       watch(row, async (val) => {
@@ -116,9 +106,14 @@
       })
 
       const toggle = () => {
-        expanded.value = !expanded.value
+        if (!parent.value || !row.value) return
+
         if (!expanded.value) {
-          posting.value = false
+          truncated.value = false
+          expand(parent.value, row.value)
+        } else {
+          expanded.value = false
+          contract(parent.value)
         }
       }
 
@@ -134,15 +129,50 @@
         marker.value = await store.getMarker(Number(item.post_id))
       })
 
+      onMounted(async () => {
+        await nextTick() // makes sure components are here
+        if (!parent.value) return
+
+        parentHeight.value = parent.value.offsetHeight
+      })
+
+      const duration = 250
+      async function expand (el: HTMLElement, child: HTMLElement) {
+        await nextTick()
+        const from = `${parentHeight.value}px`
+        const to = `${child.offsetHeight}px`
+
+        const anim = el.animate({
+          height: [from, to]
+        }, { duration, easing: 'ease-out' })
+        anim.onfinish = () => {
+          expanded.value = true
+        }
+      }
+
+      async function contract (el: HTMLElement) {
+        await nextTick()
+        const from = `${el.offsetHeight}px`
+        const to = `${parentHeight.value}px`
+
+        posting.value = false
+        const anim = el.animate({
+          height: [from, to]
+        }, { duration, easing: 'ease-out' })
+        anim.onfinish = () => {
+          truncated.value = true
+        }
+      }
+
       return {
         item,
         parent,
         row,
         parentHeight,
         childHeight,
+        truncated,
         expanded,
         viewInMap,
-        rowStyle,
         posting,
         slideOpen,
         slideClose,
