@@ -26,26 +26,26 @@
           <div class="mb-2">
             <textarea v-model="form.content" type="text" placeholder="Beschreibung" class="input" required></textarea>
           </div>
-          <div class="my-2 flex">
-            <div v-if="imgPreview" class="mb-2">
+          <div class="my-2 flex items-center">
+            <div v-if="imgPreview" class="mb-2 mr-4">
               <div class="">
-                <img :src="imgPreview" class="max-h-24"/>
+                <img :src="imgPreview" class="max-h-24 rounded-md"/>
               </div>
             </div>
-            <div v-show="!imgPreview">
+            <div>
               <label class="sr-only">File</label>
-              <input @change="addFile" type="file" required>
+              <input @change="addFile" type="file" required class="file:mr-4 file:py-1 file:px-8 file:rounded-full file:border-2 file:border-white file:border-solid dark:file:text-white file:bg-transparent hover:file:bg-gray-400 file:cursor-pointer cursor-pointer">
             </div>
           </div>
 
           <div>
             <div class="">
-              <label class="flex-auto block text-small mb-2">
-                <input type="checkbox" required>
+              <label class="flex-auto block text-small mb-2 cursor-pointer">
+                <input type="checkbox" required class="checkbox">
                 Ich besitze die Bildrechte und stimme der Veröffentlichung zu
               </label>
-              <label class="flex-auto block text-small mb-2">
-                <input type="checkbox" required>
+              <label class="flex-auto block text-small mb-2 cursor-pointer">
+                <input type="checkbox" required class="checkbox">
                 Ich akzeptiere die Nutzungsbedingungen
               </label>
               <div class="mt-4">
@@ -104,7 +104,7 @@
         const reader = new FileReader()
         reader.onload = (e: any) => {
           imgPreview.value = e.target?.result
-          console.log(reader)
+          // console.log(reader)
         }
         reader.readAsDataURL(file.value)
       }
@@ -115,7 +115,7 @@
           uploading.value = true
           const fileData = await store.uploadFile(file.value)
 
-          console.log({ fileData })
+          // console.log({ fileData })
 
           const newMarker = {
             ...form,
@@ -133,7 +133,7 @@
           formComplete.value = true
         } catch (err) {
           const data = (err as AxiosError).response?.data
-          console.log(data)
+          // console.log(data)
           uploading.value = false
           formErr.value = data?.message
         }

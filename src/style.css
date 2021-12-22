@@ -236,6 +236,13 @@ body {
   }
 }
 
+.checkbox {
+  @apply appearance-none -mb-1 mr-1;
+  @apply w-4.5 h-4.5 bg-white rounded-full;
+  @apply checked:bg-green-600;
+  @apply focus:ring;
+}
+
 .chevron + .chevron:before {
   content: ' > ';
   @apply inline-block mx-1;
