@@ -1,6 +1,6 @@
 <template>
   <div ref="header">
-    <header @click="maybeOpen" :class="{ 'cursor-pointer': !menuOpen, attop }" class="fixed top-0 left-0 right-0 text-highlight group z-30">
+    <header @click="maybeOpen" :class="{ 'cursor-pointer': !menuOpen, attop }" :aria-hidden="!menuOpen" id="main-menu" aria-labelledby="menubutton" class="fixed top-0 left-0 right-0 text-highlight group z-30">
       <div :class="barHeight" class="absolute top-0 left-0 right-0 pointer-events-none transition-all z-0">
         <div class="w-full h-full bg-theme dark:bg-black"></div>
       </div>
@@ -8,7 +8,7 @@
       <div class="flex relative items-center p-1 md:p-3">
         <div class="w-12 md:w-20"></div>
         <div :class="menuOpen || attop ? 'opacity-100' : 'opacity-0'" class="notouch:group-hover:opacity-100 transition-opacity flex-auto">
-          <p class="text-md md:text-lg lg:text-2xl font-light leading-tight">
+          <p class="text-lg md:text-xl xl:text-2xl font-light leading-tight">
             <span>{{ pretitle }}</span>
           </p>
         </div>
@@ -27,7 +27,7 @@
           <div class="w-16 md:w-20"></div>
 
           <div class="flex-auto pt-6 md:pt-2 px-2 md:px-0">
-            <ul class="md:text-lg lg:text-2xl font-light">
+            <ul role="menu" class="md:text-lg lg:text-2xl font-light">
               <li class="my-1 md:my-0">
                 <router-link to="/" class="hover:underline">Start</router-link>
               </li>

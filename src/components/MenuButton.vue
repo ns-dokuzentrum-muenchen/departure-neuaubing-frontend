@@ -1,5 +1,5 @@
 <template>
-  <button @click.stop="toggleMenu" :aria-label="label" :class="position" class="h-7 block transition-transform group menu-button">
+  <button @click.stop="toggleMenu" :aria-label="label" :class="position" :aria-expanded="menuOpen" aria-haspopup="true" tabindex="1" aria-controls="main-menu" id="menu-button" class="h-7 block transition-transform group menu-button">
     <div class="flex items-center relative">
       <div :class="pipes" class="w-0 border-l-2 mr-1.5 transition-all"></div>
       <div :class="{ '-mt-2px': menuOpen }" class="flex absolute left-1/2 transform -translate-x-px h-7 transition-all">
@@ -45,12 +45,15 @@
       })
       const pipes = computed(() => {
         return (menuOpen.value ? 'opacity-0 h-0' : 'h-7 ' + closedColors.value)
+          + (menuOpen.value && theme.value === 'theme-blau' ? ' text-white' : '')
       })
       const beamA = computed(() => {
         return (menuOpen.value ? 'rotate-45 h-7' : closedColors.value)
+          + (menuOpen.value && theme.value === 'theme-blau' ? ' text-white' : '')
       })
       const beamB = computed(() => {
         return (menuOpen.value ? '-rotate-45 h-7' : closedColors.value)
+          + (menuOpen.value && theme.value === 'theme-blau' ? ' text-white' : '')
       })
 
       const position = computed(() => {

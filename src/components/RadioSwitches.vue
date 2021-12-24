@@ -54,7 +54,7 @@
         </Switch>
       </switch-group>
       <div class="text-xs md:text-sm mt-4 md:mt-8 font-light">
-        <p>Es werden keine Cookies generiert und keine Persönlichen Daten gespeichert. Weitere Informationen unter <router-link to="/impressum" class="underline">Impressum</router-link></p>
+        <p>Es werden keine Cookies generiert und keine Persönlichen Daten gespeichert. Weitere Informationen unter <router-link to="/pages/impressum" class="underline">Impressum</router-link></p>
       </div>
     </div>
 
