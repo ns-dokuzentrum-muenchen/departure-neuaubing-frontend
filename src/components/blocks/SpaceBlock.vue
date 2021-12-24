@@ -1,5 +1,5 @@
 <template>
-  <div :style="style"></div>
+  <div :style="style" :class="classes"></div>
 </template>
 
 <script lang="ts">
@@ -19,8 +19,9 @@
           minHeight: flex ? min : '0'
         }
       })
+      const classes = computed(() => props.block?.background ? 'bg-bg' : '')
 
-      return { style }
+      return { style, classes }
     }
   })
 </script>

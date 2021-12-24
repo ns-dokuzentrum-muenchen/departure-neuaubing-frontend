@@ -14,7 +14,7 @@
                 <div v-html="werkzeug.content" class="html"></div>
               </div>
 
-              <div @click.stop class="bg-gray-400 text-black">
+              <div @click.stop class="bg-gray-400 text-black mb-48">
                 <div class="border-b-2 flex justify-between items-center">
                   <p class="text-xl font-medium px-2 py-1 md:px-4 md:py-2">Beiträge (?)</p>
                   <div class="px-2 md:px-4 translate-x-10">

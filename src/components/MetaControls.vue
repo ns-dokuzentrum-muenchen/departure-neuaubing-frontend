@@ -1,7 +1,7 @@
 <template>
   <div v-if="available" :class="classes" class="fixed top-0 p-1 rounded-full mt-2.5 md:mt-14 mr-2 md:mr-12 transition-all duration-300 md:z-0">
     <div>
-      <button @click="openMeta" tabindex="2" id="infobutton" aria-label="Seitenleiste" aria-controls="seitenleiste" aria-haspopup="true" class="btn round">
+      <button @click="openMeta" :aria-expanded="vis > 0" tabindex="2" id="infobutton" aria-label="Seitenleiste" aria-controls="seitenleiste" aria-haspopup="true" class="btn round">
         <info-icon v-if="vis === 0" class="-translate-x-px w-4.5 h-4.5 md:w-full md:h-full"/>
         <close-icon v-else class="w-4.5 h-4.5 md:w-5 md:h-5"/>
       </button>
