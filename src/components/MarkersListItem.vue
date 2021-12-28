@@ -4,7 +4,7 @@
       <div class="col-span-3">
         {{ item.title }}
       </div>
-      <div class="col-span-4 transition-m-height overflow-clip">
+      <div class="col-span-4 overflow-clip">
         <div v-if="item.description" v-html="item.description" :class="{ 'line-clamp-2': truncated }" class="html mb-2"></div>
         <div v-if="item.source && !truncated" class="text-gray-500 dark:text-gray-300 font-light">{{ item.source }}</div>
       </div>

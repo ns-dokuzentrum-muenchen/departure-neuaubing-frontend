@@ -1,5 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router'
 
+import { useStore } from './store'
+
 import Index from './views/Index.vue'
 import Project from './views/Project.vue'
 
@@ -93,6 +95,19 @@ const router = createRouter({
 
     return savedPosition || { top: 0 }
   }
+})
+
+router.afterEach((to) => {
+  if ('et_eC_Wrapper' in window === false) return
+
+  const store = useStore()
+  if (!store.analytics) return
+
+  // send the tracker info
+  // TODO: get pagename from store?
+  (<any>window).et_eC_Wrapper?.({
+    et_pagename: to.name
+  })
 })
 
 export default router
