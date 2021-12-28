@@ -19,7 +19,8 @@
 
   export default defineComponent({
     props: {
-      block: Object
+      block: Object,
+      slug: String
     },
     setup (props) {
       const block = computed(() => props.block)
