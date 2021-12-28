@@ -85,6 +85,13 @@ body {
   & a { @apply underline hover:opacity-50; }
 
   & a > strong { @apply pointer-events-none; }
+
+  & h1 { font-size: 200%; @apply font-medium mb-4; }
+  & h2 { font-size: 150%; @apply font-medium mb-4; }
+  & h3 { font-size: 130%; @apply font-medium mb-4; }
+  & h4 { font-size: 120%; @apply font-medium mb-4; }
+  & h5 { font-size: 110%; @apply font-medium mb-4; }
+  & h6 { @apply font-medium mb-4; }
 }
 
 .styled-text {
@@ -96,6 +103,7 @@ body {
 }
 
 .bg-bg { @apply bg-white dark:bg-gray-800; }
+.expander .bg-bg { @apply bg-transparent; }
 
 .bg-theme {
   @nest .theme-blau & {

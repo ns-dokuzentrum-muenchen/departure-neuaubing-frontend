@@ -2,11 +2,10 @@
   <div class="md:grid grid-cols-12 gap-4 px-4 my-8">
     <div :class="position" :style="nudge" class="col-span-7 bg-bg leftopen-nudge">
       <figure>
-        <video-player v-if="block?.video" :video="block.video" :key="block.video?.uri" class="w-full"/>
+        <app-image :image="image"></app-image>
 
         <figcaption class="px-4 py-2">
-          <p class="text-xl md:text-2xl lg:text-3xl">{{ block?.title }}</p>
-          <div v-html="block?.description" class="html"></div>
+          <div v-html="image?.caption" class="html"></div>
         </figcaption>
       </figure>
     </div>
@@ -14,8 +13,9 @@
 </template>
 
 <script lang="ts">
+  import type { Image } from '../../store/types'
   import { defineComponent, computed } from 'vue'
-  import VideoPlayer from '../VideoPlayer.vue'
+  import AppImage from '../AppImage.vue'
 
   export default defineComponent({
     props: {
@@ -23,6 +23,7 @@
       slug: String
     },
     setup (props) {
+      const image = computed<Image>(() => props.block?.image)
       const position = computed(() => {
         return `col-start-${props.block?.position || '1'}`
       })
@@ -35,8 +36,8 @@
         return `--nudge:${val}`
       })
 
-      return { position, block, nudge }
+      return { image, position, block, nudge }
     },
-    components: { VideoPlayer }
+    components: { AppImage }
   })
 </script>
