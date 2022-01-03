@@ -12,7 +12,7 @@
     <div id="pagelist" class="px-4 scroll-m-8">
       <div class="max-w-6xl mx-auto my-8 md:my-12">
         <p class="text-2xl mb-2">{{ title }}</p>
-        <div class="max-w-prose-1 html">
+        <div ref="texts" class="max-w-prose-1 html">
           <div v-html="description" @click="internalLinks"></div>
         </div>
       </div>
@@ -41,11 +41,15 @@
       const store = useStore()
 
       const map = ref<HTMLElement|null>(null)
+      const texts = ref<HTMLElement|null>(null)
 
       onMounted(() => {
         store.getMarkers()
 
         window.addEventListener('scroll', scrollListener)
+        if (texts.value) {
+          texts.value.addEventListener('mouseover', tagListener)
+        }
       })
       onUnmounted(() => {
         window.removeEventListener('scroll', scrollListener)
@@ -75,7 +79,20 @@
         store.metaHidden = top < 150 && bottom > 50
       }
 
-      return { title, description, internalLinks, markerLayer, map }
+      function tagListener (e: MouseEvent) {
+        const target = e.target as HTMLElement
+        if (!target || target.tagName !== 'A') return
+
+        // TODO check if META link
+        // console.log('hover on <a>', target.getAttribute('href'))
+        if (store.metaPeek) return
+        store.metaPeek = true
+        setTimeout(() => {
+          store.metaPeek = false
+        }, 1200)
+      }
+
+      return { title, description, internalLinks, markerLayer, map, texts }
     },
     components: { StyledMap, MarkersList, MarkerPanel }
   })

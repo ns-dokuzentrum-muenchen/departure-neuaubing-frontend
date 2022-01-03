@@ -66,12 +66,13 @@
         const target = e.target as HTMLElement
         if (!target || target.tagName !== 'A') return
 
-        console.log('hover on <a>', target.getAttribute('href'))
+        // TODO check if META link
+        // console.log('hover on <a>', target.getAttribute('href'))
         if (store.metaPeek) return
         store.metaPeek = true
         setTimeout(() => {
           store.metaPeek = false
-        }, 2000)
+        }, 1200)
       }
 
       return { el, position, size, content, internalLinks, nudge }

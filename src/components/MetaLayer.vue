@@ -1,5 +1,5 @@
 <template>
-  <div id="seitenleiste" ref="metaEl" :aria-hidden="!showing" aria-labelledby="infobutton" class="relative z-40 md:z-20">
+  <aside id="seitenleiste" ref="metaEl" :aria-hidden="!showing" aria-labelledby="infobutton" class="relative z-40 md:z-20">
     <div :class="classes" class="fixed top-0 bottom-0 right-0 max-w-full overflow-auto bg-black text-white transform transition-all duration-300 overscroll-contain">
       <div :hidden="!showing" class="px-4 mt-2.5 md:px-10 md:mt-14">
         <div class="flex justify-end py-1">
@@ -35,7 +35,7 @@
     </div>
 
     <meta-controls :fields="data"/>
-  </div>
+  </aside>
 </template>
 
 <script lang="ts">
@@ -61,8 +61,11 @@
 
       const classes = computed(() => {
         let c = [vis.value > 1 ? 'w-kontext' : 'w-meta']
-        vis.value === 0 && c.push('translate-x-full')
-        store.metaPeek && c.push('-ml-12')
+        if (store.metaPeek) {
+          vis.value === 0 && c.push('translate-x-peek')
+        } else {
+          vis.value === 0 && c.push('translate-x-full')
+        }
         return c
       })
 

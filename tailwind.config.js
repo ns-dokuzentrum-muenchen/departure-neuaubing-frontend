@@ -830,6 +830,7 @@ module.exports = {
       '-2/4': '-50%',
       '-3/4': '-75%',
       '-full': '-100%',
+      'peek': 'calc(100% - 2rem)'
     }),
     width: (theme) => ({
       auto: 'auto',

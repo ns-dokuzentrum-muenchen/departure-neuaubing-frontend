@@ -37,7 +37,7 @@ export default function state (): State {
     authToken: getToken(),
 
     metaHidden: false,
-    metaPeek: true
+    metaPeek: false
   }
 }
 
