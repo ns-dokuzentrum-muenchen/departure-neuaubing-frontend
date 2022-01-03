@@ -20,6 +20,7 @@ interface State {
   nonce: string | null
   authToken: string | null
   metaHidden: boolean
+  metaPeek: boolean
 }
 
 export type Theme = 'theme-blau' | 'theme-gelb' | 'theme-rosa' | 'theme-gruen'

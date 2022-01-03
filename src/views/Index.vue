@@ -18,22 +18,22 @@
     <scroll-meta/>
   </div>
 
-  <div class="px-12 py-16 overflow-x-hidden">
+  <div id="project-list" ref="list" class="px-12 py-16 overflow-x-hidden">
+    <div class="grid grid-cols-12 gap-16 md:gap-32 items-center justify-items-center">
+      <project-item v-for="(p, i) in projects" :key="i" :project="p" :col="i % 5" :pos="pos" :class="rowCol(i)" :idx="i" @move="move" class="col-start-3 sm:col-start-4 lg:col-start-5 xl:col-start-6 col-auto"/>
+    </div>
+
     <div class="my-16 md:my-24 flex justify-center">
       <button @click="reorder" class="btn">
         <redo-icon class="inline-block mr-4 -ml-4 -mt-1" width="24" height="24"/>
         <span>Seite neu Anordnen</span>
       </button>
     </div>
-
-    <div class="grid grid-cols-12 gap-16 md:gap-32 items-center justify-items-center">
-      <project-item v-for="(p, i) in projects" :key="i" :project="p" :col="i % 5" :pos="pos" :class="rowCol(i)" :idx="i" @move="move" class="col-start-3 sm:col-start-4 lg:col-start-5 xl:col-start-6 col-auto"/>
-    </div>
   </div>
 </template>
 
 <script lang="ts">
-  import { defineComponent, computed } from 'vue'
+  import { defineComponent, computed, ref } from 'vue'
   import { useStore } from '../store/index'
   import ScrollCanvas from '../components/ScrollCanvas.vue'
   import ScrollMeta from '../components/ScrollMeta.vue'
@@ -47,6 +47,8 @@
       const store = useStore()
       const settings = computed(() => store.settings)
       const projects = computed(() => settings.value?.projekte)
+
+      const list = ref<HTMLElement|null>(null)
 
       const pos = computed<number>({
         get () { return store.indexPos },
@@ -73,9 +75,13 @@
           dir = -1
         }
         pos.value = pos.value + dir
+
+        if (list.value) {
+          list.value.scrollIntoView({ block: 'start', behavior: 'smooth' })
+        }
       }
 
-      return { settings, projects, pos, rowCol, move, reorder }
+      return { settings, projects, list, pos, rowCol, move, reorder }
     },
     components: { ScrollCanvas, ScrollMeta, ProjectItem, RedoIcon, FontLogo }
   })

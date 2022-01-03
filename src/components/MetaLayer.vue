@@ -62,6 +62,7 @@
       const classes = computed(() => {
         let c = [vis.value > 1 ? 'w-kontext' : 'w-meta']
         vis.value === 0 && c.push('translate-x-full')
+        store.metaPeek && c.push('-ml-12')
         return c
       })
 

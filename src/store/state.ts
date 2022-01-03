@@ -36,7 +36,8 @@ export default function state (): State {
     nonce: null,
     authToken: getToken(),
 
-    metaHidden: false
+    metaHidden: false,
+    metaPeek: true
   }
 }
 

@@ -1,5 +1,5 @@
 <template>
-  <div class="md:grid grid-cols-12 gap-4 my-8 px-4">
+  <div ref="el" class="md:grid grid-cols-12 gap-4 my-8 px-4">
     <div :class="[position, size]" :style="nudge" class="col-span-7 bg-bg px-4 py-2 leftopen-nudge">
       <div v-html="content" @click="internalLinks" class="html max-w-prose"></div>
     </div>
@@ -7,7 +7,8 @@
 </template>
 
 <script lang="ts">
-  import { defineComponent, computed } from 'vue'
+  import { defineComponent, ref, computed, onMounted } from 'vue'
+  import { useStore } from '../../store'
   import { useRouter } from 'vue-router'
   import { fixLink, sideBarLink } from '../../utils'
 
@@ -23,6 +24,8 @@
       const size = computed(() => {
         return `text-${props.block?.size || 'lg'}`
       })
+
+      const el = ref<HTMLElement|null>(null)
 
       const content = computed(() => props.block?.text || '')
 
@@ -51,7 +54,27 @@
         return `--nudge:${val}`
       })
 
-      return { position, size, content, internalLinks, nudge }
+      const store = useStore()
+
+      onMounted(() => {
+        if (el.value) {
+          el.value.addEventListener('mouseover', tagListener)
+        }
+      })
+
+      function tagListener (e: MouseEvent) {
+        const target = e.target as HTMLElement
+        if (!target || target.tagName !== 'A') return
+
+        console.log('hover on <a>', target.getAttribute('href'))
+        if (store.metaPeek) return
+        store.metaPeek = true
+        setTimeout(() => {
+          store.metaPeek = false
+        }, 2000)
+      }
+
+      return { el, position, size, content, internalLinks, nudge }
     }
   })
 </script>
