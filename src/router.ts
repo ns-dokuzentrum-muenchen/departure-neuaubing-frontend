@@ -85,9 +85,8 @@ const router = createRouter({
       const el = document.getElementById('pagelist')
       if (!el) return
 
-      const top = (window.innerWidth / 3)
       return {
-        top,
+        top: 18,
         el: '#pagelist',
         behavior: 'smooth'
       }

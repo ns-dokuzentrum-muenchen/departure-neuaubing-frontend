@@ -1,6 +1,6 @@
 <template>
   <div class="max-w-6xl mx-auto my-8 md:my-12">
-    <div id="pagelist" class="mt-12">
+    <div class="mt-12">
       <div class="grid grid-cols-12 gap-4 border-b font-medium py-2">
         <div class="col-span-3">Name</div>
         <div class="col-span-4">Beschreibung</div>

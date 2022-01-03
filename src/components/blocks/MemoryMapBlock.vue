@@ -9,7 +9,7 @@
       </transition>
     </div>
 
-    <div class="px-4">
+    <div id="pagelist" class="px-4 scroll-m-8">
       <div class="max-w-6xl mx-auto my-8 md:my-12">
         <p class="text-2xl mb-2">{{ title }}</p>
         <div class="max-w-prose-1 html">
