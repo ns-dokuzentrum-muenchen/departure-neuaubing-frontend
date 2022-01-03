@@ -6,7 +6,7 @@
 </template>
 
 <script lang="ts">
-  import { defineComponent } from 'vue'
+  import { defineComponent, computed } from 'vue'
   import AppImage from '../AppImage.vue'
 
   export default defineComponent({
@@ -15,15 +15,11 @@
       slug: String
     },
     setup (props) {
-      // const image = props.block?.image
-      // const layer = props.block?.layer
-      // const sticky = props.block?.sticky
+      const image = computed(() => props.block?.image)
+      const layer = computed(() => props.block?.layer)
+      const sticky = computed(() => props.block?.sticky)
 
-      return {
-        image: props.block?.image,
-        layer: props.block?.layer,
-        sticky: props.block?.sticky
-      }
+      return { image, layer, sticky }
     },
     components: { AppImage }
   })
