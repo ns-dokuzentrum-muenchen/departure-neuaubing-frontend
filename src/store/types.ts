@@ -193,6 +193,7 @@ interface AcfRow {
   description?: string
   height?: number
   min?: string
+  action?: string
 }
 
 interface Settings {

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <article class="">
+    <article id="top" class="">
       <div :class="{ leftopen }">
         <component v-for="(block, i) in contentBlocks" :is="block.acf_fc_layout" :block="block" :slug="slug" :key="i"></component>
       </div>

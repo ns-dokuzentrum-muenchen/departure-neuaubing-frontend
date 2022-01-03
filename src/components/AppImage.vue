@@ -37,9 +37,11 @@
         return srcs.join(',')
       })
 
-      const loaded = (event: any) => {
+      const loaded = async (event: any) => {
         const { target } = event
         if (!target) return
+
+        await nextFrame()
 
         target.animate?.({
           opacity: [0, 1]
@@ -53,4 +55,8 @@
       return { el, image, width, height, srcset, loaded }
     }
   })
+
+  function nextFrame () {
+    return new Promise(requestAnimationFrame);
+  }
 </script>
