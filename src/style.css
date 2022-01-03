@@ -148,6 +148,12 @@ body {
   }
 }
 
+.clearfix::after {
+  content: "";
+  clear: both;
+  display: table;
+}
+
 .w-meta {
   width: 30rem;
   max-width: calc(100vw - 1.4rem);
