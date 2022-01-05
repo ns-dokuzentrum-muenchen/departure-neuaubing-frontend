@@ -1,8 +1,11 @@
 <template>
   <div ref="el" class="text-white relative w-full h-full">
     <div class="w-full h-full">
-      <video :id="id" ref="vid" :data-poster="poster" @lazybeforeunveil="view" @loadeddata="canplay" disablePictureInPicture :playsinline="inline" :width="video.width" :height="video.height" class="lazyload w-full h-full object-contain">
+      <video :id="`plyr-${id}`" ref="vid" :data-poster="poster" @lazybeforeunveil="view" @loadeddata="canplay" disablePictureInPicture :playsinline="inline" :width="video.width" :height="video.height" class="lazyload w-full h-full object-contain">
         <source v-for="src in srcs" :key="src.md5" :src="src.link" :type="src.type">
+        <template v-if="closedCaptions">
+          <track v-for="track in closedCaptions.data" :key="track.id" :src="track.link" :srclang="track.language" :label="`${track.language} captions`" kind="captions"/>
+        </template>
       </video>
     </div>
   </div>
@@ -11,6 +14,7 @@
 <script lang="ts">
   import type { VideoData } from '../store/types'
   import { defineComponent, ref, computed, onMounted, nextTick } from 'vue'
+  import axios from 'axios'
   import Plyr from 'plyr'
   import 'plyr/src/sass/plyr.scss' // dist not working?
 
@@ -30,11 +34,13 @@
       const el = ref(null)
       const vid = ref(null)
 
+      const closedCaptions = ref<any>(null)
+
       const id = computed(() => {
         if (!video.value) return 'plyr'
 
-        const id = video.value.uri.split('/').pop()
-        return `plyr-${id}`
+        const id = Number(video.value.uri.split('/').pop())
+        return id
       })
       const poster = computed(() => {
         const img = video.value.pictures.sizes.slice(-1)
@@ -63,16 +69,24 @@
       onMounted(async () => {
         if (!el.value) return
 
+        await axios.get('/.netlify/functions/video-captions', {
+          params: { id: id.value }
+        }).then(({ data }) => {
+          if (data?.total && data.total > 0) {
+            closedCaptions.value = data
+          }
+        })
+
         const $el = el.value as HTMLElement
 
         minSize.value = Math.max($el.clientWidth, $el.clientHeight)
 
         await nextTick()
 
-        plyr.value = new Plyr(`#${id.value}`, {
+        plyr.value = new Plyr(`#plyr-${id.value}`, {
           muted: false,
           disableContextMenu: true,
-          controls: ['play', 'progress', 'current-time', 'volume', 'fullscreen']
+          controls: ['play', 'progress', 'current-time', 'volume', 'fullscreen', 'captions']
         })
 
         // maybe auto play...
@@ -82,7 +96,7 @@
         // this.listeners()
       })
 
-      return { el, vid, video, id, poster, srcs, plyr, inline, canplay, view }
+      return { el, vid, video, closedCaptions, id, poster, srcs, plyr, inline, canplay, view }
     }
   })
 </script>

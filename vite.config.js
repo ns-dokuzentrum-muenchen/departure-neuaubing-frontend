@@ -8,7 +8,12 @@ export default defineConfig({
   plugins: [ vue() ],
   server: {
     port: 8080,
-    // proxy: {}
+    proxy: {
+      '/.netlify': {
+        target: 'https://departure-neuaubing-stage.netlify.app',
+        changeOrigin: true
+      }
+    }
   },
   build: {
     rollupOptions: {
