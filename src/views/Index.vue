@@ -26,7 +26,7 @@
     <div class="my-16 md:my-24 flex justify-center">
       <button @click="reorder" class="btn">
         <redo-icon class="inline-block mr-4 -ml-4 -mt-1" width="24" height="24"/>
-        <span>Seite neu Anordnen</span>
+        <span>Seite neu anordnen</span>
       </button>
     </div>
   </div>
