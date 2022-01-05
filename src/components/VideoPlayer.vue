@@ -73,6 +73,10 @@
           params: { id: id.value }
         }).then(({ data }) => {
           if (data?.total && data.total > 0) {
+            data.data = data.data.map((track: any) => {
+              track.link = (track.link as string).replace('https://captions.cloud.vimeo.com', '')
+              return track
+            })
             closedCaptions.value = data
           }
         })

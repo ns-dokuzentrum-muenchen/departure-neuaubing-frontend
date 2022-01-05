@@ -12,6 +12,10 @@ export default defineConfig({
       '/.netlify': {
         target: 'https://departure-neuaubing-stage.netlify.app',
         changeOrigin: true
+      },
+      '/captions': {
+        target: 'https://captions.cloud.vimeo.com',
+        changeOrigin: true
       }
     }
   },
