@@ -30,7 +30,7 @@
             </p>
           </div>
 
-          <div class="bg-gray-200 text-black rounded-xl p-4">
+          <div class="bg-gray-200 text-black rounded-xl p-4 mb-12">
             <div class="mb-4">
               <h2 class="text-xl md:text-2xl lg:text-3xl">{{ post?.title.rendered }}</h2>
               <div class="flex -mx-2 divide-x mt-2">
@@ -45,7 +45,7 @@
 
             <div class="border-b-2 -mx-2 my-4"></div>
 
-            <div v-if="post?.comment_status === 'open'" class="flex mt-2">
+            <div v-if="post?.comment_status === 'open'" class="mt-2">
               <div class="px-3">
                 <div v-if="comments?.length">
                   <div v-for="comment in comments" :key="comment.id" class="my-4">
@@ -58,6 +58,10 @@
                 <div v-else>
                   <p class="my-4">No comments yet...</p>
                 </div>
+              </div>
+
+              <div class="border-t-2 py-2">
+                <comment-form :post-id="post.id"/>
               </div>
             </div>
           </div>
@@ -82,6 +86,7 @@
   import ChevronLeft from '../components/svg/ChevronLeft.vue'
   import ForumLineItem from '../components/ForumLineItem.vue'
   import CommentRow from '../components/CommentRow.vue'
+  import CommentForm from '../components/CommentForm.vue'
 
   export default defineComponent({
     setup () {
@@ -124,6 +129,6 @@
       const { slug } = to.params
       return store.getForumPost(slug).then(next)
     },
-    components: { SearchIcon, CloseIcon, ChevronLeft, ForumLineItem, CommentRow }
+    components: { SearchIcon, CloseIcon, ChevronLeft, ForumLineItem, CommentRow, CommentForm }
   })
 </script>
