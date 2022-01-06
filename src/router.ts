@@ -70,6 +70,11 @@ const router = createRouter({
       name: 'page',
       component: () => import('./views/Page.vue'),
       meta: { seite: true }
+    },
+    {
+      path: '/account',
+      name: 'account',
+      component: () => import('./views/Account.vue')
     }
   ],
   scrollBehavior (to, from, savedPosition) {

@@ -19,11 +19,11 @@
           </div>
 
           <template v-if="canComment">
-            <div class="my-4">
+            <!-- <div class="my-4">
               <router-link :to="target" class="btn-outline text-sm inline-block">diskutieren</router-link>
-            </div>
+            </div> -->
 
-            <div class="max-w-prose-1">
+            <div class="max-w-3xl mt-8">
               <comments-preview :id="post.ID || post.id" :title="title" :path="target"/>
             </div>
           </template>

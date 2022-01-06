@@ -2,8 +2,8 @@
   <div>
     <div v-if="user">
       <p>
-        Angemeldet als: <strong>{{ user.name }} </strong>
-        (<a @click="logout" class="underline cursor-pointer">abmelden</a>)
+        Angemeldet als: <strong class="font-medium"><router-link to="/account">{{ user.name }}</router-link> </strong>
+        <span class="hidden">(<a @click="logout" class="underline cursor-pointer">abmelden</a>)</span>
       </p>
 
       <form @submit.prevent="submit" class="mt-2">
@@ -12,7 +12,7 @@
         </div>
         <div class="mb-3">
           <label>
-            <input v-model="form.eula" type="checkbox"/>
+            <input v-model="form.eula" type="checkbox" required/>
             Ich akzeptiere die Nutzungsbedingungen
           </label>
         </div>
@@ -21,7 +21,7 @@
         </div>
         <div class="flex mb-3 items-center">
           <div class="flex-none mr-4">
-            <button type="submit" class="btn-outline">beitragen</button>
+            <button :disabled="posting" type="submit" class="btn-outline">beitragen</button>
           </div>
           <transition name="fade">
             <div v-if="errMsg" class="flex-auto">
@@ -61,6 +61,7 @@
         content: ''
       })
 
+      const posting = ref(false)
       const errMsg = ref<string | null>(null)
       const statusMsg = ref<string | null>(null)
       const submit = async () => {
@@ -70,15 +71,20 @@
           await store.validateToken()
 
           errMsg.value = null
+          posting.value = true
 
-          store.postComment(postId.value, form).catch(({ response }) => {
+          await store.postComment(postId.value, form).catch(({ response }) => {
             if (response?.data) {
               errMsg.value = response.data.message
             }
-            console.log(response.data.message)
           })
+          posting.value = false
+          if (!errMsg.value) {
+            form.content = ''
+          }
         } catch (err) {
           errMsg.value = (err as any).toString()
+          posting.value = false
         }
       }
 
@@ -88,7 +94,7 @@
         store.logout()
       }
 
-      return { postId, user, form, errMsg, statusMsg, submit, siteKey, logout }
+      return { postId, user, form, errMsg, statusMsg, submit, siteKey, logout, posting }
     },
     components: { LoginSignup }
   })

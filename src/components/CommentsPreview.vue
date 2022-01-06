@@ -1,5 +1,5 @@
 <template>
-  <div class="bg-gray-700 rounded-lg text-white">
+  <div class="bg-gray-200 rounded-lg text-black">
     <div class="px-3 py-2 border-b-2 flex justify-between items-baseline">
       <p class="font-bold">{{ title }}</p>
       <p class="text-xs">Vor 12 stunden</p>
@@ -14,17 +14,21 @@
         <p class="my-4 text-center">Lädt...</p>
       </div>
       <div v-else>
-        <p class="my-4">No comments yet...</p>
+        <p class="my-4">Noch keine Kommentare...</p>
       </div>
 
-      <div class="flex justify-between items-center pb-3 pl-4 pr-2">
+      <div class="flex justify-between items-center pb-3 pl-2 pr-2">
         <div class="flex items-center space-x-2">
-          <img src="../assets/chat-icon.svg"/>
+          <img src="../assets/chat-icon-dark.svg" width="18"/>
           <p>{{ commentCount }}</p>
         </div>
-        <div>
+        <!-- <div>
           <router-link :to="url" class="btn-outline text-sm inline-block">diskutieren</router-link>
-        </div>
+        </div> -->
+      </div>
+
+      <div class="border-t-2 py-2">
+        <comment-form :post-id="id"/>
       </div>
     </div>
   </div>
@@ -34,6 +38,7 @@
   import { defineComponent, computed, ref, onMounted } from 'vue'
   import { useStore } from '../store'
   import CommentRow from './CommentRow.vue'
+  import CommentForm from './CommentForm.vue'
 
   export default defineComponent({
     props: {
@@ -49,7 +54,7 @@
       const loading = ref(true)
 
       const comments = computed(() => {
-        return store.comments[id]?.slice(0, 3)
+        return store.comments[id] // all of them
       })
 
       const commentCount = computed(() => store.comments[id]?.length)
@@ -62,8 +67,8 @@
         })
       })
 
-      return { title, comments, commentCount, url, loading }
+      return { id, title, comments, commentCount, url, loading }
     },
-    components: { CommentRow }
+    components: { CommentRow, CommentForm }
   })
 </script>
