@@ -10,7 +10,7 @@
 
 <script lang="ts">
   import type { MapMarker } from '../store/types'
-  import type { Map as LMap, Marker, LeafletMouseEvent, MarkerOptions, LatLng } from 'leaflet'
+  import type { Map as LMap, Marker, LeafletMouseEvent, MarkerOptions, LatLng, LatLngTuple } from 'leaflet'
   import L from 'leaflet'
   import { defineComponent, ref, onMounted, computed, watch, nextTick } from 'vue'
   import { useRoute, useRouter } from 'vue-router'
@@ -20,6 +20,8 @@
 
   const endpoint = 'https://stamen-tiles-{s}.a.ssl.fastly.net/toner/{z}/{x}/{y}{r}.png'
   const attribution = '<a href="http://stamen.com">Stamen</a>, <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a> &mdash; Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+
+  const MUNICH: LatLngTuple = [48.1453673, 11.5655232]
 
   export default defineComponent({
     setup () {
@@ -61,7 +63,7 @@
         const el = mapEl.value as HTMLElement
         map = L.map(el, {
           scrollWheelZoom: false,
-          center: [48.1453673, 11.5655232],
+          center: MUNICH,
           zoom: 13,
           zoomControl: false
         })
@@ -149,6 +151,7 @@
           const el = (mark as Marker).setOpacity(1.0).getElement()
           el?.classList.remove('focussed')
         })
+        map.panTo(MUNICH)
       }
 
       function calcPan (artist: boolean): number {
