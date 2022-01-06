@@ -65,7 +65,8 @@
           scrollWheelZoom: false,
           center: MUNICH,
           zoom: 13,
-          zoomControl: false
+          zoomControl: false,
+          dragging: !L.Browser.mobile
         })
         layer.addTo(map)
         zoomControl.addTo(map)
