@@ -1,10 +1,10 @@
 <template>
   <div ref="el" class="text-white relative w-full h-full">
     <div class="w-full h-full">
-      <video :id="`plyr-${id}`" ref="vid" :data-poster="poster" @lazybeforeunveil="view" @loadeddata="canplay" disablePictureInPicture :playsinline="inline" :width="video.width" :height="video.height" class="lazyload w-full h-full object-contain">
+      <video ref="vid" :data-poster="poster" disablePictureInPicture :playsinline="inline" :width="video.width" :height="video.height" crossorigin="true" class="lazyload w-full h-full object-contain">
         <source v-for="src in srcs" :key="src.md5" :src="src.link" :type="src.type">
         <template v-if="closedCaptions">
-          <track v-for="track in closedCaptions.data" :key="track.id" :src="track.link" :srclang="track.language" :label="`${track.language} captions`" kind="captions"/>
+          <track v-for="track in closedCaptions.data" :key="track.id" :src="track.link" :srclang="track.language" :label="track.label" kind="captions"/>
         </template>
       </video>
     </div>
@@ -31,8 +31,8 @@
       const minSize = ref(360)
       const plyr = ref<Plyr | null>(null)
 
-      const el = ref(null)
-      const vid = ref(null)
+      const el = ref<HTMLElement|null>(null)
+      const vid = ref<HTMLElement|null>(null)
 
       const closedCaptions = ref<any>(null)
 
@@ -59,22 +59,20 @@
       })
       const inline = computed(() => props.first)
 
-      const canplay = () => {
-        // console.log('canplay... VideoPlayer.vue')
-      }
-      const view = () => {
-        // console.log('view... VideoPlayer.vue')
-      }
-
       onMounted(async () => {
-        if (!el.value) return
+        if (!el.value || !vid.value) return
+
+        const langs: { [key: string]: string } = {
+          en: 'English',
+          de: 'Deutsch'
+        }
 
         await axios.get('/.netlify/functions/video-captions', {
           params: { id: id.value }
         }).then(({ data }) => {
           if (data?.total && data.total > 0) {
             data.data = data.data.map((track: any) => {
-              track.link = (track.link as string).replace('https://captions.cloud.vimeo.com', '')
+              track.label = langs[(track.language as string)]
               return track
             })
             closedCaptions.value = data
@@ -87,10 +85,9 @@
 
         await nextTick()
 
-        plyr.value = new Plyr(`#plyr-${id.value}`, {
+        plyr.value = new Plyr(vid.value, {
           muted: false,
-          disableContextMenu: true,
-          controls: ['play', 'progress', 'current-time', 'volume', 'fullscreen', 'captions']
+          controls: ['play-large', 'play', 'progress', 'current-time', 'mute', 'volume', 'captions', 'settings', 'fullscreen']
         })
 
         // maybe auto play...
@@ -100,7 +97,7 @@
         // this.listeners()
       })
 
-      return { el, vid, video, closedCaptions, id, poster, srcs, plyr, inline, canplay, view }
+      return { el, vid, video, closedCaptions, poster, srcs, plyr, inline }
     }
   })
 </script>
