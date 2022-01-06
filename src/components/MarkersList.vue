@@ -1,12 +1,12 @@
 <template>
   <div class="max-w-6xl mx-auto my-8 md:my-12">
     <div class="mt-12">
-      <div class="grid grid-cols-12 gap-4 border-b font-medium py-2">
-        <div class="col-span-3">Name</div>
-        <div class="col-span-4">Beschreibung</div>
-        <div class="col-span-1">Personen</div>
-        <div class="col-span-3">Adresse</div>
-        <div class="col-span-1">Nummer</div>
+      <div class="flex lg:grid grid-cols-12 gap-4 border-b font-medium py-2">
+        <div class="flex-auto lg:col-span-3">Name</div>
+        <div class="hidden lg:block col-span-4">Beschreibung</div>
+        <div class="hidden lg:block col-span-1">Personen</div>
+        <div class="hidden lg:block col-span-3">Adresse</div>
+        <div class="flex-none lg:col-span-1">Nummer</div>
       </div>
 
       <markers-list-item v-for="item in paging" :key="item.post_id" :item="item"/>

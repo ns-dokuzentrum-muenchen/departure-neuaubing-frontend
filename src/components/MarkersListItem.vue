@@ -1,29 +1,48 @@
 <template>
   <div :class="{ 'bg-gray-200 dark:bg-gray-500' : expanded }" ref="parent" class="border-b hover:bg-gray-200 dark:hover:bg-gray-500 transition-all overflow-clip relative group">
-    <div ref="row" @click="toggle" class="grid grid-cols-12 gap-4 py-2 cursor-pointer">
-      <div class="col-span-3">
-        {{ item.title }}
+    <div ref="row" @click="toggle" class="lg:grid grid-cols-12 gap-4 py-2 cursor-pointer">
+      <div class="flex lg:contents">
+        <div class="flex-auto lg:col-span-3 mx-2 lg:mx-0">
+          {{ item.title }}
+        </div>
+
+        <div class="hidden lg:block col-span-4 overflow-clip">
+          <div v-if="item.description" v-html="item.description" :class="{ 'line-clamp-2': truncated }" class="html mb-2"></div>
+          <div v-if="item.source && !truncated" class="text-gray-500 dark:text-gray-300 font-light">{{ item.source }}</div>
+        </div>
+        <div class="hidden lg:block col-span-1">
+          <p :class="{ 'line-clamp-2': truncated }">{{ item.num_people_cat_id }}</p>
+        </div>
+        <div class="hidden lg:block col-span-3">
+          <p>{{ item.location.address }}</p>
+          <p>{{ item.location.address_new }}</p>
+        </div>
+
+        <div class="flex-none col-span-2 lg:col-span-1 flex justify-between items-start">
+          <div :class="{ artist: item.from_artist }" class="list-dot text-xs">{{ item.id }}</div>
+          <button @click.stop="toggle" class="px-2 h-6 dark:invert">
+            <img :class="{ 'rotate-180': !truncated }" src="~../assets/chevron-down.svg" width="16" height="16" class="transition-transform"/>
+          </button>
+        </div>
       </div>
-      <div class="col-span-4 overflow-clip">
-        <div v-if="item.description" v-html="item.description" :class="{ 'line-clamp-2': truncated }" class="html mb-2"></div>
-        <div v-if="item.source && !truncated" class="text-gray-500 dark:text-gray-300 font-light">{{ item.source }}</div>
-      </div>
-      <div class="col-span-1">
-        <p :class="{ 'line-clamp-2': truncated }">{{ item.num_people_cat_id }}</p>
-      </div>
-      <div class="col-span-3">
-        <p>{{ item.location.address }}</p>
-        <p>{{ item.location.address_new }}</p>
-      </div>
-      <div class="col-span-1 flex justify-between items-start">
-        <div :class="{ artist: item.from_artist }" class="list-dot text-xs">{{ item.id }}</div>
-        <button @click.stop="toggle" class="px-2 h-6 dark:invert">
-          <img :class="{ 'rotate-180': !truncated }" src="~../assets/chevron-down.svg" width="16" height="16" class="transition-transform"/>
-        </button>
-      </div>
-      <div v-if="!truncated" @click.stop class="col-span-12 transition-opacity">
-        <div class="px-2 pb-2">
-          <div class="flex justify-end space-x-2">
+
+      <div v-if="!truncated" @click.stop class="w-full col-span-12 transition-opacity">
+        <div class="lg:hidden mx-2">
+          <div class="my-2">
+            <div v-if="item.description" v-html="item.description" class="html mb-2 max-w-prose-1"></div>
+            <div v-if="item.source" class="text-gray-500 dark:text-gray-300 font-light text-sm">{{ item.source }}</div>
+          </div>
+          <div class="mb-2 text-sm">
+            <p>{{ item.location.address }}</p>
+            <p>{{ item.location.address_new }}</p>
+          </div>
+          <div class="text-sm">
+            <p>{{ item.num_people_cat_id }}</p>
+          </div>
+        </div>
+
+        <div class="mt-4 lg:mt-0 px-2 pb-2">
+          <div class="flex lg:justify-end space-x-2">
             <button @click="posting = !posting" class="btn-sm">Foto beitragen</button>
             <button @click="viewInMap" class="btn-sm">anzeigen</button>
           </div>
@@ -45,10 +64,10 @@
 
     <transition @enter="slideOpen" @leave="slideClose">
       <div v-if="posts.length && expanded" data-overflow="hidden" class="bg-gray-400 dark:bg-gray-700">
-        <div class="grid grid-cols-12 gap-4">
-          <div class="col-span-5 col-start-4">
-            <ul>
-              <li v-for="upload in posts" :key="upload.id" class="bg-gray-400 text-black rounded-md my-4 overflow-hidden">
+        <div class="lg:grid grid-cols-12 gap-4">
+          <div class="col-start-4 col-span-5">
+            <ul class="py-px px-4 lg:p-0">
+              <li v-for="upload in posts" :key="upload.id" class="max-w-sm lg:max-w-none bg-gray-400 text-black rounded-md my-4 overflow-hidden">
                 <figure>
                   <app-image v-if="upload.acf?.thumbnail" :image="upload.acf?.thumbnail"/>
                   <figcaption>

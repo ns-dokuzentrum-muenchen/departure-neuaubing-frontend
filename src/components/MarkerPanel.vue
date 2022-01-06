@@ -1,8 +1,8 @@
 <template>
   <div ref="panel" class="absolute top-0 right-0 bottom-0">
-    <div class="absolute right-full mt-16 -mr-5">
+    <div class="absolute right-full mt-16 -mr-4 md:-mr-5">
       <button @click="close" class="btn round">
-        <close-icon class="w-4.5 h-4.5 md:w-5 md:h-5"/>
+        <close-icon class="w-4 h-4 md:w-5 md:h-5"/>
       </button>
     </div>
 
