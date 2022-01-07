@@ -1,5 +1,5 @@
 <template>
-  <div class="md:grid grid-cols-12 gap-4 px-4 my-8">
+  <div v-if="image" class="md:grid grid-cols-12 gap-4 px-4 my-8">
     <div :class="position" :style="nudge" class="col-span-7 bg-bg leftopen-nudge">
       <figure>
         <app-image :image="image"></app-image>

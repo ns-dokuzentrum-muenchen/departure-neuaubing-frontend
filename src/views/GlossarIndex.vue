@@ -15,8 +15,8 @@
 
       <div class="pl-4 md:px-8 pb-px">
         <div class="max-w-3xl mx-auto mt-8 md:mt-12 min-h-screen">
-          <div class="mb-8 md:mb-0 flex md:absolute top-14">
-            <div class="md:hidden">
+          <div class="mb-8 md:mb-0 flex items-center md:absolute top-14">
+            <div class="xl:hidden">
               <button @click="goBack" class="btn round mr-2">
                 <chevron-left class="w-4.5 h-4.5 md:w-5 md:h-5"/>
               </button>
@@ -34,8 +34,8 @@
         </div>
       </div>
 
-      <div class="hidden md:block fixed top-0 p-1 left-0 mt-12 ml-1 md:mt-14 md:ml-14 transition-all duration-300">
-        <button @click="goBack" class="hidden md:block btn text-lg shadow-lg">
+      <div class="hidden xl:block fixed top-0 p-1 left-0 mt-12 ml-1 md:mt-14 md:ml-14 transition-all duration-300">
+        <button @click="goBack" class="btn text-lg shadow-lg">
           <span>Zurück</span>
         </button>
       </div>
