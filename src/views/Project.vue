@@ -28,6 +28,8 @@
                     </li>
                   </ul>
                 </div>
+
+                <new-begriff/>
               </div>
             </div>
           </div>
@@ -43,6 +45,7 @@
   import { useRoute, useRouter } from 'vue-router'
   import ConnectionPreview from '../components/ConnectionPreview.vue'
   import ChevronRight from '../components/svg/ChevronRight.vue'
+  import NewBegriff from '../components/NewBegriff.vue'
 
   // auto-load the content Blocks
   const glob = import.meta.globEager('../components/blocks/*.vue')
@@ -98,8 +101,9 @@
       const back = () => {
         router.replace({ hash: '' })
       }
+
       return { slug, contentBlocks, mitBegriffe, links, werkzeug, leftopen, back }
     },
-    components: { ...components, ConnectionPreview, ChevronRight }
+    components: { ...components, ConnectionPreview, ChevronRight, NewBegriff }
   })
 </script>

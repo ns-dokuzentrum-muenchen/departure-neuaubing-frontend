@@ -217,6 +217,16 @@ export const useStore = defineStore({
       })
     },
 
+    async createBegriff (data: any) {
+      return api.post('/wp-json/wp/v2/begriffe', data, {
+        headers: {
+          Authorization: `Bearer ${this.authToken}`
+        }
+      }).then(({ data }) => {
+        console.log(data)
+      })
+    },
+
     async getForum (page = 1) {
       return api.get('/wp-json/wp/v2/forum', {
         params: { page }

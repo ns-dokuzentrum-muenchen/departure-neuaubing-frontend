@@ -19,9 +19,7 @@
 
   const base = import.meta.env.VITE_API_ENDPOINT as string
 
-  const postTypes: {
-    [key: string]: string
-  } = {
+  const postTypes: { [key: string]: string } = {
     kuenstler: 'Künstler*in',
     projekt: 'Projekt',
     glossar: 'Glossar',
@@ -56,6 +54,7 @@
 
       const url = computed(() => {
         if (!post) return ''
+        // TODO: markers => /projekte/memory-practice?marker=ID
         return (post.permalink || post.link)?.replace(base, '')
       })
 
