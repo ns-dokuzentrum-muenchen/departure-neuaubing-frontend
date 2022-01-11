@@ -1,5 +1,5 @@
 <template>
-  <div ref="el" class="md:grid grid-cols-12 gap-4 my-8 px-4">
+  <div ref="el" class="md:grid grid-cols-12 gap-4 px-4">
     <div :class="[position, size]" :style="nudge" class="col-span-7 bg-bg px-4 py-2 leftopen-nudge">
       <div v-html="content" @click="internalLinks" class="html max-w-prose"></div>
     </div>

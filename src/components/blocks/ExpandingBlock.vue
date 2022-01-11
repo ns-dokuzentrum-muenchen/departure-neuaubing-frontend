@@ -1,7 +1,7 @@
 <template>
   <div class="bg-bg py-4">
     <details class="group open:bg-gray-200 open:bg-opacity-25">
-      <summary class="md:grid grid-cols-12 gap-4 my-8 px-4 cursor-pointer">
+      <summary class="md:grid grid-cols-12 gap-4 px-4 cursor-pointer">
         <p :class="position" class="text-xl md:text-2xl lg:text-3xl list-item col-span-7 border-b group-open:border-b-0 mx-4 py-2">{{ title }}</p>
       </summary>
 
@@ -10,18 +10,6 @@
       </div>
     </details>
   </div>
-  <!-- <div class="md:grid grid-cols-12 gap-4 px-4 my-8">
-    <div :class="position" :style="nudge" class="col-span-7 bg-bg leftopen-nudge">
-      <figure>
-        <video-player v-if="block?.video" :video="block.video" class="w-full"/>
-
-        <figcaption class="px-4 py-2">
-          <p class="text-xl md:text-2xl lg:text-3xl">{{ block?.title }}</p>
-          <div v-html="block?.description" class="html"></div>
-        </figcaption>
-      </figure>
-    </div>
-  </div> -->
 </template>
 
 <script lang="ts">

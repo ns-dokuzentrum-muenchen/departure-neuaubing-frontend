@@ -1,5 +1,5 @@
 <template>
-  <div class="md:grid grid-cols-12 gap-4 px-4 my-8">
+  <div class="md:grid grid-cols-12 gap-4 px-4">
     <div :class="position" class="col-end-13 my-8 px-4 clearfix max-w-5xl">
       <div v-for="(row, i) in rows" :key="i" :class="itemStyle(row)">
         <div v-if="row.type === 'text'" class="bg-bg text-lg">

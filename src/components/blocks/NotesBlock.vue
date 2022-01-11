@@ -1,6 +1,6 @@
 <template>
   <div class="bg-bg p-4 md:p-8 leftopen-nudge">
-    <div class="max-w-prose-1 mx-auto my-8 md:my-12 text-lg">
+    <div class="max-w-prose-1 mx-auto md:my-12 text-lg">
       <p class="font-medium text-2xl md:text-3xl">{{ block?.titel }}</p>
       <div class="my-6">
         <div v-for="(section, i) in block?.sections" :key="i">

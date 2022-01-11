@@ -1,5 +1,5 @@
 <template>
-  <div class="md:grid grid-cols-12 gap-4 my-8 px-4">
+  <div class="md:grid grid-cols-12 gap-4 px-4">
     <div :class="[position]" :style="nudge" class="col-span-7 bg-bg px-4 py-4 leftopen-nudge group">
       <div class="relative">
         <div class="absolute left-0 whitespace-nowrap top-0.5 -translate-x-1/3 opacity-0 group-hover:opacity-100 transition-all">
