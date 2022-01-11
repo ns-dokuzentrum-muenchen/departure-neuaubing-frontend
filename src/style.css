@@ -285,6 +285,13 @@ textarea { @apply leading-snug; }
   &:disabled { @apply opacity-25 pointer-events-none; }
 }
 
+.safari-summary::-webkit-details-marker {
+  display: none;
+}
+.safari-summary > div {
+  list-style-position: inside;
+}
+
 .marker-dot:hover {
   opacity: 1 !important;
 }
