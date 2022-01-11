@@ -16,7 +16,7 @@
 
               <div @click.stop class="bg-gray-400 text-black mb-48">
                 <div class="border-b-2 flex justify-between items-center">
-                  <p class="text-xl font-medium px-2 py-1 md:px-4 md:py-2">Beiträge (?)</p>
+                  <p class="text-xl font-medium px-2 py-1 md:px-4 md:py-2">Beiträge</p>
                   <div class="px-2 md:px-4 translate-x-10">
                     <button @click="back" class="btn-sm">zurück <chevron-right class="inline-block w-2 ml-1"/></button>
                   </div>

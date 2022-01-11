@@ -42,7 +42,10 @@ export default function state (): State {
 }
 
 function getCssMode () {
-  const saved = window.localStorage?.getItem('cssMode')
+  let saved = window.localStorage?.getItem('cssMode')
+  if (!saved && window.matchMedia) {
+    saved = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'
+  }
   const darkMode = saved === 'dark'
   if (darkMode) {
     document.documentElement.classList?.add('dark')

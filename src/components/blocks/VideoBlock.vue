@@ -9,11 +9,20 @@
           <div v-html="block?.description" class="html"></div>
         </figcaption>
       </figure>
+      <div v-if="block.details">
+        <details>
+          <summary class="text-xl cursor-pointer w-full py-2 px-4">{{ block?.details_summary }}</summary>
+          <div class="html p-4 font-light text-base border-t">
+            <div v-html="block?.details_text" class="max-w-prose-1"></div>
+          </div>
+        </details>
+      </div>
     </div>
   </div>
 </template>
 
 <script lang="ts">
+  import type { AcfRow } from '../../store/types'
   import { defineComponent, computed } from 'vue'
   import VideoPlayer from '../VideoPlayer.vue'
 
@@ -27,7 +36,7 @@
         return `col-start-${props.block?.position || '1'}`
       })
 
-      const block = computed(() => props.block)
+      const block = computed(() => props.block as AcfRow)
 
       const nudge = computed(() => {
         const c = props.block?.position || 1

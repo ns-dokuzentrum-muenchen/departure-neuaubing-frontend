@@ -180,7 +180,7 @@ export interface VideoData {
   files: any[]
 }
 
-interface AcfRow {
+export interface AcfRow {
   acf_fc_layout: string
   position?: string
   size?: string
@@ -195,6 +195,9 @@ interface AcfRow {
   height?: number
   min?: string
   action?: string
+  details?: boolean
+  details_summary?: string
+  details_text?: string
 }
 
 interface Settings {
