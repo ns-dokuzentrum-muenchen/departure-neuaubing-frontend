@@ -8,7 +8,7 @@
       <aside v-if="mitBegriffe">
         <div @click="back" :class="{ '-translate-x-full': !leftopen }" class="fixed inset-0 transition-transform overflow-hidden bg-bg bg-opacity-60">
           <div class="overflow-y-auto p-4 md:p-8 lg:p-12 h-full pb-48 overscroll-contain">
-            <div class="w-full md:w-kontext max-w-full md:pr-4 lg:pr-12">
+            <div class="w-full md:max-w-kontext md:pr-4 lg:pr-12">
               <div v-if="werkzeug" @click.stop class="bg-white dark:bg-black my-12 md:m-12 lg:m-20 px-2 py-1 md:px-4 md:py-2 text-black dark:text-white">
                 <div class="text-xl font-medium my-2">{{ werkzeug.title }}</div>
                 <div v-html="werkzeug.content" class="html"></div>
@@ -42,7 +42,7 @@
 </template>
 
 <script lang="ts">
-  import { defineComponent, computed, provide } from 'vue'
+  import { defineComponent, computed, provide, watch } from 'vue'
   import { useStore } from '../store'
   import { useRoute, useRouter } from 'vue-router'
   import ConnectionPreview from '../components/ConnectionPreview.vue'
@@ -97,6 +97,10 @@
       const links = computed(() => {
         if (!mitBegriffe.value) return []
         return project.value?.acf.connections || []
+      })
+
+      watch(leftopen, (val) => {
+        store.metaHidden = val
       })
 
       const router = useRouter()
