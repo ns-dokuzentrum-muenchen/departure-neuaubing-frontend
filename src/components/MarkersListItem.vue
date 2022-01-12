@@ -8,7 +8,6 @@
 
         <div class="hidden lg:block col-span-4 overflow-clip">
           <div v-if="item.description" v-html="item.description" :class="{ 'line-clamp-2': truncated }" class="html mb-2"></div>
-          <div v-if="item.source && !truncated" class="text-gray-500 dark:text-gray-300 font-light">{{ item.source }}</div>
         </div>
         <div class="hidden lg:block col-span-1">
           <p :class="{ 'line-clamp-2': truncated }">{{ item.num_people_cat_id }}</p>
@@ -30,7 +29,6 @@
         <div class="lg:hidden mx-2">
           <div class="my-2">
             <div v-if="item.description" v-html="item.description" class="html mb-2 max-w-prose-1"></div>
-            <div v-if="item.source" class="text-gray-500 dark:text-gray-300 font-light text-sm">{{ item.source }}</div>
           </div>
           <div class="mb-2 text-sm">
             <p>{{ item.location.address }}</p>

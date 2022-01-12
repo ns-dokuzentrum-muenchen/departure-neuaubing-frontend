@@ -364,6 +364,28 @@ textarea { @apply leading-snug; }
 
 .flickity-viewport,
 .flickity-slider { @apply w-full h-full; }
+.flickity-viewport {
+  cursor: grab;
+
+  &.is-pointer-down {
+    cursor: grabbing;
+  }
+}
+.flickity-button {
+  @apply absolute top-1/2 -translate-y-1/2 mx-4;
+  @apply p-2 border rounded-full;
+  @apply w-8 h-8 notouch:opacity-0 transition-opacity;
+  @apply text-white bg-white bg-opacity-10;
+
+  &.next { @apply right-0; }
+}
+.flickity-enabled:hover .flickity-button {
+  @apply opacity-100;
+  &:disabled { @apply opacity-30; }
+}
+.flickity-button-icon > path {
+  fill: currentColor;
+}
 
 .underline,
 .hover\:underline {

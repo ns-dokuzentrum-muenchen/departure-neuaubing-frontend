@@ -1,16 +1,20 @@
 <template>
-  <div class="">
+  <div class="my-8 sm:my-12 lg:my-16 relative">
     <div ref="car" class="overflow-hidden outline-none">
       <div v-for="(group, i) in gallery" :key="i" class="flex space-x-4 md:space-x-8 px-4 md:px-8 lg:px-12 overflow-hidden">
         <figure v-for="img in group" :key="img.id" class="">
           <div class="relative w-max">
-            <!-- <img :src="img.sizes?.large" :style="imgStyle(img.width, img.height)" :width="img.width" :height="img.height" :alt="img.alt" class="w-max" loading="lazy"/> -->
             <app-image :image="img" :style="imgStyle(img.width, img.height)" class="w-max"/>
           </div>
 
           <figcaption v-if="img.caption" :class="{ 'opacity-0': slide !== i }" class="max-w-prose text-xs md:text-sm mt-2 transition-opacity">{{ img.caption }}</figcaption>
         </figure>
       </div>
+    </div>
+
+    <div v-if="gallery.length">
+      <button v-if="slide > 0" @click="prevSlide" class="absolute top-0 left-0 bottom-1/4 w-1/5 cursor-left"></button>
+      <button v-if="slide < gallery.length - 1" @click="nextSlide" class="absolute top-0 right-0 bottom-1/4 w-1/5 cursor-right"></button>
     </div>
   </div>
 </template>
@@ -53,13 +57,14 @@
       }
 
       const slide = ref(0)
+      let flkty: Flickity | null = null
       onMounted(async () => {
         calcRowHeight()
 
         await nextTick()
         if (!car.value) return
 
-        const flkty = new Flickity(car.value, {
+        flkty = new Flickity(car.value, {
           cellAlign: 'center',
           setGallerySize: true,
           imagesLoaded: true,
@@ -103,7 +108,16 @@
         rowHeight.value = Math.min(h, window.innerHeight * 0.74)
       }
 
-      return { car, gallery, rowHeight, imgStyle, slide }
+      const nextSlide = () => {
+        if (!flkty) return
+        flkty.next()
+      }
+      const prevSlide = () => {
+        if (!flkty) return
+        flkty.previous()
+      }
+
+      return { car, gallery, rowHeight, imgStyle, slide, nextSlide, prevSlide }
     },
     components: { AppImage }
   })

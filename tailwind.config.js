@@ -230,6 +230,8 @@ module.exports = {
       text: 'text',
       move: 'move',
       help: 'help',
+      left: 'w-resize',
+      right: 'e-resize',
       'not-allowed': 'not-allowed',
     },
     divideColor: (theme) => theme('borderColor'),

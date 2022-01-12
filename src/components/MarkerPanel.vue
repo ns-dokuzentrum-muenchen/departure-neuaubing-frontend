@@ -105,7 +105,7 @@
           setGallerySize: true,
           imagesLoaded: true,
           pageDots: false,
-          prevNextButtons: false
+          prevNextButtons: true
         })
       }
 
