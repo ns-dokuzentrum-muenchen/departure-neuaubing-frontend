@@ -5,10 +5,10 @@
         <component v-for="(block, i) in contentBlocks" :is="block.acf_fc_layout" :block="block" :slug="slug" :key="i"></component>
       </div>
 
-      <div v-if="mitBegriffe">
-        <div @click="back" :class="{ '-translate-x-full': !leftopen }" class="fixed top-0 left-0 bottom-0 right-0 transition-transform overflow-hidden">
-          <div class="overflow-auto p-12 h-full overscroll-containX">
-            <div class="w-kontext">
+      <aside v-if="mitBegriffe">
+        <div @click="back" :class="{ '-translate-x-full': !leftopen }" class="fixed top-0 left-0 bottom-0 right-0 transition-transform overflow-hidden bg-bg bg-opacity-60">
+          <div class="overflow-auto p-4 md:p-8 lg:p-12 h-full overscroll-contain">
+            <div class="max-w-kontext mr-2 md:mr-8 lg:mr-12">
               <div v-if="werkzeug" @click.stop class="bg-white dark:bg-black m-20 px-2 py-1 md:px-4 md:py-2 text-black dark:text-white">
                 <div class="text-xl font-medium my-2">{{ werkzeug.title }}</div>
                 <div v-html="werkzeug.content" class="html"></div>
@@ -17,8 +17,10 @@
               <div @click.stop class="bg-gray-400 text-black mb-48">
                 <div class="border-b-2 flex justify-between items-center">
                   <p class="text-xl font-medium px-2 py-1 md:px-4 md:py-2">Beiträge</p>
-                  <div class="px-2 md:px-4 translate-x-10">
-                    <button @click="back" class="btn-sm">zurück <chevron-right class="inline-block w-2 ml-1"/></button>
+                  <div class="px-1 md:translate-x-6">
+                    <button @click="back" class="btn-sm">
+                      <span class="hidden md:inline">zurück</span> <chevron-right class="inline-block w-2 ml-1"/>
+                    </button>
                   </div>
                 </div>
                 <div class="px-2 py-1 md:px-4 md:py-2">
@@ -34,7 +36,7 @@
             </div>
           </div>
         </div>
-      </div>
+      </aside>
     </article>
   </div>
 </template>

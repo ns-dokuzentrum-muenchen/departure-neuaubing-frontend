@@ -1,12 +1,12 @@
 <template>
   <div>
-    <div class="px-2 p2-1 md:px-4 md:pb-4">
+    <div class="px-2 p2-1 md:px-4 pb-3 md:pb-4">
       <button @click="form.open = !form.open" class="btn-outline text-sm">Begriff einreichen</button>
     </div>
 
     <transition @enter="slideOpen" @leave="slideClose">
       <div v-if="form.open" data-overflow="hidden" class="p-2 md:p-4 border-t">
-        <div v-if="!user" class="">
+        <div v-if="!user" class="max-w-3xl">
           <login-signup/>
         </div>
 

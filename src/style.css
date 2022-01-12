@@ -102,7 +102,12 @@ body {
   }
 }
 
-.bg-bg { @apply bg-white dark:bg-gray-800; }
+.bg-bg {
+  background-color: rgb(255 255 255 / var(--tw-bg-opacity, 1));
+}
+.dark .bg-bg {
+  background-color: rgb(38 38 38 / var(--tw-bg-opacity, 1));
+}
 .expander .bg-bg { @apply bg-transparent; }
 
 .bg-theme {

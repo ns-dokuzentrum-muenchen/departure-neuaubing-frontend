@@ -1,7 +1,12 @@
 <template>
   <div ref="el" class="scroll-mt-3 md:scroll-mt-12 lg:scroll-mt-16">
     <div :class="{ 'text-lg font-medium py-1': expanded, 'html': !expanded }" class="transition-all">
-      <router-link :to="link">{{ title }}</router-link>
+      <router-link :to="link" class="flex justify-between items-center">
+        <span>{{ title }}</span>
+        <span v-if="expanded">
+          <chevron-up/>
+        </span>
+      </router-link>
     </div>
     <transition @enter="slideOpen" @leave="slideClose">
       <div v-if="expanded" class="overflow-hidden">
@@ -41,6 +46,7 @@
   import { slideOpen, slideClose } from '../utils'
   import CommentsPreview from './CommentsPreview.vue'
   import AppImage from './AppImage.vue'
+  import ChevronUp from './svg/ChevronUp.vue'
 
   const base = import.meta.env.VITE_API_ENDPOINT as string
 
@@ -54,7 +60,7 @@
       const post = props.post as Post
       const title = post.post_title || post.title?.rendered
       const metaBase = computed(() => {
-        return props.base ? `#${props.base}=` : false
+        return props.base ? `#${props.base}` : false
       })
 
       const ctx = inject<ComputedRef<string>>('ctx')
@@ -75,8 +81,9 @@
       const route = useRoute()
       const routes: any = ['projekt', 'page', 'uber']
       const link = computed(() => {
-        const base = metaBase.value || (routes.includes(route.name) ? '#kontext=' : '#view=')
-        return base + target.value
+        const base = metaBase.value || (routes.includes(route.name) ? '#kontext' : '#view')
+        const open = `${base}=${target.value}`
+        return expanded.value ? base : open
       })
 
       watch(expanded, (newVal) => {
@@ -93,6 +100,6 @@
 
       return { el, post, title, target, expanded, canComment, slideOpen, slideClose, link }
     },
-    components: { CommentsPreview, AppImage }
+    components: { CommentsPreview, AppImage, ChevronUp }
   })
 </script>
