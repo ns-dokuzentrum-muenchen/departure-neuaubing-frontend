@@ -7,7 +7,7 @@
 
       <div v-else-if="formComplete">
         <div>
-          <p class="text-highlight text-lg">Beitrag erfolgreich erstellt</p>
+          <p class="text-highlight text-lg">Dein Beitrag wurde erfolgreich erstellt und wird nach der Freigabe durch das Team des NS-Dokumentationszentrums veröffentlicht.</p>
         </div>
       </div>
       <div v-else class="">
