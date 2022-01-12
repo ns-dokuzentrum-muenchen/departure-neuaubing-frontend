@@ -50,9 +50,9 @@
 
     <transition @enter="slideOpen" @leave="slideClose">
       <div v-if="posting" data-overflow="hidden" class="bg-gray-400 dark:bg-gray-700">
-        <div class="py-4 grid grid-cols-12 gap-4">
-          <div class="col-span-5 col-start-4">
-            <div>
+        <div class="py-4 lg:grid grid-cols-12 gap-4">
+          <div class="col-span-5 col-start-4 px-4 lg:px-0">
+            <div class="max-w-sm lg:max-w-none">
               <media-upload :parent="item.post_id"/>
             </div>
           </div>

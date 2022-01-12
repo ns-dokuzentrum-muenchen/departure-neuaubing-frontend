@@ -104,7 +104,6 @@
         const reader = new FileReader()
         reader.onload = (e: any) => {
           imgPreview.value = e.target?.result
-          // console.log(reader)
         }
         reader.readAsDataURL(file.value)
       }
