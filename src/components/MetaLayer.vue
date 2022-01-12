@@ -16,10 +16,10 @@
           </div>
           <!-- <div v-if="vis < 2" class="flex-auto"></div> -->
           <div>
-            <router-link to="/suche" class="btn round block">
+            <router-link to="/suchen" class="btn round block">
               <search-icon class="inline-block w-3.5 h-3.5 md:w-5 md:h-5"/>
             </router-link>
-            <!-- <router-link v-else to="/suche" class="btn text-lg whitespace-nowrap block">
+            <!-- <router-link v-else to="/suchen" class="btn text-lg whitespace-nowrap block">
               <search-icon class="inline-block w-3.5 h-3.5 md:w-5 md:h-5"/>
               <span class="hidden md:inline">Suchen</span>
             </router-link> -->

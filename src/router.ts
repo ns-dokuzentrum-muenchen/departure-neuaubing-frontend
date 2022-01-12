@@ -56,7 +56,7 @@ const router = createRouter({
       component: () => import('./views/Glossar.vue')
     },
     {
-      path: '/suche',
+      path: '/suchen',
       name: 'suche',
       component: () => import('./views/Suche.vue')
     },

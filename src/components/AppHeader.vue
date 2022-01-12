@@ -8,9 +8,7 @@
       <div class="flex relative items-center p-1 md:p-3">
         <div class="w-12 md:w-20"></div>
         <div :class="menuOpen || attop ? 'opacity-100' : 'opacity-0'" class="notouch:group-hover:opacity-100 transition-opacity flex-auto">
-          <p class="text-lg md:text-xl xl:text-2xl font-light leading-tight">
-            <span>{{ pretitle }}</span>
-          </p>
+          <p v-html="pretitle" class="max-w-64 md:max-w-none sm:text-lg md:text-xl xl:text-2xl font-light leading-tight"></p>
         </div>
         <div :class="menuOpen ? 'opacity-100' : 'opacity-0'" class="hidden md:flex w-2/5 items-center transition-opacity">
           <div class="w-1/2">
@@ -27,19 +25,22 @@
           <div class="w-16 md:w-20"></div>
 
           <div class="flex-auto pt-6 md:pt-2 px-2 md:px-0">
-            <ul role="menu" class="md:text-lg lg:text-2xl font-light">
+            <ul role="menu" class="sm:text-lg lg:text-2xl font-light">
               <li class="my-1 md:my-0">
                 <router-link to="/" class="hover:underline">Start</router-link>
               </li>
               <li class="my-1 md:my-0">
-                <p>Projekte</p>
+                <p>Perspektiven</p>
                 <ul class="pl-8">
                   <li v-for="project in projects" :key="project.id" class="my-1 md:my-0">
                     <router-link :to="`/projekte/${project.slug}`" class="hover:underline">{{ project.title?.rendered }}</router-link>
                   </li>
                 </ul>
               </li>
-              <li class="my-1 md:my-0"><router-link to="/pages/ueber" class="hover:underline">Über</router-link></li>
+              <li class="my-1 md:my-0"><router-link to="/pages/ueber" class="hover:underline">NS-Zwangsarbeit und Neuaubing</router-link></li>
+              <li class="my-1 md:my-0"><router-link to="/forum" class="hover:underline">Forum</router-link></li>
+              <li class="my-1 md:my-0"><router-link to="/suchen" class="hover:underline">Suchen</router-link></li>
+              <li class="my-1 md:my-0"><router-link to="/glossar" class="hover:underline">Glossar</router-link></li>
               <li class="my-1 md:my-0"><router-link to="/pages/impressum" class="hover:underline">Impressum</router-link></li>
             </ul>
 

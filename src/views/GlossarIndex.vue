@@ -6,7 +6,7 @@
           <router-link to="/forum" class="btn text-lg block">Forum</router-link>
         </div> -->
         <div class="mr-4">
-          <router-link to="/suche" class="btn text-lg whitespace-nowrap block">
+          <router-link to="/suchen" class="btn text-lg whitespace-nowrap block">
             <search-icon class="inline-block w-5 h-5 mr-2"/>
             <span>Suchen</span>
           </router-link>

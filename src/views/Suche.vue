@@ -18,7 +18,7 @@
                 <chevron-left class="w-4.5 h-4.5 md:w-5 md:h-5"/>
               </button>
             </div>
-            <h1 class="text-2xl lg:text-4xl font-medium">Suche</h1>
+            <h1 class="text-2xl lg:text-4xl font-medium">Suchen</h1>
           </div>
 
           <form @submit.prevent="doSearch">

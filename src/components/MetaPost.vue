@@ -52,7 +52,7 @@
         <p class="font-medium text-lg">Themen</p>
         <ul class="flex flex-wrap html">
           <li v-for="term in tags" :key="term.term_id" class="commas">
-            <router-link :to="`/suche?s=${term.name}`">{{ term.name }}</router-link>
+            <router-link :to="`/suchen?s=${term.name}`">{{ term.name }}</router-link>
           </li>
         </ul>
       </div>

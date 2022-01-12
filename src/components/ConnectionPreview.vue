@@ -1,5 +1,5 @@
 <template>
-  <div ref="el" class="scroll-mt-3 md:scroll-mt-12 lg:scroll-mt-16">
+  <div ref="el" class="scroll-mt-16">
     <div :class="{ 'text-lg font-medium py-1': expanded, 'html': !expanded }" class="transition-all">
       <router-link :to="link" class="flex justify-between items-center">
         <span>{{ title }}</span>
