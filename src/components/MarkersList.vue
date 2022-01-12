@@ -1,18 +1,37 @@
 <template>
   <div class="max-w-6xl mx-auto my-8 md:my-12">
-    <div class="mt-12">
-      <div class="flex lg:grid grid-cols-12 gap-4 border-b font-medium py-2">
-        <div class="flex-auto lg:col-span-3">Name</div>
-        <div class="hidden lg:block col-span-4">Beschreibung</div>
-        <div class="hidden lg:block col-span-1">Personen</div>
-        <div class="hidden lg:block col-span-3">Adresse</div>
-        <div class="flex-none lg:col-span-1">Nummer</div>
+    <div class="mt-12 md:mt-16">
+      <div class="mb-8 md:mb-12">
+        <form @submit.prevent="doSearch" class="max-w-2xl mx-auto">
+          <div class="relative rounded-full border">
+            <input v-model="query" type="search" placeholder="Suche" class="input">
+            <div class="absolute top-0 right-0 bottom-0">
+              <button class="btn h-full text-lg whitespace-nowrap block">
+                <search-icon class="inline-block w-5 h-5 md:mr-2"/>
+                <span class="hidden md:inline">Suchen</span>
+              </button>
+            </div>
+          </div>
+        </form>
       </div>
 
-      <markers-list-item v-for="item in paging" :key="item.post_id" :item="item"/>
+      <div v-if="paging.length">
+        <div class="flex lg:grid grid-cols-12 gap-4 border-b font-medium py-2">
+          <div class="flex-auto lg:col-span-3">Name</div>
+          <div class="hidden lg:block col-span-4">Beschreibung</div>
+          <div class="hidden lg:block col-span-1">Personen</div>
+          <div class="hidden lg:block col-span-3">Adresse</div>
+          <div class="flex-none lg:col-span-1">Nummer</div>
+        </div>
+
+        <markers-list-item v-for="item in paging" :key="item.post_id" :item="item"/>
+      </div>
+      <div v-else class="font-medium py-2 text-center">
+        No results...
+      </div>
     </div>
 
-    <div class="mt-4 md:mt-8">
+    <div v-if="!hasSearch" class="mt-4 md:mt-8">
       <ul class="flex items-center max-w-prose mx-auto">
         <li class="mr-auto">
           <button @click="prevPage" :disabled="page === 1" class="page-dot">
@@ -36,12 +55,14 @@
 </template>
 
 <script lang="ts">
-  import { defineComponent, computed } from 'vue'
+  import type { MapMarker } from '../store/types'
+  import { defineComponent, computed, ref, watch } from 'vue'
   import { useStore } from '../store'
   import { useRoute, useRouter } from 'vue-router'
   import MarkersListItem from './MarkersListItem.vue'
   import ChevronLeft from './svg/ChevronLeft.vue'
   import ChevronRight from './svg/ChevronRight.vue'
+  import SearchIcon from './svg/SearchIcon.vue'
 
   export default defineComponent({
     setup () {
@@ -49,12 +70,19 @@
       const route = useRoute()
       const router = useRouter()
 
-      const markers = computed(() => store.markers)
+      const doneSearch = ref(false)
+      const markers = computed(() => {
+        if (doneSearch.value) {
+          return results.value
+        } else {
+          return store.markers
+        }
+      })
 
       const page = computed({
         get: () => Number(route.query?.page || 1),
         set: (val) => {
-          console.log('trying to change it page number...', val)
+          if (typeof val !== 'number' || val < 1) return
           router.push({ ...route, query: { page: val } })
         }
       })
@@ -105,8 +133,31 @@
         page.value++
       }
 
-      return { page, paging, totalPages, pageNumbers, prevPage, nextPage }
+      const results = ref<MapMarker[]>([])
+      const query = ref('')
+      const doSearch = () => {
+        if (!query.value.length) return
+
+        page.value = 1
+        store.searchMarkers(query.value).then((data) => {
+          doneSearch.value = true
+          results.value = data
+        }).catch((_err) => {
+          doneSearch.value = true
+          results.value = []
+        })
+        ;(document.activeElement as HTMLInputElement)?.select?.()
+      }
+      const hasSearch = computed(() => query.value.length > 0 && doneSearch.value)
+
+      watch(query, (val) => {
+        if (!val || val === '') {
+          doneSearch.value = false
+        }
+      })
+
+      return { page, paging, totalPages, pageNumbers, prevPage, nextPage, query, doSearch, hasSearch }
     },
-    components: { MarkersListItem, ChevronLeft, ChevronRight }
+    components: { MarkersListItem, ChevronLeft, ChevronRight, SearchIcon }
   })
 </script>

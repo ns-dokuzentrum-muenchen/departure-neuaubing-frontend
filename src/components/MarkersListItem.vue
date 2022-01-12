@@ -13,8 +13,10 @@
           <p :class="{ 'line-clamp-2': truncated }">{{ item.num_people_cat_id }}</p>
         </div>
         <div class="hidden lg:block col-span-3">
-          <p>{{ item.location.address }}</p>
-          <p>{{ item.location.address_new }}</p>
+          <div>
+            <p>{{ item.location.address }}</p>
+            <p>{{ item.location.address_new }}</p>
+          </div>
         </div>
 
         <div class="flex-none col-span-2 lg:col-span-1 flex justify-between items-start">

@@ -192,6 +192,11 @@ export const useStore = defineStore({
         this.markers = data
       })
     },
+    async searchMarkers (query: string) {
+      return api.get('/wp-json/dn/v1/place-search', {
+        params: { s: query }
+      }).then(({ data }) => data)
+    },
     async getMarker (postId: number): Promise<Post> {
       // handled in component
       return api.get(`/wp-json/wp/v2/markierungen/${postId}`).then(({ data }) => data)

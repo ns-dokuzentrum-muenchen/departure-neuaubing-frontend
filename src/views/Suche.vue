@@ -23,7 +23,7 @@
 
           <form @submit.prevent="doSearch">
             <div class="relative">
-              <input v-model="query" type="search" placeholder="Suchen" class="input">
+              <input v-model="query" type="search" placeholder="Suche" class="input">
               <div class="absolute top-0 right-0 bottom-0">
                 <button class="btn h-full text-lg whitespace-nowrap block">
                   <search-icon class="inline-block w-5 h-5 md:mr-2"/>
