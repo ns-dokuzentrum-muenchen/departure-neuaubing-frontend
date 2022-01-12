@@ -6,7 +6,7 @@
           <router-link :to="artistLink(artist)" class="hover:opacity-50">{{ artist.post_title }}</router-link>
         </p>
       </div>
-      <h1 v-html="title" class="text-4xl md:text-5xl lg:text-8xl whitespace-pre-line uppercase leading-none styled-text">
+      <h1 v-html="title" class="text-4xl md:text-6xl lg:text-8xl whitespace-pre-line uppercase leading-none styled-text">
       </h1>
     </div>
   </div>

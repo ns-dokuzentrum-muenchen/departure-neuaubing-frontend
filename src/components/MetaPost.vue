@@ -82,18 +82,22 @@
       })
 
       const glossar = computed(() => {
-        return allLinks.value.filter(p => p.post_type === 'glossar')
+        return allLinks.value.filter(p => p.post_type === 'glossar').sort(linkSort)
       })
       const places = computed(() => {
-        return allLinks.value.filter(p => p.post_type === 'ort')
+        return allLinks.value.filter(p => p.post_type === 'ort').sort(linkSort)
       })
       const people = computed(() => {
-        return allLinks.value.filter(p => p.post_type === 'person')
+        return allLinks.value.filter(p => p.post_type === 'person').sort(linkSort)
       })
 
       const tags = computed(() => {
         return acf?.tags
       })
+
+      function linkSort (a: Post, b: Post) {
+        return a.post_name?.localeCompare(b.post_name)
+      }
 
       return { post, acf, glossar, places, people, tags }
     },

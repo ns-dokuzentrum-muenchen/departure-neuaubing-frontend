@@ -1,7 +1,7 @@
 <template>
   <div class="bg-bg py-4">
     <details class="group open:bg-gray-200 open:bg-opacity-25">
-      <summary class="md:grid grid-cols-12 gap-4 px-4 cursor-pointer safari-summary relative">
+      <summary class="block md:grid grid-cols-12 gap-4 md:px-4 cursor-pointer safari-summary md:relative">
         <div :class="position" class="text-xl md:text-2xl lg:text-3xl list-item col-span-7 border-b-2 group-open:border-b-0 mx-4 py-2">{{ title }}</div>
       </summary>
 

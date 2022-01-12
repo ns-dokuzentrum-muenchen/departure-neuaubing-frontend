@@ -10,10 +10,6 @@ module.exports = {
       pattern: /col-start-.+/
     },
     {
-      pattern: /text-(sm|base|md|lg|xl|2xl|3xl|4xl|5xl)/,
-      variants: ['responsive']
-    },
-    {
       pattern: /row-start-.+/
     }
   ],

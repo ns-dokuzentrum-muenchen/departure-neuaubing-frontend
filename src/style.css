@@ -293,6 +293,9 @@ textarea { @apply leading-snug; }
 .safari-summary::-webkit-details-marker {
   display: none;
 }
+.safari-summary::marker {
+  /* color: transparent; */
+}
 .safari-summary > div {
   list-style-position: inside;
 }

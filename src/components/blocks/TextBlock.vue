@@ -1,5 +1,5 @@
 <template>
-  <div ref="el" class="md:grid grid-cols-12 gap-4 px-4">
+  <div ref="el" class="md:grid grid-cols-12 gap-4 md:px-4">
     <div :class="[position, size]" :style="nudge" class="col-span-7 bg-bg px-4 py-2 leftopen-nudge">
       <div v-html="content" @click="internalLinks" class="html max-w-prose"></div>
     </div>
@@ -12,6 +12,14 @@
   import { useRouter } from 'vue-router'
   import { fixLink, sideBarLink } from '../../utils'
 
+  const txtSizes: { [key: string]: string } = {
+    base : 'text-sm md:text-base',
+    lg: 'md:text-lg',
+    xl: 'text-lg md:text-xl',
+    '2xl': 'text-xl md:text-2xl',
+    '4xl': 'text-2xl md:text-4xl'
+  }
+
   export default defineComponent({
     props: {
       block: Object,
@@ -22,7 +30,7 @@
         return `col-start-${props.block?.position || '1'}`
       })
       const size = computed(() => {
-        return `text-${props.block?.size || 'lg'}`
+        return txtSizes[props.block?.size || 'lg']
       })
 
       const el = ref<HTMLElement|null>(null)

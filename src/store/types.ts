@@ -45,7 +45,7 @@ export type Post = {
   template: string
   type?: PostType
   post_type?: PostType
-  post_name?: string
+  post_name: string
 
   link?: string
   permalink?: string
