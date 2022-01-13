@@ -9,12 +9,12 @@
         <div @click="back" :class="{ '-translate-x-full': !leftopen }" class="fixed inset-0 transition-transform overflow-hidden bg-bg bg-opacity-60">
           <div class="overflow-y-auto p-4 md:p-8 lg:p-12 h-full pb-48 overscroll-contain">
             <div class="w-full md:max-w-kontext md:pr-4 lg:pr-12">
-              <div v-if="werkzeug" @click.stop class="bg-white dark:bg-black my-12 md:m-12 lg:m-20 px-2 py-1 md:px-4 md:py-2 text-black dark:text-white">
+              <div v-if="werkzeug" @click.stop class="bg-white dark:bg-black my-12 md:my-12 lg:my-20 px-2 py-1 md:px-4 md:py-2 text-black dark:text-white max-w-2xl mx-auto">
                 <div class="text-xl font-medium my-2">{{ werkzeug.title }}</div>
                 <div v-html="werkzeug.content" class="html"></div>
               </div>
 
-              <div @click.stop class="bg-gray-400 text-black">
+              <div @click.stop class="bg-gray-400 text-black max-w-4xl mx-auto">
                 <div class="border-b-2 flex justify-between items-center">
                   <p class="text-xl font-medium px-2 py-1 md:px-4 md:py-2">Beiträge</p>
                   <div class="px-1 md:translate-x-6">
