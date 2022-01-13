@@ -89,6 +89,12 @@
       const mitBegriffe = computed(() => {
         return contentBlocks.value.some((row) => row.acf_fc_layout === 'DiscussionBlock')
       })
+      const allLinks = computed(() => {
+        if (!mitBegriffe.value || !project.value?.acf) return []
+        return project.value.acf.connections?.concat?.(
+          ...project.value.acf.links || []
+        ) || []
+      })
       const werkzeug = computed(() => {
         return project.value?.acf?.werkzeug
       })
@@ -96,8 +102,7 @@
         return route.hash.startsWith('#begriff') && mitBegriffe.value
       })
       const links = computed(() => {
-        if (!mitBegriffe.value) return []
-        return (project.value?.acf.connections || []).sort(linkSort)
+        return allLinks.value.filter(p => p.post_type === 'begriff').sort(linkSort)
       })
 
       function linkSort (a: Post, b: Post) {

@@ -55,7 +55,7 @@ export type Post = {
 }
 
 type RenderedString = { rendered: string }
-export type PostType = 'projekt' | 'int-projekt' | 'kuenstler' | 'glossar' | 'markierung' | 'post' | 'page' | 'person' | 'ort'
+export type PostType = 'projekt' | 'int-projekt' | 'kuenstler' | 'glossar' | 'begriff' | 'markierung' | 'post' | 'page' | 'person' | 'ort'
 
 type ACF = {
   title?: string
