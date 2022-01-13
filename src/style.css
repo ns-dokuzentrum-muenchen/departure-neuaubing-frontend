@@ -403,6 +403,9 @@ textarea { @apply leading-snug; }
 .commas:after { content: ', '; }
 .commas:last-child:after { content: ''; }
 
+.in-window {
+  max-height: calc(100vh - 9em);
+}
 
 /* animations */
 

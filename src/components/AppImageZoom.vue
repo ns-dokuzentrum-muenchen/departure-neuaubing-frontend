@@ -2,21 +2,23 @@
   <img ref="el" @click="openDialog" :src="image?.sizes.medium" :srcset="srcset" @load="loaded" :width="width" :height="height" :alt="image.alt" loading="lazy" class="cursor-zoom-in opacity-0"/>
 
   <transition name="fade">
-    <div v-show="zoomed" class="fixed inset-0 z-50 bg-white overflow-hidden">
+    <div v-show="zoomed" class="fixed inset-0 z-50 bg-white overflow-none overscroll-contain">
       <button @click="closeDialog" aria-label="Close" class="btn round m-8 absolute right-0 top-0">
         <close-icon class="w-3 md:w-4 h-3 md:h-4"/>
       </button>
-      <figure class="p-12 lg:p-16 max-w-screen max-h-screen h-full grid place-items-center">
-        <img ref="zoom" @click="closeDialog" :srcset="srcset" :width="width" :height="height" :alt="image.alt" class="w-auto h-auto max-h-full"/>
-        <figcaption>hellow there</figcaption>
-      </figure>
+      <div class="w-screen h-screen px-4 md:px-8 lg:px-16 pt-4 md:pt-8 lg:pt-16 pb-20 grid place-items-center">
+        <figure class="relative">
+          <img @click="closeDialog" :srcset="srcset" :width="width" :height="height" :alt="image.alt" class="in-window w-auto"/>
+          <figcaption v-html="image?.caption" class="mt-2 leading-snug text-sm absolute w-full top-full left-0"></figcaption>
+        </figure>
+      </div>
     </div>
   </transition>
 </template>
 
 <script lang="ts">
   import type { Image } from '../store/types'
-  import { defineComponent, ref, computed } from 'vue'
+  import { defineComponent, ref, computed, watch } from 'vue'
   import CloseIcon from './svg/CloseIcon.vue'
 
   export default defineComponent({
@@ -72,6 +74,22 @@
       const closeDialog = () => {
         zoomed.value = false
       }
+
+      function esc (ev: KeyboardEvent) {
+        const { key } = ev
+        if (key === 'Escape' || key === ' ') { // esc, or Space
+          ev.preventDefault()
+          closeDialog()
+        }
+      }
+
+      watch(zoomed, (val) => {
+        if (val) {
+          window.addEventListener('keydown', esc)
+        } else {
+          window.removeEventListener('keydown', esc)
+        }
+      })
 
       return { el, image, width, height, srcset, loaded, zoomed, openDialog, closeDialog }
     },
