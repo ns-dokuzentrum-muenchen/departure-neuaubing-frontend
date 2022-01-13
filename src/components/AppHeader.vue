@@ -30,18 +30,21 @@
                 <router-link to="/" class="hover:underline">Start</router-link>
               </li>
               <li class="my-1 md:my-0">
-                <p>Perspektiven</p>
+                <div>
+                  <router-link to="/#project-list" class="hover:underline">Perspektiven</router-link>
+                </div>
                 <ul class="pl-8">
                   <li v-for="project in projects" :key="project.id" class="my-1 md:my-0">
                     <router-link :to="`/projekte/${project.slug}`" class="hover:underline">{{ project.title?.rendered }}</router-link>
                   </li>
                 </ul>
               </li>
-              <li class="my-1 md:my-0"><router-link to="/pages/ueber" class="hover:underline">NS-Zwangsarbeit und Neuaubing</router-link></li>
+              <li class="my-1 md:my-0"><router-link to="/pages/ns-zwangsarbeit-und-neuaubing" class="hover:underline">NS-Zwangsarbeit und Neuaubing</router-link></li>
+              <li class="my-1 md:my-0"><router-link to="/pages/ueber" class="hover:underline">Über</router-link></li>
               <li class="my-1 md:my-0"><router-link to="/forum" class="hover:underline">Forum</router-link></li>
               <li class="my-1 md:my-0"><router-link to="/suchen" class="hover:underline">Suchen</router-link></li>
               <li class="my-1 md:my-0"><router-link to="/glossar" class="hover:underline">Glossar</router-link></li>
-              <li class="my-1 md:my-0"><router-link to="/pages/impressum" class="hover:underline">Impressum</router-link></li>
+              <li class="my-1 md:my-0"><router-link to="/konto" class="hover:underline">Konto</router-link></li>
             </ul>
 
             <div class="hidden md:block my-12">
@@ -113,7 +116,7 @@
 
       const route = useRoute()
 
-      watch(() => route.path, async () => {
+      watch(() => route.fullPath, async () => {
         store.menuOpen = false
         listener()
       })

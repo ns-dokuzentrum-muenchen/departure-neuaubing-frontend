@@ -4,7 +4,7 @@ import type { Theme } from './types'
 export default function state (): State {
   return {
     title: 'Departure Neuaubing',
-    pretitle: 'Europäische Geschichten über Zwangsarbeit',
+    pretitle: 'Europäische Geschichten der Zwangsarbeit',
     indexPos: 2,
 
     projects: null,

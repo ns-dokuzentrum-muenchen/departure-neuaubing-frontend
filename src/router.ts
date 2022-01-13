@@ -72,13 +72,22 @@ const router = createRouter({
       meta: { seite: true }
     },
     {
-      path: '/account',
+      path: '/konto',
       name: 'account',
       component: () => import('./views/Account.vue')
     }
   ],
   scrollBehavior (to, from, savedPosition) {
     if (to.hash || from.hash) {
+      if (to.hash === '#project-list') {
+        const el = document.getElementById('project-list')
+        if (!el) return
+
+        return {
+          el: to.hash,
+          behaviour: 'smooth'
+        }
+      }
       if (to.path === from.path) {
         return // sidebar thing
       }
