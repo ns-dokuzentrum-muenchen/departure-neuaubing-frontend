@@ -1,8 +1,10 @@
 <template>
-  <div ref="el" class="scroll-mt-16">
-    <div :class="{ 'text-lg font-medium py-1': expanded, 'html': !expanded }" class="transition-all">
+  <div ref="el" :class="{ 'bg-gray-200 p-2': expanded && guestPost }" class="scroll-mt-16 rounded-lg">
+    <div :class="{ 'text-xl font-medium py-1': expanded, 'html': !expanded }" class="transition-all">
       <router-link :to="link" class="flex justify-between items-center">
         <span>{{ title }}</span>
+        <span v-if="guestPost && expanded" class="ml-1">(Gastbeitrag)</span>
+        <span class="flex-auto"></span>
         <span v-if="expanded">
           <chevron-up/>
         </span>
@@ -10,7 +12,8 @@
     </div>
     <transition @enter="slideOpen" @leave="slideClose">
       <div v-if="expanded" class="overflow-hidden">
-        <div class="py-3 border-t border-b">
+        <div :class="{ 'border-b border-t': !guestPost }" class="py-3">
+          <div v-if="guests" class="text-sm -mt-1 mb-3">{{ post.author_name }}</div>
           <div v-html="post.acf?.description" class="html max-w-prose-1"></div>
 
           <figure v-if="post.acf?.thumbnail" class="mt-2 max-w-prose-1">
@@ -24,12 +27,8 @@
           </div>
 
           <template v-if="canComment">
-            <!-- <div class="my-4">
-              <router-link :to="target" class="btn-outline text-sm inline-block">diskutieren</router-link>
-            </div> -->
-
-            <div class="max-w-3xl mt-8">
-              <comments-preview :id="post.ID || post.id" :title="title" :path="target"/>
+            <div :class="{ 'max-w-3xl': !guestPost }" class="mt-4">
+              <comments-preview :id="post.ID || post.id" :title="!guestPost && title" :path="target"/>
             </div>
           </template>
         </div>
@@ -53,12 +52,22 @@
   export default defineComponent({
     props: {
       post: Object,
-      base: String
+      base: String,
+      guests: Boolean
     },
     setup (props) {
       const el = ref<HTMLElement|null>(null)
       const post = props.post as Post
-      const title = post.post_title || post.title?.rendered
+      const guestPost = computed(() => {
+        return props.guests && post.author_name !== 'Franz Wanner'
+      })
+      const title = computed(() => {
+        const t = post.post_title || post.title?.rendered
+        // if (guestPost.value) {
+        //   return `Gastbeitrag: ${t}`
+        // }
+        return t
+      })
       const metaBase = computed(() => {
         return props.base ? `#${props.base}` : false
       })
@@ -98,7 +107,19 @@
         }
       })
 
-      return { el, post, title, target, expanded, canComment, slideOpen, slideClose, link }
+      return {
+        el,
+        post,
+        guestPost,
+        title,
+        target,
+        expanded,
+        canComment,
+        slideOpen,
+        slideClose,
+        link,
+        guests: props.guests
+      }
     },
     components: { CommentsPreview, AppImage, ChevronUp }
   })

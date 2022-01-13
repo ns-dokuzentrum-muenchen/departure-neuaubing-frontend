@@ -26,7 +26,7 @@
                 <div class="px-2 py-1 md:px-4 md:py-2">
                   <ul>
                     <li v-for="term in links" :key="term.id" class="my-2">
-                      <connection-preview :post="term" base="begriff"/>
+                      <connection-preview :post="term" base="begriff" :guests="true"/>
                     </li>
                   </ul>
                 </div>

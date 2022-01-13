@@ -1,8 +1,8 @@
 <template>
   <div class="bg-gray-200 rounded-lg text-black">
     <div class="px-3 py-2 border-b-2 flex justify-between items-baseline">
-      <p class="font-bold">{{ title }}</p>
-      <p class="text-xs">Vor 12 stunden</p>
+      <p v-if="title" class="font-bold">{{ title }}</p>
+      <p v-if="title" class="text-xs">Vor 12 stunden</p>
     </div>
     <div class="px-3">
       <div v-if="comments?.length">
@@ -43,7 +43,7 @@
   export default defineComponent({
     props: {
       id: Number,
-      title: String,
+      title: [String, Boolean],
       path: String
     },
     setup (props) {
