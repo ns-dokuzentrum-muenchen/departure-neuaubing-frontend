@@ -42,6 +42,7 @@
 </template>
 
 <script lang="ts">
+  import type { Post } from '../store/types'
   import { defineComponent, computed, provide, watch } from 'vue'
   import { useStore } from '../store'
   import { useRoute, useRouter } from 'vue-router'
@@ -85,19 +86,23 @@
         return project.value?.acf?.content || []
       })
 
+      const mitBegriffe = computed(() => {
+        return contentBlocks.value.some((row) => row.acf_fc_layout === 'DiscussionBlock')
+      })
       const werkzeug = computed(() => {
         return project.value?.acf?.werkzeug
       })
       const leftopen = computed(() => {
         return route.hash.startsWith('#begriff') && mitBegriffe.value
       })
-      const mitBegriffe = computed(() => {
-        return contentBlocks.value.some((row) => row.acf_fc_layout === 'DiscussionBlock')
-      })
       const links = computed(() => {
         if (!mitBegriffe.value) return []
-        return project.value?.acf.connections || []
+        return (project.value?.acf.connections || []).sort(linkSort)
       })
+
+      function linkSort (a: Post, b: Post) {
+        return a.post_title.localeCompare(b.post_title)
+      }
 
       watch(leftopen, (val) => {
         store.metaHidden = val
