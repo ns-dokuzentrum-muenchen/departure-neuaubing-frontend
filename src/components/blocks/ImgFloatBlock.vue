@@ -6,7 +6,7 @@
           <div v-html="row.text" class="html max-w-prose"></div>
         </div>
         <figure v-else class="pb-8">
-          <app-image :image="row.image"/>
+          <app-image-zoom :image="row.image"/>
           <figcaption v-if="row.image?.caption" class="py-2 bg-bg text-sm">
             <div v-html="row.image?.caption" class="html"></div>
           </figcaption>
@@ -18,7 +18,7 @@
 
 <script lang="ts">
   import { defineComponent, computed } from 'vue'
-  import AppImage from '../AppImage.vue'
+  import AppImageZoom from '../AppImageZoom.vue'
 
   export default defineComponent({
     props: {
@@ -38,6 +38,6 @@
 
       return { rows, itemStyle, position }
     },
-    components: { AppImage }
+    components: { AppImageZoom }
   })
 </script>

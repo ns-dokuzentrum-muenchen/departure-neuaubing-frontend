@@ -229,6 +229,8 @@ module.exports = {
       left: 'w-resize',
       right: 'e-resize',
       'not-allowed': 'not-allowed',
+      'zoom-in': 'zoom-in',
+      'zoom-out': 'zoom-out'
     },
     divideColor: (theme) => theme('borderColor'),
     divideOpacity: (theme) => theme('borderOpacity'),

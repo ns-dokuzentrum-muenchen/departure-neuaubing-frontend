@@ -1,10 +1,23 @@
 <template>
-  <img ref="el" :src="image?.sizes.medium" :srcset="srcset" @load="loaded" :width="width" :height="height" :alt="image.alt" loading="lazy" class="opacity-0"/>
+  <img ref="el" @click="openDialog" :src="image?.sizes.medium" :srcset="srcset" @load="loaded" :width="width" :height="height" :alt="image.alt" loading="lazy" class="cursor-zoom-in opacity-0"/>
+
+  <transition name="fade">
+    <div v-show="zoomed" class="fixed inset-0 z-50 bg-white overflow-hidden">
+      <button @click="closeDialog" aria-label="Close" class="btn round m-8 absolute right-0 top-0">
+        <close-icon class="w-3 md:w-4 h-3 md:h-4"/>
+      </button>
+      <figure class="p-12 lg:p-16 max-w-screen max-h-screen h-full grid place-items-center">
+        <img ref="zoom" @click="closeDialog" :srcset="srcset" :width="width" :height="height" :alt="image.alt" class="w-auto h-auto max-h-full"/>
+        <figcaption>hellow there</figcaption>
+      </figure>
+    </div>
+  </transition>
 </template>
 
 <script lang="ts">
   import type { Image } from '../store/types'
   import { defineComponent, ref, computed } from 'vue'
+  import CloseIcon from './svg/CloseIcon.vue'
 
   export default defineComponent({
     props: {
@@ -52,8 +65,17 @@
         target.classList.remove('opacity-0')
       }
 
-      return { el, image, width, height, srcset, loaded }
-    }
+      const zoomed = ref(false)
+      const openDialog = () => {
+        zoomed.value = true
+      }
+      const closeDialog = () => {
+        zoomed.value = false
+      }
+
+      return { el, image, width, height, srcset, loaded, zoomed, openDialog, closeDialog }
+    },
+    components: { CloseIcon }
   })
 
   function nextFrame () {
