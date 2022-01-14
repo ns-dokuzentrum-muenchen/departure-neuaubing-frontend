@@ -15,8 +15,8 @@
     </div>
 
     <div v-if="gallery.length">
-      <button v-if="slide > 0" @click="prevSlide" class="absolute top-0 left-0 bottom-1/4 w-1/5 cursor-left"></button>
-      <button v-if="slide < gallery.length - 1" @click="nextSlide" class="absolute top-0 right-0 bottom-1/4 w-1/5 cursor-right"></button>
+      <button v-if="slide > 0" @click="prevSlide" class="absolute top-0 left-0 bottom-1/4 w-8 sm:w-16 md:w-20 cursor-left"></button>
+      <button v-if="slide < gallery.length - 1" @click="nextSlide" class="absolute top-0 right-0 bottom-1/4 w-8 sm:w-16 md:w-20 cursor-right"></button>
     </div>
   </div>
 </template>

@@ -12,7 +12,7 @@
 
         <div v-else-if="formComplete">
           <div>
-            <p class="text-highlight text-lg">Dein Beitrag wurde erfolgreich eingereicht und wird nach der Freigabe durch Franz Wanner und das Team des NS-Dokumentationszentrums veröffentlicht..</p>
+            <p class="text-lg">Dein Beitrag wurde erfolgreich eingereicht und wird nach der Freigabe durch Franz Wanner und das Team des NS-Dokumentationszentrums veröffentlicht..</p>
           </div>
         </div>
 

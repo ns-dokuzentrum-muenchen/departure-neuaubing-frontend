@@ -2,7 +2,7 @@
   <div ref="el" :class="{ 'bg-gray-200 p-2': expanded && guestPost }" class="scroll-mt-16 rounded-lg">
     <div :class="{ 'text-xl font-medium py-1': expanded, 'html': !expanded }" class="transition-all">
       <router-link :to="link" class="flex justify-between items-center">
-        <span>{{ title }}</span>
+        <span v-html="title"></span>
         <span v-if="guestPost && expanded" class="ml-1">(Gastbeitrag)</span>
         <span class="flex-auto"></span>
         <span v-if="expanded">
