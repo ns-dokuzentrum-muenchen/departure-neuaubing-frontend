@@ -76,7 +76,8 @@
       const acf = post.acf
 
       const allLinks = computed(() => {
-        return acf.connections?.concat?.(
+        const conn = acf.connections || []
+        return conn.concat(
           ...acf.links || []
         ) || []
       })
