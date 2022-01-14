@@ -111,18 +111,10 @@ body {
 .expander .bg-bg { @apply bg-transparent; }
 
 .bg-theme {
-  @nest .theme-blau & {
-    @apply bg-blue-900;
-  }
-  @nest .theme-gelb & {
-    @apply bg-yellow-200;
-  }
-  @nest .theme-rosa & {
-    @apply bg-pink-300;
-  }
-  @nest .theme-gruen & {
-    @apply bg-green-500;
-  }
+  @nest .theme-blau & { @apply bg-blue-900; }
+  @nest .theme-gelb & { @apply bg-yellow-200; }
+  @nest .theme-rosa & { @apply bg-pink-300; }
+  @nest .theme-gruen & { @apply bg-green-500; }
 }
 
 .bg-theme-contrast {
@@ -259,8 +251,12 @@ textarea { @apply leading-snug; }
 .checkbox {
   @apply appearance-none -mb-1 mr-1;
   @apply w-4.5 h-4.5 bg-white rounded-full;
-  @apply checked:bg-green-600;
   @apply focus:ring;
+
+  @nest .theme-blau &:checked { @apply bg-blue-900; }
+  @nest .theme-gelb &:checked { @apply bg-yellow-400; }
+  @nest .theme-rosa &:checked { @apply bg-pink-300; }
+  @nest .theme-gruen &:checked { @apply bg-green-500; }
 }
 
 .chevron + .chevron:before {

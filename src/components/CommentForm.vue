@@ -2,7 +2,7 @@
   <div>
     <div v-if="user">
       <p>
-        Angemeldet als: <strong class="font-medium"><router-link to="/account">{{ user.name }}</router-link> </strong>
+        Angemeldet als: <strong class="font-medium"><router-link to="/konto">{{ user.name }}</router-link> </strong>
         <span class="hidden">(<a @click="logout" class="underline cursor-pointer">abmelden</a>)</span>
       </p>
 
