@@ -83,8 +83,11 @@
           uploading.value = true
 
           const newBegriff = {
-            ...form,
-            status: 'pending'
+            title: form.title,
+            status: 'pending',
+            fields: {
+              description: form.content
+            }
           }
 
           await store.createBegriff(newBegriff) // sent to store.myMarkers
