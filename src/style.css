@@ -365,6 +365,17 @@ textarea { @apply leading-snug; }
   @apply grid !important;
 }
 
+.slide-width {
+  min-width: calc(100vw - 12rem);
+}
+.space-l, .space-r { transition: flex 150ms; }
+.shift-right .space-r,
+.shift-left .space-l { flex: 0; }
+.shift-center .space-r,
+.shift-center .space-l,
+.shift-right .space-l,
+.shift-left .space-r { flex: auto; }
+
 .flickity-viewport,
 .flickity-slider { @apply w-full h-full; }
 .flickity-viewport {

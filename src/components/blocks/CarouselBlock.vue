@@ -1,14 +1,16 @@
 <template>
   <div class="my-8 sm:my-12 lg:my-16 relative">
     <div ref="car" class="overflow-hidden outline-none">
-      <div v-for="(group, i) in gallery" :key="i" class="flex space-x-4 md:space-x-8 px-4 md:px-8 lg:px-12 overflow-hidden">
-        <figure v-for="img in group" :key="img.id" class="">
+      <div v-for="(group, i) in gallery" :key="i" :class="slideClass(i)" class="flex px-4 overflow-hidden slide-width transition-all">
+        <div class="space-l"></div>
+        <figure v-for="(img, j) in group" :key="img.id" :class="{ 'mr-4 md:mr-8': j < group.length - 1 }">
           <div class="relative w-max">
             <app-image :image="img" :style="imgStyle(img.width, img.height)" class="w-max"/>
           </div>
 
           <figcaption v-if="img.caption" :style="captionStyle(img.width, img.height)" :class="{ 'opacity-0': slide !== i }" class="text-xs md:text-sm mt-2 transition-opacity">{{ img.caption }}</figcaption>
         </figure>
+        <div class="space-r"></div>
       </div>
     </div>
 
@@ -109,7 +111,7 @@
 
         if (!ratios.length) return
 
-        const h = Math.min(...ratios) * (window.innerWidth * 0.94)
+        const h = Math.min(...ratios) * (window.innerWidth * 0.8)
         rowHeight.value = Math.min(h, window.innerHeight * 0.74)
       }
 
@@ -122,7 +124,14 @@
         flkty.previous()
       }
 
-      return { car, gallery, rowHeight, imgStyle, captionStyle, slide, nextSlide, prevSlide }
+      const slideClass = (i: number) => {
+        const cur = slide.value
+        if (i === cur) return 'shift-center'
+        else if (i < cur) return 'shift-right'
+        else return 'shift-left'
+      }
+
+      return { car, gallery, rowHeight, imgStyle, captionStyle, slide, nextSlide, prevSlide, slideClass }
     },
     components: { AppImage }
   })
