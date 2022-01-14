@@ -73,8 +73,8 @@
         if (vis.value < 2) return ''
         const name = route.hash.slice(1)
         const hash = route.hash.indexOf('=')
-        const end = hash >= 0 ? hash : name.length
-        return name.charAt(0).toUpperCase() + name.slice(1, end - 1)
+        const end = hash >= 0 ? hash - 1 : name.length
+        return name.charAt(0).toUpperCase() + name.slice(1, end)
       })
 
       const metaContext = computed(() => {

@@ -13,8 +13,13 @@
     </ul>
     <div v-if="acf">
       <div class="mb-4 mt-2 max-w-prose-1">
-        <p class="font-medium text-lg">{{ post.title?.rendered }}</p>
-        <div v-html="acf.description"></div>
+        <p class="font-medium text-lg mb-1">{{ post.title?.rendered }}</p>
+        <div ref="txt" :class="{ 'line-clamp-2': truncated }" clas="html overflow-hidden">
+          <div v-html="acf.description"></div>
+        </div>
+        <div v-if="!expanded" class="html">
+          <router-link :to="`\#kontext`" class="">Weiterlesen</router-link>
+        </div>
       </div>
 
       <div class="mt-2 mb-8 max-w-prose-1">
@@ -62,8 +67,8 @@
 
 <script lang="ts">
   import type { Post } from '../store/types'
-  import { defineComponent, computed } from 'vue'
-  // import { useRoute } from 'vue-router'
+  import { defineComponent, computed, ref, watch, nextTick } from 'vue'
+  import { useRoute } from 'vue-router'
   import ArtistBio from './ArtistBio.vue'
   import ConnectionPreview from './ConnectionPreview.vue'
 
@@ -100,7 +105,47 @@
         return a.post_name?.localeCompare(b.post_name)
       }
 
-      return { post, acf, glossar, places, people, tags }
+      const txt = ref<HTMLElement|null>(null)
+      const route = useRoute()
+      const expanded = computed(() => {
+        if (!route.hash) return false
+        return route.hash === '#kontext'
+      })
+      const truncated = ref(true)
+
+      watch(expanded, (val) => {
+        if (val) {
+          expand()
+        } else {
+          contract()
+        }
+      })
+
+      async function expand () {
+        if (!txt.value) return
+        const from = `${txt.value.getBoundingClientRect().height}px`
+        truncated.value = false
+        await nextTick()
+        const to = `${txt.value.getBoundingClientRect().height}px`
+
+        txt.value.animate({
+          height: [from, to]
+        }, { duration: 150, easing: 'ease-out' })
+      }
+
+      async function contract () {
+        if (!txt.value) return
+        const from = `${txt.value.getBoundingClientRect().height}px`
+        truncated.value = true
+        await nextTick()
+        const to = `${txt.value.getBoundingClientRect().height}px`
+
+        txt.value.animate({
+          height: [from, to]
+        }, { duration: 150, easing: 'ease-out' })
+      }
+
+      return { post, acf, glossar, places, people, tags, txt, expanded, truncated }
     },
     components: { ArtistBio, ConnectionPreview }
   })
