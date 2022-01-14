@@ -94,6 +94,7 @@
   import ContrastIcon from './svg/ContrastIcon.vue'
   import { onClickOutside } from '@vueuse/core'
   import { slideOpen, slideClose } from '../utils'
+  import debounce from 'debounce'
 
   export default defineComponent({
     name: 'AppHeader',
@@ -118,7 +119,8 @@
 
       watch(() => route.fullPath, async () => {
         store.menuOpen = false
-        listener()
+        // listener()
+        onScroll()
       })
 
       const projects = computed(() => store.projects)
@@ -131,7 +133,8 @@
       }
 
       const attop = ref(true)
-      const listener = () => { attop.value = window.scrollY < 60 && route.name ===  'index' }
+      // const listener = () => { attop.value = window.scrollY < 60 && route.name ===  'index' }
+      const listener = debounce(onScroll, 2)
 
       onMounted(() => {
         window.addEventListener('scroll', listener)
@@ -139,6 +142,28 @@
       onUnmounted(() => {
         window.removeEventListener('scroll', listener)
       })
+
+      let scrollPos = 0
+      let tempPos = 0
+
+      function onScroll () {
+        const prevPos = scrollPos
+        const pos = window.pageYOffset
+
+        const dir = prevPos >= pos ? -1 : 1
+
+        scrollPos = pos
+        // attop.value = window.scrollY < 60
+
+        if (dir === 1 && pos - tempPos > 10) {
+          attop.value = false
+        } else if (tempPos - pos > 10) {
+          attop.value = true
+          tempPos = pos
+        } else {
+          tempPos = pos
+        }
+      }
 
       return {
         header,
