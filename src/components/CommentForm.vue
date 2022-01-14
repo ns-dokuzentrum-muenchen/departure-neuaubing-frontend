@@ -12,7 +12,7 @@
         </div>
         <div class="mb-3">
           <label>
-            <input v-model="form.eula" type="checkbox" required/>
+            <input v-model="form.eula" type="checkbox" required class="checkbox"/>
             Ich akzeptiere die Nutzungsbedingungen
           </label>
         </div>

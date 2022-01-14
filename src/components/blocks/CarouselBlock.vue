@@ -7,7 +7,7 @@
             <app-image :image="img" :style="imgStyle(img.width, img.height)" class="w-max"/>
           </div>
 
-          <figcaption v-if="img.caption" :class="{ 'opacity-0': slide !== i }" class="max-w-prose text-xs md:text-sm mt-2 transition-opacity">{{ img.caption }}</figcaption>
+          <figcaption v-if="img.caption" :style="captionStyle(img.width, img.height)" :class="{ 'opacity-0': slide !== i }" class="text-xs md:text-sm mt-2 transition-opacity">{{ img.caption }}</figcaption>
         </figure>
       </div>
     </div>
@@ -53,6 +53,11 @@
         return {
           width: `${w * scale}px`,
           height: `${rowHeight.value}px`
+        }
+      }
+      const captionStyle = (w: number, h: number) => {
+        return {
+          maxWidth: imgStyle(w, h).width
         }
       }
 
@@ -117,7 +122,7 @@
         flkty.previous()
       }
 
-      return { car, gallery, rowHeight, imgStyle, slide, nextSlide, prevSlide }
+      return { car, gallery, rowHeight, imgStyle, captionStyle, slide, nextSlide, prevSlide }
     },
     components: { AppImage }
   })
