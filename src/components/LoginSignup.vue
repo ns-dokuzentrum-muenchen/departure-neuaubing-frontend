@@ -5,7 +5,7 @@
         {{ noUser ? 'Konto erstellen' : 'Anmelden' }}
       </p>
       <div v-if="!sentLogin && !sentSignup" class="mb-3">
-        <input v-model="form.username" :placeholder="`Benutzername${ !noUser ? ' oder die E-Mail-Adresse' : '' }`" type="text" class="input" required/>
+        <input v-model="form.username" :placeholder="`Benutzername${ !noUser ? ' oder die E-Mail-Adresse' : '' }`" type="text" class="input" minlength="4" required/>
       </div>
       <div v-if="noUser && !sentSignup" class="mb-3">
         <input v-model="form.email" type="email" placeholder="E-Mail" class="input"/>
@@ -51,7 +51,7 @@
       })
 
       const submit = () => {
-        if (!form.username?.length) return
+        if (!form.username?.length || form.username.length < 4) return
         if (!nonce.value) return
 
         errMsg.value = ''
