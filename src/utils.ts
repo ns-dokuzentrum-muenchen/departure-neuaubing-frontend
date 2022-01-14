@@ -79,7 +79,8 @@ export function fixLink (path: string): string {
   if (path.charAt(0) === '/') return path
 
   return path
-    .replace('https://doku.n-kort.net', '')
+    .replace('https://dn-api.nsdoku.de', '')
+    .replace('https://dn-api-en.nsdoku.de', '')
     .replace('https://departure-neuaubing-stage.netlify.app', '')
     .replace('http://localhost:8080', '')
 }
