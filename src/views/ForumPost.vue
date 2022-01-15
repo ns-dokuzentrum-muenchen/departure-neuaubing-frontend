@@ -46,7 +46,7 @@
             <div class="border-b-2 -mx-2 my-4"></div>
 
             <div v-if="post?.comment_status === 'open'" class="mt-2">
-              <div class="px-3">
+              <div>
                 <div v-if="comments?.length">
                   <div v-for="comment in comments" :key="comment.id" class="my-4">
                     <comment-row :comment="comment" :replies="[]"/>
@@ -60,7 +60,7 @@
                 </div>
               </div>
 
-              <div class="border-t-2 py-2">
+              <div class="py-2">
                 <comment-form :post-id="post.id"/>
               </div>
             </div>

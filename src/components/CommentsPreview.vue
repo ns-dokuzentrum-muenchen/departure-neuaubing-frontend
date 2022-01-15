@@ -1,10 +1,10 @@
 <template>
   <div class="bg-gray-200 rounded-lg text-black">
-    <div class="px-3 py-2 border-b-2 flex justify-between items-baseline">
+    <div class="px-3 py-2 flex justify-between items-baseline">
       <p v-if="title" class="font-bold">{{ title }}</p>
       <p v-if="title" class="text-xs">Vor 12 stunden</p>
     </div>
-    <div class="px-3">
+    <div>
       <div v-if="comments?.length">
         <div v-for="comment in comments" :key="comment.id" class="my-4">
           <comment-row :comment="comment"/>
