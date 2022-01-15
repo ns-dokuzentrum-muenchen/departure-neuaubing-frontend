@@ -1,15 +1,15 @@
 <template>
   <div class="bg-gray-200 text-black rounded-xl p-4">
     <div class="mb-4">
-      <h2 class="text-xl md:text-2xl lg:text-3xl">{{ post?.title.rendered }}</h2>
+      <h2 class="text-lg md:text-xl lg:text-2xl">{{ post?.title.rendered }}</h2>
       <div class="flex -mx-2 divide-x mt-2">
         <div class="px-2">{{ post?.author_name }}</div>
         <div class="px-2">16:45</div>
         <div class="px-2">12.12.2021</div>
       </div>
     </div>
-    <div class="line-clamp-3">
-      <div v-html="post?.content.rendered" class="text-lg md:text-xl"></div>
+    <div class="line-clamp-3 mb-4">
+      <div v-html="post?.content.rendered" class="md:text-lg contents"></div>
     </div>
     <div v-if="post?.comment_status === 'open'" class="flex mt-2">
       <div class="flex-auto">

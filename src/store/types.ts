@@ -135,13 +135,14 @@ export interface Comment {
   author: number
   author_name: string
   author_display_name: string
-  author_url: string
+  // author_url: string
   date: string
-  content: RenderedString
+  content: string
   link: string
   status: string
   type: string
-  author_avatar_urls: { 24: string, 48: string, 96: string }
+  author_avatar_url: string//{ 24: string, 48: string, 96: string }
+  children: Comment[]
 }
 
 type ImageSizes = {

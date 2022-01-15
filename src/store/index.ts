@@ -75,7 +75,7 @@ export const useStore = defineStore({
       })
     },
     async getComments (post: number) {
-      return api.get('/wp-json/wp/v2/comments', {
+      return api.get('/wp-json/dn/v1/comments', {
         params: { post, order: 'asc' }
       }).then(({ data }) => {
         this.comments[post] = data

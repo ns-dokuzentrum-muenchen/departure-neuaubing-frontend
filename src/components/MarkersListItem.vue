@@ -1,5 +1,5 @@
 <template>
-  <div :class="{ 'bg-gray-200 dark:bg-gray-500' : expanded }" ref="parent" class="border-b hover:bg-gray-200 dark:hover:bg-gray-500 transition-all overflow-clip relative group">
+  <div :class="{ 'bg-gray-200 dark:bg-gray-500' : expanded }" ref="parent" class="border-b hover:bg-gray-200 dark:hover:bg-gray-500 transition-all overflow-hidden relative group">
     <div ref="row" @click="toggle" class="lg:grid grid-cols-12 gap-4 py-2 cursor-pointer">
       <div class="flex lg:contents">
         <div class="flex-auto lg:col-span-3 mx-2 lg:mx-0">
