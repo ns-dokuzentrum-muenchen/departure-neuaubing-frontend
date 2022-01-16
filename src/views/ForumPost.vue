@@ -60,10 +60,12 @@
                 </div>
               </div>
 
-              <div class="py-2">
-                <p class="text-xl mb-3">Dein Beitrag</p>
-                <comment-form :post-id="post.id"/>
-              </div>
+              <transition name="fade">
+                <div v-if="mainReply" class="py-2">
+                  <p class="text-xl mb-3">Dein Beitrag</p>
+                  <comment-form :post-id="post.id"/>
+                </div>
+              </transition>
             </div>
           </div>
         </div>
@@ -123,7 +125,11 @@
         }
       })
 
-      return { goBack, post, loading, comments }
+      const mainReply = computed(() => {
+        return !route.hash.startsWith('#comment-')
+      })
+
+      return { goBack, post, loading, comments, mainReply }
     },
     beforeRouteEnter (to, _, next) {
       const store = useStore()

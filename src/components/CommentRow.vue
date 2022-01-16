@@ -36,7 +36,8 @@
 
 <script lang="ts">
   import type { Comment } from '../store/types'
-  import { defineComponent, ref, defineAsyncComponent } from 'vue'
+  import { defineComponent, ref, computed, defineAsyncComponent } from 'vue'
+  import { useRoute, useRouter } from 'vue-router'
   import { format } from 'fecha'
   import CommentForm from './CommentForm.vue'
   import { slideOpen, slideClose } from '../utils'
@@ -56,9 +57,19 @@
 
       const depth = props.depth || 0
 
-      const addComment = ref(false)
+      const id = computed(() => `#comment-${comment.value?.id}`)
+
+      const route = useRoute()
+      const router = useRouter()
+      const addComment = computed(() => {
+        return route.hash === id.value
+      })
       const toggleForm = () => {
-        addComment.value = !addComment.value
+        if (addComment.value) {
+          router.replace({ hash: '' })
+        } else {
+          router.replace({ hash: id.value })
+        }
       }
 
       return { comment, time, date, depth, addComment, toggleForm, slideOpen, slideClose }
