@@ -45,11 +45,11 @@
 
             <div class="border-b-2 -mx-2 my-4"></div>
 
-            <div v-if="post?.comment_status === 'open'" class="mt-2">
+            <div v-if="post?.comment_status === 'open'" id="comments" class="mt-2">
               <div>
                 <div v-if="comments?.length">
                   <div v-for="comment in comments" :key="comment.id" class="my-4">
-                    <comment-row :comment="comment" :replies="[]"/>
+                    <comment-row :comment="comment"/>
                   </div>
                 </div>
                 <div v-else-if="loading">
@@ -61,6 +61,7 @@
               </div>
 
               <div class="py-2">
+                <p class="text-xl mb-3">Dein Beitrag</p>
                 <comment-form :post-id="post.id"/>
               </div>
             </div>

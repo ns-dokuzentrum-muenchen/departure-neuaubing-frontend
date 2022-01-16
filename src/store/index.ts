@@ -92,6 +92,7 @@ export const useStore = defineStore({
           Authorization: `Bearer ${this.authToken}`
         }
       }).then(({ data }) => {
+        console.log(data?.status, data)
         const idNo = Number(id)
         this.comments[idNo]?.push(data)
       })

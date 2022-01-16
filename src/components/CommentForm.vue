@@ -40,22 +40,25 @@
 <script lang="ts">
   import { defineComponent, toRefs, reactive, ref, computed } from 'vue'
   import { useStore } from '../store'
-  // import VueHcaptcha from '@hcaptcha/vue3-hcaptcha'
   import LoginSignup from './LoginSignup.vue'
 
   export default defineComponent({
     name: 'CommentForm',
     props: {
-      postId: [String, Number]
+      postId: [String, Number],
+      replyTo: {
+        type: Number,
+        default: 0
+      }
     },
     setup (props) {
-      const { postId } = toRefs(props)
+      const { postId, replyTo } = toRefs(props)
       const store = useStore()
 
       const user = computed(() => store.user)
 
       const form = reactive({
-        parent: null,
+        parent: replyTo.value,
         post: postId.value,
         eula: false,
         content: ''
@@ -69,6 +72,8 @@
 
         try {
           await store.validateToken()
+
+          console.log('submitting a comment?', form)
 
           errMsg.value = null
           posting.value = true
