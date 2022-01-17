@@ -111,7 +111,7 @@
         if (!route.hash) return false
         return route.hash === '#kontext'
       })
-      const truncated = ref(true)
+      const truncated = ref(!expanded.value)
 
       watch(expanded, (val) => {
         if (val) {

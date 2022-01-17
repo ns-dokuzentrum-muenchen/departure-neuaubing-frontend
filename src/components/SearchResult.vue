@@ -23,8 +23,8 @@
     kuenstler: 'Künstler*in',
     projekt: 'Projekt',
     glossar: 'Glossar',
-    begriff: 'Begriff',
-    markierung: 'Markierung',
+    begriff: 'Mind the Memory Gap, Begriff',
+    markierung: 'Mapping Memory, Markierung',
     page: 'Seite',
     post: 'Post',
     ort: 'Ort',
@@ -44,7 +44,8 @@
         if (!post) return ''
         const t = (post.post_type || post.type || 'post') as PostType
         if (t === 'projekt') {
-          return 'Projekt, Künstler*in (TODO)'
+          const artists = (post.acf?.person?.map((p) => p.post_title) || []).join(', ')
+          return `Projekt, ${artists}`
         }
         return postTypes[t]
       })
@@ -54,19 +55,31 @@
 
       const url = computed(() => {
         if (!post) return ''
-        // TODO: markers => /projekte/memory-practice?marker=ID
-        return (post.permalink || post.link)?.replace(base, '')
+
+        const def = (post.permalink || post.link)?.replace(base, '')
+        const type = post.post_type || post.type || 'post'
+
+        if (type === 'markierung') {
+          return `/projekte/memory-practice?marker=${post.id}`
+        } else if (type === 'kuenstler') {
+          const projBase = post.acf?.projekt
+          return projBase ? `${projBase}#kontext=${def}` : def
+        }
+
+        return def
       })
 
       const router = useRouter()
       const internalLinks = (event: Event ) => {
         const el = event.target as HTMLElement
         if (el && (el.tagName === 'A' || el.tagName === 'a')) {
-          event.preventDefault() // check first
-          const path = el.getAttribute('href')
+          const path = el.getAttribute('href') || ''
           if (!path) return
 
-          // console.log('go to', path)
+          const external = new RegExp(/^https?:/).test(path)
+          if (external) return
+
+          event.preventDefault()
           router.push(path)
         }
       }

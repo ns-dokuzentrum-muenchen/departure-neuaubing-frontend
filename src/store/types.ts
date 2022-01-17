@@ -66,6 +66,7 @@ type ACF = {
   werkzeug?: { title: string, content: string }
   content?: AcfRow[]
 
+  projekt?: string
   biographie?: string
   person?: Post[] // artist
 

@@ -147,6 +147,11 @@
       let tempPos = 0
 
       function onScroll () {
+        if (route.name !== 'index') {
+          attop.value = false
+          return
+        }
+
         const prevPos = scrollPos
         const pos = window.pageYOffset
 

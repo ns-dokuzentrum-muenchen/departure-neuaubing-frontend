@@ -35,7 +35,7 @@
         if (!target.value || !ctx) return false
         return target.value === ctx.value
       })
-      const truncated = ref(true)
+      const truncated = ref(!expanded.value)
 
       watch(expanded, (val) => {
         if (val) {

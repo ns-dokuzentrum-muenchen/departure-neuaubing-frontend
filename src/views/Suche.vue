@@ -41,7 +41,7 @@
             </ul>
             <div v-else>
               <div v-if="hasSearch" class="border-t-2 pt-8">
-                <p>Nothing found</p>
+                <p>Keine Ergebnisse</p>
               </div>
             </div>
           </div>

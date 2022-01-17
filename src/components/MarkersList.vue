@@ -26,9 +26,7 @@
 
         <markers-list-item v-for="item in paging" :key="item.post_id" :item="item"/>
       </div>
-      <div v-else class="font-medium py-2 text-center">
-        No results...
-      </div>
+      <div v-else class="font-medium py-2 text-center">Keine Ergebnisse</div>
     </div>
 
     <div v-if="!hasSearch" class="mt-4 md:mt-8">
