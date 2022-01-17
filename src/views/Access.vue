@@ -1,5 +1,5 @@
 <template>
-  <div class="h-screen grid place-items-center p-4">
+  <div class="bg-gray-200 dark:bg-gray-800 h-screen grid place-items-center p-4">
     <form v-if="!formOK" @submit.prevent="submit" class="w-96 max-w-full">
       <p class="mb-2 text-lg">Passwort erforderlich</p>
       <div>
