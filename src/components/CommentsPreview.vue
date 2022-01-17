@@ -1,10 +1,13 @@
 <template>
   <div class="bg-gray-200 rounded-lg text-black">
-    <div class="px-3 py-2 flex justify-between items-baseline">
+    <div class="px-3 py-2 flex justify-between items-center">
       <p v-if="title" class="font-bold">{{ title }}</p>
-      <p v-if="title" class="text-xs">Vor 12 stunden</p>
+        <div v-if="title" class="flex items-center space-x-2">
+        <img src="../assets/chat-icon-dark.svg" width="18"/>
+        <p>{{ commentCount }}</p>
+      </div>
     </div>
-    <div>
+    <div :class="{ 'px-4 border-t': padding }">
       <div v-if="comments?.length">
         <div v-for="comment in comments" :key="comment.id" class="my-4">
           <comment-row :comment="comment"/>
@@ -17,19 +20,14 @@
         <p class="my-4">Noch keine Kommentare...</p>
       </div>
 
-      <div class="flex justify-between items-center pb-3 pl-2 pr-2">
-        <div class="flex items-center space-x-2">
-          <img src="../assets/chat-icon-dark.svg" width="18"/>
-          <p>{{ commentCount }}</p>
+      <transition @enter="slideOpen" @leave="slideClose">
+        <div v-if="mainReply" data-overflow="hidden">
+          <comment-form :post-id="id" class="py-2"/>
         </div>
-        <!-- <div>
-          <router-link :to="url" class="btn-outline text-sm inline-block">diskutieren</router-link>
-        </div> -->
-      </div>
-
-      <div class="py-2">
-        <comment-form :post-id="id"/>
-      </div>
+        <div v-else data-overflow="hidden" class="pb-2">
+          <button @click="mainComment" class="">&rdsh; neuer Kommentar</button>
+        </div>
+      </transition>
     </div>
   </div>
 </template>
@@ -37,14 +35,18 @@
 <script lang="ts">
   import { defineComponent, computed, ref, onMounted } from 'vue'
   import { useStore } from '../store'
+  import { useRoute, useRouter } from 'vue-router'
+  import { slideOpen, slideClose } from '../utils'
   import CommentRow from './CommentRow.vue'
   import CommentForm from './CommentForm.vue'
 
   export default defineComponent({
     props: {
       id: Number,
+      count: [String, Number],
       title: [String, Boolean],
-      path: String
+      path: String,
+      padding: Boolean
     },
     setup (props) {
       const id = props.id || 0
@@ -57,7 +59,7 @@
         return store.comments[id] // all of them
       })
 
-      const commentCount = computed(() => store.comments[id]?.length)
+      const commentCount = computed(() => props.count || 0)
 
       const url = computed(() => props.path)
 
@@ -67,7 +69,18 @@
         })
       })
 
-      return { id, title, comments, commentCount, url, loading }
+      const padding = props.padding
+
+      const route = useRoute()
+      const router = useRouter()
+      const mainReply = computed(() => {
+        return !route.query.replyto
+      })
+      const mainComment = () => {
+        router.replace({ ...route, query: {} })
+      }
+
+      return { id, title, comments, commentCount, url, loading, padding, mainReply, mainComment, slideOpen, slideClose }
     },
     components: { CommentRow, CommentForm }
   })

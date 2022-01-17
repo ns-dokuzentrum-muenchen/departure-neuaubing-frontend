@@ -40,6 +40,7 @@
 <script lang="ts">
   import { defineComponent, toRefs, reactive, ref, computed } from 'vue'
   import { useStore } from '../store'
+  import { useRoute, useRouter } from 'vue-router'
   import LoginSignup from './LoginSignup.vue'
 
   export default defineComponent({
@@ -54,6 +55,9 @@
     setup (props) {
       const { postId, replyTo } = toRefs(props)
       const store = useStore()
+
+      const route = useRoute()
+      const router = useRouter()
 
       const user = computed(() => store.user)
 
@@ -73,8 +77,6 @@
         try {
           await store.validateToken()
 
-          console.log('submitting a comment?', form)
-
           errMsg.value = null
           posting.value = true
 
@@ -87,19 +89,25 @@
           if (!errMsg.value) {
             form.content = ''
           }
+
+          if (route.query.replyto) {
+            const query = { ...route.query, replyto: undefined }
+            router.replace({
+              ...route,
+              query
+            })
+          }
         } catch (err) {
           errMsg.value = (err as any).toString()
           posting.value = false
         }
       }
 
-      const siteKey = import.meta.env.VITE_CAPTCHA_KEY as string
-
       const logout = () => {
         store.logout()
       }
 
-      return { postId, user, form, errMsg, statusMsg, submit, siteKey, logout, posting }
+      return { postId, user, form, errMsg, statusMsg, submit, logout, posting }
     },
     components: { LoginSignup }
   })

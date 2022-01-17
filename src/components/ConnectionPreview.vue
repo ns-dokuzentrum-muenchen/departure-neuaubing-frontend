@@ -28,7 +28,7 @@
 
           <template v-if="canComment">
             <div :class="{ 'max-w-3xl': !guestPost }" class="mt-4">
-              <comments-preview :id="post.ID || post.id" :title="!guestPost && title" :path="target"/>
+              <comments-preview :count="post.comment_count" :id="post.ID || post.id" :title="!guestPost && title" :path="target" :padding="true"/>
             </div>
           </template>
         </div>

@@ -100,6 +100,7 @@ const router = createRouter({
     }
 
     if (to.query.marker || from.query.marker) return
+    if (to.query.replyto || from.query.replyto) return
 
     if (to.query.page) {
       const el = document.getElementById('pagelist')

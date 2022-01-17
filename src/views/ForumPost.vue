@@ -60,12 +60,17 @@
                 </div>
               </div>
 
-              <transition name="fade">
-                <div v-if="mainReply" class="py-2">
+                <div class="pt-2">
                   <p class="text-xl mb-3">Dein Beitrag</p>
-                  <comment-form :post-id="post.id"/>
+                  <transition @enter="slideOpen" @leave="slideClose">
+                    <div v-if="mainReply" data-overflow="hidden" class="pb-2">
+                      <comment-form :post-id="post.id"/>
+                    </div>
+                    <div v-else class="pb-2">
+                      <button @click="mainComment" class="">&rdsh; neuer Kommentar</button>
+                    </div>
+                  </transition>
                 </div>
-              </transition>
             </div>
           </div>
         </div>
@@ -84,6 +89,7 @@
   import { defineComponent, computed, ref, onMounted } from 'vue'
   import { useRoute, useRouter } from 'vue-router'
   import { useStore } from '../store'
+  import { slideOpen, slideClose } from '../utils'
   import SearchIcon from '../components/svg/SearchIcon.vue'
   import CloseIcon from '../components/svg/CloseIcon.vue'
   import ChevronLeft from '../components/svg/ChevronLeft.vue'
@@ -126,10 +132,13 @@
       })
 
       const mainReply = computed(() => {
-        return !route.hash.startsWith('#comment-')
+        return !route.query.replyto
       })
+      const mainComment = () => {
+        router.replace({ ...route, query: {} })
+      }
 
-      return { goBack, post, loading, comments, mainReply }
+      return { goBack, post, loading, comments, mainReply, mainComment, slideOpen, slideClose }
     },
     beforeRouteEnter (to, _, next) {
       const store = useStore()

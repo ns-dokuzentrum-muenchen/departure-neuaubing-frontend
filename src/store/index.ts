@@ -1,4 +1,4 @@
-import type { Post } from './types'
+import type { Post, Comment } from './types'
 import { defineStore } from 'pinia'
 import state from './state'
 import axios from 'axios'
@@ -70,14 +70,14 @@ export const useStore = defineStore({
         this.glossar[slug] = data[0]
       })
     },
+
     async getComments (post: number) {
       return api.get('/wp-json/dn/v1/comments', {
         params: { post, order: 'asc' }
       }).then(({ data }) => {
-        this.comments[post] = data
+        this.comments[post] = data as Comment[]
       })
     },
-
     async postComment (id: string | number | undefined, formData: any) {
       if (!id) return
 
@@ -88,10 +88,35 @@ export const useStore = defineStore({
           Authorization: `Bearer ${this.authToken}`
         }
       }).then(({ data }) => {
-        console.log(data?.status, data)
         const idNo = Number(id)
-        this.comments[idNo]?.push(data)
+        // this.comments[idNo]?.push(data)
+        if (!this.comments[idNo]) return
+        const added = formatComment(data)
+        if (data.parent === 0) {
+          this.comments[idNo].push(added)
+        } else {
+          appendComment(this.comments[idNo], added)
+        }
       })
+
+      function formatComment (comment: any): Comment {
+        return {
+          ...comment,
+          content: comment.content?.rendered,
+          author_avatar_url: comment.author_avatar_urls?.['24'],
+          children: [],
+          created: true
+        }
+      }
+      function appendComment (list: Comment[], comment: Comment) {
+        for (const c of list) {
+          if (c.id === comment.parent) {
+            c.children.push(comment)
+          } else {
+            appendComment(c.children, comment)
+          }
+        }
+      }
     },
 
     async search (query: string) {

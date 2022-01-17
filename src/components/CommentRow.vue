@@ -6,6 +6,9 @@
       </div>
       <div class="w-full">
         <div class="flex font-light text-sm">
+          <p v-if="comment.created" class="font-medium mr-2">
+            {{ comment.status === 'approved' ? 'NEU' : 'AUSSTEHEND' }}
+          </p>
           <p>{{ comment.fullname || comment.author_name }}</p>
           <div class="border-l mx-2"></div>
           <p>{{ time }}</p>
@@ -26,7 +29,7 @@
       </div>
     </div>
 
-    <div v-if="comment?.children.length" class="my-2 ml-4 pl-4 border-l-2 border-gray-400">
+    <div v-if="comment?.children?.length" class="my-2 ml-4 pl-4 border-l-2 border-gray-400">
       <div v-for="childComment in comment.children" :key="childComment.id" class="my-4">
         <comment-row :comment="childComment" :depth="depth + 1"/>
       </div>
@@ -57,18 +60,18 @@
 
       const depth = props.depth || 0
 
-      const id = computed(() => `#comment-${comment.value?.id}`)
+      const id = computed(() => (comment.value?.id || 0).toString())
 
       const route = useRoute()
       const router = useRouter()
       const addComment = computed(() => {
-        return route.hash === id.value
+        return route.query?.replyto === id.value
       })
       const toggleForm = () => {
         if (addComment.value) {
-          router.replace({ hash: '' })
+          router.replace({ ...route, query: {} })
         } else {
-          router.replace({ hash: id.value })
+          router.replace({ ...route, query: { replyto: id.value } })
         }
       }
 
