@@ -74,9 +74,10 @@
         const target = e.target as HTMLElement
         if (!target || target.tagName !== 'A') return
 
-        // TODO check if META link
-        // console.log('hover on <a>', target.getAttribute('href'))
-        if (store.metaPeek) return
+        const href = target.getAttribute('href') || ''
+        const inPanel = sideBarLink(href)
+
+        if (store.metaPeek || !href || !inPanel) return
         store.metaPeek = true
         setTimeout(() => {
           store.metaPeek = false
