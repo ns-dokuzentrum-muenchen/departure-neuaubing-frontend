@@ -44,11 +44,7 @@ export const useStore = defineStore({
       return api.get('/wp-json/dn/v1/geo').then(({ data }) => {
         if (!data) return
 
-        if ('de' in data.city) {
-          this.visitorDistance.city = data.city.de
-        } else if ('de' in data?.country) {
-          this.visitorDistance.city = data.country.de
-        }
+        this.visitorDistance.city = data.city.de || data.city.en || data.country.de || data.country.en || ''
         this.visitorDistance.distance = Math.round(data.distance).toLocaleString()
       })
     },
