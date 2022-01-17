@@ -1,5 +1,5 @@
 <template>
-  <div class="relative">
+  <div :class="{ hidden }" class="relative">
     <footer class="bg-theme text-theme px-4 md:px-8 py-3">
       <div class="sm:flex justify-between my-4 max-w-8xl mx-auto text-lg">
         <div class="sm:mr-12">
@@ -34,11 +34,18 @@
 </template>
 
 <script lang="ts">
-  import { defineComponent } from 'vue'
+  import { defineComponent, computed } from 'vue'
+  import { useRoute } from 'vue-router'
   import NsDokuLogo from './svg/NsDokuLogo.vue'
 
   export default defineComponent({
     name: 'AppFooter',
+    setup () {
+      const route = useRoute()
+      const hidden = computed(() => route.meta?.nofooter)
+
+      return { hidden }
+    },
     components: { NsDokuLogo }
   })
 </script>

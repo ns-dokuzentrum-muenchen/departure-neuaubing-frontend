@@ -10,7 +10,7 @@ export default defineConfig({
     port: 8080,
     proxy: {
       '/.netlify': {
-        target: 'https://departure-neuaubing-stage.netlify.app',
+        target: 'http://localhost:8181',
         changeOrigin: true
       },
       '/captions': {

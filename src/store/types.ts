@@ -21,6 +21,8 @@ interface State {
   authToken: string | null
   metaHidden: boolean
   metaPeek: boolean
+  pwRequired: boolean
+  unlocked: boolean
 }
 
 export type Theme = 'theme-blau' | 'theme-gelb' | 'theme-rosa' | 'theme-gruen'

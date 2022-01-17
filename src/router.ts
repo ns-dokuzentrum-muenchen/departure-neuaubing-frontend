@@ -11,8 +11,7 @@ const router = createRouter({
     {
       path: '/',
       name: 'index',
-      component: Index,
-      // meta: { seite: true }
+      component: Index
     },
     {
       path: '/projekte/:slug',
@@ -75,6 +74,13 @@ const router = createRouter({
       path: '/konto',
       name: 'account',
       component: () => import('./views/Account.vue')
+    },
+
+    {
+      path: '/access',
+      name: 'access',
+      component: () => import('./views/Access.vue'),
+      meta: { noheader: true, nofooter: true }
     }
   ],
   scrollBehavior (to, from, savedPosition) {
@@ -107,6 +113,17 @@ const router = createRouter({
     }
 
     return savedPosition || { top: 0 }
+  }
+})
+
+router.beforeEach((to) => {
+  if (to.name === 'access') return true
+
+  const store = useStore()
+  if (store.pwRequired && !store.unlocked) {
+    return '/access'
+  } else {
+    return true
   }
 })
 

@@ -1,5 +1,5 @@
 <template>
-  <div class="">
+  <div>
     <app-header/>
 
     <main :class="{ 'md:-translate-x-36': offset }" class="transition-transform pt-px min-h-screen">
@@ -7,7 +7,6 @@
     </main>
 
     <meta-layer/>
-
     <app-footer/>
   </div>
 </template>

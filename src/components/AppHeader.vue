@@ -1,5 +1,5 @@
 <template>
-  <div ref="header">
+  <div ref="header" :class="{ hidden }">
     <header @click="maybeOpen" :class="{ 'cursor-pointer': !menuOpen, attop }" :aria-hidden="!menuOpen" id="main-menu" aria-labelledby="menubutton" class="fixed top-0 left-0 right-0 text-highlight group z-30">
       <div :class="barHeight" class="absolute top-0 left-0 right-0 pointer-events-none transition-all z-0">
         <div class="w-full h-full bg-theme dark:bg-black"></div>
@@ -165,6 +165,8 @@
         }
       }
 
+      const hidden = computed(() => route.meta?.noheader)
+
       return {
         header,
         menuOpen,
@@ -174,7 +176,8 @@
         maybeOpen,
         slideOpen,
         slideClose,
-        attop
+        attop,
+        hidden
       }
     },
     components: { FontLogo, MenuButton, RadioSwitches, NsDokuLogo, AnalyticsIcon, ContrastIcon }

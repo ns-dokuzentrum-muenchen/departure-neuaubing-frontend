@@ -37,7 +37,10 @@ export default function state (): State {
     authToken: getToken(),
 
     metaHidden: false,
-    metaPeek: false
+    metaPeek: false,
+
+    pwRequired: true,
+    unlocked: getUnlocked()
   }
 }
 
@@ -63,4 +66,9 @@ function getTheme () {
 function getToken () {
   const saved = window.localStorage?.getItem('token')
   return saved
+}
+
+function getUnlocked () {
+  const saved = window.localStorage?.getItem('unlocked')
+  return !!saved
 }
