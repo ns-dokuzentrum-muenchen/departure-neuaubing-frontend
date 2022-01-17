@@ -40,7 +40,7 @@
               </div>
             </div>
             <div>
-              <div v-html="post?.content.rendered" class="text-lg md:text-xl"></div>
+              <div v-html="post?.acf.description" class="text-lg md:text-xl"></div>
             </div>
 
             <div class="border-b-2 -mx-2 my-4"></div>

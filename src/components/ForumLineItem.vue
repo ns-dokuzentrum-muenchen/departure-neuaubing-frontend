@@ -9,7 +9,7 @@
       </div>
     </div>
     <div class="line-clamp-3 mb-4">
-      <div v-html="post?.content.rendered" class="md:text-lg contents"></div>
+      <div v-html="post?.acf.description" class="md:text-lg contents"></div>
     </div>
     <div v-if="post?.comment_status === 'open'" class="flex mt-2">
       <div class="flex-auto">
