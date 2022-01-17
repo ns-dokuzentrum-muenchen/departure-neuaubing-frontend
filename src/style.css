@@ -101,7 +101,8 @@ body {
 
   & a[href^="/ort"],
   & a[href^="/gloss"],
-  & a[href^="/pers"] {
+  & a[href^="/pers"],
+  & a[href^="/kuenst"] {
     text-decoration-thickness: 2px;
     text-decoration-color: var(--theme-color);
     opacity: 100;
