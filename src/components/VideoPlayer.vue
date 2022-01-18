@@ -60,7 +60,6 @@
       const inline = computed(() => props.first)
 
       onMounted(async () => {
-        console.log('video onMounted...', el.value, vid.value)
         if (!el.value || !vid.value) return
 
         const langs: { [key: string]: string } = {

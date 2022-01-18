@@ -1,6 +1,6 @@
 <template>
   <div ref="el" :class="{ 'md:grid grid-cols-12 gap-4 md:px-4': !noGrid }">
-    <div :class="[position, size]" :style="nudge" class="col-span-7 bg-bg px-4 py-2 leftopen-nudge">
+    <div :class="[position, size, { 'bg-bg px-4': !noGrid }]" :style="nudge" class="col-span-7 py-2 leftopen-nudge">
       <div v-html="content" @click="internalLinks" class="html max-w-prose"></div>
     </div>
   </div>

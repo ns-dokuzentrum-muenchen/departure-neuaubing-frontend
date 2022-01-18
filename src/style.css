@@ -118,6 +118,8 @@ body {
       list-style: revert;
     }
   }
+
+  & pre { overflow-x: auto; }
 }
 
 .theme-color { color: var(--theme-color); }
