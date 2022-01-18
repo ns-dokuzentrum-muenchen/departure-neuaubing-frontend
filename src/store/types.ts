@@ -17,6 +17,7 @@ interface State {
   searchResults: Post[]
   analytics: boolean
   user: any
+  userContent: Post[]
   nonce: string | null
   authToken: string | null
   metaHidden: boolean
@@ -57,7 +58,7 @@ export type Post = {
 }
 
 type RenderedString = { rendered: string }
-export type PostType = 'projekt' | 'int-projekt' | 'kuenstler' | 'glossar' | 'begriff' | 'markierung' | 'post' | 'page' | 'person' | 'ort'
+export type PostType = 'projekt' | 'int-projekt' | 'kuenstler' | 'glossar' | 'begriff' | 'markierung' | 'post' | 'page' | 'person' | 'ort' | 'forum' | 'upload'
 
 type ACF = {
   title?: string

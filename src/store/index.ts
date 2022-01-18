@@ -198,9 +198,19 @@ export const useStore = defineStore({
         this.logout()
       })
     },
+    async getUserContent () {
+      return api.get('/wp-json/dnu/v1/konto', {
+        headers: {
+          Authorization: `Bearer ${this.authToken}`
+        }
+      }).then(({ data }) => {
+        this.userContent = data
+      })
+    },
     logout () {
       this.authToken = null
       this.user = null
+      this.userContent = []
       window.localStorage?.removeItem('token')
     },
 

@@ -3,7 +3,7 @@
     <div :class="[position]" :style="nudge" class="col-span-7 bg-bg px-4 py-4 leftopen-nudge group">
       <div class="relative">
         <div class="absolute left-0 whitespace-nowrap top-0.5 -translate-x-1/3 opacity-0 group-hover:opacity-100 transition-all">
-          <button @click="openBegriffe" class="btn-sm"><chevron-left class="inline-block w-2 mr-1"/> Sprachanalyse Werkzeug</button>
+          <button @click="openBegriffe" class="btn-sm"><chevron-left class="inline-block w-2 mr-1"/> Sprachanalyse-Werkzeug</button>
         </div>
         <p class="font-medium text-2xl mb-4 group-hover:translate-x-48 transition-all">{{ title }}</p>
       </div>

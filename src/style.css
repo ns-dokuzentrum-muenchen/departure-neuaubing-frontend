@@ -106,10 +106,17 @@ body {
     text-decoration-thickness: 2px;
     text-decoration-color: var(--theme-color);
     opacity: 100;
+  }
 
-    /* &:hover {
-      text-decoration-thickness: 2px;
-    } */
+  & ul,
+  & ol {
+    list-style: revert;
+    margin: revert;
+    padding: revert;
+
+    & > li {
+      list-style: revert;
+    }
   }
 }
 

@@ -11,7 +11,8 @@ const router = createRouter({
     {
       path: '/',
       name: 'index',
-      component: Index
+      component: Index,
+      alias: '/en'
     },
     {
       path: '/projekte/:slug',

@@ -13,14 +13,19 @@
       <div v-if="statusMsg" class="mb-3">
         <p class="text-green-600">{{ statusMsg }}</p>
       </div>
-      <div class="flex items-center mb-3">
+      <div class="flex items-start mb-3">
         <div class="flex-none mr-4">
           <button v-if="!sentLogin && !sentSignup" type="submit" class="btn">{{ noUser ? 'Registrieren' : 'Anmelden' }}</button>
           <button v-else @click="reset" type="button" class="btn">E-Mail nicht angekommen?</button>
         </div>
         <transition name="fade">
-          <div v-if="errMsg" class="flex-auto">
-            <p class="text-red-600 leading-none">{{ errMsg }}</p>
+          <div v-if="noUser" class="mr-4">
+            <button @click="reset" type="button" class="text-2xl px-2 font-light" title="abbrechen">&times;</button>
+          </div>
+        </transition>
+        <transition name="fade">
+          <div v-if="errMsg" class="flex-auto mt-0">
+            <p class="text-red-600 leading-tight">{{ errMsg }}</p>
           </div>
         </transition>
       </div>
@@ -86,6 +91,7 @@
       }
 
       const reset = () => {
+        noUser.value = false
         errMsg.value = ''
         statusMsg.value = ''
         sentLogin.value = false

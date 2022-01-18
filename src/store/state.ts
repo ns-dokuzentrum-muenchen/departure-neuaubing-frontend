@@ -33,6 +33,7 @@ export default function state (): State {
     analytics: true,
 
     user: null,
+    userContent: [],
     nonce: null,
     authToken: getToken(),
 

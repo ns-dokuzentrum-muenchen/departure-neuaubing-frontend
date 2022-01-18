@@ -60,17 +60,17 @@
                 </div>
               </div>
 
-                <div class="pt-2">
-                  <p class="text-xl mb-3">Dein Beitrag</p>
-                  <transition @enter="slideOpen" @leave="slideClose">
-                    <div v-if="mainReply" data-overflow="hidden" class="pb-2">
-                      <comment-form :post-id="post.id"/>
-                    </div>
-                    <div v-else class="pb-2">
-                      <button @click="mainComment" class="">&rdsh; neuer Kommentar</button>
-                    </div>
-                  </transition>
-                </div>
+              <div class="pt-2">
+                <p class="text-xl mb-3">Dein Beitrag</p>
+                <transition @enter="slideOpen" @leave="slideClose">
+                  <div v-if="mainReply" data-overflow="hidden" class="pb-2">
+                    <comment-form :post-id="post.id"/>
+                  </div>
+                  <div v-else class="pb-2">
+                    <button @click="mainComment" class="">&rdsh; neuer Kommentar</button>
+                  </div>
+                </transition>
+              </div>
             </div>
           </div>
         </div>

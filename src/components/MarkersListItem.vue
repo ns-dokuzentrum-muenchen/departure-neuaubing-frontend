@@ -67,7 +67,7 @@
         <div class="lg:grid grid-cols-12 gap-4">
           <div class="col-start-4 col-span-5">
             <ul class="py-px px-4 lg:p-0">
-              <li v-for="upload in posts" :key="upload.id" class="max-w-sm lg:max-w-none bg-gray-400 text-black rounded-md my-4 overflow-hidden">
+              <li v-for="upload in posts" :key="upload.id" class="max-w-sm lg:max-w-none bg-gray-200 dark:bg-gray-400 text-black rounded-md my-4 overflow-hidden">
                 <figure>
                   <app-image v-if="upload.acf?.thumbnail" :image="upload.acf?.thumbnail"/>
                   <figcaption>
