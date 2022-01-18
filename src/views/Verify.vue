@@ -24,6 +24,7 @@
 
       onMounted(() => {
         const { uid, token, nonce, return_to } = route.query
+
         if (uid && token && nonce) {
           store.verifyLogin(uid as string, token as string, nonce as string).then(() => {
             router.replace(return_to as string || '/')

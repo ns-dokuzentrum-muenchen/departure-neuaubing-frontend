@@ -151,9 +151,11 @@ export const useStore = defineStore({
 
     async login (nameOrEmail: string, nonce: string) {
       const params = new URLSearchParams()
+      const { pathname, search, hash } = window.location
+      const return_to = encodeURIComponent(pathname + search + hash)
       params.append('user_email_username', nameOrEmail)
       params.append('nonce', nonce)
-      params.append('return_to', window.location.pathname)
+      params.append('return_to', return_to)
 
       return api.post('/wp-json/dn/v1/login', params)
     },
@@ -203,9 +205,10 @@ export const useStore = defineStore({
     },
 
     async register (username: string, email: string, nonce: string) {
+      const { pathname, search, hash } = window.location
+      const return_to = encodeURIComponent(pathname + search + hash)
       return api.post('/wp-json/dn/v1/register', {
-        return_to: window.location.pathname,
-        username, email, nonce
+        return_to, username, email, nonce
       })
     },
 
