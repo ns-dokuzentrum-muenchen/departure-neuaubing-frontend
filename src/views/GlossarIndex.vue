@@ -24,7 +24,18 @@
             <h1 class="text-2xl lg:text-4xl font-medium">Glossar</h1>
           </div>
 
-          <div class="mb-16">
+          <div class="mb-24">
+            <ul class="flex space-x-4 mb-8">
+              <li>
+                <router-link to="/glossar" active-class="bg-theme" class="px-3 py-1 border rounded-full hover:bg-gray-700">Glossar</router-link>
+              </li>
+              <li>
+                <router-link to="/orte" active-class="bg-theme" class="px-3 py-1 border rounded-full hover:bg-gray-700">Orte</router-link>
+              </li>
+              <li>
+                <router-link to="/personen" active-class="bg-theme" class="px-3 py-1 border rounded-full hover:bg-gray-700">Personen</router-link>
+              </li>
+            </ul>
             <ul>
               <li v-for="term in glossary" :key="term.id" class="my-2">
                 <connection-preview :post="term"/>
@@ -46,7 +57,7 @@
 <script lang="ts">
   import { defineComponent, computed, provide } from 'vue'
   import { useStore } from '../store'
-  import { useRoute, useRouter } from 'vue-router'
+  import { useRoute, useRouter, onBeforeRouteUpdate } from 'vue-router'
   import ConnectionPreview from '../components/ConnectionPreview.vue'
   import SearchIcon from '../components/svg/SearchIcon.vue'
   // import CloseIcon from '../components/svg/CloseIcon.vue'
@@ -58,7 +69,10 @@
       const route = useRoute()
       const router = useRouter()
 
-      const glossary = computed(() => store.glossary)
+      const glossary = computed(() => {
+        const type = route.params.pathMatch ? route.params.pathMatch : 'glossar'
+        return store.glossary(type)
+      })
 
       const metaContext = computed(() => {
         const pos = route.hash.indexOf('=')
@@ -79,12 +93,17 @@
         }
       }
 
+      onBeforeRouteUpdate((to, _from, next) => {
+        const type = to.params.pathMatch || 'glossar'
+        store.getGlossarTerms(type).then(next)
+      })
+
       return { glossary, goBack }
     },
-    beforeRouteEnter (_to, _from, next) {
-      // const { page } =
+    beforeRouteEnter (to, _from, next) {
       const store = useStore()
-      store.getGlossarTerms().then(next)
+      const type = to.params.pathMatch || 'glossar'
+      store.getGlossarTerms(type).then(next)
     },
     components: { ConnectionPreview, SearchIcon, ChevronLeft }
   })

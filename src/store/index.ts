@@ -21,8 +21,10 @@ export const useStore = defineStore({
       return state.projects?.find(p => p.slug === slug)
         || state.intProjects.find(p => p.slug === slug)
     },
-    glossary: (state) => {
-      return Object.values(state.glossar)?.sort((a, b) => {
+    glossary: (state) => (type: string | string[]) => {
+      const postType = type === 'orte' ? 'ort'
+        : type === 'personen' ? 'person' : 'glossar'
+      return Object.values(state.glossar)?.filter((p => p.type === postType)).sort((a, b) => {
         return a.slug.localeCompare(b.slug)
       })
     }
@@ -60,10 +62,11 @@ export const useStore = defineStore({
       })
     },
 
-    async getGlossarTerms () {
-      // TODO: maybe get `personen` and `orte` too?
-      return api.get('/wp-json/wp/v2/glossar', {
-        params: { per_page: 100 } // just all for now
+    async getGlossarTerms (type: string | string[]) {
+      if (typeof type !== 'string') return
+      if (this.glossary(type).length) return
+      return api.get(`/wp-json/wp/v2/${type}`, {
+        params: { per_page: 100 }
       }).then(({ data }) => {
         if (!data || !data[0]) return
         data.forEach((post: Post) => {

@@ -63,7 +63,7 @@ body {
 
 .ml-logo { margin-left: 1.14em; }
 
-.theme-blau { --theme-color: theme('colors.blue.900'); }
+.theme-blau { --theme-color: theme('colors.blue.700'); }
 .theme-gelb { --theme-color: theme('colors.yellow.200'); }
 .theme-rosa { --theme-color: theme('colors.pink.300'); }
 .theme-gruen { --theme-color: theme('colors.green.500'); }

@@ -31,7 +31,7 @@ const router = createRouter({
       component: () => import('./views/ForumPost.vue')
     },
     {
-      path: '/glossar',
+      path: '/:pathMatch(glossar|orte|personen|begriffe)',
       name: 'glossar-index',
       component: () => import('./views/GlossarIndex.vue')
     },
