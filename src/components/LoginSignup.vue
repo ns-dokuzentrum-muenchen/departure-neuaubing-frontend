@@ -5,7 +5,7 @@
         {{ noUser ? 'Konto erstellen' : 'Anmelden' }}
       </p>
       <div v-if="!sentLogin && !sentSignup" class="mb-3">
-        <input v-model="form.username" :placeholder="`Benutzername${ !noUser ? ' oder die E-Mail-Adresse' : '' }`" type="text" class="input" minlength="4" required/>
+        <input v-model="form.username" :placeholder="`Benutzername${ !noUser ? ' oder die E-Mail-Adresse' : '' }`" type="text" class="input" minlength="3" required/>
       </div>
       <div v-if="noUser && !sentSignup" class="mb-3">
         <input v-model="form.email" type="email" placeholder="E-Mail" class="input"/>
@@ -51,13 +51,15 @@
       })
 
       const submit = () => {
-        if (!form.username?.length || form.username.length < 4) return
-        if (!nonce.value) return
+        if (!form.username?.length || form.username.length < 3) {
+          errMsg.value = 'Der Benutzername muss aus mindestens 4 Zeichen bestehen.'
+          return
+        }
 
         errMsg.value = ''
 
         if (noUser.value === false) {
-          store.login(form.username, nonce.value).then(({ data }) => {
+          store.login(form.username, nonce.value || '').then(({ data }) => {
             statusMsg.value = data.msg
             sentLogin.value = true
           }).catch((res) => {
@@ -73,7 +75,7 @@
             }
           })
         } else {
-          store.register(form.username, form.email, nonce.value).then(({ data }) => {
+          store.register(form.username, form.email, nonce.value || '').then(({ data }) => {
             statusMsg.value = data.msg
             sentSignup.value = true
           }).catch((res) => {
