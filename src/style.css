@@ -120,6 +120,9 @@ body {
   }
 }
 
+.theme-color { color: var(--theme-color); }
+.theme-bg { background-color: var(--theme-color); }
+
 .styled-text {
   @apply font-extralight;
 

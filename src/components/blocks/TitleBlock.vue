@@ -20,9 +20,7 @@
       const store = useStore()
 
       const block = computed(() => props.block)
-      const project = computed(() => {
-        return store.projects?.find(p => p?.slug === props.slug)
-      })
+      const project = computed(() => store.slugToProject(props.slug))
 
       const position = computed(() => {
         return `col-start-${props.block?.position || '1'}`

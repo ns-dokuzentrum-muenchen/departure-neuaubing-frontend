@@ -45,7 +45,7 @@
   import type { Post } from '../store/types'
   import { defineComponent, computed, provide, watch } from 'vue'
   import { useStore } from '../store'
-  import { useRoute, useRouter } from 'vue-router'
+  import { useRoute, useRouter, onBeforeRouteUpdate } from 'vue-router'
   import ConnectionPreview from '../components/ConnectionPreview.vue'
   import ChevronRight from '../components/svg/ChevronRight.vue'
   import NewBegriff from '../components/NewBegriff.vue'
@@ -67,9 +67,7 @@
       const route = useRoute()
 
       const slug = computed(() => route.params.slug)
-      const project = computed(() => {
-        return store.projects?.find(p => p?.slug === slug.value)
-      })
+      const project = computed(() => store.slugToProject(slug.value))
 
       const metaContext = computed(() => {
         const pos = route.hash.indexOf('=')
@@ -119,6 +117,14 @@
       }
 
       return { slug, contentBlocks, mitBegriffe, links, werkzeug, leftopen, back }
+    },
+    beforeRouteEnter (to, from, next) {
+      const store = useStore()
+      const { pathMatch, slug } = to.params
+      const type = typeof pathMatch === 'object' ? pathMatch[0] : pathMatch
+      store.getProject(type, slug).then(() => {
+        next()
+      })
     },
     components: { ...components, ConnectionPreview, ChevronRight, NewBegriff }
   })

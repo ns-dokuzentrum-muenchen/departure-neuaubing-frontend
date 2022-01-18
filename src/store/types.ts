@@ -3,6 +3,7 @@ interface State {
   pretitle?: string
   indexPos: number
   projects: Post[] | null
+  intProjects: Post[]
   settings: Settings | null
   visitorDistance: any
   glossar: { [index: string]: Post }
@@ -78,6 +79,7 @@ type ACF = {
   tags?: WPTerm[]
   versions?: Post[]
   connections?: Post[]
+  language?: string
 
   // markers
   id?: string

@@ -15,7 +15,7 @@ const router = createRouter({
       alias: '/en'
     },
     {
-      path: '/projekte/:slug',
+      path: '/:pathMatch(projekte|int-projekte)/:slug',
       name: 'projekt',
       component: Project,
       meta: { seite: true }

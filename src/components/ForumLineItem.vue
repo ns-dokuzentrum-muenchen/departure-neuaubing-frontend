@@ -2,7 +2,9 @@
   <div class="bg-gray-200 text-black rounded-xl p-4">
     <div class="mb-4">
       <p v-if="showType" class="mb-1 opacity-60">{{ type }}</p>
-      <h2 class="text-lg md:text-xl lg:text-2xl">{{ post?.title.rendered }}</h2>
+      <h2 class="text-lg md:text-xl lg:text-2xl">
+        <router-link :to="url">{{ post?.title.rendered }}</router-link>
+      </h2>
       <div class="flex -mx-2 divide-x mt-2">
         <div class="px-2">
           <span :class="{ 'bg-yellow-400 bg-opacity-50': myPost }">{{ post?.author_name }}</span>

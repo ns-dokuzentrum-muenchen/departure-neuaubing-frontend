@@ -8,6 +8,7 @@ export default function state (): State {
     indexPos: 2,
 
     projects: null,
+    intProjects: [],
     settings: null,
     visitorDistance: {
       city: '...',

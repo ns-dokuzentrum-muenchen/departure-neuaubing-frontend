@@ -13,11 +13,13 @@ export const useStore = defineStore({
   state,
   getters: {
     idToProject: (state) => (id: number) => state.projects?.find(p => p.id === id),
-    slugToProject: (state) => (slug: string, page: boolean) => {
+    slugToProject: (state) => (slug: string | undefined, page?: boolean) => {
+      if (!slug) return
       if (page) {
         return state.pages[slug]
       }
       return state.projects?.find(p => p.slug === slug)
+        || state.intProjects.find(p => p.slug === slug)
     },
     glossary: (state) => {
       return Object.values(state.glossar)?.sort((a, b) => {
@@ -36,6 +38,15 @@ export const useStore = defineStore({
       if (this.projects?.length) return
       return api.get('/wp-json/wp/v2/projekte').then(({ data }) => {
         this.projects = data
+      })
+    },
+    async getProject (type = 'projekte', slug: string | string[]) {
+      if (!slug || typeof slug !== 'string') return
+      if (this.slugToProject(slug, false)) return
+      return api.get(`/wp-json/wp/v2/${type}`, {
+        params: { slug }
+      }).then(({ data }) => {
+        this.intProjects.push(...data)
       })
     },
 

@@ -6,8 +6,16 @@
           <router-link :to="artistLink(artist)" class="hover:opacity-50">{{ artist.post_title }}</router-link>
         </p>
       </div>
-      <h1 v-html="title" class="text-4xl md:text-6xl lg:text-8xl whitespace-pre-line uppercase leading-none styled-text">
-      </h1>
+      <h1 v-html="title" class="text-4xl md:text-6xl lg:text-8xl whitespace-pre-line uppercase leading-none styled-text"></h1>
+
+      <div v-if="altVersions.length" class="mt-4">
+        <div class="flex items-center flex-wrap space-x-4">
+          <div>Sprache</div>
+          <div v-for="post in altVersions" :key="post.ID">
+            <router-link :to="`/${post.post_type}e/${post.post_name}`" class="px-3 py-1 border rounded-full block theme-color">{{ post.acf.language }}</router-link>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -34,7 +42,11 @@
         return '#kontext=/kuenstlerinnen/' + post.post_name
       }
 
-      return { title, artists, artistLink }
+      const altVersions = computed<Post[]>(() => {
+        return props.project?.acf?.versions || []
+      })
+
+      return { title, artists, artistLink, altVersions }
     },
     components: { StyledText }
   })

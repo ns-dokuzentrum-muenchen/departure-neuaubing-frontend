@@ -98,7 +98,8 @@
       }
 
       function initSlider () {
-        if (!slider.value) return
+        if (!slider.value || !gallery.value) return
+        if (gallery.value.length < 2) return
 
         flkty = new Flickity(slider.value, {
           cellAlign: 'center',
