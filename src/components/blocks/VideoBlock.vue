@@ -1,6 +1,6 @@
 <template>
-  <div class="md:grid grid-cols-12 gap-4 px-4">
-    <div :class="position" :style="nudge" class="col-span-7 bg-bg leftopen-nudge">
+  <div :class="{ 'md:grid grid-cols-12 gap-4 px-4': !noGrid }">
+    <div :class="[position, { 'bg-bg': !noGrid }]" :style="nudge" class="col-span-7 leftopen-nudge">
       <figure>
         <video-player v-if="block?.video" :video="block.video" :key="block.video?.uri" class="w-full"/>
 
@@ -29,7 +29,8 @@
   export default defineComponent({
     props: {
       block: Object,
-      slug: String
+      slug: String,
+      noGrid: Boolean
     },
     setup (props) {
       const position = computed(() => {

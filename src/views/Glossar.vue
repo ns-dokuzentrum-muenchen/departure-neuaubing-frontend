@@ -23,6 +23,10 @@
 
           <div v-html="post.acf?.description" class="html mb-16 md:text-lg"></div>
 
+          <div v-if="post.acf?.content?.length">
+            <component v-for="(block, i) in post.acf.content" :is="block.acf_fc_layout" :block="block" :slug="post.slug" :key="i" :no-grid="true"></component>
+          </div>
+
           <div v-if="post?.comment_status === 'open'" class="my-4 bg-gray-700 rounded-lg">
             <div class="px-3 py-2 border-b-2 flex justify-between items-baseline">
               <p class="font-bold">Kommentare</p>
@@ -63,6 +67,16 @@
   import CloseIcon from '../components/svg/CloseIcon.vue'
   import ChevronLeft from '../components/svg/ChevronLeft.vue'
 
+  // auto-load the content Blocks
+  const glob = import.meta.globEager('../components/blocks/*.vue')
+
+  const components: { [key: string]: any } = {}
+
+  Object.entries(glob).forEach(([path, definition]) => {
+    const componentName = (path.split('/').pop() as string).replace(/\.\w+$/, '')
+    components[componentName] = definition.default
+  })
+
   export default defineComponent({
     name: 'Glossar',
     setup () {
@@ -101,6 +115,6 @@
 
       store.getGlossaryTerm(slug as string, postType).then(next)
     },
-    components: { CommentForm, CommentRow, CloseIcon, ChevronLeft }
+    components: { ...components, CommentForm, CommentRow, CloseIcon, ChevronLeft }
   })
 </script>

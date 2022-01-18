@@ -60,6 +60,7 @@
       const inline = computed(() => props.first)
 
       onMounted(async () => {
+        console.log('video onMounted...', el.value, vid.value)
         if (!el.value || !vid.value) return
 
         const langs: { [key: string]: string } = {
@@ -84,6 +85,8 @@
         minSize.value = Math.max($el.clientWidth, $el.clientHeight)
 
         await nextTick()
+
+        console.log('video has loaded?')
 
         plyr.value = new Plyr(vid.value, {
           muted: false,
