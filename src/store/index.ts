@@ -64,7 +64,8 @@ export const useStore = defineStore({
 
     async getGlossarTerms (type: string | string[]) {
       if (typeof type !== 'string') return
-      if (this.glossary(type).length) return
+      if (this.glossary(type).length > 1) return // get `whole` list
+
       return api.get(`/wp-json/wp/v2/${type}`, {
         params: { per_page: 100 }
       }).then(({ data }) => {
