@@ -1,11 +1,11 @@
 <template>
-  <div v-if="project" ref="el" :style="itemStyle" :class="reverse" class="md:flex w-max max-w-[72vw]">
-    <figure ref="img" @click="move" @keyup.enter="move" :style="imgStyle" :class="imgClasses" :tabindex="column === position ?0 : -1" class="md:w-max cursor-pointer">
+  <div v-if="project" ref="el" :style="itemStyle" :class="reverse" :aria-hidden="!visible" class="md:flex w-max max-w-project-item">
+    <figure ref="img" @click="move" @keyup.enter="move" :style="imgStyle" :class="imgClasses" :tabindex="column === position ? 0 : -1" class="md:w-3/5 cursor-pointer">
       <template v-if="mediaType === 'video'">
         <auto-video :video="mediaData" :auto="true"></auto-video>
       </template>
       <template v-else-if="mediaType === 'image'">
-        <img :src="mediaData.sizes.large" :width="mediaData.width" :height="mediaData.height" :alt="mediaData.caption || mediaData.filename" loading="lazy"/>
+        <img :src="mediaData.sizes.large" :width="mediaData.width" :height="mediaData.height" :alt="project.acf?.title" loading="lazy"/>
       </template>
       <template v-else>
         <div class="max-w-md text-xl md:text-2xl">
@@ -14,7 +14,7 @@
       </template>
     </figure>
 
-    <div :class="[textAlign, textClass]" class="px-4 max-w-96 transition-opacity duration-500">
+    <div :class="[textAlign, textClass]" class="mt-4 md:mt-0 px-4 md:w-2/5 transition-opacity duration-500">
       <h2 v-html="title" class="uppercase text-4xl lg:text-5xl styled-text"></h2>
       <div class="font-bold text-xl my-3 flex flex-wrap">
         <p v-for="artist in artists" :key="artist.id" class="commas">{{ artist.post_title }}</p>
@@ -74,6 +74,7 @@
         if (t === 'image') return data.image
         return data.text
       })
+      const visible = computed(() => column.value === position.value)
 
       const middleOffset = ref(0)
 
@@ -89,9 +90,10 @@
         const padAmount = pad ? pw - iw : 0 // ignore title area
 
         const space = step > 0 ? window.innerWidth - pw - p.offsetLeft : p.offsetLeft
-        const overlap = Math.round(window.innerWidth / 20)
+        const overlap = window.innerWidth >= 768 ? Math.round(window.innerWidth / 20) : -10
         // const showWidth = random(overlap * -1, overlap)
         const showWidth = idx % 3 === 0 ? overlap : -10
+        // const showWidth = -10
 
         const d = ((pw + space - showWidth - padAmount) / pw) * 100
 
@@ -117,7 +119,7 @@
       })
       const imgStyle = computed(() => {
         const rev = position.value > column.value
-        const val = middleOffset.value * (rev ? -1 : 1)
+        // const val = middleOffset.value * (rev ? -1 : 1)
 
         let y = 0
 
@@ -140,7 +142,7 @@
           classes.push('transition-all', 'duration-500')
         }
         if (data?.position === 'left') {
-          classes.push('flex-row-reverse')
+          classes.push('md:flex-row-reverse')
         }
         return classes
       })
@@ -154,7 +156,7 @@
         return opts[k]
       })
       const textClass = computed(() => {
-        return column.value !== position.value ? 'opacity-0 pointer-events-none' : ''
+        return !visible.value ? 'opacity-0 pointer-events-none' : ''
       })
 
       const router = useRouter()
@@ -225,6 +227,7 @@
         link,
         mediaType,
         mediaData,
+        visible,
         itemStyle,
         imgStyle,
         imgClasses,

@@ -1,13 +1,13 @@
 <template>
-  <div class="md:flex md:space-x-12 items-start">
-    <div class="md:w-2/3 sticky top-16 md:top-1/4">
+  <div class="lg:flex lg:space-x-12 items-start">
+    <div class="lg:w-2/3 sticky top-16 lg:top-1/4">
       <div class="aspect-w-16 aspect-h-9">
         <canvas ref="can" class="absolute inset-0 bg-blue-200"></canvas>
       </div>
     </div>
-    <div ref="txts" class="md:w-1/3 m-6 md:m-0 relative">
+    <div ref="txts" class="lg:w-1/3 m-6 lg:m-0 relative">
       <div v-for="(frame, i) in frames" :key="i" class="h-block">
-        <div :ref="setItem" class="text-lg md:text-xl lg:text-2xl max-w-full md:max-w-xl md:mt-48">
+        <div :ref="setItem" class="text-lg md:text-xl lg:text-2xl max-w-full lg:max-w-xl lg:mt-48 bg-bg p-4 lg:p-0">
           <div v-html="frame.content" class="html theme-bold break-words"></div>
         </div>
       </div>

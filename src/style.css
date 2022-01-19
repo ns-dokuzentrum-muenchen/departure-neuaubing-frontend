@@ -201,6 +201,11 @@ body {
   right: calc(100% - 3.2rem);
 }
 
+.max-w-project-item { max-width: calc(100vw - 4em); }
+@screen xs {
+  .max-w-project-item { max-width: calc(100vw - 12em); }
+}
+
 @screen md {
   .right-seite { right: 25.5rem; }
   .right-kontext { right: calc(100vw - 6rem); }

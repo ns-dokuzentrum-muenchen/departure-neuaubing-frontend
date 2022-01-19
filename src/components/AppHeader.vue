@@ -47,13 +47,13 @@
 
               <li class="mt-4 lg:mt-8">
                 <router-link to="/konto" class="flex items-center">
-                  <img src="~../assets/person.svg" class="w-8 h-8 mr-3"/>
+                  <img src="~../assets/person.svg" class="w-6 lg:w-8 h-8 lg:h-8 mr-3"/>
                   <span>Konto</span> <span v-if="userName" class="opacity-60 ml-2">({{ userName }})</span>
                 </router-link>
               </li>
               <li class="mt-2 mb-4 opacity-60">
                 <div class="flex items-center space-x-3">
-                  <img src="~../assets/sprache.svg" class="w-8 h-8"/>
+                  <img src="~../assets/sprache.svg" class="w-6 lg:w-8 h-8 lg:h-8"/>
                   <span>English</span>
                   <span class="border-r self-stretch"></span>
                   <span class="underline">Deutsch</span>

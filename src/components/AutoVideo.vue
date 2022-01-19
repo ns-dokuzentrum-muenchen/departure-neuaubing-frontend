@@ -13,7 +13,6 @@
   import { defineComponent, ref, computed, onMounted, nextTick } from 'vue'
 
   export default defineComponent({
-    name: 'VideoPlayer',
     props: {
       video: Object
     },
@@ -48,9 +47,8 @@
       })
 
       onMounted(async () => {
-        if (!el.value) return
-
         const $el = el.value
+        if (!$el) return
 
         minSize.value = Math.max($el.clientWidth, $el.clientHeight)
 
@@ -69,18 +67,6 @@
         })
 
         observer.observe($el)
-
-        // plyr.value = new Plyr(`#${id.value}`, {
-        //   muted: false,
-        //   disableContextMenu: true,
-        //   controls: ['play', 'progress', 'current-time', 'mute', 'fullscreen']
-        // })
-
-        // // maybe auto play...
-        // if (!props.auto) return
-
-        // plyr.value.play()
-        // // this.listeners()
       })
 
       function play () {

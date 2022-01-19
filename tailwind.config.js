@@ -485,7 +485,7 @@ module.exports = {
       full: '100%',
       screen: '100vh',
       smblock: '33vh',
-      block: '66vh'
+      block: '62vh'
     }),
     inset: (theme, { negative }) => ({
       auto: 'auto',
