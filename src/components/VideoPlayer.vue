@@ -85,8 +85,6 @@
 
         await nextTick()
 
-        console.log('video has loaded?')
-
         plyr.value = new Plyr(vid.value, {
           muted: false,
           controls: ['play-large', 'play', 'progress', 'current-time', 'mute', 'volume', 'captions', 'settings', 'fullscreen']

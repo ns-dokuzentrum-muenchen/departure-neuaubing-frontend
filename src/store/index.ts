@@ -3,10 +3,17 @@ import { defineStore } from 'pinia'
 import state from './state'
 import axios from 'axios'
 
+const endpoints: { [key: string]: string } = {
+  de: import.meta.env.VITE_API_ENDPOINT as string,
+  en: import.meta.env.VITE_API_EN_ENDPOINT as string
+}
+let currentLocale = /^(\/en|\/en\/.+)$/.test(window.location.pathname) ? 'en' : 'de'
+
 const api = axios.create({
-  baseURL: import.meta.env.VITE_API_ENDPOINT as string,
+  baseURL: endpoints[currentLocale],
   withCredentials: true
 })
+
 
 export const useStore = defineStore({
   id: 'store',
@@ -30,6 +37,13 @@ export const useStore = defineStore({
     }
   },
   actions: {
+    checkLocale (path: string) {
+      const en = /^(\/en|\/en\/.+)$/.test(path)
+      const locale = en ? 'en' : 'de'
+      if (currentLocale !== locale) {
+        api.defaults.baseURL = endpoints[locale]
+      }
+    },
     async getSettings () {
       if (this.settings) return
       return api.get('/wp-json/dn/v1/settings').then(({ data }) => {

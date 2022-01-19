@@ -10,12 +10,13 @@ const router = createRouter({
   routes: [
     {
       path: '/',
+      alias: '/en',
       name: 'index',
-      component: Index,
-      alias: '/en'
+      component: Index
     },
     {
       path: '/:pathMatch(projekte|int-projekte)/:slug',
+      alias: '/en/:pathMatch(projekte|int-projekte)/:slug',
       name: 'projekt',
       component: Project,
       meta: { seite: true }
@@ -122,6 +123,7 @@ router.beforeEach((to) => {
   if (to.name === 'access') return true
 
   const store = useStore()
+  store.checkLocale(to.path)
   if (store.pwRequired && !store.unlocked) {
     return '/access'
   } else {

@@ -23,9 +23,9 @@
     setup () {
       const store = useStore()
       store.getSettings()
-      store.getProjects()
 
       const route = useRoute()
+      store.getProjects()
 
       const metaLayer = computed(() => {
         if (!route.hash) return 0

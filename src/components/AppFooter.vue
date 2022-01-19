@@ -25,7 +25,7 @@
 
         <div class="">
           <a href="https://www.ns-dokuzentrum-muenchen.de/home/" target="_blank" rel="noopener" class="hover:opacity-70 transition-opacity block">
-            <ns-doku-logo class="max-w-40 block"/>
+            <ns-doku-logo class="max-w-40 block" title="NS-Dokumentationszentrum München"/>
           </a>
         </div>
       </div>

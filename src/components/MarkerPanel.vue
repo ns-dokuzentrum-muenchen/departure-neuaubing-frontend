@@ -9,15 +9,17 @@
     <div :class="panelWidth" class="h-full bg-gray-200 text-black px-4 py-18 md:px-8 overflow-y-auto overscroll-contain">
       <div class="lg:flex">
         <div v-if="gallery" ref="slider" class="lg:order-1 flex lg:w-full overflow-hidden relative mb-4 lg:mb-0">
-          <figure v-for="img in gallery" :key="img.id" class="mx-4 w-full aspect-h-1 aspect-w-1 flex-none">
-            <app-image :image="img" class="w-full h-full object-contain"/>
-            <figcaption v-if="img.caption?.length">
+          <figure v-for="img in gallery" :key="img.id" class="mx-4 w-full flex-none">
+            <div class="aspect-h-1 aspect-w-1">
+              <app-image :image="img" class="w-full h-full object-contain"/>
+            </div>
+            <figcaption v-if="img.caption?.length" class="text-sm mt-2 opacity-60">
               {{ img.caption }}
             </figcaption>
           </figure>
         </div>
 
-        <div class="lg:order-0 max-w-prose lg:max-w-sm lg:mr-8">
+        <div class="lg:order-0 w-full max-w-prose lg:max-w-sm lg:mr-8">
           <p v-html="marker?.title.rendered" class="text-lg md:text-xl leading-snug"></p>
           <p class="text-sm md:text-base font-light mt-1 text-gray-600">{{ marker?.acf?.source }}</p>
 
