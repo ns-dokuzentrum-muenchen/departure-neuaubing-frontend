@@ -64,7 +64,6 @@
       })
 
       const store = useStore()
-
       onMounted(() => {
         if (el.value) {
           el.value.addEventListener('mouseover', tagListener)

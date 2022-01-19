@@ -76,7 +76,9 @@
           setGallerySize: true,
           imagesLoaded: true,
           pageDots: false,
-          prevNextButtons: false
+          prevNextButtons: false,
+          selectedAttraction: 0.1,
+          friction: 0.8
         })
 
         flkty.on('select', (idx: number | undefined) => {

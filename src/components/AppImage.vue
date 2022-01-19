@@ -42,7 +42,6 @@
         if (!target) return
 
         await nextFrame()
-
         target.animate?.({
           opacity: [0, 1]
         }, {

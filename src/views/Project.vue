@@ -66,7 +66,7 @@
       const store = useStore()
       const route = useRoute()
 
-      const slug = computed(() => route.params.slug)
+      const slug = computed(() => route.params.slug as string)
       const project = computed(() => store.slugToProject(slug.value))
 
       const metaContext = computed(() => {
@@ -116,15 +116,19 @@
         router.replace({ hash: '' })
       }
 
+      onBeforeRouteUpdate((to, _from, next) => {
+        const { pathMatch, slug } = to.params
+        const type = typeof pathMatch === 'object' ? pathMatch[0] : pathMatch
+        store.getProject(type, slug).then(next)
+      })
+
       return { slug, contentBlocks, mitBegriffe, links, werkzeug, leftopen, back }
     },
-    beforeRouteEnter (to, from, next) {
+    beforeRouteEnter (to, _from, next) {
       const store = useStore()
       const { pathMatch, slug } = to.params
       const type = typeof pathMatch === 'object' ? pathMatch[0] : pathMatch
-      store.getProject(type, slug).then(() => {
-        next()
-      })
+      store.getProject(type, slug).then(next)
     },
     components: { ...components, ConnectionPreview, ChevronRight, NewBegriff }
   })

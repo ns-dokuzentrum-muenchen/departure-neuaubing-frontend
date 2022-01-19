@@ -40,15 +40,15 @@
                 </ul>
               </li>
               <li class="my-1 md:my-0"><router-link to="/pages/ns-zwangsarbeit-und-neuaubing" class="hover:underline">NS-Zwangsarbeit und Neuaubing</router-link></li>
-              <li class="my-1 md:my-0"><router-link to="/pages/ueber" class="hover:underline">Über</router-link></li>
               <li class="my-1 md:my-0"><router-link to="/forum" class="hover:underline">Forum</router-link></li>
               <li class="my-1 md:my-0"><router-link to="/suchen" class="hover:underline">Suchen</router-link></li>
               <li class="my-1 md:my-0"><router-link to="/glossar" class="hover:underline">Glossar</router-link></li>
+              <li class="my-1 md:my-0"><router-link to="/pages/ueber" class="hover:underline">Über</router-link></li>
 
               <li class="mt-4 lg:mt-8">
                 <router-link to="/konto" class="flex items-center">
                   <img src="~../assets/person.svg" class="w-8 h-8 mr-3"/>
-                  <span>Konto</span> <span class="opacity-60 ml-2">({{ userName }})</span>
+                  <span>Konto</span> <span v-if="userName" class="opacity-60 ml-2">({{ userName }})</span>
                 </router-link>
               </li>
               <li class="mt-2 mb-4 opacity-60">
@@ -73,12 +73,14 @@
 
             <div class="mx-2 md:ml-0 md:mr-8 mt-2 mb-6 md:mt-16 w-full flex items-end">
               <div class="w-full">
-                <ns-doku-logo class="max-w-24 h-auto"/>
+                <a href="https://www.ns-dokuzentrum-muenchen.de/home/" target="_blank" rel="noopener">
+                  <ns-doku-logo class="max-w-24 h-auto" title="NS-Dokumentationszentrum München"/>
+                </a>
               </div>
               <div class="w-auto">
                 <h1 class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl">
                   <router-link to="/">
-                    <font-logo class="w-full h-auto"/>
+                    <font-logo class="w-full h-auto" title="Departure Neuaubing"/>
                   </router-link>
                 </h1>
               </div>
