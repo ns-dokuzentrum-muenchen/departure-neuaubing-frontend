@@ -1,11 +1,11 @@
 <template>
-  <div class="md:flex w-full md:-mx-4 md:text-lg lg:text-xl">
+  <div class="md:flex lg:w-full md:-mx-4 md:text-lg lg:text-xl">
     <div class="w-full md:w-1/2 md:order-2 px-2 md:px-4 flex flex-wrap md:block">
       <switch-group>
         <switch-label passive class="md:sr-only w-1/2">
           <p>Darstellung &nbsp; <contrast-icon class="inline" width="16"/></p>
         </switch-label>
-        <Switch v-model="darkMode" class="switch w-1/2 md:w-full">
+        <Switch v-model="darkMode" class="switch w-1/2 md:w-full text-sm lg:text-base">
           <span :class="!darkMode ? 'text-blue-900' : 'text-gray-400'" class="w-1/2 p-1 relative z-10 transition-colors">hell</span>
           <span :class="darkMode ? 'text-blue-900' : 'text-gray-400'" class="w-1/2 p-1 relative z-10 transition-colors">dunkel</span>
           <span :class="darkMode ? 'left-1/2' : 'left-0'" class="pill transition-all"></span>
@@ -47,7 +47,7 @@
         <switch-label passive class="md:sr-only w-1/2">
           <p>Webanalyse &nbsp; <analytics-icon class="inline" width="22"/></p>
         </switch-label>
-        <Switch v-model="analytics" class="switch flex-auto w-1/2 md:w-full">
+        <Switch v-model="analytics" class="switch flex-auto w-1/2 md:w-full text-sm lg:text-base">
           <span :class="!analytics ? 'text-blue-900' : 'text-gray-400'" class="w-1/2 p-1 relative z-10 transition-colors">Aus</span>
           <span :class="analytics ? 'text-blue-900' : 'text-gray-400'" class="w-1/2 p-1 relative z-10 transition-colors">An</span>
           <span :class="analytics ? 'left-1/2' : 'left-0'" class="pill transition-all"></span>

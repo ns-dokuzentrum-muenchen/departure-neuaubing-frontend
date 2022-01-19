@@ -44,30 +44,42 @@
               <li class="my-1 md:my-0"><router-link to="/forum" class="hover:underline">Forum</router-link></li>
               <li class="my-1 md:my-0"><router-link to="/suchen" class="hover:underline">Suchen</router-link></li>
               <li class="my-1 md:my-0"><router-link to="/glossar" class="hover:underline">Glossar</router-link></li>
-              <li class="my-1 md:my-0"><router-link to="/konto" class="hover:underline">Konto</router-link></li>
+
+              <li class="mt-4 lg:mt-8">
+                <router-link to="/konto" class="flex items-center">
+                  <img src="~../assets/person.svg" class="w-8 h-8 mr-3"/>
+                  <span>Konto</span> <span class="opacity-60 ml-2">({{ userName }})</span>
+                </router-link>
+              </li>
+              <li class="mt-2 mb-4 opacity-60">
+                <div class="flex items-center space-x-3">
+                  <img src="~../assets/sprache.svg" class="w-8 h-8"/>
+                  <span>English</span>
+                  <span class="border-r self-stretch"></span>
+                  <span class="underline">Deutsch</span>
+                </div>
+              </li>
             </ul>
 
-            <div class="hidden md:block my-12">
-              <a href="https://www.ns-dokuzentrum-muenchen.de/home/" target="_blank" rel="noopener" class="hover:opacity-70 transition-opacity block">
-                <ns-doku-logo/>
-              </a>
-            </div>
+            <div class=" mb-4 sm:text-lg lg:text-2xl font-light"></div>
           </div>
 
-          <div class="md:hidden mx-2 my-4 border-b"></div>
+          <div class="lg:hidden mx-2 my-4 md:mx-0 border-b"></div>
 
-          <div class="md:w-2/5 flex flex-wrap mt-4">
+          <div class="lg:w-2/5 flex flex-wrap mt-4">
             <radio-switches class="mb-2 md:mb-0"/>
 
-            <div class="md:hidden mx-2 my-4 border-b w-full"></div>
+            <div class="lg:hidden mx-2 my-4 md:mx-0 border-b w-full"></div>
 
-            <div class="mx-2 md:mx-0 mt-2 mb-6 md:mt-16 w-full flex items-end">
-              <div class="md:hidden w-1/2">
+            <div class="mx-2 md:ml-0 md:mr-8 mt-2 mb-6 md:mt-16 w-full flex items-end">
+              <div class="w-full">
                 <ns-doku-logo class="max-w-24 h-auto"/>
               </div>
-              <div class="w-2/3 md:w-full">
+              <div class="w-auto">
                 <h1 class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl">
-                  <router-link to="/"><font-logo/></router-link>
+                  <router-link to="/">
+                    <font-logo class="w-full h-auto"/>
+                  </router-link>
                 </h1>
               </div>
             </div>
@@ -172,6 +184,8 @@
 
       const hidden = computed(() => route.meta?.noheader)
 
+      const userName = computed(() => store.user?.name)
+
       return {
         header,
         menuOpen,
@@ -182,7 +196,8 @@
         slideOpen,
         slideClose,
         attop,
-        hidden
+        hidden,
+        userName
       }
     },
     components: { FontLogo, MenuButton, RadioSwitches, NsDokuLogo, AnalyticsIcon, ContrastIcon }
