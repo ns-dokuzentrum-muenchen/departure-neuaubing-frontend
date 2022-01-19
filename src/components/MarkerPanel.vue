@@ -11,6 +11,9 @@
         <div v-if="gallery" ref="slider" class="lg:order-1 flex lg:w-full overflow-hidden relative mb-4 lg:mb-0">
           <figure v-for="img in gallery" :key="img.id" class="mx-4 w-full aspect-h-1 aspect-w-1 flex-none">
             <app-image :image="img" class="w-full h-full object-contain"/>
+            <figcaption v-if="img.caption?.length">
+              {{ img.caption }}
+            </figcaption>
           </figure>
         </div>
 
@@ -35,7 +38,7 @@
 
           <div class="font-light">
             <p>{{ marker?.acf.num_people_cat_id }}</p>
-            <p>Quelle: {{ marker?.acf?.source }}</p>
+            <!-- <p>Quelle: {{ marker?.acf?.source }}</p> -->
           </div>
         </div>
       </div>

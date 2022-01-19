@@ -1,5 +1,5 @@
 <template>
-  <img ref="el" :src="image?.sizes.medium" :srcset="srcset" @load="loaded" :width="width" :height="height" :alt="image.alt" loading="lazy" class="opacity-0"/>
+  <img ref="el" :src="image?.sizes.medium" :srcset="srcset" @load="loaded" :width="width" :height="height" :alt="image.alt || image.title" loading="lazy" class="opacity-0"/>
 </template>
 
 <script lang="ts">

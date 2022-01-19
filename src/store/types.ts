@@ -116,7 +116,7 @@ export interface MapMarker {
   }
 }
 
-export interface Image extends Post {
+export interface Image extends Omit<Post, 'title'> {
   ID: number
   filename: string
   filesize: number
@@ -132,6 +132,7 @@ export interface Image extends Post {
   width: number
   height: number
   sizes: ImageSizes
+  title: string
 }
 
 export interface Comment {
