@@ -40,9 +40,9 @@
                 </ul>
               </li>
               <li class="my-1 md:my-0"><router-link to="/pages/ns-zwangsarbeit-und-neuaubing" class="hover:underline">NS-Zwangsarbeit und Neuaubing</router-link></li>
-              <li class="my-1 md:my-0"><router-link to="/forum" class="hover:underline">Forum</router-link></li>
-              <li class="my-1 md:my-0"><router-link to="/suchen" class="hover:underline">Suchen</router-link></li>
               <li class="my-1 md:my-0"><router-link to="/glossar" class="hover:underline">Glossar</router-link></li>
+              <li class="my-1 md:my-0"><router-link to="/forum" class="hover:underline">Forum</router-link></li>
+              <li class="my-1 md:my-0"><router-link to="/suchen" class="hover:underline">Suche</router-link></li>
               <li class="my-1 md:my-0"><router-link to="/pages/ueber" class="hover:underline">Über</router-link></li>
 
               <li class="mt-4 lg:mt-8">
