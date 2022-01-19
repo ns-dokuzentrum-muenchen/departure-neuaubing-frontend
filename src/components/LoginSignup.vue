@@ -5,7 +5,7 @@
         {{ noUser ? 'Konto erstellen' : 'Anmelden' }}
       </p>
       <div v-if="!sentLogin && !sentSignup" class="mb-3">
-        <input v-model="form.username" :placeholder="`Benutzername${ !noUser ? ' oder die E-Mail-Adresse' : '' }`" type="text" class="input" minlength="3" required/>
+        <input v-model="form.username" :placeholder="`Benutzername${ !noUser ? ' oder die E-Mail-Adresse' : '' }`" type="text" class="input" minlength="3" autocapitalize="false" autocomplete="false" required/>
       </div>
       <div v-if="noUser && !sentSignup" class="mb-3">
         <input v-model="form.email" type="email" placeholder="E-Mail" class="input"/>

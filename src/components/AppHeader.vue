@@ -10,7 +10,7 @@
         <div :class="menuOpen || attop ? 'opacity-100' : 'opacity-0'" class="notouch:group-hover:opacity-100 transition-opacity flex-auto">
           <p v-html="pretitle" class="max-w-64 md:max-w-none sm:text-lg md:text-xl xl:text-2xl font-light leading-tight"></p>
         </div>
-        <div :class="menuOpen ? 'opacity-100' : 'opacity-0'" class="hidden md:flex w-2/5 items-center transition-opacity">
+        <div :class="menuOpen ? 'opacity-100' : 'opacity-0'" class="hidden lg:flex w-2/5 items-center transition-opacity">
           <div class="w-1/2">
             Webanalyse &nbsp; <analytics-icon class="inline"/>
           </div>
@@ -21,8 +21,8 @@
       </div>
 
       <transition @enter="slideOpen" @leave="slideClose">
-        <div v-if="menuOpen" data-fade="true" @click.stop class="overflow-hidden px-3 relative md:flex">
-          <div class="w-16 md:w-20"></div>
+        <div v-if="menuOpen" data-fade="true" @click.stop class="overflow-hidden px-4 md:px-8 lg:px-3 relative lg:flex">
+          <div class="hidden lg:block w-16 lg:w-20"></div>
 
           <div class="flex-auto pt-6 md:pt-2 px-2 md:px-0">
             <ul role="menu" class="sm:text-lg lg:text-2xl font-light">

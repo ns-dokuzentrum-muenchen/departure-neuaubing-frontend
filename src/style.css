@@ -202,12 +202,12 @@ body {
 }
 
 @screen md {
-  .right-seite {
-    right: 25.5rem;
-  }
-  .right-kontext {
-    right: 57.5rem;
-  }
+  .right-seite { right: 25.5rem; }
+  .right-kontext { right: calc(100vw - 6rem); }
+}
+
+@screen lg {
+  .right-kontext { right: 57.5rem; }
 }
 
 .theme-bold {

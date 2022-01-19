@@ -66,6 +66,7 @@
           center: MUNICH,
           zoom: 13,
           zoomControl: false,
+          touchZoom: true,
           dragging: !L.Browser.mobile
         })
         layer.addTo(map)
