@@ -1,8 +1,8 @@
 <template>
   <div class="lg:flex lg:space-x-12 items-start">
-    <div class="lg:w-2/3 sticky top-16 lg:top-1/4">
+    <div class="lg:w-2/3 sticky top-16 lg:top-1/4 z-1">
       <div class="aspect-w-16 aspect-h-9">
-        <canvas ref="can" class="absolute inset-0 bg-blue-200 z-0"></canvas>
+        <canvas ref="can" class="absolute inset-0 bg-blue-200"></canvas>
       </div>
     </div>
     <div ref="txts" class="lg:w-1/3 m-6 lg:m-0 relative z-20">

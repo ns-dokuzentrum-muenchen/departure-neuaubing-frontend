@@ -1,10 +1,8 @@
 <template>
   <div ref="el" class="text-white relative w-full h-full">
-    <div class="w-full h-full">
-      <video :id="id" ref="vid" :poster="poster" :width="video.width" :height="video.height" playsinline="true" loop="true" muted="true" disablePictureInPicture class="lazyload w-full h-full object-contain">
-        <source v-for="src in srcs" :key="src.md5" :src="src.link" :type="src.type">
-      </video>
-    </div>
+    <video :id="id" ref="vid" :poster="poster" :width="video.width" :height="video.height" playsinline="true" loop="true" muted="true" disablePictureInPicture class="lazyload w-full h-full object-contain">
+      <source v-for="src in srcs" :key="src.md5" :src="src.link" :type="src.type">
+    </video>
   </div>
 </template>
 
