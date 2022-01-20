@@ -42,7 +42,7 @@
         return route.meta.seite
           && (!fields.value?.hide_meta)
       })
-      const hiddenByContent = computed(() => store.metaHidden)
+      const hiddenByContent = computed(() => store.metaHidden || store.menuOpen)
 
       const metaLayer: ComputedRef<number> | undefined = inject('metaLayer')
       const vis = computed(() => {
@@ -53,7 +53,7 @@
         const x = [['right-0', 'right-seite', 'right-kontext'][vis.value]]
         // const z = menuOpen.value ? '' : 'z-50'
         if (hiddenByContent.value && vis.value === 0) {
-          x.push('opacity-0', 'pointer-events')
+          x.push('opacity-0', 'pointer-events-none')
         }
         return x
       })
