@@ -173,8 +173,9 @@
 
         scrollPos = pos
         // attop.value = window.scrollY < 60
-
-        if (dir === 1 && pos - tempPos > 10) {
+        if (pos < 60) {
+          attop.value = true
+        } else if (dir === 1 && pos - tempPos > 10) {
           attop.value = false
         } else if (tempPos - pos > 10) {
           attop.value = true
