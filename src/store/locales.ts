@@ -45,6 +45,7 @@ const locales: {
     logout: 'abmelden',
     createAccount: 'Konto erstellen',
     register: 'Registrieren',
+    noEmail: 'E-Mail nicht angekommen?',
     username: 'Benutzername',
     orEmail: 'oder E-Mail-Adresse'
   },
