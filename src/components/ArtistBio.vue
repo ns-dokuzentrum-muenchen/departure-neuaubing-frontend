@@ -54,7 +54,7 @@
 
         txt.value.animate({
           height: [from, to]
-        }, { duration: 200, easing: 'ease-out' })
+        }, { duration: 250, easing: 'ease-out' })
 
         setTimeout(() => {
           txt.value?.parentElement?.scrollIntoView?.({
@@ -73,7 +73,7 @@
 
         txt.value.animate({
           height: [from, to]
-        }, { duration: 150, easing: 'ease-out' })
+        }, { duration: 250, easing: 'ease-out' })
       }
 
       return { person, txt, target, expanded, truncated }
