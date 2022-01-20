@@ -1,6 +1,6 @@
 <template>
   <div class="dark:bg-gray-800 md:pl-20 lg:pl-32">
-    <div class="relative bg-black text-white pt-14 pr-4 md:pr-20 lg:pr-32">
+    <div class="relative bg-black text-white pt-14 pr-4 md:pr-20 lg:pr-32 min-h-screen">
       <div class="hidden md:flex justify-end py-1 -mr-12">
         <!-- <div class="mr-4">
           <router-link to="/forum" class="btn text-lg block">Forum</router-link>
@@ -14,7 +14,7 @@
       </div>
 
       <div class="pl-4 md:px-8 pb-px">
-        <div class="max-w-3xl mx-auto mt-8 md:mt-12 min-h-screen">
+        <div class="max-w-3xl mx-auto mt-8 md:mt-12">
           <div class="mb-8 md:mb-0 flex items-center md:absolute top-14">
             <div class="xl:hidden">
               <button @click="goBack" class="btn round mr-2">
@@ -35,8 +35,8 @@
               <h2 class="text-xl md:text-2xl lg:text-3xl">{{ post?.title.rendered }}</h2>
               <div class="flex -mx-2 divide-x mt-2">
                 <div class="px-2">{{ post?.author_name }}</div>
-                <div class="px-2">16:45</div>
-                <div class="px-2">12.12.2021</div>
+                <div class="px-2">{{ time }}</div>
+                <div class="px-2">{{ date }}</div>
               </div>
             </div>
             <div>
@@ -56,7 +56,7 @@
                   <p class="my-4 text-center">Lädt...</p>
                 </div>
                 <div v-else>
-                  <p class="my-4">No comments yet...</p>
+                  <p class="my-4">Noch keine Kommentare...</p>
                 </div>
               </div>
 
@@ -86,10 +86,12 @@
 </template>
 
 <script lang="ts">
+  import type { Post } from '../store/types'
   import { defineComponent, computed, ref, onMounted } from 'vue'
   import { useRoute, useRouter } from 'vue-router'
   import { useStore } from '../store'
   import { slideOpen, slideClose } from '../utils'
+  import { format } from 'fecha'
   import SearchIcon from '../components/svg/SearchIcon.vue'
   import CloseIcon from '../components/svg/CloseIcon.vue'
   import ChevronLeft from '../components/svg/ChevronLeft.vue'
@@ -113,8 +115,12 @@
 
       const store = useStore()
       const post = computed(() => {
-        return store.forum.find((p) => p.slug === slug)
+        return store.forum.find((p) => p.slug === slug) as Post
       })
+
+      const dateObj = new Date(post.value?.date)
+      const time = format(dateObj, 'H:mm')
+      const date = format(dateObj, 'DD.MM.YYYY')
 
       const loading = ref(true)
       const comments = computed(() => {
@@ -138,7 +144,7 @@
         router.replace({ ...route, query: {} })
       }
 
-      return { goBack, post, loading, comments, mainReply, mainComment, slideOpen, slideClose }
+      return { goBack, post, time, date, loading, comments, mainReply, mainComment, slideOpen, slideClose }
     },
     beforeRouteEnter (to, _, next) {
       const store = useStore()

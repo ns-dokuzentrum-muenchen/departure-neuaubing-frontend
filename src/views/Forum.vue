@@ -28,7 +28,7 @@
             <p class="text-sm underline">Übersicht</p>
           </div>
 
-          <div v-if="posts?.length">
+          <div v-if="posts?.length" class="mb-12 lg:mb-24">
             <ul>
               <li v-for="post in posts" :key="post.id" class="mb-4">
                 <forum-line-item :post="post"/>

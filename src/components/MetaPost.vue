@@ -14,8 +14,8 @@
     <div v-if="acf">
       <div class="mb-4 mt-2 max-w-prose-1">
         <p class="font-medium text-lg mb-1">{{ post.title?.rendered }}</p>
-        <div ref="txt" :class="{ 'line-clamp-2': truncated }" clas="html overflow-hidden">
-          <div v-html="acf.description" class="content"></div>
+        <div ref="txt" :class="{ 'line-clamp-2': truncated }" class="html overflow-hidden scroll-mt-24">
+          <div v-html="acf.description" class="contents"></div>
         </div>
         <div v-if="!expanded" class="html">
           <router-link :to="`\#kontext`" class="">Weiterlesen</router-link>
@@ -130,7 +130,14 @@
 
         txt.value.animate({
           height: [from, to]
-        }, { duration: 150, easing: 'ease-out' })
+        }, { duration: 200, easing: 'ease-out' })
+
+        setTimeout(() => {
+          txt.value?.scrollIntoView({
+            block: 'start',
+            behavior: 'smooth'
+          })
+        }, 210)
       }
 
       async function contract () {

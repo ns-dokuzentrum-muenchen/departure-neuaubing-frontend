@@ -176,6 +176,9 @@ body {
   }
 }
 
+.line-clamp-2 .contents > * ~ * { display: none; }
+.line-clamp-3 .contents > * ~ * { display: none; }
+
 .clearfix::after {
   content: "";
   clear: both;
