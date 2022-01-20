@@ -1,6 +1,6 @@
 <template>
   <div class="bg-gray-200 dark:bg-gray-800 h-screen grid place-items-center p-4">
-    <form v-if="!formOK" @submit.prevent="submit" class="w-96 max-w-full">
+    <form v-if="!formOK" @submit.prevent="submit" class="w-full max-w-96">
       <p class="mb-2 text-lg">Passwort erforderlich</p>
       <div>
         <input v-model="form.password" type="password" placeholder="Password" class="input">
