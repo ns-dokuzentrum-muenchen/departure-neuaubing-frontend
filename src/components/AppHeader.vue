@@ -21,7 +21,7 @@
       </div>
 
       <transition @enter="slideOpen" @leave="slideClose">
-        <div v-if="menuOpen" data-fade="true" @click.stop class="overflow-hidden px-4 md:px-8 lg:px-3 relative lg:flex">
+        <div v-if="menuOpen" data-fade="true" @click.stop class="overflow-auto px-4 md:px-8 lg:px-3 relative lg:flex bg-theme dark:bg-black">
           <div class="hidden lg:block w-16 lg:w-20"></div>
 
           <div class="flex-auto pt-6 md:pt-2 px-2 md:px-0">
@@ -51,7 +51,7 @@
                   <span>Konto</span> <span v-if="userName" class="opacity-60 ml-2">({{ userName }})</span>
                 </router-link>
               </li>
-              <li class="mt-2 mb-4 opacity-60">
+              <li class="md:mt-2 mb-4 opacity-60">
                 <div class="flex items-center space-x-3">
                   <img src="~../assets/sprache.svg" class="w-6 lg:w-8 h-8 lg:h-8"/>
                   <span>English</span>
