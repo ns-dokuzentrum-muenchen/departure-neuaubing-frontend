@@ -21,7 +21,7 @@
 
         <div class="lg:order-0 w-full max-w-prose lg:max-w-sm lg:mr-8">
           <p v-html="marker?.title.rendered" class="text-lg md:text-xl leading-snug"></p>
-          <p class="text-sm md:text-base font-light mt-1 text-gray-600">{{ marker?.acf?.source }}</p>
+          <!-- <p class="text-sm md:text-base font-light mt-1 text-gray-600">{{ marker?.acf?.source }}</p> -->
 
           <div class="my-6 html">
             <div v-html="marker?.acf.description"></div>
