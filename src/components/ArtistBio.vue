@@ -2,7 +2,7 @@
   <div>
     <p class="font-medium text-lg mb-1">{{ person.post_title }}</p>
     <div ref="txt" :class="{ 'line-clamp-2': truncated }" class="html overflow-hidden">
-      <div v-html="person.acf?.biographie"></div>
+      <div v-html="person.acf?.biographie" class="content"></div>
     </div>
     <div v-if="!expanded" class="html">
       <router-link :to="`\#kontext=${target}`" class="">Weiterlesen</router-link>

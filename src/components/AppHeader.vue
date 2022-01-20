@@ -1,6 +1,6 @@
 <template>
   <div ref="header" :class="{ hidden }">
-    <header @click="maybeOpen" :class="{ 'cursor-pointer': !menuOpen, attop }" :aria-hidden="!menuOpen" id="main-menu" aria-labelledby="menubutton" class="fixed top-0 left-0 right-0 text-highlight group z-30">
+    <header @click="maybeOpen" :class="{ 'cursor-pointer': !menuOpen, attop }" :aria-hidden="!menuOpen" id="main-menu" aria-labelledby="menubutton" class="fixed top-0 left-0 right-0 text-highlight group z-30 max-h-screen overflow-auto">
       <div :class="barHeight" class="absolute top-0 left-0 right-0 pointer-events-none transition-all z-0">
         <div class="w-full h-full bg-theme dark:bg-black"></div>
       </div>
@@ -21,7 +21,7 @@
       </div>
 
       <transition @enter="slideOpen" @leave="slideClose">
-        <div v-if="menuOpen" data-fade="true" @click.stop class="overflow-auto px-4 md:px-8 lg:px-3 relative lg:flex bg-theme dark:bg-black">
+        <div v-if="menuOpen" data-fade="true" @click.stop class="px-4 md:px-8 lg:px-3 relative lg:flex bg-theme dark:bg-black">
           <div class="hidden lg:block w-16 lg:w-20"></div>
 
           <div class="flex-auto pt-6 md:pt-2 px-2 md:px-0">

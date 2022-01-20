@@ -15,7 +15,7 @@
       <div class="mb-4 mt-2 max-w-prose-1">
         <p class="font-medium text-lg mb-1">{{ post.title?.rendered }}</p>
         <div ref="txt" :class="{ 'line-clamp-2': truncated }" clas="html overflow-hidden">
-          <div v-html="acf.description"></div>
+          <div v-html="acf.description" class="content"></div>
         </div>
         <div v-if="!expanded" class="html">
           <router-link :to="`\#kontext`" class="">Weiterlesen</router-link>
