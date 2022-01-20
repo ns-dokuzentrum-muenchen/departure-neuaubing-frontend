@@ -196,7 +196,7 @@ body {
 
 .w-artist-panel {
   width: 76rem;
-  max-width: calc(100vw - 6rem);
+  max-width: calc(100vw - 1.4rem);
 }
 
 .right-seite,
@@ -212,6 +212,7 @@ body {
 @screen md {
   .right-seite { right: 25.5rem; }
   .right-kontext { right: calc(100vw - 6rem); }
+  .w-artist-panel { max-width: calc(100vw - 6rem); }
 }
 
 @screen lg {

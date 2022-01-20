@@ -125,7 +125,7 @@
             e.target.getElement?.().classList.add('focussed')
 
             const from = e.containerPoint?.x || e.target._icon?.getBoundingClientRect().left
-            if (!from) return
+            if (!from || L.Browser.mobile) return
 
             const to = calcPan(isArtistMarker)
             map.panBy([from - to, 0])
@@ -154,7 +154,7 @@
           const el = (mark as Marker).setOpacity(1.0).getElement()
           el?.classList.remove('focussed')
         })
-        map.panTo(MUNICH)
+        !L.Browser.mobile && map.panTo(MUNICH)
       }
 
       function calcPan (artist: boolean): number {
