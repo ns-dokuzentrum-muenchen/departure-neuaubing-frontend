@@ -47,7 +47,12 @@ export default function state (): State {
 }
 
 function getCssMode () {
-  let saved = window.localStorage?.getItem('cssMode')
+  let saved = undefined
+  try {
+    saved = window.localStorage?.getItem('cssMode')
+  } catch (err) {
+    console.log('could not access storage for dark mode preference')
+  }
   if (!saved && window.matchMedia) {
     saved = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'
   }
@@ -59,18 +64,31 @@ function getCssMode () {
 }
 
 function getTheme () {
-  const saved = window.localStorage?.getItem('theme')
+  let saved = undefined
+  try {
+    saved = window.localStorage?.getItem('theme')
+  } catch (err) {
+    console.log('could not access storage for theme colour preference')
+  }
   const theme = (saved || 'theme-blau') as Theme
   document.documentElement.classList?.add(theme)
   return theme
 }
 
 function getToken () {
-  const saved = window.localStorage?.getItem('token')
-  return saved
+  try {
+    const saved = window.localStorage?.getItem('token')
+    return saved
+  } catch (err) {
+    return null
+  }
 }
 
 function getUnlocked () {
-  const saved = window.localStorage?.getItem('unlocked')
-  return !!saved
+  try {
+    const saved = window.localStorage?.getItem('unlocked')
+    return !!saved
+  } catch (err) {
+    return true
+  }
 }

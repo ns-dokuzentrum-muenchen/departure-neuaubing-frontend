@@ -197,7 +197,11 @@ export const useStore = defineStore({
         params: { uid, token, nonce }
       }).then(({ data }) => {
         if (data.token) {
-          window.localStorage?.setItem('token', data.token)
+          try {
+            window.localStorage?.setItem('token', data.token)
+          } catch (err) {
+            console.error('storage blocked')
+          }
           this.authToken = data.token
           this.getUser()
         } else {
@@ -214,7 +218,11 @@ export const useStore = defineStore({
       }).catch((err) => {
         console.log('Token error', err.response?.data)
         this.authToken = null
-        window.localStorage?.removeItem('token')
+        try {
+          window.localStorage?.removeItem('token')
+        } catch (err) {
+          console.error('storage blocked')
+        }
       })
     },
     async getUser () {
@@ -243,7 +251,11 @@ export const useStore = defineStore({
       this.authToken = null
       this.user = null
       this.userContent = []
-      window.localStorage?.removeItem('token')
+      try {
+        window.localStorage?.removeItem('token')
+      } catch (err) {
+        console.error('storage blocked')
+      }
     },
 
     async register (username: string, email: string, nonce: string) {
