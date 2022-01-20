@@ -12,9 +12,9 @@
       </li>
     </ul>
     <div v-if="acf">
-      <div class="mb-4 mt-2 max-w-prose-1">
+      <div class="mb-4 mt-2 max-w-prose-1 scroll-mt-18">
         <p class="font-medium text-lg mb-1">{{ post.title?.rendered }}</p>
-        <div ref="txt" :class="{ 'line-clamp-2': truncated }" class="html overflow-hidden scroll-mt-24">
+        <div ref="txt" :class="{ 'line-clamp-2': truncated }" class="html overflow-hidden scroll-mt-16">
           <div v-html="acf.description" class="contents"></div>
         </div>
         <div v-if="!expanded" class="html">
@@ -133,11 +133,11 @@
         }, { duration: 200, easing: 'ease-out' })
 
         setTimeout(() => {
-          txt.value?.scrollIntoView({
+          txt.value?.parentElement?.scrollIntoView?.({
             block: 'start',
             behavior: 'smooth'
           })
-        }, 210)
+        }, 300)
       }
 
       async function contract () {

@@ -1,8 +1,8 @@
 <template>
-  <div>
+  <div class="scroll-mt-18">
     <p class="font-medium text-lg mb-1">{{ person.post_title }}</p>
-    <div ref="txt" :class="{ 'line-clamp-2': truncated }" class="html overflow-hidden scroll-mt-24">
-      <div v-html="person.acf?.biographie" class="contents"></div>
+    <div ref="txt" :class="{ 'line-clamp-2': truncated }" class="overflow-hidden">
+      <div v-html="person.acf?.biographie" class="contents html"></div>
     </div>
     <div v-if="!expanded" class="html">
       <router-link :to="`\#kontext=${target}`" class="">Weiterlesen</router-link>
@@ -57,11 +57,11 @@
         }, { duration: 200, easing: 'ease-out' })
 
         setTimeout(() => {
-          txt.value?.scrollIntoView({
+          txt.value?.parentElement?.scrollIntoView?.({
             block: 'start',
             behavior: 'smooth'
           })
-        }, 210)
+        }, 300)
       }
 
       async function contract () {
