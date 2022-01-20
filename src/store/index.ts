@@ -71,8 +71,11 @@ export const useStore = defineStore({
       return api.get('/wp-json/dn/v1/geo').then(({ data }) => {
         if (!data) return
 
-        this.visitorDistance.city = data.city.de || data.city.en || data.country.de || data.country.en || ''
-        this.visitorDistance.distance = Math.round(data.distance).toLocaleString()
+        const city = data.city.de || data.city.en || data.country.de || data.country.en || ''
+        const inMunich = /^M(ü|u)n(chen|ich)$/.test(city)
+
+        this.visitorDistance.city = inMunich ? 'Der Hauptbahnhof München' : city
+        this.visitorDistance.distance = Math.round(inMunich ? 12 : data.distance).toLocaleString()
       })
     },
 

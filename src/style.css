@@ -224,6 +224,8 @@ body {
   @nest .theme-gelb & strong { @apply text-yellow-500; }
   @nest .theme-rosa & strong { @apply text-pink-400; }
   @nest .theme-gruen & strong { @apply text-green-500; }
+
+  @nest .theme-blau.dark & strong { @apply text-blue-600; }
 }
 
 .btn {
