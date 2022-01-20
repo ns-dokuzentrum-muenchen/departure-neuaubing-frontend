@@ -2,6 +2,7 @@ import type { Post, Comment } from './types'
 import { defineStore } from 'pinia'
 import state from './state'
 import axios from 'axios'
+import locales from './locales'
 
 const endpoints: { [key: string]: string } = {
   de: import.meta.env.VITE_API_ENDPOINT as string,
@@ -13,7 +14,6 @@ const api = axios.create({
   baseURL: endpoints[currentLocale],
   withCredentials: true
 })
-
 
 export const useStore = defineStore({
   id: 'store',
@@ -34,14 +34,18 @@ export const useStore = defineStore({
       return Object.values(state.glossar)?.filter((p => p.type === postType)).sort((a, b) => {
         return a.slug.localeCompare(b.slug)
       })
+    },
+    lt: (state) => (key: string) => {
+      return locales[state.locale][key]
     }
   },
   actions: {
     checkLocale (path: string) {
       const en = /^(\/en|\/en\/.+)$/.test(path)
       const locale = en ? 'en' : 'de'
-      if (currentLocale !== locale) {
+      if (this.locale !== locale) {
         api.defaults.baseURL = endpoints[locale]
+        this.locale = locale
       }
     },
     async getSettings () {

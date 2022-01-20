@@ -23,63 +23,75 @@ const router = createRouter({
     },
     {
       path: '/forum',
+      alias: '/en/forum',
       name: 'forum',
       component: () => import('./views/Forum.vue')
     },
     {
       path: '/forum/:slug',
+      alias: '/en/forum/:slug',
       name: 'forum-post',
       component: () => import('./views/ForumPost.vue')
     },
     {
       path: '/:pathMatch(glossar|orte|personen|begriffe)',
+      alias: '/en/:pathMatch(glossar|orte|personen|begriffe)',
       name: 'glossar-index',
       component: () => import('./views/GlossarIndex.vue')
     },
     {
       path: '/glossar/:slug',
+      alias: '/en/glossar/:slug',
       name: 'glossar',
       component: () => import('./views/Glossar.vue')
     },
     {
       path: '/orte/:slug',
+      alias: '/en/orte/:slug',
       name: 'orte',
       component: () => import('./views/Glossar.vue')
     },
     {
       path: '/personen/:slug',
+      alias: '/en/personen/:slug',
       name: 'personen',
       component: () => import('./views/Glossar.vue')
     },
     {
       path: '/begriffe/:slug',
+      alias: '/en/begriffe/:slug',
       name: 'begriffe',
       component: () => import('./views/Glossar.vue')
     },
     {
       path: '/suchen',
+      alias: '/en/suchen',
       name: 'suche',
       component: () => import('./views/Suche.vue')
     },
     {
       path: '/verify',
+      alias: '/en/verify',
       name: 'verify',
       component: () => import('./views/Verify.vue')
     },
     {
       path: '/pages/:slug',
+      alias: '/en/pages/:slug',
       name: 'page',
       component: () => import('./views/Page.vue'),
       meta: { seite: true }
     },
     {
       path: '/konto',
+      alias: '/en/konto',
       name: 'account',
       component: () => import('./views/Account.vue')
     },
 
     {
       path: '/access',
+      alias: '/en/access',
       name: 'access',
       component: () => import('./views/Access.vue'),
       meta: { noheader: true, nofooter: true }

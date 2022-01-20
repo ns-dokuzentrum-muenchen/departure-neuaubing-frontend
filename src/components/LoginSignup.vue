@@ -2,10 +2,10 @@
   <div>
     <form @submit.prevent="submit">
       <p class="text-xl mb-3">
-        {{ noUser ? 'Konto erstellen' : 'Anmelden' }}
+        {{ noUser ? lt('createAccount') : lt('login') }}
       </p>
       <div v-if="!sentLogin && !sentSignup" class="mb-3">
-        <input v-model="form.username" :placeholder="`Benutzername${ !noUser ? ' oder die E-Mail-Adresse' : '' }`" type="text" class="input" minlength="3" autocapitalize="false" autocomplete="false" required/>
+        <input v-model="form.username" :placeholder="`${lt('username')}${ !noUser ? ' ' + lt('orEmail') : '' }`" type="text" class="input" minlength="3" autocapitalize="false" autocomplete="false" required/>
       </div>
       <div v-if="noUser && !sentSignup" class="mb-3">
         <input v-model="form.email" type="email" placeholder="E-Mail" class="input"/>
@@ -13,14 +13,14 @@
       <div v-if="statusMsg" class="mb-3">
         <p class="text-green-600">{{ statusMsg }}</p>
       </div>
-      <div class="flex items-start mb-3">
+      <div class="flex items-center mb-3">
         <div class="flex-none mr-4">
-          <button v-if="!sentLogin && !sentSignup" type="submit" class="btn">{{ noUser ? 'Registrieren' : 'Anmelden' }}</button>
-          <button v-else @click="reset" type="button" class="btn">E-Mail nicht angekommen?</button>
+          <button v-if="!sentLogin && !sentSignup" type="submit" class="btn">{{ noUser ? lt('register') : lt('login') }}</button>
+          <button v-else @click="reset" type="button" class="btn">{{ lt('noEmail') }}</button>
         </div>
         <transition name="fade">
           <div v-if="noUser" class="mr-4">
-            <button @click="reset" type="button" class="text-2xl px-2 font-light" title="abbrechen">&times;</button>
+            <button @click="reset" type="button" class="text-2xl px-2 font-light leading-none" title="abbrechen">&times;</button>
           </div>
         </transition>
         <transition name="fade">
@@ -41,7 +41,7 @@
     name: 'LoginSignup',
     setup () {
       const store = useStore()
-      const user = computed(() => store.user)
+      // const user = computed(() => store.user)
       const nonce = computed(() => store.nonce)
 
       const errMsg = ref('')
@@ -102,7 +102,7 @@
         store.loginNonce()
       })
 
-      return { user, form, submit, noUser, errMsg, statusMsg, sentLogin, sentSignup, reset }
+      return { form, submit, noUser, errMsg, statusMsg, sentLogin, sentSignup, reset, lt: store.lt }
     }
   })
 </script>

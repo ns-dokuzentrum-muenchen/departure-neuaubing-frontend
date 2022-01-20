@@ -6,13 +6,6 @@
         <close-icon v-else class="w-4.5 h-4.5 md:w-5 md:h-5"/>
       </button>
     </div>
-    <!-- <transition name="fade">
-      <div v-if="vis > 0" class="mt-4 hidden md:block">
-        <button @click="closeMeta" class="btn round">
-          <chevron-left class="rotate-180 translate-x-0.5 w-5 h-5 md:w-6 md:h-6"/>
-        </button>
-      </div>
-    </transition> -->
   </div>
 </template>
 
@@ -60,17 +53,16 @@
 
       function openMeta () {
         if (vis.value === 0) {
-          // router.replace({ hash: '#seitenleiste' })
-          router.replace({ ...route, hash: '#seitenleiste' })
+          router.replace({ path: route.path, query: route.query, hash: '#seitenleiste' })
         } else {
-          router.replace({ ...route, hash: '' })
+          router.replace({ path: route.path, query: route.query, hash: undefined })
         }
       }
       function closeMeta () {
         if (vis.value > 1) {
-          router.push({ ...route, hash: '#seitenleiste' })
+          router.push({ path: route.path, query: route.query, hash: '#seitenleiste' })
         } else {
-          router.push({ ...route, hash: undefined })
+          router.push({ path: route.path, query: route.query, hash: undefined })
         }
       }
 

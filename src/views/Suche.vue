@@ -6,7 +6,7 @@
           <router-link to="/forum" class="btn text-lg block">Forum</router-link>
         </div> -->
         <div class="mr-4">
-          <router-link to="/glossar" class="btn text-lg block">Glossar</router-link>
+          <locale-link to="/glossar" class="btn text-lg block">{{ lt('glossar') }}</locale-link>
         </div>
       </div>
 
@@ -18,30 +18,30 @@
                 <chevron-left class="w-4.5 h-4.5 md:w-5 md:h-5"/>
               </button>
             </div>
-            <h1 class="text-2xl lg:text-4xl font-medium">Suchen</h1>
+            <h1 class="text-2xl lg:text-4xl font-medium">{{ lt('search') }}</h1>
           </div>
 
           <form @submit.prevent="doSearch">
             <div class="relative">
-              <input v-model="query" type="search" placeholder="Suche" class="input">
+              <input v-model="query" type="search" :placeholder="lt('search')" class="input">
               <div class="absolute top-0 right-0 bottom-0">
                 <button class="btn h-full text-lg whitespace-nowrap block">
                   <search-icon class="inline-block w-5 h-5 md:mr-2"/>
-                  <span class="hidden md:inline">Suchen</span>
+                  <span class="hidden md:inline">{{ lt('search') }}</span>
                 </button>
               </div>
             </div>
           </form>
 
           <div class="mt-12">
-            <ul v-if="results?.length" class="border-t-2 pt-8">
+            <ul v-if="results?.length" class="border-t-2 pt-8 mb-32">
               <li v-for="post in results" :key="`${count}-${post.id}`" class="mb-8">
                 <search-result :post="post"/>
               </li>
             </ul>
             <div v-else>
               <div v-if="hasSearch" class="border-t-2 pt-8">
-                <p>Keine Ergebnisse</p>
+                <p>{{ lt('noResults') }}</p>
               </div>
             </div>
           </div>
@@ -50,7 +50,7 @@
 
       <div class="hidden xl:block fixed top-0 p-1 left-0 mt-12 ml-1 md:mt-14 md:ml-14 transition-all duration-300">
         <button @click="goBack" class="btn text-lg shadow-lg">
-          <span>Zurück</span>
+          <span>{{ lt('back') }}</span>
         </button>
       </div>
     </div>
@@ -65,6 +65,7 @@
   import SearchResult from '../components/SearchResult.vue'
   import CloseIcon from '../components/svg/CloseIcon.vue'
   import ChevronLeft from '../components/svg/ChevronLeft.vue'
+  import LocaleLink from '../components/LocaleLink.vue'
 
   export default defineComponent({
     name: 'Suche',
@@ -79,7 +80,7 @@
         if (!query.value.length) return
 
         const to = {
-          name: 'suche',
+          path: route.path,
           query: {
             s: query.value
           }
@@ -119,8 +120,8 @@
         }
       }
 
-      return { count, query, doSearch, hasSearch, results, goBack }
+      return { count, query, doSearch, hasSearch, results, goBack, lt: store.lt }
     },
-    components: { SearchIcon, SearchResult, CloseIcon, ChevronLeft }
+    components: { SearchIcon, SearchResult, CloseIcon, ChevronLeft, LocaleLink }
   })
 </script>

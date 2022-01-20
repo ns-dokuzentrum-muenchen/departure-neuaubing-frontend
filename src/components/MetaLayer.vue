@@ -8,17 +8,17 @@
           </div>
           <div class="block mr-2 md:mr-4">
             <!-- <button @click="hash('#forum')" class="btn text-lg">Forum</button> -->
-            <router-link to="/forum" class="btn text-sm md:text-lg inline-block">Forum</router-link>
+            <locale-link to="/forum" class="btn text-sm md:text-lg inline-block">Forum</locale-link>
           </div>
           <div class="block mr-2 md:mr-4">
             <!-- <button @click="hash('#glossar')" class="btn text-lg">Glossar</button> -->
-            <router-link to="/glossar" class="btn text-sm md:text-lg inline-block">Glossar</router-link>
+            <locale-link to="/glossar" class="btn text-sm md:text-lg inline-block">{{ lt('glossar') }}</locale-link>
           </div>
           <!-- <div v-if="vis < 2" class="flex-auto"></div> -->
           <div>
-            <router-link to="/suchen" class="btn round block">
+            <locale-link to="/suchen" class="btn round block">
               <search-icon class="inline-block w-3.5 h-3.5 md:w-5 md:h-5"/>
-            </router-link>
+            </locale-link>
             <!-- <router-link v-else to="/suchen" class="btn text-lg whitespace-nowrap block">
               <search-icon class="inline-block w-3.5 h-3.5 md:w-5 md:h-5"/>
               <span class="hidden md:inline">Suchen</span>
@@ -27,7 +27,7 @@
         </div>
       </div>
       <div class="px-6 my-4 md:px-10 md:my-6">
-        <h3 class="text-xl font-medium">Kontext</h3>
+        <h3 class="text-xl font-medium">{{ lt('context') }}</h3>
         <template v-if="data">
           <meta-post :post="data" :key="data.id" class="my-f"/>
         </template>
@@ -48,6 +48,7 @@
   import ChevronLeft from './svg/ChevronLeft.vue'
   import SearchIcon from './svg/SearchIcon.vue'
   import MetaControls from './MetaControls.vue'
+  import LocaleLink from './LocaleLink.vue'
 
   export default defineComponent({
     name: 'MetaLayer',
@@ -86,7 +87,6 @@
         return
       })
 
-      // TODO: match scroll pos on Index.vue
       const routes: any[] = ['projekt', 'page', 'about']
       const data = computed(() => {
         if (!routes.includes(route.name)) return
@@ -99,20 +99,16 @@
       const metaEl = ref(null)
       onClickOutside(metaEl, () => {
         if (vis.value > 0) {
-          router.replace({ ...route, hash: undefined })
+          router.replace({ path: route.path, query: route.query, hash: undefined })
         }
       })
-
-      // const hash = (hash: string) => {
-      //   router.replace({ ...route, hash })
-      // }
 
       provide('ctx', metaContext)
 
       const showing = computed(() => vis.value > 0)
 
-      return { vis, classes, metaTitle, metaEl, data, showing }
+      return { vis, classes, metaTitle, metaEl, data, showing, lt: store.lt }
     },
-    components: { MetaPost, ChevronLeft, SearchIcon, MetaControls }
+    components: { MetaPost, ChevronLeft, SearchIcon, MetaControls, LocaleLink }
   })
 </script>

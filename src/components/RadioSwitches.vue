@@ -3,11 +3,11 @@
     <div class="w-full md:w-1/2 md:order-2 px-2 md:px-4 flex flex-wrap md:block">
       <switch-group>
         <switch-label passive class="md:sr-only w-1/2">
-          <p>Darstellung &nbsp; <contrast-icon class="inline" width="16"/></p>
+          <p>{{ lt('settings') }} &nbsp; <contrast-icon class="inline" width="16"/></p>
         </switch-label>
         <Switch v-model="darkMode" class="switch w-1/2 md:w-full text-sm lg:text-base">
-          <span :class="!darkMode ? 'text-blue-900' : 'text-gray-400'" class="w-1/2 p-1 relative z-10 transition-colors">hell</span>
-          <span :class="darkMode ? 'text-blue-900' : 'text-gray-400'" class="w-1/2 p-1 relative z-10 transition-colors">dunkel</span>
+          <span :class="!darkMode ? 'text-blue-900' : 'text-gray-400'" class="w-1/2 p-1 relative z-10 transition-colors">{{ lt('light') }}</span>
+          <span :class="darkMode ? 'text-blue-900' : 'text-gray-400'" class="w-1/2 p-1 relative z-10 transition-colors">{{ lt('dark') }}</span>
           <span :class="darkMode ? 'left-1/2' : 'left-0'" class="pill transition-all"></span>
         </Switch>
       </switch-group>
@@ -15,26 +15,26 @@
       <div class="mt-3 mb-6 md:mt-8 md:mb-0 ml-auto md:ml-0 w-1/2 md:w-full">
         <div>
           <radio-group v-model="theme" class="flex justify-between">
-            <radio-group-label class="sr-only">Darstellung</radio-group-label>
+            <radio-group-label class="sr-only">{{ lt('settings') }}</radio-group-label>
 
             <radio-group-option v-slot="{ checked }" value="theme-blau" class="bg-white rounded-full">
               <radio-group-label :class="{ 'bg-opacity-50': !checked }" class="w-8 h-8 md:w-10 md:h-10 border-2 border-white bg-blue-900 rounded-full block hover:ring-2 ring-yellow-200 cursor-pointer transition-all">
-                <span class="sr-only">Blau</span>
+                <span class="sr-only">{{ lt('blue') }}</span>
               </radio-group-label>
             </radio-group-option>
             <radio-group-option v-slot="{ checked }" value="theme-gelb" class="bg-white rounded-full">
               <radio-group-label :class="{ 'bg-opacity-50': !checked }" class="w-8 h-8 md:w-10 md:h-10 border-2 border-white bg-yellow-200 rounded-full block hover:ring-2 ring-blue-600 cursor-pointer transition-all">
-                <span class="sr-only">Gelb</span>
+                <span class="sr-only">{{ lt('yellow') }}</span>
               </radio-group-label>
             </radio-group-option>
             <radio-group-option v-slot="{ checked }" value="theme-rosa" class="bg-white rounded-full">
               <radio-group-label :class="{ 'bg-opacity-50': !checked }" class="w-8 h-8 md:w-10 md:h-10 border-2 border-white bg-pink-300 rounded-full block hover:ring-2 ring-green-500 cursor-pointer transition-all">
-                <span class="sr-only">Rosa</span>
+                <span class="sr-only">{{ lt('pink') }}</span>
               </radio-group-label>
             </radio-group-option>
             <radio-group-option v-slot="{ checked }" value="theme-gruen" class="bg-white rounded-full">
               <radio-group-label :class="{ 'bg-opacity-50': !checked }" class="w-8 h-8 md:w-10 md:h-10 border-2 border-white bg-green-500 rounded-full block hover:ring-2 ring-pink-300 cursor-pointer transition-all">
-                <span class="sr-only">Grün</span>
+                <span class="sr-only">{{ lt('green') }}</span>
               </radio-group-label>
             </radio-group-option>
           </radio-group>
@@ -45,16 +45,16 @@
     <div class="w-full md:w-1/2 md:order-1 px-2 md:px-4 flex flex-wrap md:block">
       <switch-group>
         <switch-label passive class="md:sr-only w-1/2">
-          <p>Webanalyse &nbsp; <analytics-icon class="inline" width="22"/></p>
+          <p>{{ lt('analytics') }} &nbsp; <analytics-icon class="inline" width="22"/></p>
         </switch-label>
         <Switch v-model="analytics" class="switch flex-auto w-1/2 md:w-full text-sm lg:text-base">
-          <span :class="!analytics ? 'text-blue-900' : 'text-gray-400'" class="w-1/2 p-1 relative z-10 transition-colors">Aus</span>
-          <span :class="analytics ? 'text-blue-900' : 'text-gray-400'" class="w-1/2 p-1 relative z-10 transition-colors">An</span>
+          <span :class="!analytics ? 'text-blue-900' : 'text-gray-400'" class="w-1/2 p-1 relative z-10 transition-colors">{{ lt('off') }}</span>
+          <span :class="analytics ? 'text-blue-900' : 'text-gray-400'" class="w-1/2 p-1 relative z-10 transition-colors">{{ lt('on') }}</span>
           <span :class="analytics ? 'left-1/2' : 'left-0'" class="pill transition-all"></span>
         </Switch>
       </switch-group>
       <div class="text-xs md:text-sm mt-4 md:mt-8 font-light">
-        <p>Es werden keine Cookies generiert und keine Persönlichen Daten gespeichert. Weitere Informationen unter <router-link to="/pages/impressum" class="underline">Impressum</router-link></p>
+        <p>{{ lt('trackMsg') }} <router-link to="/pages/impressum" class="underline">{{ lt('impressum') }}</router-link></p>
       </div>
     </div>
 
@@ -117,7 +117,7 @@
         }
       })
 
-      return { analytics, darkMode, theme }
+      return { analytics, darkMode, theme, lt: store.lt }
     },
     components: {
       Switch,

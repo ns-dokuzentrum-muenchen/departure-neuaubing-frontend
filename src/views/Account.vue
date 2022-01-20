@@ -9,7 +9,7 @@
                 <chevron-left class="w-4.5 h-4.5 md:w-5 md:h-5"/>
               </button>
             </div>
-            <h1 class="text-2xl lg:text-4xl font-medium">Konto</h1>
+            <h1 class="text-2xl lg:text-4xl font-medium">{{ lt('konto') }}</h1>
           </div>
 
           <div v-if="user" class="mb-8">
@@ -22,7 +22,7 @@
                   {{ user?.name }}
                 </p>
                 <div class="flex space-x-4">
-                  <button @click="logout" class="underline cursor-pointer active:opacity-50">abmelden</button>
+                  <button @click="logout" class="underline cursor-pointer active:opacity-50">{{ lt('logout') }}</button>
                   <button @click="deleteAccount" class="underline cursor-pointer active:opacity-50 text-red-500">Kontolöschung beantragen</button>
                 </div>
               </div>
@@ -50,7 +50,7 @@
 
       <div class="hidden xl:block fixed top-0 p-1 left-0 mt-12 ml-1 md:mt-14 md:ml-14 transition-all duration-300">
         <button @click="goBack" class="btn text-lg shadow-lg">
-          <span>Zurück</span>
+          <span>{{ lt('back') }}</span>
         </button>
       </div>
     </div>
@@ -89,7 +89,7 @@
         store.getUserContent()
       })
 
-      return { user, goBack, userContent, deleteAccount, logout: store.logout }
+      return { user, goBack, userContent, deleteAccount, logout: store.logout, lt: store.lt }
     },
     beforeRouteEnter (_to, _from, next) {
       const store = useStore()

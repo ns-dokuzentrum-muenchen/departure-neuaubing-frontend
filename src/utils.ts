@@ -75,7 +75,8 @@ export function sleep (delay: number) {
   return new Promise((resolve) => setTimeout(resolve, delay))
 }
 
-export function fixLink (path: string): string {
+export function fixLink (path: string | undefined): string {
+  if (!path) return ''
   if (path.charAt(0) === '/') return path
 
   return path

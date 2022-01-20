@@ -8,7 +8,7 @@
         <div class="mr-4">
           <router-link to="/suchen" class="btn text-lg whitespace-nowrap block">
             <search-icon class="inline-block w-5 h-5 mr-2"/>
-            <span>Suchen</span>
+            <span>{{ lt('search') }}</span>
           </router-link>
         </div>
       </div>
@@ -26,7 +26,7 @@
 
           <div class="mb-8">
             <p class="text-sm">
-              <router-link to="/forum" class="underline">Übersicht</router-link>
+              <router-link to="/forum" class="underline">{{ lt('overview') }}</router-link>
             </p>
           </div>
 
@@ -53,21 +53,21 @@
                   </div>
                 </div>
                 <div v-else-if="loading">
-                  <p class="my-4 text-center">Lädt...</p>
+                  <p class="my-4 text-center">{{ lt('loading') }}</p>
                 </div>
                 <div v-else>
-                  <p class="my-4">Noch keine Kommentare...</p>
+                  <p class="my-4">{{ lt('noComments') }}</p>
                 </div>
               </div>
 
               <div class="pt-2">
-                <p class="text-xl mb-3">Dein Beitrag</p>
+                <p class="text-xl mb-3">{{ lt('reply') }}</p>
                 <transition @enter="slideOpen" @leave="slideClose">
                   <div v-if="mainReply" data-overflow="hidden" class="pb-2">
                     <comment-form :post-id="post.id"/>
                   </div>
                   <div v-else class="pb-2">
-                    <button @click="mainComment" class="">&rdsh; neuer Kommentar</button>
+                    <button @click="mainComment" class="">&rdsh; {{ lt('newComment') }}</button>
                   </div>
                 </transition>
               </div>
@@ -78,7 +78,7 @@
 
       <div class="hidden xl:block fixed top-0 p-1 left-0 mt-12 ml-1 md:mt-14 md:ml-16 transition-all duration-300">
         <button @click="goBack" class="btn text-lg shadow-lg">
-          <span>Zurück</span>
+          <span>{{ lt('back') }}</span>
         </button>
       </div>
     </div>
@@ -144,7 +144,7 @@
         router.replace({ ...route, query: {} })
       }
 
-      return { goBack, post, time, date, loading, comments, mainReply, mainComment, slideOpen, slideClose }
+      return { goBack, post, time, date, loading, comments, mainReply, mainComment, slideOpen, slideClose, lt: store.lt }
     },
     beforeRouteEnter (to, _, next) {
       const store = useStore()

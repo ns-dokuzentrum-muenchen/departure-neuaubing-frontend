@@ -119,7 +119,7 @@
           }
           const lMarker = L.marker([lat, lng], opts).addTo(markerGroup).on('click', (e: LeafletMouseEvent) => {
             const query = { ...route.query, marker: point.post_id }
-            router.push({ ...route, query })
+            router.push({ path: route.path, query })
             select() // dim the others
             e.target.setOpacity(1.0)
             e.target.getElement?.().classList.add('focussed')

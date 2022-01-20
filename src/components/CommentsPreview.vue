@@ -14,10 +14,10 @@
         </div>
       </div>
       <div v-else-if="loading">
-        <p class="my-4 text-center">Lädt...</p>
+        <p class="my-4 text-center">{{ lt('loading') }}</p>
       </div>
       <div v-else>
-        <p class="my-4">Noch keine Kommentare...</p>
+        <p class="my-4">{{ lt('noComments') }}</p>
       </div>
 
       <transition @enter="slideOpen" @leave="slideClose">
@@ -25,7 +25,7 @@
           <comment-form :post-id="id" class="py-2"/>
         </div>
         <div v-else data-overflow="hidden" class="pb-2">
-          <button @click="mainComment" class="">&rdsh; neuer Kommentar</button>
+          <button @click="mainComment" class="">&rdsh; {{ lt('newComment') }}</button>
         </div>
       </transition>
     </div>
@@ -80,7 +80,7 @@
         router.replace({ ...route, query: {} })
       }
 
-      return { id, title, comments, commentCount, url, loading, padding, mainReply, mainComment, slideOpen, slideClose }
+      return { id, title, comments, commentCount, url, loading, padding, mainReply, mainComment, slideOpen, slideClose, lt: store.lt }
     },
     components: { CommentRow, CommentForm }
   })

@@ -8,7 +8,7 @@
         <div class="mr-4">
           <router-link to="/suchen" class="btn text-lg whitespace-nowrap block">
             <search-icon class="inline-block w-5 h-5 mr-2"/>
-            <span>Suchen</span>
+            <span>{{ lt('search') }}</span>
           </router-link>
         </div>
       </div>
@@ -25,7 +25,7 @@
           </div>
 
           <div class="mb-8">
-            <p class="text-sm underline">Übersicht</p>
+            <p class="text-sm underline">{{ lt('overview') }}</p>
           </div>
 
           <div v-if="posts?.length" class="mb-12 lg:mb-24">
@@ -35,13 +35,13 @@
               </li>
             </ul>
           </div>
-          <div v-else>Nothing found...</div>
+          <div v-else>{{ lt('noResults') }}</div>
         </div>
       </div>
 
       <div class="hidden xl:block fixed top-0 p-1 left-0 mt-12 ml-1 md:mt-14 md:ml-16 transition-all duration-300">
         <button @click="goBack" class="btn text-lg shadow-lg">
-          <span>Zurück</span>
+          <span>{{ lt('back') }}</span>
         </button>
       </div>
     </div>
@@ -72,7 +72,7 @@
       const store = useStore()
       const posts = computed(() => store.forum)
 
-      return { goBack, posts }
+      return { goBack, posts, lt: store.lt }
     },
     beforeRouteEnter (to, _, next) {
       const store = useStore()

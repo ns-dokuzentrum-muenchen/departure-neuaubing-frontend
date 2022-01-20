@@ -63,7 +63,7 @@
           event.preventDefault() // check first
           const path = el.getAttribute('href')
           console.log('go to', path)
-          router.push(`#kontext=${path}`)
+          router.push({ path: route.path, query: route.query, hash: `#kontext=${path}`})
         }
       }
 

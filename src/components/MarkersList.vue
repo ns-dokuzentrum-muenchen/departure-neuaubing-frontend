@@ -4,11 +4,11 @@
       <div class="mb-8 md:mb-12">
         <form @submit.prevent="doSearch" class="max-w-2xl mx-auto">
           <div class="relative rounded-full border">
-            <input v-model="query" type="search" placeholder="Suche" class="input">
+            <input v-model="query" type="search" :placeholder="lt('search')" class="input">
             <div class="absolute top-0 right-0 bottom-0">
               <button class="btn h-full text-lg whitespace-nowrap block">
                 <search-icon class="inline-block w-5 h-5 md:mr-2"/>
-                <span class="hidden md:inline">Suchen</span>
+                <span class="hidden md:inline">{{ lt('search') }}</span>
               </button>
             </div>
           </div>
@@ -19,14 +19,14 @@
         <div class="flex lg:grid grid-cols-12 gap-4 border-b font-medium py-2">
           <div class="flex-auto lg:col-span-3">Name</div>
           <div class="hidden lg:block col-span-4">Beschreibung</div>
-          <div class="hidden lg:block col-span-1">Personen</div>
+          <div class="hidden lg:block col-span-1">{{ lt('people') }}</div>
           <div class="hidden lg:block col-span-3">Adresse</div>
           <div class="flex-none lg:col-span-1">Nummer</div>
         </div>
 
         <markers-list-item v-for="item in paging" :key="item.post_id" :item="item"/>
       </div>
-      <div v-else class="font-medium py-2 text-center">Keine Ergebnisse</div>
+      <div v-else class="font-medium py-2 text-center">{{ lt('noResults') }}</div>
     </div>
 
     <div v-if="!hasSearch" class="mt-4 md:mt-8">
@@ -38,7 +38,7 @@
         </li>
 
         <li v-for="pp in pageNumbers" :key="pp" class="font-light">
-          <router-link v-if="pp !== '...'" :to="{ query: { page: pp }}" :class="{ active: pp === page }" class="page-dot">{{ pp }}</router-link>
+          <router-link v-if="pp !== '...'" :to="pageNav(pp)" :class="{ active: pp === page }" class="page-dot">{{ pp }}</router-link>
           <span v-else class="page-dot">{{ pp }}</span>
         </li>
 
@@ -81,7 +81,7 @@
         get: () => Number(route.query?.page || 1),
         set: (val) => {
           if (typeof val !== 'number' || val < 1) return
-          router.push({ ...route, query: { page: val } })
+          router.push({ path: route.path, query: { page: val } })
         }
       })
       const perPage = 24
@@ -131,6 +131,12 @@
         page.value++
       }
 
+      const pageNav = (pp: number) => {
+        const c = new URL(location.href)
+        c.searchParams.set('page', String(pp))
+        return c.toString().replace(c.origin, '')
+      }
+
       const results = ref<MapMarker[]>([])
       const query = ref('')
       const doSearch = () => {
@@ -154,7 +160,7 @@
         }
       })
 
-      return { page, paging, totalPages, pageNumbers, prevPage, nextPage, query, doSearch, hasSearch }
+      return { page, paging, totalPages, pageNumbers, prevPage, nextPage, pageNav, query, doSearch, hasSearch, lt: store.lt }
     },
     components: { MarkersListItem, ChevronLeft, ChevronRight, SearchIcon }
   })

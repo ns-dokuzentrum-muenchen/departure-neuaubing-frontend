@@ -16,10 +16,10 @@
 
               <div @click.stop class="bg-gray-400 text-black max-w-4xl mx-auto">
                 <div class="border-b-2 flex justify-between items-center">
-                  <p class="text-xl font-medium px-2 py-1 md:px-4 md:py-2">Beiträge</p>
+                  <p class="text-xl font-medium px-2 py-1 md:px-4 md:py-2">{{ lt('posts') }}</p>
                   <div class="px-1 md:translate-x-6">
                     <button @click="back" class="btn-sm">
-                      <span class="hidden md:inline">zurück</span> <chevron-right class="inline-block w-2 ml-1"/>
+                      <span class="inline">{{ lt('back') }}</span> <chevron-right class="inline-block w-2 ml-1"/>
                     </button>
                   </div>
                 </div>
@@ -113,7 +113,7 @@
 
       const router = useRouter()
       const back = () => {
-        router.replace({ hash: '' })
+        router.replace({ path: route.path, query: route.query, hash: undefined })
       }
 
       onBeforeRouteUpdate((to, _from, next) => {
@@ -122,7 +122,7 @@
         store.getProject(type, slug).then(next)
       })
 
-      return { slug, contentBlocks, mitBegriffe, links, werkzeug, leftopen, back }
+      return { slug, contentBlocks, mitBegriffe, links, werkzeug, leftopen, back, lt: store.lt }
     },
     beforeRouteEnter (to, _from, next) {
       const store = useStore()

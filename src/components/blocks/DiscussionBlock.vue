@@ -2,10 +2,10 @@
   <div class="md:grid grid-cols-12 gap-4 px-4">
     <div :class="[position]" :style="nudge" class="col-span-7 bg-bg px-4 py-4 leftopen-nudge group">
       <div class="relative">
-        <div class="absolute left-0 whitespace-nowrap top-0.5 -translate-x-1/3 opacity-0 group-hover:opacity-100 transition-all">
-          <button @click="openBegriffe" class="btn-sm"><chevron-left class="inline-block w-2 mr-1"/> Sprachanalyse-Werkzeug</button>
+        <div class="notouch:absolute left-0 whitespace-nowrap top-0.5 notouch:-translate-x-1/3 notouch:opacity-0 group-hover:opacity-100 transition-all">
+          <button @click="openBegriffe" class="btn-sm"><chevron-left class="inline-block w-2 mr-1"/> {{ lt('tools') }}</button>
         </div>
-        <p class="font-medium text-2xl mb-4 group-hover:translate-x-48 transition-all">{{ title }}</p>
+        <p class="font-medium text-2xl mb-4 touch:mt-4 notouch:group-hover:translate-x-48 transition-all">{{ title }}</p>
       </div>
       <div v-html="content" @click="internalLinks" class="html max-w-prose-1 text-lg"></div>
     </div>
@@ -14,7 +14,8 @@
 
 <script lang="ts">
   import { defineComponent, computed } from 'vue'
-  import { useRouter } from 'vue-router'
+  import { useRoute, useRouter } from 'vue-router'
+  import { useStore } from '../../store'
   import { fixLink, sideBarLink } from '../../utils'
   import ChevronLeft from '../svg/ChevronLeft.vue'
 
@@ -56,11 +57,14 @@
         return `--nudge:${val}`
       })
 
+      const route = useRoute()
       const openBegriffe = () => {
-        router.replace({ hash: '#begriffe' })
+        router.replace({ path: route.path, query: route.query, hash: '#begriffe' })
       }
 
-      return { position, title, content, internalLinks, nudge, openBegriffe }
+      const store = useStore()
+
+      return { position, title, content, internalLinks, nudge, openBegriffe, lt: store.lt }
     },
     components: { ChevronLeft }
   })

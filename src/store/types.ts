@@ -23,6 +23,9 @@ interface State {
   authToken: string | null
   metaHidden: boolean
   metaPeek: boolean
+
+  locale: 'de' | 'en'
+
   pwRequired: boolean
   unlocked: boolean
 }

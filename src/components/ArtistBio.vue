@@ -5,7 +5,7 @@
       <div v-html="person.acf?.biographie" class="contents html"></div>
     </div>
     <div v-if="!expanded" class="html">
-      <router-link :to="`\#kontext=${target}`" class="">Weiterlesen</router-link>
+      <router-link :to="`\#kontext=${target}`" class="">{{ lt('more') }}</router-link>
     </div>
   </div>
 </template>
@@ -14,8 +14,8 @@
   import type { Post } from '../store/types'
   import type { ComputedRef } from 'vue'
   import { defineComponent, ref, inject, computed, watch, nextTick } from 'vue'
-
-  const base = import.meta.env.VITE_API_ENDPOINT as string
+  import { useStore } from '../store'
+  import { fixLink } from '../utils'
 
   export default defineComponent({
     props: {
@@ -28,7 +28,7 @@
       const ctx = inject<ComputedRef<string>>('ctx')
       const target = computed<string|undefined>(() => {
         const self = person.permalink || person.link || ''
-        return self.replace(base, '')
+        return fixLink(self)
       })
 
       const expanded = computed(() => {
@@ -76,7 +76,9 @@
         }, { duration: 250, easing: 'ease-out' })
       }
 
-      return { person, txt, target, expanded, truncated }
+      const store = useStore()
+
+      return { person, txt, target, expanded, truncated, lt: store.lt }
     }
   })
 </script>

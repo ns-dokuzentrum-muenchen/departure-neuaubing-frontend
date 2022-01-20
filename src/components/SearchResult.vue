@@ -16,8 +16,7 @@
   import type { Post, PostType } from '../store/types'
   import { defineComponent, computed } from 'vue'
   import { useRouter } from 'vue-router'
-
-  const base = import.meta.env.VITE_API_ENDPOINT as string
+  import { fixLink } from '../utils'
 
   const postTypes: { [key: string]: string } = {
     kuenstler: 'Künstler*in',
@@ -56,7 +55,7 @@
       const url = computed(() => {
         if (!post) return ''
 
-        const def = (post.permalink || post.link)?.replace(base, '')
+        const def = fixLink(post.permalink || post.link)
         const type = post.post_type || post.type || 'post'
 
         if (type === 'markierung') {

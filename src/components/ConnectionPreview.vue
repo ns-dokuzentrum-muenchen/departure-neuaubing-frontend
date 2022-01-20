@@ -42,7 +42,7 @@
   import type { Post } from '../store/types'
   import { defineComponent, inject, ref, computed, watch, ComputedRef } from 'vue'
   import { useRoute } from 'vue-router'
-  import { slideOpen, slideClose } from '../utils'
+  import { slideOpen, slideClose, fixLink } from '../utils'
   import CommentsPreview from './CommentsPreview.vue'
   import AppImage from './AppImage.vue'
   import ChevronUp from './svg/ChevronUp.vue'
@@ -75,7 +75,7 @@
       const ctx = inject<ComputedRef<string>>('ctx')
       const target = computed<string>(() => {
         const self = post.permalink || post.link || ''
-        return self.replace(base, '')
+        return fixLink(self)
       })
 
       const expanded = computed(() => {

@@ -8,14 +8,14 @@
       <div class="flex relative items-center p-1 md:p-3">
         <div class="w-12 md:w-20"></div>
         <div :class="menuOpen || attop ? 'opacity-100' : 'opacity-0'" class="notouch:group-hover:opacity-100 transition-opacity flex-auto">
-          <p v-html="pretitle" class="max-w-64 md:max-w-none sm:text-lg md:text-xl xl:text-2xl font-light leading-tight"></p>
+          <p v-html="lt('pretitle')" class="max-w-64 md:max-w-none sm:text-lg md:text-xl xl:text-2xl font-light leading-tight"></p>
         </div>
         <div :class="menuOpen ? 'opacity-100' : 'opacity-0'" class="hidden lg:flex w-2/5 items-center transition-opacity">
           <div class="w-1/2">
-            Webanalyse &nbsp; <analytics-icon class="inline"/>
+            {{ lt('analytics') }} &nbsp; <analytics-icon class="inline"/>
           </div>
           <div class="w-1/2">
-            Darstellung &nbsp; <contrast-icon class="inline"/>
+            {{ lt('settings') }} &nbsp; <contrast-icon class="inline"/>
           </div>
         </div>
       </div>
@@ -27,36 +27,36 @@
           <div class="flex-auto pt-6 md:pt-2 px-2 md:px-0">
             <ul role="menu" class="sm:text-lg lg:text-2xl font-light">
               <li class="my-1 md:my-0">
-                <router-link to="/" class="hover:underline">Start</router-link>
+                <locale-link to="/" class="hover:underline">Start</locale-link>
               </li>
               <li class="my-1 md:my-0">
                 <div>
-                  <router-link to="/#project-list" class="hover:underline">Perspektiven</router-link>
+                  <locale-link to="/#project-list" class="hover:underline">{{ lt('perspectives') }}</locale-link>
                 </div>
                 <ul class="pl-8">
                   <li v-for="project in projects" :key="project.id" class="my-1 md:my-0">
-                    <router-link :to="`/projekte/${project.slug}`" class="hover:underline">{{ project.title?.rendered }}</router-link>
+                    <router-link :to="fixLink(project.link)" class="hover:underline">{{ project.title?.rendered }}</router-link>
                   </li>
                 </ul>
               </li>
-              <li class="my-1 md:my-0"><router-link to="/pages/ns-zwangsarbeit-und-neuaubing" class="hover:underline">NS-Zwangsarbeit und Neuaubing</router-link></li>
-              <li class="my-1 md:my-0"><router-link to="/glossar" class="hover:underline">Glossar</router-link></li>
-              <li class="my-1 md:my-0"><router-link to="/forum" class="hover:underline">Forum</router-link></li>
-              <li class="my-1 md:my-0"><router-link to="/suchen" class="hover:underline">Suchen</router-link></li>
-              <li class="my-1 md:my-0"><router-link to="/pages/ueber" class="hover:underline">Über</router-link></li>
+              <li class="my-1 md:my-0"><locale-link to="/pages/ns-zwangsarbeit-und-neuaubing" class="hover:underline">{{ lt('pageZwang') }}</locale-link></li>
+              <li class="my-1 md:my-0"><locale-link to="/glossar" class="hover:underline">{{ lt('glossar') }}</locale-link></li>
+              <li class="my-1 md:my-0"><locale-link to="/forum" class="hover:underline">Forum</locale-link></li>
+              <li class="my-1 md:my-0"><locale-link to="/suchen" class="hover:underline">{{ lt('search') }}</locale-link></li>
+              <li class="my-1 md:my-0"><locale-link to="/pages/ueber" class="hover:underline">{{ lt('about') }}</locale-link></li>
 
               <li class="mt-4 lg:mt-8">
-                <router-link to="/konto" class="flex items-center">
+                <locale-link to="/konto" class="flex items-center">
                   <img src="~../assets/person.svg" class="w-6 lg:w-8 h-8 lg:h-8 mr-3"/>
-                  <span>Konto</span> <span v-if="userName" class="opacity-60 ml-2">({{ userName }})</span>
-                </router-link>
+                  <span>{{ lt('konto') }}</span> <span v-if="userName" class="opacity-60 ml-2">({{ userName }})</span>
+                </locale-link>
               </li>
-              <li class="md:mt-2 mb-4 opacity-60">
-                <div class="flex items-center space-x-3">
+              <li class="md:mt-2 mb-4">
+                <div class="hidden xflex items-center space-x-3">
                   <img src="~../assets/sprache.svg" class="w-6 lg:w-8 h-8 lg:h-8"/>
-                  <span>English</span>
+                  <switch-lang lang="en"/>
                   <span class="border-r self-stretch"></span>
-                  <span class="underline">Deutsch</span>
+                  <switch-lang lang="de"/>
                 </div>
               </li>
             </ul>
@@ -79,9 +79,9 @@
               </div>
               <div class="w-auto">
                 <h1 class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl">
-                  <router-link to="/">
+                  <locale-link to="/">
                     <font-logo class="w-full h-auto" title="Departure Neuaubing"/>
-                  </router-link>
+                  </locale-link>
                 </h1>
               </div>
             </div>
@@ -106,8 +106,10 @@
   import NsDokuLogo from './svg/NsDokuLogo.vue'
   import AnalyticsIcon from './svg/AnalyticsIcon.vue'
   import ContrastIcon from './svg/ContrastIcon.vue'
+  import LocaleLink from './LocaleLink.vue'
+  import SwitchLang from './SwitchLang.vue'
   import { onClickOutside } from '@vueuse/core'
-  import { slideOpen, slideClose } from '../utils'
+  import { slideOpen, slideClose, fixLink } from '../utils'
   import debounce from 'debounce'
 
   export default defineComponent({
@@ -122,8 +124,6 @@
           store.menuOpen = false
         }
       })
-
-      const pretitle = store.pretitle
 
       const barHeight = computed(() => {
         return menuOpen.value || attop.value ? 'h-full' : 'h-2 notouch:group-hover:h-full'
@@ -186,23 +186,24 @@
       }
 
       const hidden = computed(() => route.meta?.noheader)
-
       const userName = computed(() => store.user?.name)
 
       return {
+        lt: store.lt,
+        locale: store.locale,
         header,
         menuOpen,
-        pretitle,
         barHeight,
         projects,
         maybeOpen,
         slideOpen,
         slideClose,
+        fixLink,
         attop,
         hidden,
         userName
       }
     },
-    components: { FontLogo, MenuButton, RadioSwitches, NsDokuLogo, AnalyticsIcon, ContrastIcon }
+    components: { FontLogo, MenuButton, RadioSwitches, NsDokuLogo, AnalyticsIcon, ContrastIcon, LocaleLink, SwitchLang }
   })
 </script>

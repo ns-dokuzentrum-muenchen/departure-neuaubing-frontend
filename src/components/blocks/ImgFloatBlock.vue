@@ -6,7 +6,7 @@
           <div v-html="row.text" @click="internalLinks" class="html max-w-prose"></div>
         </div>
         <figure v-else class="pb-8">
-          <app-image-zoom :image="row.image"/>
+          <app-image-zoom v-if="row.image" :image="row.image"/>
           <figcaption v-if="row.image?.caption" class="py-2 bg-bg text-sm">
             <div v-html="row.image?.caption" class="html"></div>
           </figcaption>

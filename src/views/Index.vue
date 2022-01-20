@@ -27,7 +27,7 @@
     <div class="my-16 md:my-24 flex justify-center">
       <button @click="reorder" class="btn">
         <redo-icon class="inline-block mr-4 -ml-4 -mt-1" width="24" height="24"/>
-        <span>Seite neu anordnen</span>
+        <span>{{ lt('shuffle') }}</span>
       </button>
     </div>
   </div>
@@ -82,7 +82,7 @@
         }
       }
 
-      return { settings, projects, list, pos, rowCol, move, reorder }
+      return { settings, projects, list, pos, rowCol, move, reorder, lt: store.lt }
     },
     components: { ScrollCanvas, ScrollMeta, ProjectItem, RedoIcon, FontLogo }
   })

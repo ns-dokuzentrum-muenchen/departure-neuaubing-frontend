@@ -5,7 +5,7 @@
         <router-link to="/" class="underline">Start</router-link>
       </li>
       <li v-if="post.post_type === 'projekt'" class="chevron">
-        <span class="border-b border-dotted">Projekte</span>
+        <span class="border-b border-dotted">{{ lt('projects') }}</span>
       </li>
       <li class="chevron truncate">
         <span class="underline">{{ post.title?.rendered }}</span>
@@ -18,7 +18,7 @@
           <div v-html="acf.description" class="contents"></div>
         </div>
         <div v-if="!expanded" class="html">
-          <router-link :to="`\#kontext`" class="">Weiterlesen</router-link>
+          <router-link :to="`\#kontext`" class="">{{ lt('more') }}</router-link>
         </div>
       </div>
 
@@ -27,7 +27,7 @@
       </div>
 
       <div v-if="glossar?.length" class="mb-12">
-        <p class="font-medium text-lg">Glossar</p>
+        <p class="font-medium text-lg">{{ lt('glossar') }}</p>
         <ul>
           <li v-for="term in glossar" :key="term.ID">
             <connection-preview :post="term"/>
@@ -36,7 +36,7 @@
       </div>
 
       <div v-if="places?.length" class="mb-12">
-        <p class="font-medium text-lg">Orte</p>
+        <p class="font-medium text-lg">{{ lt('places') }}</p>
         <ul>
           <li v-for="term in places" :key="term.ID">
             <connection-preview :post="term"/>
@@ -45,7 +45,7 @@
       </div>
 
       <div v-if="people?.length" class="mb-12">
-        <p class="font-medium text-lg">Personen</p>
+        <p class="font-medium text-lg">{{ lt('people') }}</p>
         <ul>
           <li v-for="term in people" :key="term.ID">
             <connection-preview :post="term"/>
@@ -54,10 +54,10 @@
       </div>
 
       <div v-if="tags?.length" class="mb-12 max-w-prose-1">
-        <p class="font-medium text-lg">Themen</p>
+        <p class="font-medium text-lg">{{ lt('themes') }}</p>
         <ul class="flex flex-wrap html">
           <li v-for="term in tags" :key="term.term_id" class="commas">
-            <router-link :to="`/suchen?s=${term.name}`">{{ term.name }}</router-link>
+            <locale-link :to="`/suchen?s=${term.name}`">{{ term.name }}</locale-link>
           </li>
         </ul>
       </div>
@@ -68,9 +68,11 @@
 <script lang="ts">
   import type { Post } from '../store/types'
   import { defineComponent, computed, ref, watch, nextTick } from 'vue'
+  import { useStore } from '../store'
   import { useRoute } from 'vue-router'
   import ArtistBio from './ArtistBio.vue'
   import ConnectionPreview from './ConnectionPreview.vue'
+  import LocaleLink from './LocaleLink.vue'
 
   export default defineComponent({
     props: {
@@ -142,18 +144,21 @@
 
       async function contract () {
         if (!txt.value) return
-        const from = `${txt.value.getBoundingClientRect().height}px`
+        const from = `${txt.value?.getBoundingClientRect().height}px`
         truncated.value = true
         await nextTick()
-        const to = `${txt.value.getBoundingClientRect().height}px`
+        const to = `${txt.value?.getBoundingClientRect().height}px`
 
-        txt.value.animate({
+        txt.value?.animate({
           height: [from, to]
         }, { duration: 250, easing: 'ease-out' })
       }
 
-      return { post, acf, glossar, places, people, tags, txt, expanded, truncated }
+      const store = useStore()
+
+
+      return { post, acf, glossar, places, people, tags, txt, expanded, truncated, lt: store.lt }
     },
-    components: { ArtistBio, ConnectionPreview }
+    components: { ArtistBio, ConnectionPreview, LocaleLink }
   })
 </script>

@@ -12,13 +12,13 @@
         <div>
           <ul>
             <li>
-              <router-link to="/pages/ueber">Über</router-link>
+              <locale-link to="/pages/ueber">{{ lt('about') }}</locale-link>
             </li>
             <li>
-              <router-link to="/pages/sitemap">Sitemap</router-link>
+              <locale-link to="/pages/sitemap">Sitemap</locale-link>
             </li>
             <li>
-              <router-link to="/pages/impressum">Impressum</router-link>
+              <locale-link to="/pages/impressum">{{ lt('impressum') }}</locale-link>
             </li>
           </ul>
         </div>
@@ -36,7 +36,9 @@
 <script lang="ts">
   import { defineComponent, computed } from 'vue'
   import { useRoute } from 'vue-router'
+  import { useStore } from '../store'
   import NsDokuLogo from './svg/NsDokuLogo.vue'
+  import LocaleLink from './LocaleLink.vue'
 
   export default defineComponent({
     name: 'AppFooter',
@@ -44,8 +46,10 @@
       const route = useRoute()
       const hidden = computed(() => route.meta?.nofooter)
 
-      return { hidden }
+      const store = useStore()
+
+      return { hidden, lt: store.lt }
     },
-    components: { NsDokuLogo }
+    components: { NsDokuLogo, LocaleLink }
   })
 </script>

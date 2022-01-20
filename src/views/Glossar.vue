@@ -2,11 +2,8 @@
   <div class="dark:bg-gray-800 md:pl-20 lg:pl-32">
     <div class="relative bg-black text-white pt-14 pr-4 md:pr-20 lg:pr-32">
       <div class="hidden md:flex justify-end py-1 -mr-12">
-        <!-- <div class="mr-4">
-          <router-link to="/forum" class="btn text-lg block">Forum</router-link>
-        </div> -->
         <div class="mr-4">
-          <router-link to="/glossar" class="btn text-lg block">Glossar</router-link>
+          <router-link to="/glossar" class="btn text-lg block">{{ lt('glossar') }}</router-link>
         </div>
       </div>
 
@@ -29,8 +26,8 @@
 
           <div v-if="post?.comment_status === 'open'" class="my-4 bg-gray-700 rounded-lg">
             <div class="px-3 py-2 border-b-2 flex justify-between items-baseline">
-              <p class="font-bold">Kommentare</p>
-              <p class="text-xs font-mono">** Vor 12 stunden **</p>
+              <p class="font-bold">{{ lt('comments') }}</p>
+              <p class="text-xs font-mono">{{ post?.comment_count || 0 }}</p>
             </div>
             <div v-if="comments?.length" class="px-3 pb-2">
               <div v-for="comment in comments" :key="comment.id" class="my-4">
@@ -38,7 +35,7 @@
               </div>
             </div>
             <div v-else class="px-3 my-4">
-              <p class="opacity-75">Null Kommentare...</p>
+              <p class="opacity-75">{{ lt('noComments') }}</p>
             </div>
             <div v-if="post.comment_status === 'open'" class="px-3">
               <div class="border-t-2 py-2">
@@ -51,7 +48,7 @@
 
       <div class="hidden xl:block fixed top-0 p-1 left-0 mt-12 ml-1 md:mt-14 md:ml-14 transition-all duration-300">
         <button @click="goBack" class="btn text-lg shadow-lg">
-          <span>Zurück</span>
+          <span>{{ lt('back') }}</span>
         </button>
       </div>
     </div>
@@ -106,7 +103,7 @@
         }
       }
 
-      return { post, comments, goBack }
+      return { post, comments, goBack, lt: store.lt }
     },
     beforeRouteEnter (to, _from, next) {
       const store = useStore()
