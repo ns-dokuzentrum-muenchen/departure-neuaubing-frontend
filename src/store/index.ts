@@ -196,7 +196,8 @@ export const useStore = defineStore({
       return api.post('/wp-json/dn/v1/login', params)
     },
     async verifyLogin (uid: string, token: string, nonce: string) {
-      if (!uid || !token || !nonce) return
+      if (!uid || !token || !nonce) throw new Error('Login-Fehler')
+
       return api.get('/wp-json/dn/v1/login', {
         params: { uid, token, nonce }
       }).then(({ data }) => {
@@ -243,6 +244,7 @@ export const useStore = defineStore({
       })
     },
     async getUserContent () {
+      if (!this.authToken) return
       return api.get('/wp-json/dnu/v1/konto', {
         headers: {
           Authorization: `Bearer ${this.authToken}`
