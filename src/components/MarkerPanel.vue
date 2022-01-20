@@ -118,7 +118,7 @@
       const close = () => {
         const query = { ...route.query }
         delete query.marker
-        router.push({ ...route, query })
+        router.push({ path: route.path, query })
         bus.emit('closeMarkerPanel')
       }
       return { marker, gallery, slider, close, panelWidth, panel }
