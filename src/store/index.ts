@@ -71,7 +71,7 @@ export const useStore = defineStore({
       return api.get('/wp-json/dn/v1/geo').then(({ data }) => {
         if (!data) return
 
-        const city = data.city.de || data.city.en || data.country.de || data.country.en || ''
+        const city = data.city?.de || data.city?.en || data.country?.de || data.country?.en || ''
         const inMunich = /^M(ü|u)n(chen|ich)$/.test(city)
 
         this.visitorDistance.city = inMunich ? 'Der Hauptbahnhof München' : city
