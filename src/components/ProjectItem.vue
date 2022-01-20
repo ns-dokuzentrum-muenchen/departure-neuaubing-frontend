@@ -15,7 +15,7 @@
     </figure>
 
     <div :class="[textAlign, textClass]" class="mt-4 md:mt-0 px-4 md:w-2/5 transition-opacity duration-500">
-      <h2 v-html="title" class="uppercase text-4xl lg:text-5xl styled-text"></h2>
+      <h2 v-html="title" class="uppercase text-4xl lg:text-5xl styled-text leading-none"></h2>
       <div class="font-bold text-xl my-3 flex flex-wrap">
         <p v-for="artist in artists" :key="artist.id" class="commas">{{ artist.post_title }}</p>
       </div>

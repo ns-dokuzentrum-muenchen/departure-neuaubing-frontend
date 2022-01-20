@@ -57,7 +57,6 @@
             window.localStorage?.setItem('unlocked', 'true')
 
             setTimeout(() => {
-              console.log('go home')
               router.replace('/')
             }, 1000)
           } else {
