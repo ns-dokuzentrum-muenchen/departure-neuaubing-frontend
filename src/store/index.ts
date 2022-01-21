@@ -54,6 +54,14 @@ export const useStore = defineStore({
         this.settings = data
       })
     },
+    async getMeta () {
+      return api.get('/wp-json/yoast/v1/get_head', {
+        params: { url: api.defaults.baseURL + '/' }
+      }).then(({ data }) => {
+        console.log('got metadata', data)
+        this.meta = data?.json
+      })
+    },
     async getProjects () {
       if (this.projects?.length) return
       return api.get('/wp-json/wp/v2/projekte').then(({ data }) => {
@@ -170,11 +178,15 @@ export const useStore = defineStore({
         params: { slug }
       }).then(({ data }) => {
         // if (!data[0]) throw new Error('404')
-        if (!data[0]) {
+        const page = data[0]
+        if (!page) {
           console.error('Page not found')
           return
         }
-        this.pages[slug] = data[0]
+        this.pages[slug] = page
+        if (page.yoast_head_json) {
+          this.meta = page.yoast_head_json
+        }
       })
     },
 

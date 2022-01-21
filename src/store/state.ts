@@ -44,7 +44,9 @@ export default function state (): State {
     locale: /^(\/en|\/en\/.+)$/.test(window.location.pathname) ? 'en' : 'de',
 
     pwRequired: true,
-    unlocked: getUnlocked()
+    unlocked: getUnlocked(),
+
+    meta: undefined
   }
 }
 

@@ -8,11 +8,29 @@
 
     <meta-layer/>
     <app-footer/>
+
+    <teleport v-if="meta" to="head">
+      <title>{{ meta.og_title }}</title>
+      <meta v-if="meta.description" name="description" :content="meta.description">
+      <meta property="og:title" :content="meta.og_title"/>
+      <meta v-if="meta.description" property="og:description" :content="meta.description"/>
+      <meta property="og:url" :content="meta.canonical"/>
+      <meta property="og:type" content="website"/>
+
+      <!-- <template v-if="meta?.image">
+        <meta property="og:image:url" :content="meta.image.image.replace('https://', 'http://')"/>
+        <meta property="og:image:secure_url" :content="meta.image.image"/>
+        <meta property="og:image:width" :content="meta.image.width"/>
+        <meta property="og:image:height" :content="meta.image.height"/>
+        <meta property="og:image:alt" :content="meta.title || 'Sound Walk Berlin'"/>
+        <meta name="twitter:card" content="summary_large_image"/>
+      </template> -->
+    </teleport>
   </div>
 </template>
 
 <script lang="ts">
-  import { defineComponent, computed, provide } from 'vue'
+  import { defineComponent, computed, provide, onMounted } from 'vue'
   import { useStore } from './store/index'
   import { useRoute } from 'vue-router'
   import AppHeader from './components/AppHeader.vue'
@@ -47,7 +65,14 @@
       // init user, if authToken exists
       store.getUser()
 
-      return { offset }
+      onMounted(() => {
+        document.documentElement.setAttribute('lang', store.locale)
+        document.getElementById('temp-title')?.remove()
+      })
+
+      const meta = computed(() => store.meta)
+
+      return { offset, meta }
     },
     components: { AppHeader, MetaLayer, AppFooter }
   })

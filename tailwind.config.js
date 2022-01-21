@@ -299,7 +299,7 @@ module.exports = {
         '"Noto Color Emoji"',
       ],
       serif: [
-        'elizabeth',
+        'Friedlaender-Antiqua',
         'ui-serif',
         'Georgia',
         'Cambria',

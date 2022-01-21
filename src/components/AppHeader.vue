@@ -52,7 +52,7 @@
                 </locale-link>
               </li>
               <li class="md:mt-2 mb-4">
-                <div class="hidden xflex items-center space-x-3">
+                <div class="flex items-center space-x-3">
                   <img src="~../assets/sprache.svg" class="w-6 lg:w-8 h-8 lg:h-8"/>
                   <switch-lang lang="en"/>
                   <span class="border-r self-stretch"></span>

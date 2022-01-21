@@ -28,6 +28,22 @@ interface State {
 
   pwRequired: boolean
   unlocked: boolean
+
+  meta: Meta | undefined
+}
+
+type Meta = {
+  description: string
+  robots: any
+  canonical: string
+  og_locale: string
+  og_type: string
+  og_title: string
+  og_description: string
+  og_url: string
+  og_site_name: string
+  twitter_card: string
+  schema: any
 }
 
 export type Theme = 'theme-blau' | 'theme-gelb' | 'theme-rosa' | 'theme-gruen'

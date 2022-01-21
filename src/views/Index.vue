@@ -34,7 +34,7 @@
 </template>
 
 <script lang="ts">
-  import { defineComponent, computed, ref } from 'vue'
+  import { defineComponent, computed, ref, onMounted } from 'vue'
   import { useStore } from '../store/index'
   import ScrollCanvas from '../components/ScrollCanvas.vue'
   import ScrollMeta from '../components/ScrollMeta.vue'
@@ -81,6 +81,10 @@
           list.value.scrollIntoView({ block: 'start', behavior: 'smooth' })
         }
       }
+
+      onMounted(() => {
+        store.getMeta()
+      })
 
       return { settings, projects, list, pos, rowCol, move, reorder, lt: store.lt }
     },
