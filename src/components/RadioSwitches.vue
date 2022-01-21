@@ -54,7 +54,7 @@
         </Switch>
       </switch-group>
       <div class="text-xs md:text-sm mt-4 md:mt-8 font-light">
-        <p>{{ lt('trackMsg') }} <router-link to="/pages/impressum" class="underline">{{ lt('impressum') }}</router-link></p>
+        <p>{{ lt('trackMsg') }} <router-link :to="lt('privLink')" class="underline">{{ lt('privacy') }}</router-link></p>
       </div>
     </div>
 

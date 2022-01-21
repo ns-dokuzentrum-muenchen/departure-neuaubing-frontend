@@ -38,9 +38,9 @@
         return page.value?.acf?.content || []
       })
 
-      onBeforeRouteUpdate((to) => {
+      onBeforeRouteUpdate((to, _from, next) => {
         const { slug } = to.params
-        store.getPage(slug as string)
+        store.getPage(slug as string).then(next)
       })
 
       return { slug, page, contentBlocks }
