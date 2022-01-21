@@ -58,9 +58,13 @@ export const useStore = defineStore({
       return api.get('/wp-json/yoast/v1/get_head', {
         params: { url: api.defaults.baseURL + '/' }
       }).then(({ data }) => {
-        console.log('got metadata', data)
         this.meta = data?.json
       })
+    },
+    setMeta (data: any) {
+      if (data?.yoast_head_json) {
+        this.meta = data.yoast_head_json
+      }
     },
     async getProjects () {
       if (this.projects?.length) return
@@ -70,11 +74,16 @@ export const useStore = defineStore({
     },
     async getProject (type = 'projekte', slug: string | string[]) {
       if (!slug || typeof slug !== 'string') return
-      if (this.slugToProject(slug, false)) return
+      const existing = this.slugToProject(slug, false)
+      if (existing) {
+        this.setMeta(existing)
+        return
+      }
       return api.get(`/wp-json/wp/v2/${type}`, {
         params: { slug }
       }).then(({ data }) => {
         this.intProjects.push(...data)
+        this.setMeta(data[0])
       })
     },
 
@@ -112,6 +121,7 @@ export const useStore = defineStore({
       }).then(({ data }) => {
         if (!data[0]) return
         this.glossar[slug] = data[0]
+        this.setMeta(data[0])
       })
     },
 

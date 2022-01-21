@@ -86,6 +86,8 @@
         get: () => store.analytics,
         set: (val) => {
           store.analytics = val
+
+          window.localStorage?.setItem('analytics', val ? 'on' : 'off')
         }
       })
 

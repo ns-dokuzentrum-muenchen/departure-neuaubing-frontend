@@ -31,7 +31,7 @@ export default function state (): State {
 
     searchResults: [],
 
-    analytics: true,
+    analytics: getAnalyticsState(),
 
     user: null,
     userContent: [],
@@ -47,6 +47,17 @@ export default function state (): State {
     unlocked: getUnlocked(),
 
     meta: undefined
+  }
+}
+
+function getAnalyticsState () {
+  try {
+    const item = window.localStorage?.getItem('analytics')
+    if (!item) return true
+    return item === 'on'
+  } catch (err) {
+    console.log('could not access analytics preference')
+    return false
   }
 }
 
