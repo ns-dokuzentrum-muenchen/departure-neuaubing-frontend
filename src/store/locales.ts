@@ -3,7 +3,6 @@ const locales: {
   'en': { [key: string]: string }
 } = {
   'de': {
-    // Header
     pretitle: 'Europäische Geschichten der Zwangsarbeit',
     analytics: 'Webanalyse',
     settings: 'Darstellung',
@@ -49,10 +48,11 @@ const locales: {
     register: 'Registrieren',
     noEmail: 'E-Mail nicht angekommen?',
     username: 'Benutzername',
-    orEmail: 'oder E-Mail-Adresse'
+    orEmail: 'oder E-Mail-Adresse',
+    enter: 'Eintreten'
   },
   'en': {
-    pretitle: 'European histories of forced-labour',
+    pretitle: 'European Histories of Forced Labour',
     analytics: 'Anaytics',
     settings: 'Theme settings',
     perspectives: 'Perspectives',
@@ -97,7 +97,8 @@ const locales: {
     register: 'Register',
     noEmail: 'Email didn\'t arrive?',
     username: 'Username',
-    orEmail: 'or email address'
+    orEmail: 'or email address',
+    enter: 'Enter'
   }
 }
 

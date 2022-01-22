@@ -1,6 +1,6 @@
 <template>
   <div v-if="project" ref="el" :style="itemStyle" :class="reverse" :aria-hidden="!visible" class="md:flex w-max max-w-project-item">
-    <figure ref="img" @click="move" @keyup.enter="move" :style="imgStyle" :class="imgClasses" :tabindex="column === position ? 0 : -1" class="md:w-3/5 cursor-pointer">
+    <figure ref="img" @click="move" @keyup.enter="move" :style="imgStyle" :class="imgClasses" :tabindex="column === position ? 0 : -1" class="md:w-3/5 cursor-pointer pointer-events-auto">
       <template v-if="mediaType === 'video'">
         <auto-video :video="mediaData" :auto="true"></auto-video>
       </template>
@@ -21,7 +21,7 @@
       </div>
       <div v-if="description" v-html="description" class="font-medium my-3 line-clamp-3 xl:line-clamp-4"></div>
       <div class="my-4">
-        <router-link :to="link" :tabindex="column === position ?0 : -1" class="btn inline-block">Eintreten</router-link>
+        <router-link :to="link" :tabindex="column === position ?0 : -1" class="btn inline-block">{{ lt('enter') }}</router-link>
       </div>
     </div>
   </div>
@@ -31,6 +31,7 @@
   import { defineComponent, computed, ref, onMounted, watch } from 'vue'
   import { useRouter } from 'vue-router'
   import { useStore } from '../store'
+  import { fixLink } from '../utils'
   import StyledText from './StyledText.vue'
   import AutoVideo from './AutoVideo.vue'
 
@@ -64,7 +65,7 @@
         return project.value?.acf?.html_title || project.value?.title?.rendered || ''
       })
       const description = computed(() => data?.description)
-      const link = computed(() => project.value ? `/projekte/${project.value.slug}` : '')
+      const link = computed(() => fixLink(project.value?.link))
 
       const mediaType = computed(() => data?.type || 'text')
       const mediaData = computed(() => {
@@ -138,6 +139,9 @@
       const imgClasses = ref('')
       const reverse = computed(() => {
         const classes: string[] = []
+        if (!visible.value) {
+          classes.push('pointer-events-none')
+        }
         if (domLoaded.value) {
           classes.push('transition-all', 'duration-500')
         }
@@ -156,7 +160,7 @@
         return opts[k]
       })
       const textClass = computed(() => {
-        return !visible.value ? 'opacity-0 pointer-events-none' : ''
+        return !visible.value ? 'opacity-0' : ''
       })
 
       const router = useRouter()
@@ -215,6 +219,7 @@
       })
 
       return {
+        lt: store.lt,
         column,
         position,
         domLoaded,

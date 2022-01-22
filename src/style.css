@@ -217,6 +217,7 @@ body {
 
 @screen lg {
   .right-kontext { right: 57.5rem; }
+  .max-w-project-item { max-width: calc(76vw - 12em); }
 }
 
 .theme-bold {
