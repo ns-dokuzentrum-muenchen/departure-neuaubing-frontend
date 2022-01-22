@@ -43,8 +43,8 @@
 
         <div class="mt-4 lg:mt-0 px-2 pb-2">
           <div class="flex lg:justify-end space-x-2">
-            <button @click="posting = !posting" class="btn-sm">Foto beitragen</button>
-            <button @click="viewInMap" class="btn-sm">anzeigen</button>
+            <button v-if="locale === 'de'" @click="posting = !posting" class="btn-sm">Foto beitragen</button>
+            <button @click="viewInMap" class="btn-sm">{{ lt('view') }}</button>
           </div>
         </div>
       </div>
@@ -184,6 +184,8 @@
       }
 
       return {
+        lt: store.lt,
+        locale: store.locale,
         item,
         parent,
         row,

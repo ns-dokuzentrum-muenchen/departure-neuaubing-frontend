@@ -86,6 +86,6 @@ export function fixLink (path: string | undefined): string {
     .replace('http://localhost:8080', '')
 }
 export function sideBarLink (path: string): boolean {
-  const match = RegExp(/^\/(glossar|orte|personen|kuenstlerinnen|begriffe)\//).test(path)
+  const match = RegExp(/^\/(en\/)?(glossar|orte|personen|kuenstlerinnen|begriffe)\//).test(path)
   return match
 }

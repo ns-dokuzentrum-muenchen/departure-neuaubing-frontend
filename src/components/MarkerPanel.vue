@@ -6,7 +6,7 @@
       </button>
     </div>
 
-    <div :class="panelWidth" class="h-full bg-gray-200 text-black px-4 py-18 md:px-8 overflow-y-auto overscroll-contain">
+    <div :class="panelWidth" class="h-full bg-gray-200 text-black px-4 py-18 md:px-8 overflow-y-auto">
       <div class="lg:flex">
         <div v-if="gallery" ref="slider" class="lg:order-1 flex lg:w-full overflow-hidden relative mb-4 lg:mb-0">
           <figure v-for="img in gallery" :key="img.id" class="lg:mx-4 w-full flex-none">
