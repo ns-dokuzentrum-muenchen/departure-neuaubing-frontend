@@ -87,6 +87,7 @@
       const userContent = computed(() => store.userContent)
       onMounted(() => {
         store.getUserContent()
+        store.setBlankMeta(store.locale === 'en' ? 'Account' : 'Konto')
       })
 
       return { user, goBack, userContent, deleteAccount, logout: store.logout, lt: store.lt }

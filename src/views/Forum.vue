@@ -49,7 +49,7 @@
 </template>
 
 <script lang="ts">
-  import { defineComponent, computed } from 'vue'
+  import { defineComponent, computed, onMounted } from 'vue'
   import { useRouter } from 'vue-router'
   import { useStore } from '../store'
   import SearchIcon from '../components/svg/SearchIcon.vue'
@@ -71,6 +71,10 @@
 
       const store = useStore()
       const posts = computed(() => store.forum)
+
+      onMounted(() => {
+        store.setBlankMeta('Forum')
+      })
 
       return { goBack, posts, lt: store.lt }
     },

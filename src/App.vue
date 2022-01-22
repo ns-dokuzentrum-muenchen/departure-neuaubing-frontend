@@ -16,15 +16,6 @@
       <meta v-if="meta.description" property="og:description" :content="meta.description"/>
       <meta property="og:url" :content="meta.canonical"/>
       <meta property="og:type" content="website"/>
-
-      <!-- <template v-if="meta?.image">
-        <meta property="og:image:url" :content="meta.image.image.replace('https://', 'http://')"/>
-        <meta property="og:image:secure_url" :content="meta.image.image"/>
-        <meta property="og:image:width" :content="meta.image.width"/>
-        <meta property="og:image:height" :content="meta.image.height"/>
-        <meta property="og:image:alt" :content="meta.title || 'Sound Walk Berlin'"/>
-        <meta name="twitter:card" content="summary_large_image"/>
-      </template> -->
     </teleport>
   </div>
 </template>

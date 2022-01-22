@@ -55,7 +55,7 @@
 </template>
 
 <script lang="ts">
-  import { defineComponent, computed, provide } from 'vue'
+  import { defineComponent, computed, provide, onMounted } from 'vue'
   import { useStore } from '../store'
   import { useRoute, useRouter, onBeforeRouteUpdate } from 'vue-router'
   import ConnectionPreview from '../components/ConnectionPreview.vue'
@@ -93,6 +93,10 @@
           router.go(-1)
         }
       }
+
+      onMounted(() => {
+        store.setBlankMeta(store.locale === 'en' ? 'Glossary' : 'Glossar')
+      })
 
       onBeforeRouteUpdate((to, _from, next) => {
         const type = to.params.pathMatch || 'glossar'

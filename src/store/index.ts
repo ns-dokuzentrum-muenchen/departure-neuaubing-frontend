@@ -69,6 +69,13 @@ export const useStore = defineStore({
         this.meta = data.yoast_head_json
       }
     },
+    setBlankMeta (title: string) {
+      this.meta = {
+        og_title: title + ' - Departure Neuaubing',
+        description: '',
+        canonical: window.location.href
+      }
+    },
     async getProjects () {
       if (this.projects?.length) return
       return api.get('/wp-json/wp/v2/projekte').then(({ data }) => {
@@ -354,8 +361,10 @@ export const useStore = defineStore({
       return api.get('/wp-json/wp/v2/forum', {
         params: { slug }
       }).then(({ data }) => {
-        if (!data[0]) return
-        this.forum.push(data[0]) // fix this maybe
+        const p = data[0]
+        if (!p) return
+        this.forum.push(p)
+        this.setMeta(p)
       })
     }
   }

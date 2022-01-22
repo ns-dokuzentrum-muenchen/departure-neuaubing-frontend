@@ -110,6 +110,8 @@
         if (s?.length) {
           query.value = s as string
         }
+
+        store.setBlankMeta(store.locale === 'en' ? 'Search' : 'Suchen')
       })
 
       const goBack = () => {
