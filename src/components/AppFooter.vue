@@ -12,13 +12,13 @@
         <div>
           <ul>
             <li>
-              <locale-link to="/pages/ueber">{{ lt('about') }}</locale-link>
+              <router-link :to="lt('aboutLink')">{{ lt('about') }}</router-link>
             </li>
+            <!-- <li>
+              <router-link :to="lt('sitemapLink')">Sitemap</router-link>
+            </li> -->
             <li>
-              <locale-link to="/pages/sitemap">Sitemap</locale-link>
-            </li>
-            <li>
-              <locale-link to="/pages/impressum">{{ lt('impressum') }}</locale-link>
+              <router-link :to="lt('imprLink')">{{ lt('impressum') }}</router-link>
             </li>
           </ul>
         </div>

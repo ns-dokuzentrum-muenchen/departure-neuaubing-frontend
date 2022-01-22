@@ -43,7 +43,7 @@
               <li class="my-1 md:my-0"><locale-link to="/glossar" class="hover:underline">{{ lt('glossar') }}</locale-link></li>
               <li class="my-1 md:my-0"><locale-link to="/forum" class="hover:underline">Forum</locale-link></li>
               <li class="my-1 md:my-0"><locale-link to="/suchen" class="hover:underline">{{ lt('search') }}</locale-link></li>
-              <li class="my-1 md:my-0"><locale-link to="/pages/ueber" class="hover:underline">{{ lt('about') }}</locale-link></li>
+              <li class="my-1 md:my-0"><router-link :to="lt('aboutLink')" class="hover:underline">{{ lt('about') }}</router-link></li>
 
               <li class="mt-4 lg:mt-8">
                 <locale-link to="/konto" class="flex items-center">

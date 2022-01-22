@@ -54,18 +54,20 @@
     setup (props) {
       const post = props.post as Post
 
-      const dateObj = new Date(post.date)
+      const store = useStore()
 
+      const dateObj = new Date(post.date)
       const time = format(dateObj, 'H:mm')
       const date = format(dateObj, 'DD.MM.YYYY')
 
       const url = computed(() => {
+        const lang = store.locale === 'en' ? '/en' : ''
         if (post.type === 'begriff') {
-          return `/projekte/mind-the-memory-gap#begriff=/begriffe/${post.slug}`
+          return `${lang}/projekte/mind-the-memory-gap#begriff=/begriffe/${post.slug}`
         } else if (post.type === 'upload') {
-          return `/projekte/memory-practice?marker=${post.acf?.parent}`
+          return `${lang}/projekte/memory-practice?marker=${post.acf?.parent}`
         }
-        return `/forum/${post?.slug}`
+        return `${lang}/forum/${post?.slug}`
       })
 
       const type = computed(() => {
@@ -74,7 +76,6 @@
         else return 'Forum'
       })
 
-      const store = useStore()
       const myPost = computed(() => {
         if (!store.user) return false
         return Number(post.author) === store.user.id

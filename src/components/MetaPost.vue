@@ -104,7 +104,7 @@
       })
 
       function linkSort (a: Post, b: Post) {
-        return a.post_name?.localeCompare(b.post_name)
+        return a.post_title?.localeCompare(b.post_title)
       }
 
       const txt = ref<HTMLElement|null>(null)
