@@ -28,6 +28,8 @@ const locales: {
     aboutLink: '/pages/ueber',
     imprLink: '/pages/impressum',
     sitemapLink: '/pages/sitemap',
+    condLink: '/pages/nutzungsbedingungen',
+    conditions: 'Nutzungsbedingungen',
     context: 'Kontext',
     more: 'Weiterlesen',
     view: 'anzeigen',
@@ -53,7 +55,9 @@ const locales: {
     noEmail: 'E-Mail nicht angekommen?',
     username: 'Benutzername',
     orEmail: 'oder E-Mail-Adresse',
-    enter: 'Eintreten'
+    enter: 'Eintreten',
+    accept: 'Ich akzeptiere die',
+    andThe: 'und die'
   },
   'en': {
     pretitle: 'European Histories of Forced Labour',
@@ -81,6 +85,8 @@ const locales: {
     aboutLink: '/en/pages/about',
     imprLink: '/en/pages/site-notice',
     sitemapLink: '/en/pages/sitemap',
+    condLink: '/en/pages/conditions-of-use',
+    conditions: 'Conditions of Use',
     context: 'Context',
     more: 'Read more',
     view: 'View',
@@ -106,7 +112,9 @@ const locales: {
     noEmail: 'Email didn\'t arrive?',
     username: 'Username',
     orEmail: 'or email address',
-    enter: 'Enter'
+    enter: 'Enter',
+    accept: 'I accept the',
+    andThe: 'and the'
   }
 }
 

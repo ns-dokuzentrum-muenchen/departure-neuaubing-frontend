@@ -7,8 +7,18 @@
       <div v-if="!sentLogin && !sentSignup" class="mb-3">
         <input v-model="form.username" :placeholder="`${lt('username')}${ !noUser ? ' ' + lt('orEmail') : '' }`" type="text" class="input" minlength="3" autocapitalize="false" autocomplete="false" required/>
       </div>
-      <div v-if="noUser && !sentSignup" class="mb-3">
-        <input v-model="form.email" type="email" placeholder="E-Mail" class="input"/>
+      <div v-if="noUser && !sentSignup">
+        <div class="mb-2">
+          <input v-model="form.email" type="email" placeholder="E-Mail" class="input"/>
+        </div>
+        <div class="mb-3">
+          <label>
+            <input v-model="form.terms" type="checkbox" required class="checkbox"/>
+            <span class="ml-2">
+              {{ lt('accept') }} <router-link :to="lt('condLink')" class="underline">{{ lt('conditions') }}</router-link> {{ lt('andThe') }} <router-link :to="lt('privLink')" class="underline">{{ lt('privacy') }}</router-link>
+            </span>
+          </label>
+        </div>
       </div>
       <div v-if="statusMsg" class="mb-3">
         <p class="text-green-600">{{ statusMsg }}</p>
@@ -52,7 +62,8 @@
 
       const form = reactive({
         username: '',
-        email: ''
+        email: '',
+        terms: false
       })
 
       const submit = () => {
