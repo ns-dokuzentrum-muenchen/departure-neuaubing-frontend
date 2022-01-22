@@ -31,7 +31,7 @@
                   </ul>
                 </div>
 
-                <new-begriff/>
+                <new-begriff v-if="locale === 'de'"/>
               </div>
             </div>
           </div>
@@ -122,7 +122,7 @@
         store.getProject(type, slug).then(next)
       })
 
-      return { slug, contentBlocks, mitBegriffe, links, werkzeug, leftopen, back, lt: store.lt }
+      return { slug, contentBlocks, mitBegriffe, links, werkzeug, leftopen, back, lt: store.lt, locale: store.locale }
     },
     beforeRouteEnter (to, _from, next) {
       const store = useStore()
