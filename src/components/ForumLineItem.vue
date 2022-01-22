@@ -32,7 +32,7 @@
         </div>
       </div>
       <div>
-        <router-link :to="url" class="btn-outline text-sm inline-block">anzeigen</router-link>
+        <router-link :to="url" class="btn-outline text-sm inline-block">{{ lt('view') }}</router-link>
       </div>
     </div>
   </div>
@@ -83,7 +83,7 @@
 
       const expand = props.expand
 
-      return { post, time, date, url, type, myPost, expand }
+      return { post, time, date, url, type, myPost, expand, lt: store.lt }
     },
     components: { AppImage }
   })

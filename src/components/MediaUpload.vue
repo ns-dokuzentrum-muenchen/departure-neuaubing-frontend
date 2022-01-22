@@ -10,14 +10,16 @@
           <p class="text-highlight text-lg">Dein Beitrag wurde erfolgreich erstellt und wird nach der Freigabe durch das Team des NS-Dokumentationszentrums veröffentlicht.</p>
         </div>
       </div>
-      <div v-else class="">
+      <div v-else class="html">
         <div class="mb-4">
           <p class="text-xl mb-4">Foto beitragen</p>
-          <p class="text-lg mb-4">Wir freuen uns über Bilder von Orten ehemaliger Lager … Beschreibung</p>
+          <p class="text-lg mb-4">Wir freuen uns über Bilder von Orten ehemaliger Lager in München.</p>
 
-          <p class="text-sm">Bitte beachten Sie/du folgendes:</p>
-          <p class="text-sm">- Es können nur Bilder veröffentlicht werden welche keine erkennbaren Einzelpersonen zeigen</p>
-          <p class="text-sm">- Weiteres</p>
+          <ul class="sm">
+            <li>Es können nur Bilder veröffentlicht werden, die keine erkennbaren Einzelpersonen zeigen.</li>
+            <li>Dein Beitrag wird von unserem Team gesichtet und erscheint erst nach der Freigabe auf der Webseite.</li>
+            <li>Unsere <router-link to="/pages/respektiquette">Respektiquette</router-link></li>
+          </ul>
         </div>
         <form @submit.prevent="upload">
           <div class="mb-2">
@@ -42,11 +44,7 @@
             <div class="">
               <label class="flex-auto block text-small mb-2 cursor-pointer">
                 <input type="checkbox" required class="checkbox">
-                Ich besitze die Bildrechte und stimme der Veröffentlichung zu
-              </label>
-              <label class="flex-auto block text-small mb-2 cursor-pointer">
-                <input type="checkbox" required class="checkbox">
-                Ich akzeptiere die Nutzungsbedingungen
+                Ich besitze die Bildrechte und stimme der Veröffentlichung zu.
               </label>
               <div class="mt-4">
                 <button class="btn" :disabled="uploading">{{ uploading ? 'Lädt...' : 'Beitragen' }}</button>
@@ -55,9 +53,7 @@
             <div v-if="formErr" class="mt-2 leading-tight">
               <p class="text-red-600">{{ formErr }}</p>
             </div>
-            <div else class="my-4">
-              <p>Hinweis: Ihr / dein Beitrag wird von unserem Team gesichtet und erscheint erst nach der Freigabe auf der Webseite.</p>
-            </div>
+            <div else class="my-4"></div>
           </div>
         </form>
       </div>

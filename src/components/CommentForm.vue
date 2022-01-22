@@ -3,7 +3,6 @@
     <div v-if="user">
       <p>
         Angemeldet als: <strong class="font-medium"><router-link to="/konto">{{ user.name }}</router-link> </strong>
-        <span class="hidden">(<a @click="logout" class="underline cursor-pointer">abmelden</a>)</span>
       </p>
 
       <form @submit.prevent="submit" class="mt-2">
@@ -13,7 +12,7 @@
         <div class="mb-3">
           <label>
             <input v-model="form.eula" type="checkbox" required class="checkbox"/>
-            Ich akzeptiere die Nutzungsbedingungen
+            Ich habe die <router-link to="/pages/respektiquette" class="underline">Respektiquette</router-link> beachtet.
           </label>
         </div>
         <div v-if="statusMsg" class="mb-3">
@@ -103,11 +102,7 @@
         }
       }
 
-      const logout = () => {
-        store.logout()
-      }
-
-      return { postId, user, form, errMsg, statusMsg, submit, logout, posting }
+      return { postId, user, form, errMsg, statusMsg, submit, posting }
     },
     components: { LoginSignup }
   })

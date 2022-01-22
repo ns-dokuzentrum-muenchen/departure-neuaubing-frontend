@@ -15,8 +15,10 @@
 <script lang="ts">
   import type { Post, PostType } from '../store/types'
   import { defineComponent, computed } from 'vue'
+  import { useStore } from '../store'
   import { useRouter } from 'vue-router'
   import { fixLink } from '../utils'
+  // import LocaleLink from './LocaleLink.vue'
 
   const postTypes: { [key: string]: string } = {
     kuenstler: 'Künstler*in',
@@ -30,6 +32,18 @@
     person: 'Person',
     'int-project': 'Projekt'
   }
+  const enPostTypes: { [key: string]: string } = {
+    kuenstler: 'Artist',
+    projekt: 'Project',
+    glossar: 'Glossary',
+    begriff: 'Mind the Memory Gap, Term',
+    markierung: 'Mapping Memory, Marker',
+    page: 'Page',
+    post: 'Post',
+    ort: 'Place',
+    person: 'Person',
+    'int-project': 'Project'
+  }
 
   export default defineComponent({
     name: 'SearchResult',
@@ -38,6 +52,7 @@
     },
     setup (props) {
       const post = props.post as Post
+      const store = useStore()
 
       const type = computed(() => {
         if (!post) return ''
@@ -45,6 +60,9 @@
         if (t === 'projekt') {
           const artists = (post.acf?.person?.map((p) => p.post_title) || []).join(', ')
           return `Projekt, ${artists}`
+        }
+        if (store.locale === 'en') {
+          return enPostTypes[t]
         }
         return postTypes[t]
       })
@@ -57,9 +75,10 @@
 
         const def = fixLink(post.permalink || post.link)
         const type = post.post_type || post.type || 'post'
+        const pre = store.locale !== 'de' ? '/' + store.locale : ''
 
         if (type === 'markierung') {
-          return `/projekte/memory-practice?marker=${post.id}`
+          return `${pre}/projekte/memory-practice?marker=${post.id}`
         } else if (type === 'kuenstler') {
           const projBase = post.acf?.projekt
           return projBase ? `${projBase}#kontext=${def}` : def
