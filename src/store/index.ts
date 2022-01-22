@@ -32,7 +32,10 @@ export const useStore = defineStore({
       const postType = type === 'orte' ? 'ort'
         : type === 'personen' ? 'person' : 'glossar'
       return Object.values(state.glossar)?.filter((p => p.type === postType)).sort((a, b) => {
-        return a.post_title.localeCompare(b.post_title)
+        if (a.title?.rendered) {
+          return a.title.rendered.localeCompare(b.title?.rendered)
+        }
+        return a.post_title?.localeCompare(b.post_title)
       })
     },
     lt: (state) => (key: string) => {

@@ -20,7 +20,7 @@
   </div>
 
   <div id="project-list" ref="list" class="px-12 py-16 overflow-x-hidden">
-    <div class="grid grid-cols-1 gap-8 lg:gap-32 items-center justify-items-center">
+    <div class="grid grid-cols-1 gap-8 sm:gap-12 md:gap-20 lg:gap-32 items-center justify-items-center">
       <project-item v-for="(p, i) in projects" :key="i" :project="p" :col="i % 5" :pos="pos" :class="rowCol(i)" :idx="i" @move="move" class="col-start-1 col-auto"/>
     </div>
 
