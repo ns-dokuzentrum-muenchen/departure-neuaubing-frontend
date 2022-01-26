@@ -13,8 +13,9 @@
       "vite/client",
       "@types/leaflet",
       "@types/flickity",
-      "@types/debounce"
+      "@types/debounce",
+      "@types/node"
     ]
   },
-  "include": ["src/**/*.ts", "src/**/*.d.ts", "src/**/*.tsx", "src/**/*.vue"]
+  "include": ["src/**/*.ts", "src/**/*.d.ts", "src/**/*.tsx", "src/**/*.vue", "functions/**/*.ts"]
 }

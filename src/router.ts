@@ -95,6 +95,11 @@ const router = createRouter({
       name: 'access',
       component: () => import('./views/Access.vue'),
       meta: { noheader: true, nofooter: true }
+    },
+    {
+      path: '/:pathMatch(.*)*',
+      name: 'error',
+      component: () => import('./views/NotFound.vue')
     }
   ],
   scrollBehavior (to, from, savedPosition) {

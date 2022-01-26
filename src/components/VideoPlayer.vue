@@ -2,7 +2,7 @@
   <div ref="el" class="text-white relative w-full h-full">
     <div class="w-full h-full">
       <video ref="vid" :data-poster="poster" disablePictureInPicture :playsinline="inline" :width="video.width" :height="video.height" crossorigin="true" class="lazyload w-full h-full object-contain">
-        <source v-for="src in srcs" :key="src.md5" :src="src.link" :type="src.type">
+        <source v-for="src in srcs" :key="src.md5" :src="proxy(src.link)" :type="src.type">
         <template v-if="closedCaptions">
           <track v-for="track in closedCaptions.data" :key="track.id" :src="track.link" :srclang="track.language" :label="track.label" kind="captions"/>
         </template>
@@ -97,7 +97,13 @@
         // this.listeners()
       })
 
-      return { el, vid, video, closedCaptions, poster, srcs, plyr, inline }
+      const proxy = (link: string) => {
+        if (!link.includes('player.vimeo.com')) return link
+        const url = link.replace('https://player.vimeo.com/external/', '')
+        return `https://dn-videos.deno.dev/?v=${encodeURIComponent(url)}`
+      }
+
+      return { el, vid, video, closedCaptions, poster, srcs, plyr, inline, proxy }
     }
   })
 </script>

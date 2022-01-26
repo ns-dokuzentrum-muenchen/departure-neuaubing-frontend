@@ -1,4 +1,3 @@
-
 import { Handler } from '@netlify/functions'
 
 const PW = process.env.ACCESS_PW
