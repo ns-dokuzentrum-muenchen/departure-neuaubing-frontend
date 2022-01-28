@@ -105,7 +105,9 @@ export const useStore = defineStore({
         const city = data.city?.de || data.city?.en || data.country?.de || data.country?.en || ''
         const inMunich = /^M(ü|u)n(chen|ich)$/.test(city)
 
-        this.visitorDistance.city = inMunich ? 'Der Hauptbahnhof München' : city
+        const station = this.lt('station')
+
+        this.visitorDistance.city = inMunich ? station : city
         this.visitorDistance.distance = Math.round(inMunich ? 12 : data.distance).toLocaleString()
       })
     },

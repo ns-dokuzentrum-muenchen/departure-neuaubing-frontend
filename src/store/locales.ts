@@ -57,7 +57,8 @@ const locales: {
     orEmail: 'oder E-Mail-Adresse',
     enter: 'Eintreten',
     accept: 'Ich akzeptiere die',
-    andThe: 'und die'
+    andThe: 'und die',
+    station: 'Der Hauptbahnhof München'
   },
   'en': {
     pretitle: 'European Histories of Forced Labour',
@@ -114,7 +115,8 @@ const locales: {
     orEmail: 'or email address',
     enter: 'Enter',
     accept: 'I accept the',
-    andThe: 'and the'
+    andThe: 'and the',
+    station: 'Munich Central Station'
   }
 }
 
