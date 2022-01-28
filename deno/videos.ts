@@ -4,14 +4,14 @@ function handler(req: Request): Response {
   const url = new URL(req.url)
   const video = url.searchParams.get('v')
 
-  if (!video || !video.includes('oauth_token_id')) {
+  if (!video || !video.includes('_token_id')) {
     return new Response('Not found', {
       status: 404,
       statusText: 'Not found'
     })
   }
 
-  const vimeoUrl = 'https://player.vimeo.com/external/' + video
+  const vimeoUrl = 'https://player.vimeo.com/' + video
   return fetch(vimeoUrl, {
     mode: 'cors',
     headers: {

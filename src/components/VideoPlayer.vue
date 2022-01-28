@@ -77,7 +77,7 @@
             })
             closedCaptions.value = data
           }
-        })
+        }).catch(() => {})
 
         const $el = el.value as HTMLElement
 
@@ -98,10 +98,10 @@
       })
 
       const proxy = (link: string) => {
-        return link
-        // if (!link.includes('player.vimeo.com')) return link
-        // const url = link.replace('https://player.vimeo.com/external/', '')
-        // return `https://dn-videos.deno.dev/?v=${encodeURIComponent(url)}`
+        // return link
+        if (!link.includes('player.vimeo.com')) return link
+        const url = link.replace('https://player.vimeo.com/', '')
+        return `https://dn-videos.deno.dev/?v=${encodeURIComponent(url)}`
       }
 
       return { el, vid, video, closedCaptions, poster, srcs, plyr, inline, proxy }
