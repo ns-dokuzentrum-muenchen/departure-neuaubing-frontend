@@ -65,7 +65,7 @@ const locales: {
     analytics: 'Anaytics',
     settings: 'Theme settings',
     perspectives: 'Perspectives',
-    pageZwang: 'Nazi forced-labour and Neuaubing',
+    pageZwang: 'Nazi forced labour and Neuaubing',
     glossar: 'Glossary',
     search: 'Search',
     about: 'About',
