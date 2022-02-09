@@ -81,7 +81,7 @@
       }
 
       const deleteAccount = () => {
-        alert('Please email...')
+        alert('Bitte schreibe eine Email an nsdoku@muenchen.de')
       }
 
       const userContent = computed(() => store.userContent)
