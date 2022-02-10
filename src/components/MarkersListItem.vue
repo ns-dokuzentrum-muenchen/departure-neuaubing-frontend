@@ -72,6 +72,10 @@
                   <app-image v-if="upload.acf?.thumbnail" :image="upload.acf?.thumbnail"/>
                   <figcaption>
                     <p class="text-lg m-2">{{ upload.post_title }}</p>
+                    <div class="mx-2 -mt-2">
+                      <span class="">{{ upload.author_name }}</span> |
+                      <span class="font-light">{{ timeDate(upload.post_date) }}</span>
+                    </div>
                     <div v-html="upload.post_content" class="html m-2 text-sm whitespace-pre-wrap"></div>
                   </figcaption>
                 </figure>
@@ -94,6 +98,7 @@
   import MediaUpload from './MediaUpload.vue'
   import AppImage from './AppImage.vue'
   import bus from '../eventBus'
+  import { format } from 'fecha'
 
   export default defineComponent({
     props: {
@@ -183,6 +188,14 @@
         }
       }
 
+      const timeDate = (postDate: string) => {
+        const dateObj = new Date(postDate)
+        const time = format(dateObj, 'H:mm')
+        const date = format(dateObj, 'DD.MM.YYYY')
+
+        return `${time} | ${date}`
+      }
+
       return {
         lt: store.lt,
         locale: store.locale,
@@ -198,7 +211,8 @@
         slideOpen,
         slideClose,
         toggle,
-        posts
+        posts,
+        timeDate
       }
     },
     components: { MediaUpload, AppImage }
