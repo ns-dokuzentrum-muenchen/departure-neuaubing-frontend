@@ -53,7 +53,7 @@
     setup (props) {
       const comment = ref(props.comment as Comment)
 
-      const dateObj = new Date(comment.value?.date)
+      const dateObj = new Date(comment.value?.date?.replace(' ', 'T'))
       const time = format(dateObj, 'H:mm')
       const date = format(dateObj, 'DD.MM.YYYY')
 

@@ -189,7 +189,7 @@
       }
 
       const timeDate = (postDate: string) => {
-        const dateObj = new Date(postDate)
+        const dateObj = new Date(postDate?.replace(' ', 'T'))
         const time = format(dateObj, 'H:mm')
         const date = format(dateObj, 'DD.MM.YYYY')
 

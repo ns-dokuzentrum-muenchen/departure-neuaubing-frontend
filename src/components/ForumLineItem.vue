@@ -56,7 +56,7 @@
 
       const store = useStore()
 
-      const dateObj = new Date(post.date)
+      const dateObj = new Date(post.date?.replace(' ', 'T'))
       const time = format(dateObj, 'H:mm')
       const date = format(dateObj, 'DD.MM.YYYY')
 
