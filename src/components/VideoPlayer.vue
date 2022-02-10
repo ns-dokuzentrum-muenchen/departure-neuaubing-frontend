@@ -18,6 +18,8 @@
   import Plyr from 'plyr'
   import 'plyr/src/sass/plyr.scss' // dist not working?
 
+  // import dashjs from 'dashjs'
+
   export default defineComponent({
     name: 'VideoPlayer',
     props: {
@@ -98,10 +100,10 @@
       })
 
       const proxy = (link: string) => {
-        // return link
-        if (!link.includes('player.vimeo.com')) return link
-        const url = link.replace('https://player.vimeo.com/', '')
-        return `https://dn-videos.deno.dev/?v=${encodeURIComponent(url)}`
+        return link
+        // if (!link.includes('player.vimeo.com')) return link
+        // const url = link.replace('https://player.vimeo.com/', '')
+        // return `https://dn-videos.deno.dev/?v=${encodeURIComponent(url)}`
       }
 
       return { el, vid, video, closedCaptions, poster, srcs, plyr, inline, proxy }

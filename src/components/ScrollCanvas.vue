@@ -93,7 +93,7 @@
           }
           IMGs.push(el)
 
-          await sleep(80)
+          await sleep(6)
         }
       })
       onUnmounted(() => {

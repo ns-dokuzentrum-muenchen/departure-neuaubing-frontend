@@ -13,6 +13,7 @@
     "@headlessui/vue": "^1.4.1",
     "@vueuse/core": "^6.6.1",
     "axios": "^0.24.0",
+    "dashjs": "^4.2.1",
     "debounce": "^1.2.1",
     "fecha": "^4.2.1",
     "flickity": "^2.2.2",

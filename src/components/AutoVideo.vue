@@ -83,10 +83,10 @@
       }
 
       const proxy = (link: string) => {
-        // return link
-        if (!link.includes('player.vimeo.com')) return link
-        const url = link.replace('https://player.vimeo.com/', '')
-        return `https://dn-videos.deno.dev/?v=${encodeURIComponent(url)}`
+        return link
+        // if (!link.includes('player.vimeo.com')) return link
+        // const url = link.replace('https://player.vimeo.com/', '')
+        // return `https://dn-videos.deno.dev/?v=${encodeURIComponent(url)}`
       }
 
       return { el, vid, video, id, poster, srcs, minSize, proxy }
