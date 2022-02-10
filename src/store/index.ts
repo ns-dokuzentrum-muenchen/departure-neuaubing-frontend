@@ -99,7 +99,8 @@ export const useStore = defineStore({
 
     async getVisitorDistance () {
       // if (this.visitorDistance) return
-      return api.get('/wp-json/dn/v1/geo').then(({ data }) => {
+      // return api.get('/wp-json/dn/v1/geo').then(({ data }) => {
+      return axios.get('https://dn-geoip.deno.dev').then(({ data }) => {
         if (!data) return
 
         const city = data.city?.de || data.city?.en || data.country?.de || data.country?.en || ''
