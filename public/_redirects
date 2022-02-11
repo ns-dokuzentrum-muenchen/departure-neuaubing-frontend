@@ -1,6 +1,8 @@
 https://www.departure-neuaubing.nsdoku.de/* https://departure-neuaubing.nsdoku.de/:splat 301!
 https://dn.nsdoku.de/* https://departure-neuaubing.nsdoku.de/:splat 301!
 
+/**/*.xml https://dn-sitemaps.deno.dev/:splat 200
+
 /captions/* https://captions.cloud.vimeo.com/captions/:splat 200
 # all spa
 /* /index.html 200
