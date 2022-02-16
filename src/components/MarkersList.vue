@@ -3,7 +3,7 @@
     <div class="mt-12 md:mt-16">
       <div class="mb-8 md:mb-12">
         <form @submit.prevent="doSearch" class="max-w-2xl mx-auto">
-          <div class="relative rounded-full border">
+          <div class="relative rounded-full border dark:border-none">
             <input v-model="query" type="search" :placeholder="lt('search')" class="input">
             <div class="absolute top-0 right-0 bottom-0 flex">
               <button v-if="hasSearch" @click="clearSearch" type="button" title="abbrechen / cancel" class="bg-white text-gray-800 rounded-full px-3.5 hover:bg-gray-200 focus:bg-gray-200 focus:ring focus:outline-none">
