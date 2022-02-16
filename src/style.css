@@ -237,7 +237,7 @@ body {
   @apply px-8 py-1 rounded-full border-2 transition-all;
   @apply dark:hover:border-white !important;
   @apply dark:hover:bg-gray-800 dark:hover:text-white !important;
-  @apply focus:ring-4 focus:outline-none;
+  @apply focus:ring focus:outline-none;
 
   &.round {
     @apply w-8 md:w-10 h-8 md:h-10 p-1 md:p-1.5 flex items-center justify-center;
@@ -285,7 +285,7 @@ body {
 .input {
   @apply w-full px-4 py-2 outline-none border-none rounded-lg;
   @apply bg-white text-black;
-  @apply focus:ring-4;
+  @apply focus:ring;
   @apply block;
 
   &[type="search"] {

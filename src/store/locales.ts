@@ -58,7 +58,8 @@ const locales: {
     enter: 'Eintreten',
     accept: 'Ich akzeptiere die',
     andThe: 'und die',
-    station: 'Der Hauptbahnhof München'
+    station: 'Der Hauptbahnhof München',
+    forumMenu: 'Forum'
   },
   'en': {
     pretitle: 'European Histories of Forced Labour',
@@ -116,7 +117,8 @@ const locales: {
     enter: 'Enter',
     accept: 'I accept the',
     andThe: 'and the',
-    station: 'Munich Central Station'
+    station: 'Munich Central Station',
+    forumMenu: 'Forum (DE)'
   }
 }
 

@@ -5,8 +5,11 @@
         <form @submit.prevent="doSearch" class="max-w-2xl mx-auto">
           <div class="relative rounded-full border">
             <input v-model="query" type="search" :placeholder="lt('search')" class="input">
-            <div class="absolute top-0 right-0 bottom-0">
-              <button class="btn h-full text-lg whitespace-nowrap block">
+            <div class="absolute top-0 right-0 bottom-0 flex">
+              <button v-if="hasSearch" @click="clearSearch" type="button" title="abbrechen / cancel" class="bg-white text-gray-800 rounded-full px-3.5 hover:bg-gray-200 focus:bg-gray-200 focus:ring focus:outline-none">
+                <close-icon class="w-3.5 h-3.5"/>
+              </button>
+              <button :title="lt('search')" type="submit" class="btn h-full text-lg whitespace-nowrap block">
                 <search-icon class="inline-block w-5 h-5 md:mr-2"/>
                 <span class="hidden md:inline">{{ lt('search') }}</span>
               </button>
@@ -29,7 +32,7 @@
       <div v-else class="font-medium py-2 text-center">{{ lt('noResults') }}</div>
     </div>
 
-    <div v-if="!hasSearch" class="mt-4 md:mt-8">
+    <div v-if="totalPages > 1" class="mt-4 md:mt-8">
       <ul class="flex items-center max-w-prose mx-auto">
         <li class="mr-auto">
           <button @click="prevPage" :disabled="page === 1" class="page-dot">
@@ -54,13 +57,14 @@
 
 <script lang="ts">
   import type { MapMarker } from '../store/types'
-  import { defineComponent, computed, ref, watch } from 'vue'
+  import { defineComponent, computed, ref, watch, onMounted } from 'vue'
   import { useStore } from '../store'
   import { useRoute, useRouter } from 'vue-router'
   import MarkersListItem from './MarkersListItem.vue'
   import ChevronLeft from './svg/ChevronLeft.vue'
   import ChevronRight from './svg/ChevronRight.vue'
   import SearchIcon from './svg/SearchIcon.vue'
+  import CloseIcon from './svg/CloseIcon.vue'
 
   export default defineComponent({
     setup () {
@@ -80,8 +84,13 @@
       const page = computed({
         get: () => Number(route.query?.page || 1),
         set: (val) => {
+          console.log('set page..', val)
           if (typeof val !== 'number' || val < 1) return
-          router.push({ path: route.path, query: { page: val } })
+          const q = { ...route.query }
+          if (val !== 1) {
+            q.page = val
+          }
+          router.push({ path: route.path, query: q })
         }
       })
       const perPage = 24
@@ -137,12 +146,13 @@
         return c.toString().replace(c.origin, '')
       }
 
+      const routeSearch = ref<string|null>(null)
       const results = ref<MapMarker[]>([])
       const query = ref('')
       const doSearch = () => {
         if (!query.value.length) return
 
-        page.value = 1
+        routeSearch.value = query.value
         store.searchMarkers(query.value).then((data) => {
           doneSearch.value = true
           results.value = data
@@ -153,15 +163,41 @@
         ;(document.activeElement as HTMLInputElement)?.select?.()
       }
       const hasSearch = computed(() => query.value.length > 0 && doneSearch.value)
+      const clearSearch = () => {
+        query.value = ''
+        routeSearch.value = null
+        doneSearch.value = false
+      }
 
       watch(query, (val) => {
         if (!val || val === '') {
           doneSearch.value = false
+          routeSearch.value = null
+        }
+      })
+      watch(routeSearch, (val) => {
+        const q = { ...route.query }
+
+        if (val) {
+          q.s = val
+        } else {
+          delete q.s
+        }
+        delete q.page
+
+        router.replace({ path: route.path, query: q })
+      })
+
+      onMounted(() => {
+        if (route.query?.s) {
+          routeSearch.value = route.query.s
+          query.value = route.query.s
+          doSearch()
         }
       })
 
-      return { page, paging, totalPages, pageNumbers, prevPage, nextPage, pageNav, query, doSearch, hasSearch, lt: store.lt }
+      return { page, paging, totalPages, pageNumbers, prevPage, nextPage, pageNav, query, doSearch, hasSearch, clearSearch, lt: store.lt }
     },
-    components: { MarkersListItem, ChevronLeft, ChevronRight, SearchIcon }
+    components: { MarkersListItem, ChevronLeft, ChevronRight, SearchIcon, CloseIcon }
   })
 </script>
