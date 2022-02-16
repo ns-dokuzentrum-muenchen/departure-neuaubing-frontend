@@ -20,6 +20,9 @@
             <li>
               <router-link :to="lt('imprLink')">{{ lt('impressum') }}</router-link>
             </li>
+            <li>
+              <router-link :to="lt('privLink')">{{ lt('privacy') }}</router-link>
+            </li>
           </ul>
         </div>
 
