@@ -1,3 +1,9 @@
+@charset "UTF-8";
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 @font-face {
   font-family: 'Friedlaender-Antiqua';
   src: url("/fonts/ElizabethND-Roman.woff2") format("woff2"),
@@ -33,10 +39,6 @@
   font-style: normal;
   font-weight: 500 600;
 }
-
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
 
 html {
   font-size: 16px;
@@ -145,40 +147,22 @@ body {
 }
 .expander .bg-bg { @apply bg-transparent; }
 
-.bg-theme {
-  @nest .theme-blau & { @apply bg-blue-900; }
-  @nest .theme-gelb & { @apply bg-yellow-200; }
-  @nest .theme-rosa & { @apply bg-pink-300; }
-  @nest .theme-gruen & { @apply bg-green-500; }
-}
+.theme-blau .bg-theme { @apply bg-blue-900; }
+.theme-gelb .bg-theme { @apply bg-yellow-200; }
+.theme-rosa .bg-theme { @apply bg-pink-300; }
+.theme-gruen .bg-theme { @apply bg-green-500; }
 
-.bg-theme-contrast {
-  @apply bg-white;
+.bg-theme-contrast { @apply bg-white; }
+.theme-gelb .bg-theme-contrast { @apply bg-black; }
 
-  @nest .theme-gelb & {
-    @apply bg-black;
-  }
-}
 
-.text-theme {
-  @apply text-black;
+.text-theme { @apply text-black; }
+.theme-blau .text-theme { @apply text-white; }
 
-  @nest .theme-blau & {
-    @apply text-white;
-  }
-}
+.text-highlight { @apply text-black; }
+.theme-blau .text-highlight { @apply text-white; }
 
-.text-highlight {
-  @apply text-black;
-
-  @nest .theme-blau & {
-    @apply text-white;
-  }
-
-  @nest .dark & {
-    @apply text-white;
-  }
-}
+.dark .text-highlight { @apply text-white; }
 
 .line-clamp-2 .contents > * ~ * { display: none; }
 .line-clamp-3 .contents > * ~ * { display: none; }
@@ -224,14 +208,12 @@ body {
   .max-w-project-item { max-width: calc(76vw - 12em); }
 }
 
-.theme-bold {
-  @nest .theme-blau & strong { @apply text-blue-900; }
-  @nest .theme-gelb & strong { @apply text-yellow-500; }
-  @nest .theme-rosa & strong { @apply text-pink-400; }
-  @nest .theme-gruen & strong { @apply text-green-500; }
+.theme-blau .theme-bold strong { @apply text-blue-900; }
+.theme-gelb .theme-bold strong { @apply text-yellow-500; }
+.theme-rosa .theme-bold strong { @apply text-pink-400; }
+.theme-gruen .theme-bold strong { @apply text-green-500; }
+.theme-blau.dark .theme-bold strong { @apply text-blue-600; }
 
-  @nest .theme-blau.dark & strong { @apply text-blue-600; }
-}
 
 .btn {
   @apply px-8 py-1 rounded-full border-2 transition-all;
@@ -242,29 +224,28 @@ body {
   &.round {
     @apply w-8 md:w-10 h-8 md:h-10 p-1 md:p-1.5 flex items-center justify-center;
   }
+}
+.theme-blau .btn {
+  @apply bg-blue-900 text-white border-blue-900;
+  @apply hover:text-blue-900 hover:bg-white;
+}
 
-  @nest .theme-blau & {
-    @apply bg-blue-900 text-white border-blue-900;
-    @apply hover:text-blue-900 hover:bg-white;
-  }
+.theme-gelb .btn {
+  @apply bg-yellow-200 text-black border-yellow-200;
+  @apply hover:bg-white hover:border-black;
+}
 
-  @nest .theme-gelb & {
-    @apply bg-yellow-200 text-black border-yellow-200;
-    @apply hover:bg-white hover:border-black;
-  }
+.theme-rosa .btn {
+  @apply bg-pink-300 text-black border-pink-300;
+  @apply hover:bg-white;
+}
+.dark.theme-rosa .btn {
+  @apply hover:border-pink-300 !important;
+}
 
-  @nest .theme-rosa & {
-    @apply bg-pink-300 text-black border-pink-300;
-    @apply hover:bg-white;
-  }
-  @nest .dark.theme-rosa & {
-    @apply hover:border-pink-300 !important;
-  }
-
-  @nest .theme-gruen & {
-    @apply bg-green-500 text-black border-green-500;
-    @apply hover:bg-white hover:text-green-500;
-  }
+.theme-gruen .btn {
+  @apply bg-green-500 text-black border-green-500;
+  @apply hover:bg-white hover:text-green-500;
 }
 
 .btn-outline {
@@ -299,12 +280,11 @@ textarea { @apply leading-snug; }
   @apply appearance-none -mb-1 mr-1;
   @apply w-4.5 h-4.5 bg-white rounded-full;
   @apply focus:ring;
-
-  @nest .theme-blau &:checked { @apply bg-blue-900; }
-  @nest .theme-gelb &:checked { @apply bg-yellow-400; }
-  @nest .theme-rosa &:checked { @apply bg-pink-300; }
-  @nest .theme-gruen &:checked { @apply bg-green-500; }
 }
+.theme-blau .checkbox:checked { @apply bg-blue-900; }
+.theme-gelb .checkbox:checked { @apply bg-yellow-400; }
+.theme-rosa .checkbox:checked { @apply bg-pink-300; }
+.theme-gruen .checkbox:checked { @apply bg-green-500; }
 
 .chevron + .chevron:before {
   content: ' > ';
