@@ -120,8 +120,9 @@ const router = createRouter({
 
     if (to.query.marker || from.query.marker) return
     if (to.query.replyto || from.query.replyto) return
+    if (from.query.s && !to.query.s) return
 
-    if (to.query.page) {
+    if (to.query.page || to.query.s) {
       const el = document.getElementById('pagelist')
       if (!el) return
 

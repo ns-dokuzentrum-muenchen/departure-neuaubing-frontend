@@ -24,7 +24,10 @@
           <form @submit.prevent="doSearch">
             <div class="relative">
               <input v-model="query" type="search" :placeholder="lt('search')" class="input">
-              <div class="absolute top-0 right-0 bottom-0">
+              <div class="absolute top-0 right-0 bottom-0 flex">
+                <button v-if="hasSearch" @click="clearSearch" type="button" title="abbrechen / cancel" class="bg-white text-gray-800 rounded-full px-3.5 hover:bg-gray-200 focus:bg-gray-200 focus:ring focus:outline-none">
+                  <close-icon class="w-3.5 h-3.5"/>
+                </button>
                 <button class="btn h-full text-lg whitespace-nowrap block">
                   <search-icon class="inline-block w-5 h-5 md:mr-2"/>
                   <span class="hidden md:inline">{{ lt('search') }}</span>
@@ -122,7 +125,17 @@
         }
       }
 
-      return { count, query, doSearch, hasSearch, results, goBack, lt: store.lt }
+      const clearSearch = () => {
+        query.value = ''
+        doneSearch.value = false
+        router.replace({
+          path: route.path,
+          query: {}
+        })
+        store.searchResults = []
+      }
+
+      return { count, query, doSearch, hasSearch, results, goBack, clearSearch, lt: store.lt }
     },
     components: { SearchIcon, SearchResult, CloseIcon, ChevronLeft, LocaleLink }
   })

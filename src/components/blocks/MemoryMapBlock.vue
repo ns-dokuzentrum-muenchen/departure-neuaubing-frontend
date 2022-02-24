@@ -23,12 +23,13 @@
 </template>
 
 <script lang="ts">
-  import { defineComponent, onMounted, computed, ref, onUnmounted } from 'vue'
+  import { defineComponent, onMounted, computed, ref, onUnmounted, nextTick } from 'vue'
   import { useStore } from '../../store'
   import { useRoute, useRouter } from 'vue-router'
   import StyledMap from '../StyledMap.vue'
   import MarkersList from '../MarkersList.vue'
   import MarkerPanel from '../MarkerPanel.vue'
+  import bus from '../../eventBus'
 
   export default defineComponent({
     props: {

@@ -3,9 +3,9 @@
     <div ref="mapEl" class="absolute inset-0 w-full h-full the-map"></div>
   </div>
 
-  <div v-if="uploadAt">
+  <!-- <div v-if="uploadAt">
     <media-upload :latlng="uploadAt" @close="uploadAt = null"/>
-  </div>
+  </div> -->
 </template>
 
 <script lang="ts">
@@ -38,7 +38,7 @@
       })
 
       // user content (TODO)
-      const uploadAt = ref<LatLng | null>(null)
+      // const uploadAt = ref<LatLng | null>(null)
 
       // content
       const markers = computed(() => {
@@ -135,10 +135,20 @@
         })
 
         markerGroup.addTo(map)
+
+          console.log('set markers')
+        if (route.query.marker) {
+          setTimeout(() => {
+            const id = Number(route.query.marker)
+            const selected: Marker = markerMap.get(id)
+            selected.fire('click')
+          }, 250)
+        }
       }
 
       bus.on('closeMarkerPanel', deselect)
       bus.on('selectMarker', (which) => {
+        console.log('which', { which })
         const selected: Marker = markerMap.get(which)
         selected.fire('click')
       })
@@ -163,7 +173,7 @@
         return (window.innerWidth - panelWidth) / 2
       }
 
-      return { mapEl, uploadAt, zoomClass }
+      return { mapEl, zoomClass }
     },
     components: { MediaUpload }
   })
