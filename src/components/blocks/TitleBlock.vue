@@ -9,6 +9,7 @@
 <script lang="ts">
   import { defineComponent, computed } from 'vue'
   import { useStore } from '../../store'
+  import { useRoute } from 'vue-router'
   import ProjectTitle from '../ProjectTitle.vue'
 
   export default defineComponent({
@@ -18,9 +19,11 @@
     },
     setup (props) {
       const store = useStore()
+      const route = useRoute()
 
+      const isPage = computed(() => route.name === 'page')
       const block = computed(() => props.block)
-      const project = computed(() => store.slugToProject(props.slug))
+      const project = computed(() => store.slugToProject(props.slug, isPage.value))
 
       const position = computed(() => {
         return `col-start-${props.block?.position || '1'}`
