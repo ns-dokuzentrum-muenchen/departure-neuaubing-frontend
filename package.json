@@ -23,7 +23,7 @@
     "pinia": "^2.0.0-rc.10",
     "plyr": "^3.6.9",
     "vue": "^3.2.11",
-    "vue-router": "^4.0.11"
+    "vue-router": "^4.0.13"
   },
   "devDependencies": {
     "@netlify/functions": "^0.10.0",
