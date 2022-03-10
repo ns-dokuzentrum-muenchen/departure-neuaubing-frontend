@@ -1,10 +1,10 @@
 <template>
   <div class="mx-6 md:mx-24 mb-8 overflow-hidden">
-    <div class="mt-24 mb-16 md:my-24 lg:my-48">
+    <div class="mt-24 mb-12 md:mt-32 md:mb-24 lg:mt-44 lg:mb-36">
       <font-logo class="max-w-full" alt="Departure Neuaubing" title="Departure Neuaubing" aria-hidden="true"/>
       <p class="sr-only">Departure Neuaubing</p>
     </div>
-    <div v-if="settings?.about" class="md:-mt-8 lg:-mt-12">
+    <div v-if="settings?.about" class="-mt-2 md:-mt-8 lg:-mt-12">
       <div class="text-lg md:text-xl lg:text-2xl max-w-xl">
         <div v-html="settings.about" class="html"></div>
       </div>
