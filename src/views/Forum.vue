@@ -48,7 +48,7 @@
 
                   <div v-else-if="formComplete">
                     <div>
-                      <p class="text-lg">Dein Beitrag wurde erfolgreich eingereicht und wird nach der Freigabe durch Franz Wanner und das Team des NS-Dokumentationszentrums veröffentlicht..</p>
+                      <p class="text-lg">Dein Beitrag wurde erfolgreich eingereicht und wird nach der Freigabe durch das Team des NS-Dokumentationszentrums veröffentlicht..</p>
                     </div>
                   </div>
 
@@ -60,7 +60,7 @@
                       <ul class="text-sm">
                         <li>Kopiere keine Texte</li>
                         <li>Berücksichtige vor der Einreichung die bisherigen Beiträge</li>
-                        <li>Dein Beitrag wird von unserem Team und Franz Wanner gesichtet und erscheint erst nach der Freigabe auf der Webseite</li>
+                        <li>Dein Beitrag wird von unserem Team gesichtet und erscheint erst nach der Freigabe auf der Webseite</li>
                       </ul>
                     </div>
                     <form @submit.prevent="create">

@@ -2,9 +2,6 @@
   <div class="dark:bg-gray-800 md:pl-20 lg:pl-32">
     <div class="relative bg-black text-white pt-14 pr-4 md:pr-20 lg:pr-32">
       <div class="hidden md:flex justify-end py-1 -mr-12">
-        <!-- <div class="mr-4">
-          <router-link to="/forum" class="btn text-lg block">Forum</router-link>
-        </div> -->
         <div class="mr-4">
           <locale-link to="/glossar" class="btn text-lg block">{{ lt('glossar') }}</locale-link>
         </div>
