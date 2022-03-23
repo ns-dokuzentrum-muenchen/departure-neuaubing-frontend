@@ -369,6 +369,15 @@ export const useStore = defineStore({
         this.forum.push(p)
         this.setMeta(p)
       })
+    },
+    async createForumPost (data: any) {
+      return api.post('/wp-json/wp/v2/forum', data, {
+        headers: {
+          Authorization: `Bearer ${this.authToken}`
+        }
+      }).then(({ data }) => {
+        console.log(data)
+      })
     }
   }
 })
