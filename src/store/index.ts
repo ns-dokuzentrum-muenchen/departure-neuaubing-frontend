@@ -196,6 +196,10 @@ export const useStore = defineStore({
       })
     },
 
+    async getTagData (tag: string) {
+      return api.get(`/wp-json/dn/v1/tag/${tag}`).then(({ data }) => data)
+    },
+
     async getPage (slug: string) {
       return api.get('/wp-json/wp/v2/pages', {
         params: { slug }

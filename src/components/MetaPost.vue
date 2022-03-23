@@ -57,7 +57,7 @@
         <p class="font-medium text-lg">{{ lt('themes') }}</p>
         <ul class="flex flex-wrap html">
           <li v-for="term in tags" :key="term.term_id" class="commas">
-            <locale-link :to="`/suchen?s=${term.name}`">{{ term.name }}</locale-link>
+            <locale-link :to="`/tag/${term.slug}`">{{ term.name }}</locale-link>
           </li>
         </ul>
       </div>

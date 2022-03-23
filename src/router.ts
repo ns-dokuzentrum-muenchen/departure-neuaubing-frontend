@@ -70,6 +70,12 @@ const router = createRouter({
       component: () => import('./views/Suche.vue')
     },
     {
+      path: '/tag/:slug',
+      alias: '/en/tag/:slug',
+      name: 'tag',
+      component: () => import('./views/Tag.vue')
+    },
+    {
       path: '/verify',
       alias: '/en/verify',
       name: 'verify',

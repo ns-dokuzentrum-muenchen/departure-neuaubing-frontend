@@ -136,7 +136,7 @@
 
         markerGroup.addTo(map)
 
-          console.log('set markers')
+        // console.log('set markers')
         if (route.query.marker) {
           setTimeout(() => {
             const id = Number(route.query.marker)

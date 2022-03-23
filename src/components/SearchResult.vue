@@ -67,8 +67,8 @@
         return postTypes[t]
       })
 
-      const title = post?.title_highlighted
-      const description = post?.content_highlighted
+      const title = post?.title_highlighted || post?.title.rendered
+      const description = post?.content_highlighted || post?.acf.description
 
       const url = computed(() => {
         if (!post) return ''
