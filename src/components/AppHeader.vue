@@ -46,7 +46,7 @@
               <li class="my-1 md:my-0"><router-link :to="lt('aboutLink')" class="hover:underline">{{ lt('about') }}</router-link></li>
 
               <li class="mt-4 lg:mt-8">
-                <locale-link to="/konto" class="flex items-center">
+                <locale-link v-if="locale === 'de'" to="/konto" class="flex items-center">
                   <img src="~../assets/person.svg" class="w-6 lg:w-8 h-8 lg:h-8 mr-3"/>
                   <span>{{ lt('konto') }}</span> <span v-if="userName" class="opacity-60 ml-2">({{ userName }})</span>
                 </locale-link>
