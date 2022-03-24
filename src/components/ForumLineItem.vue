@@ -13,7 +13,7 @@
         <div class="px-2">{{ date }}</div>
       </div>
     </div>
-    <div :class="{ 'line-clamp-3': !expand }" class="mb-4">
+    <div :class="{ 'line-clamp-3': !expand }">
       <div v-html="post?.acf.description" class="md:text-lg contents html"></div>
       <div v-if="post.type === 'upload'">
         <figure>
@@ -24,7 +24,12 @@
         </figure>
       </div>
     </div>
-    <div v-if="post?.comment_status === 'open'" class="flex items-center mt-2">
+    <div v-if="replies.length" class="bg-gray-300 p-4 rounded-md space-y-4">
+      <div v-for="comment in replies" :key="comment.id" class="">
+        <comment-row :comment="comment" :no-reply="true"/>
+      </div>
+    </div>
+    <div v-if="post?.comment_status === 'open'" class="flex items-center mt-4">
       <div class="flex-auto">
         <div class="flex items-center space-x-2">
           <img src="../assets/chat-icon-dark.svg"/>
@@ -47,6 +52,7 @@
   import { format } from 'fecha'
   import { useStore } from '../store'
   import AppImage from '../components/AppImage.vue'
+  import CommentRow from '../components/CommentRow.vue'
 
   export default defineComponent({
     props: {
@@ -62,6 +68,11 @@
       const dateObj = new Date(post.date?.replace(' ', 'T'))
       const time = format(dateObj, 'H:mm')
       const date = format(dateObj, 'DD.MM.YYYY')
+
+      const replies = computed(() => {
+        const list = post._embedded?.replies?.[0] || []
+        return list.slice(0, 3)
+      })
 
       const url = computed(() => {
         const lang = store.locale === 'en' ? '/en' : ''
@@ -86,8 +97,8 @@
 
       const expand = props.expand
 
-      return { post, time, date, url, type, myPost, expand, lt: store.lt }
+      return { post, replies, time, date, url, type, myPost, expand, lt: store.lt }
     },
-    components: { AppImage }
+    components: { AppImage, CommentRow }
   })
 </script>

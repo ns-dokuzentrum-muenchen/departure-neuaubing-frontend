@@ -358,7 +358,7 @@ export const useStore = defineStore({
 
     async getForum (page = 1) {
       return api.get('/wp-json/wp/v2/forum', {
-        params: { page }
+        params: { page, _embed: 'replies' }
       }).then(({ data }) => {
         this.forum = data
       })

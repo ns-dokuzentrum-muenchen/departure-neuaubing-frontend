@@ -2,7 +2,7 @@
   <div :id="`comment-${comment.id}`">
     <div v-if="comment" class="flex items-start space-x-4">
       <div class="w-10 h-10 flex-none">
-        <img :src="comment.author_avatar_url" alt="Avatar" width="96" height="96" class="rounded-full" loading="lazy"/>
+        <img :src="avatar" alt="Avatar" width="96" height="96" class="rounded-full" loading="lazy"/>
       </div>
       <div class="w-full">
         <div class="flex font-light text-sm">
@@ -15,8 +15,8 @@
           <div class="border-l mx-2"></div>
           <p>{{ date }}</p>
         </div>
-        <div v-html="comment.content" class="mt-px text-base"></div>
-        <div v-if="depth < 5" class="mt-0">
+        <div v-html="content" class="mt-px text-base"></div>
+        <div v-if="depth < 5 && !noReply" class="mt-0">
           <button @click="toggleForm" class="text-xs opacity-50 underline">
             {{ addComment ? 'abbrechen' : 'antworten' }}
           </button>
@@ -48,16 +48,25 @@
   export default defineComponent({
     props: {
       comment: Object,
-      depth: Number
+      depth: Number,
+      noReply: Boolean
     },
     setup (props) {
       const comment = ref(props.comment as Comment)
+      const avatar = computed(() => {
+        return comment.value?.author_avatar_urls?.[96] || comment.value.author_avatar_url
+      })
+      const content = computed(() => {
+        const d = comment.value?.content
+        return typeof d === 'string' ? d : d?.rendered
+      })
 
       const dateObj = new Date(comment.value?.date?.replace(' ', 'T'))
       const time = format(dateObj, 'H:mm')
       const date = format(dateObj, 'DD.MM.YYYY')
 
       const depth = props.depth || 0
+      const noReply = props.noReply
 
       const id = computed(() => (comment.value?.id || 0).toString())
 
@@ -74,7 +83,7 @@
         }
       }
 
-      return { comment, time, date, depth, addComment, toggleForm, slideOpen, slideClose }
+      return { comment, avatar, content, time, date, depth, noReply, addComment, toggleForm, slideOpen, slideClose }
     },
     components: {
       CommentForm,

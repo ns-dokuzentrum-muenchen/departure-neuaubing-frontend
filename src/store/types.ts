@@ -75,6 +75,8 @@ export type Post = {
 
   title_highlighted?: string
   content_highlighted?: string
+
+  _embedded?: any
 }
 
 type RenderedString = { rendered: string }
@@ -163,11 +165,12 @@ export interface Comment {
   author_display_name: string
   // author_url: string
   date: string
-  content: string
+  content: string | RenderedString
   link: string
   status: string
   type: string
-  author_avatar_url: string//{ 24: string, 48: string, 96: string }
+  author_avatar_url?: string//{ 24: string, 48: string, 96: string }
+  author_avatar_urls?: { 24: string, 48: string, 96: string }
   children: Comment[],
   created?: boolean
 }
