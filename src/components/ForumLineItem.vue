@@ -3,7 +3,7 @@
     <div class="mb-4">
       <p v-if="showType" class="mb-1 opacity-60">{{ type }}</p>
       <h2 class="text-lg md:text-xl lg:text-2xl">
-        <router-link :to="url">{{ post?.title.rendered }}</router-link>
+        <router-link :to="url" class="hover:opacity-60 transition-opacity">{{ post?.title.rendered }}</router-link>
       </h2>
       <div class="flex -mx-2 divide-x mt-2">
         <div class="px-2">
@@ -30,6 +30,9 @@
           <img src="../assets/chat-icon-dark.svg"/>
           <p>{{ post?.comment_count || 0 }}</p>
         </div>
+      </div>
+      <div class="mr-2">
+        <router-link :to="url" class="btn-outline text-sm inline-block">{{ lt('comment') }}</router-link>
       </div>
       <div>
         <router-link :to="url" class="btn-outline text-sm inline-block">{{ lt('view') }}</router-link>

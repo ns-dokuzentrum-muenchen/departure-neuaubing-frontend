@@ -21,9 +21,9 @@
             <h1 class="text-2xl lg:text-4xl font-medium">Forum</h1>
           </div>
 
-          <div class="mb-8">
+          <!-- <div class="mb-8">
             <p class="text-sm underline">{{ lt('overview') }}</p>
-          </div>
+          </div> -->
 
           <div v-if="posts?.length" class="mb-4 lg:mb-8">
             <ul>
