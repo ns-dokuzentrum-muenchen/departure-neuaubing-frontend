@@ -47,8 +47,8 @@
 
             <div v-if="post?.comment_status === 'open'" id="comments" class="mt-2">
               <div>
-                <div v-if="comments?.length">
-                  <div v-for="comment in comments" :key="comment.id" class="my-4">
+                <div v-if="comments?.length" class="divide-y-2">
+                  <div v-for="comment in comments" :key="comment.id" class="py-4 md:py-6 first:pt-0">
                     <comment-row :comment="comment"/>
                   </div>
                 </div>

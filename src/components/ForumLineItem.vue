@@ -24,8 +24,8 @@
         </figure>
       </div>
     </div>
-    <div v-if="replies.length" class="bg-gray-300 p-4 rounded-md space-y-4">
-      <div v-for="comment in replies" :key="comment.id" class="">
+    <div v-if="replies.length" class="bg-gray-300 p-4 rounded-md divide-y-2">
+      <div v-for="comment in replies" :key="comment.id" class="py-4 md:py-6 first:pt-0 last:pb-0">
         <comment-row :comment="comment" :no-reply="true"/>
       </div>
     </div>
