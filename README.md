@@ -1,3 +1,5 @@
 ## Departure Neuaubing
 
-Vue.js application frontend: https://departure-neuaubing.nsdoku.de
+Vue.js application frontend
+
+https://departure-neuaubing.nsdoku.de/pages/impressum
