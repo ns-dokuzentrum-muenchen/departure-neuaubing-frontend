@@ -148,7 +148,6 @@
 
       bus.on('closeMarkerPanel', deselect)
       bus.on('selectMarker', (which) => {
-        console.log('which', { which })
         const selected: Marker = markerMap.get(which)
         selected.fire('click')
       })
