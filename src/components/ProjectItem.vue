@@ -118,9 +118,12 @@
         }
       })
       const imgStyle = computed(() => {
-        const rev = position.value > column.value
+        // const rev = position.value > column.value
         // const val = middleOffset.value * (rev ? -1 : 1)
 
+        // return {
+        //   transform: `translateX(${val}px)`
+        // }
         let y = 0
 
         if (el.value && column.value !== position.value) {
@@ -195,6 +198,7 @@
           const v = Math.abs(middle - vc) - move
 
           middleOffset.value = Math.asinh(v * v * v)
+          // console.log('')
         } else {
           middleOffset.value = 0
         }
@@ -243,8 +247,4 @@
     },
     components: { StyledText, AutoVideo }
   })
-
-  // function easeInOutQuad(x: number) {
-  //   return x < 0.5 ? 2 * x * x : 1 - Math.pow(-2 * x + 2, 2) / 2
-  // }
 </script>
