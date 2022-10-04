@@ -56,6 +56,7 @@ body {
   @apply bg-white text-black dark:bg-gray-800 dark:text-white;
   @apply overflow-x-hidden;
   -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 
@@ -321,9 +322,29 @@ textarea { @apply leading-snug; }
 .safari-summary::marker {
   /* color: transparent; */
 }
-.safari-summary > div {
-  list-style-position: inside;
+/* .safari-summary > div {
+  list-style: disclosure-closed inside;
 }
+details[open] .safari-summary > div {
+  list-style: disclosure-open inside;
+} */
+
+details summary {
+  /* list-style-type: '› '; */
+  /* list-style-image: url('./assets/details-closed.svg'); */
+}
+details[open] summary {
+  /* list-style-image: url('./assets/details-open.svg'); */
+}
+
+/* .dark {
+  & details summary {
+    list-style-image: url('./assets/details-closed-white.svg');
+  }
+  & details[open] summary {
+    list-style-image: url('./assets/details-open-white.svg');
+  }
+} */
 
 .marker-dot:hover {
   opacity: 1 !important;

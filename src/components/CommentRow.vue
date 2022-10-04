@@ -15,7 +15,9 @@
           <div class="border-l mx-2"></div>
           <p>{{ date }}</p>
         </div>
-        <div v-html="content" :class="{ 'line-clamp-4': noReply, ' whitespace-pre-line': !noReply }" class="mt-px text-base"></div>
+        <div :class="{ 'line-clamp-4': noReply }" class="mt-px text-base">
+          <div v-html="content" class="html contents"></div>
+        </div>
         <div v-if="depth < 5 && !noReply" class="mt-0">
           <button @click="toggleForm" class="text-xs opacity-50 underline">
             {{ addComment ? 'abbrechen' : 'antworten' }}
