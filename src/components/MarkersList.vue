@@ -84,11 +84,11 @@
       const page = computed({
         get: () => Number(route.query?.page || 1),
         set: (val) => {
-          console.log('set page..', val)
+          // console.log('set page..', val)
           if (typeof val !== 'number' || val < 1) return
           const q = { ...route.query }
           if (val !== 1) {
-            q.page = val
+            q.page = `${val}`
           }
           router.push({ path: route.path, query: q })
         }
@@ -190,8 +190,8 @@
 
       onMounted(() => {
         if (route.query?.s) {
-          routeSearch.value = route.query.s
-          query.value = route.query.s
+          routeSearch.value = route.query.s as string
+          query.value = route.query.s as string
           doSearch()
         }
       })

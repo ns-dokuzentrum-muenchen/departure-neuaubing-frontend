@@ -63,6 +63,7 @@ export type Post = {
   author: number
   author_name?: string
   date: string
+  post_date: string
   modifed: string
   tags: number[]
   template: string
