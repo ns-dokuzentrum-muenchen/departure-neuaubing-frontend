@@ -4,7 +4,7 @@
       <video ref="vid" :data-poster="poster" disablePictureInPicture :playsinline="inline" :width="video.width" :height="video.height" crossorigin="true" class="lazyload w-full h-full object-contain">
         <source v-for="src in srcs" :key="src.md5" :src="proxy(src.link)" :type="src.type">
         <template v-if="closedCaptions">
-          <track v-for="track in closedCaptions.data" :key="track.id" :src="track.link" :srclang="track.language" :label="track.label" kind="captions"/>
+          <track v-for="track in closedCaptions.data" :key="track.id" :src="track.hls_link" :srclang="track.language" :label="track.label" kind="subtitles"/>
         </template>
       </video>
     </div>
@@ -69,12 +69,14 @@
           de: 'Deutsch'
         }
 
-        await axios.get('/.netlify/functions/video-captions', {
+        await axios.get('http://localhost:9999/.netlify/functions/video-captions', {
           params: { id: id.value }
         }).then(({ data }) => {
           if (data?.total && data.total > 0) {
             data.data = data.data.map((track: any) => {
               track.label = langs[(track.language as string)]
+              // track.link = track.link.split('&download=')[0]
+              // console.log(track)
               return track
             })
             closedCaptions.value = data

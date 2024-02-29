@@ -20,8 +20,9 @@
     "flickity-imagesloaded": "^2.0.0",
     "leaflet": "^1.7.1",
     "mitt": "^3.0.0",
+    "netlify-cli": "^17.17.1",
     "pinia": "^2.0.0-rc.10",
-    "plyr": "^3.6.9",
+    "plyr": "^3.7.8",
     "vue": "^3.2.11",
     "vue-router": "^4.0.13"
   },
