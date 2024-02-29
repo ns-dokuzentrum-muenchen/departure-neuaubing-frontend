@@ -69,7 +69,7 @@
           de: 'Deutsch'
         }
 
-        await axios.get('http://localhost:9999/.netlify/functions/video-captions', {
+        await axios.get('/.netlify/functions/video-captions', {
           params: { id: id.value }
         }).then(({ data }) => {
           if (data?.total && data.total > 0) {
