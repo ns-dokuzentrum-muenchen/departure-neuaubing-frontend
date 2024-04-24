@@ -10,7 +10,7 @@
     <div :class="{ 'px-4 border-t': padding }">
       <div v-if="comments?.length">
         <div v-for="comment in comments" :key="comment.id" class="my-4">
-          <comment-row :comment="comment"/>
+          <comment-row :comment="comment" :open="open"/>
         </div>
       </div>
       <div v-else-if="loading">
@@ -20,14 +20,16 @@
         <p class="my-4">{{ lt('noComments') }}</p>
       </div>
 
-      <transition @enter="slideOpen" @leave="slideClose">
-        <div v-if="mainReply" data-overflow="hidden">
-          <comment-form :post-id="id" class="py-2"/>
-        </div>
-        <div v-else data-overflow="hidden" class="pb-2">
-          <button @click="mainComment" class="">&rdsh; {{ lt('newComment') }}</button>
-        </div>
-      </transition>
+      <div v-if="open">
+        <transition @enter="slideOpen" @leave="slideClose">
+          <div v-if="mainReply" data-overflow="hidden">
+            <comment-form :post-id="id" class="py-2"/>
+          </div>
+          <div v-else data-overflow="hidden" class="pb-2">
+            <button @click="mainComment" class="">&rdsh; {{ lt('newComment') }}</button>
+          </div>
+        </transition>
+      </div>
     </div>
   </div>
 </template>
@@ -43,6 +45,7 @@
   export default defineComponent({
     props: {
       id: Number,
+      open: Boolean,
       count: [String, Number],
       title: [String, Boolean],
       path: String,

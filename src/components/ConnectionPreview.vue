@@ -26,9 +26,9 @@
             <router-link :to="target">{{ post.acf.link_text }}</router-link>
           </div>
 
-          <template v-if="canComment">
+          <template v-if="showComments">
             <div :class="{ 'max-w-3xl': !guestPost }" class="mt-4">
-              <comments-preview :count="post.comment_count" :id="post.ID || post.id" :title="!guestPost && title" :path="target" :padding="true"/>
+              <comments-preview :count="post.comment_count" :open="open" :id="post.ID || post.id" :title="!guestPost && title" :path="target" :padding="true"/>
             </div>
           </template>
         </div>
@@ -83,8 +83,9 @@
         return target.value === ctx.value
       })
 
-      const canComment = computed(() => {
-        return post?.comment_status === 'open'
+      const open = computed(() => post?.comment_status === 'open')
+      const showComments = computed(() => {
+        return open.value || Number(post?.comment_count || 0) > 0
       })
 
       const route = useRoute()
@@ -114,7 +115,8 @@
         title,
         target,
         expanded,
-        canComment,
+        open,
+        showComments,
         slideOpen,
         slideClose,
         link,

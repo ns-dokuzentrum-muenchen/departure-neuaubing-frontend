@@ -18,22 +18,25 @@
         <div :class="{ 'line-clamp-4': noReply }" class="mt-px text-base">
           <div v-html="content" class="html contents"></div>
         </div>
-        <div v-if="depth < 5 && !noReply" class="mt-0">
+        <div v-if="depth < 5 && !noReply && open" class="mt-0">
           <button @click="toggleForm" class="text-xs opacity-50 underline">
             {{ addComment ? 'abbrechen' : 'antworten' }}
           </button>
         </div>
-        <transition @enter="slideOpen" @leave="slideClose">
-          <div v-if="addComment" data-overflow="hidden">
-            <comment-form :post-id="comment.post" :reply-to="comment.id" class="pt-2 pb-px"/>
-          </div>
-        </transition>
+        <div v-if="open">
+          <transition @enter="slideOpen" @leave="slideClose">
+            <div v-if="addComment" data-overflow="hidden">
+              <comment-form :post-id="comment.post" :reply-to="comment.id" class="pt-2 pb-px"/>
+            </div>
+          </transition>
+        </div>
+        <div v-else class="pt-2 pb-px"></div>
       </div>
     </div>
 
     <div v-if="comment?.children?.length" class="my-2 ml-4 pl-4 border-l-2 border-gray-400">
       <div v-for="childComment in comment.children" :key="childComment.id" class="my-4">
-        <comment-row :comment="childComment" :depth="depth + 1"/>
+        <comment-row :comment="childComment" :depth="depth + 1" :open="open"/>
       </div>
     </div>
   </div>
@@ -49,6 +52,7 @@
 
   export default defineComponent({
     props: {
+      open: Boolean,
       comment: Object,
       depth: Number,
       noReply: Boolean
