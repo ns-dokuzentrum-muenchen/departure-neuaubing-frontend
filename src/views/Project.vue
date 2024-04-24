@@ -31,7 +31,7 @@
                   </ul>
                 </div>
 
-                <new-begriff v-if="locale === 'de'"/>
+                <!-- <new-begriff v-if="locale === 'de'"/> -->
               </div>
             </div>
           </div>
