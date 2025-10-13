@@ -7,10 +7,6 @@
             <p class="text-xl md:text-2xl lg:text-4xl font-medium">{{ metaTitle }}</p>
           </div>
           <div class="block mr-2 md:mr-4">
-            <!-- <button @click="hash('#forum')" class="btn text-lg">Forum</button> -->
-            <locale-link to="/forum" class="btn text-sm md:text-lg inline-block">Forum</locale-link>
-          </div>
-          <div class="block mr-2 md:mr-4">
             <!-- <button @click="hash('#glossar')" class="btn text-lg">Glossar</button> -->
             <locale-link to="/glossar" class="btn text-sm md:text-lg inline-block">{{ lt('glossar') }}</locale-link>
           </div>

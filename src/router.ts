@@ -21,12 +21,12 @@ const router = createRouter({
       component: Project,
       meta: { seite: true }
     },
-    {
-      path: '/forum',
-      alias: '/en/forum',
-      name: 'forum',
-      component: () => import('./views/Forum.vue')
-    },
+    // {
+    //   path: '/forum',
+    //   alias: '/en/forum',
+    //   name: 'forum',
+    //   component: () => import('./views/Forum.vue')
+    // },
     {
       path: '/forum/:slug',
       alias: '/en/forum/:slug',
@@ -88,12 +88,12 @@ const router = createRouter({
       component: () => import('./views/Page.vue'),
       meta: { seite: true }
     },
-    {
-      path: '/konto',
-      alias: '/en/konto',
-      name: 'account',
-      component: () => import('./views/Account.vue')
-    },
+    // {
+    //   path: '/konto',
+    //   alias: '/en/konto',
+    //   name: 'account',
+    //   component: () => import('./views/Account.vue')
+    // },
 
     {
       path: '/access',
